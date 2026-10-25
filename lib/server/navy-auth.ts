@@ -15,7 +15,12 @@ export async function requireNavyUser(request: NextRequest, manager = false): Pr
   let uid: string;
   try { uid = (await adminAuth().verifyIdToken(token, true)).uid; }
   catch (error) {
-    console.warn("NAVY ID token rejeitado", (error as { code?: string })?.code ?? "unknown");
+    const code = (error as { code?: string })?.code ?? "unknown";
+    if (code.startsWith("app/")) {
+      console.error("NAVY Firebase Admin indisponível", code);
+      throw new ApiError(503, "Autenticação do servidor indisponível. Tente novamente em instantes.");
+    }
+    console.warn("NAVY ID token rejeitado", code);
     throw new ApiError(401, "Sessão expirada. Entre novamente.");
   }
   const snapshot = await adminDb().doc(`users/${uid}`).get();
