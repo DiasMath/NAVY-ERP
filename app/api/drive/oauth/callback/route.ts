@@ -5,7 +5,7 @@ import { createDriveFolder, driveStatus, exchangeOAuthCode, googleAccountEmail, 
 export const runtime = "nodejs";
 
 export async function GET(request: NextRequest) {
-  const destination = new URL("/clientes", request.url);
+  const destination = new URL("/configuracoes/integracoes", request.url);
   try {
     const code = request.nextUrl.searchParams.get("code");
     const state = request.nextUrl.searchParams.get("state");

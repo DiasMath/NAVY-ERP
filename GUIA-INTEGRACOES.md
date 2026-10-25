@@ -27,7 +27,7 @@ As variáveis `NEXT_PUBLIC_*` são configuração pública do app Web. Não colo
 ### 2. Google Drive para imagens
 
 1. A pasta privada `NAVY-ERP` foi identificada na conta `sandesdiasmatheus@gmail.com`, e a Google Drive API está ativa no projeto `navy-erp`.
-2. O cliente OAuth Web usa o retorno `https://navy-frontend.vercel.app/api/drive/oauth/callback`. Na tela de Clientes, um administrador deve clicar em **Conectar Google Drive** e autorizar com essa conta Google. O aplicativo cria a pasta privada `NAVY Clientes`; depois ela pode ser movida para dentro de `NAVY-ERP` sem torná-la pública.
+2. O cliente OAuth Web usa o retorno `https://navy-frontend.vercel.app/api/drive/oauth/callback`. Em **Configurações Gerais → Integrações**, um administrador deve clicar em **Conectar Google Drive** e autorizar com essa conta Google. O aplicativo cria a pasta privada `NAVY Clientes`; depois ela pode ser movida para dentro de `NAVY-ERP` sem torná-la pública.
 3. As credenciais OAuth, a chave de criptografia e o JSON da conta de serviço estão em variáveis privadas de Production na Vercel. O JSON local fica fora do repositório; `.env.local` está ignorado pelo Git. Nunca envie esses valores ao GitHub nem use prefixo `NEXT_PUBLIC_` neles.
 4. As rotas Next.js verificam o usuário Firebase e sua unidade, aceitam JPEG/PNG/WebP e recodificam para JPEG. Foto de perfil e galeria são lidas por endpoint autenticado; o Firestore guarda IDs e metadados. A galeria exige confirmação de consentimento antes do envio.
 

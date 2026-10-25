@@ -11,6 +11,7 @@ import StitchShell from "./StitchShell";
 import ClientsPage from "@/features/clients/ClientsPage";
 import ServicesPage from "@/features/services/ServicesPage";
 import AgendaPage from "@/features/agenda/AgendaPage";
+import IntegrationsPage from "@/features/settings/IntegrationsPage";
 import LoginPage from "@/features/auth/LoginPage";
 import { useAuth } from "@/features/auth/AuthProvider";
 
@@ -35,6 +36,7 @@ export default function NavyApp({ path }: { path: string }) {
   if (current === "/clientes") return <StitchShell path={current}><ClientsPage /></StitchShell>;
   if (current === "/servicos") return <StitchShell path={current}><ServicesPage /></StitchShell>;
   if (current === "/agenda") return <StitchShell path={current}><AgendaPage /></StitchShell>;
+  if (current === "/configuracoes/integracoes") return <StitchShell path={current}><IntegrationsPage /></StitchShell>;
   if (stitchPages[current]) return <StitchShell path={current} screen={stitchPages[current]} />;
   return <StitchShell path={current}><ComingSoonPage path={current} /></StitchShell>;
 }

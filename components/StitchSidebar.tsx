@@ -39,7 +39,7 @@ export default function StitchSidebar({ path, collapsed, onCollapse, onMobileClo
     <nav ref={navRef} className="stitch-sidebar-nav" aria-label="Menu principal" onScroll={rememberScroll}>
       {stitchNavigation.map((group) => <div className="stitch-nav-group" key={group.label}>
         <span className="stitch-nav-heading">{group.label}</span>
-        {group.items.map((item) => <Link key={item.href} href={item.href} onClick={() => { rememberScroll(); onMobileClose(); }} title={collapsed ? item.label : undefined} aria-label={item.label} aria-current={path === item.href ? "page" : undefined} className={`stitch-nav-link ${path === item.href ? "stitch-nav-active" : ""}`}><Icon name={item.icon} /><span>{item.label}</span></Link>)}
+        {group.items.map((item) => { const active = path === item.href || (item.href === "/configuracoes" && path.startsWith("/configuracoes/")); return <Link key={item.href} href={item.href} onClick={() => { rememberScroll(); onMobileClose(); }} title={collapsed ? item.label : undefined} aria-label={item.label} aria-current={active ? "page" : undefined} className={`stitch-nav-link ${active ? "stitch-nav-active" : ""}`}><Icon name={item.icon} /><span>{item.label}</span></Link>; })}
       </div>)}
     </nav>
     <Link href="/configuracoes" className="stitch-sidebar-unit" onClick={() => { rememberScroll(); onMobileClose(); }} aria-label="Configurações da Unidade Matriz"><span><strong>Unidade Matriz</strong><small>São Paulo • Jardins</small></span><Icon name="settings" /></Link>

@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function profile() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+    function isMember(clinicId) {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && profile().active == true
+        && profile().clinicId == clinicId;
+    }
+    function isManager(clinicId) {
+      return isMember(clinicId) && profile().role in ['master_admin', 'admin'];
+    }
+
+    // O primeiro perfil é criado manualmente pelo proprietário no console.
+    match /users/{userId} {
+      allow get: if request.auth != null && request.auth.uid == userId;
+      allow list, create, update, delete: if false;
+    }
+
+    match /clinics/{clinicId}/{segment}/{documentId} {
+      allow read: if segment in ['clients', 'services', 'professionals', 'appointments', 'sessions']
+        && isMember(clinicId);
+      allow create, update: if (segment in ['clients', 'appointments', 'sessions'] && isMember(clinicId))
+        || (segment in ['services', 'professionals'] && isManager(clinicId));
+      // Clientes são excluídas apenas pela rota de servidor, que impede órfãos no Drive.
+      allow delete: if segment in ['services', 'professionals', 'appointments', 'sessions']
+        && isManager(clinicId);
+    }
+
+    match /{document=**} { allow read, write: if false; }
+  }
+}

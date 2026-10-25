@@ -57,6 +57,6 @@ O formulário de login usa Firebase Authentication quando o app Web está config
 2. Migrar Serviços e profissionais, incluindo as regras de ativação e disponibilidade.
 3. Migrar Agenda. A verificação de conflito atual é apenas visual/local; a gravação real precisa de operação atômica no backend para evitar duas reservas simultâneas.
 4. Vincular sessões clínicas a profissionais e serviços do catálogo, e tratar exclusão de registros relacionados.
-5. Conectar a conta proprietária do Google Drive na tela de Clientes e validar foto de perfil, galeria e exclusão. As rotas já estão implementadas; a autorização OAuth da proprietária é necessária para ativar o acesso.
+5. Conectar a conta proprietária do Google Drive em **Configurações Gerais → Integrações** e validar foto de perfil, galeria e exclusão em Clientes. As rotas já estão implementadas; a autorização OAuth da proprietária é necessária para ativar o acesso.
 
 Os dados ilustrativos antigos de Clientes no navegador não foram importados automaticamente. A coleção real começa vazia. O controle de telefone duplicado é feito na interface; antes de operação concorrente em escala, precisará de uma garantia no backend. A listagem atual acompanha a coleção completa e precisará de paginação conforme o volume de clientes crescer.
