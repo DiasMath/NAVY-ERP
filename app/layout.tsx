@@ -9,6 +9,7 @@ import { AuthProvider } from "@/features/auth/AuthProvider";
 export const metadata: Metadata = {
   title: "NAVY | Gestão de estética",
   description: "Plataforma de gestão para clínicas de estética.",
+  verification: { google: "EKqk0MHLqi-2C1Qm40QFy0R-M0paKIhDDVYNUIc-1rY" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
