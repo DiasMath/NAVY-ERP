@@ -3,7 +3,7 @@ import { createCipheriv, createDecipheriv, createHmac, randomBytes, timingSafeEq
 import { adminDb } from "./firebase-admin";
 import { ApiError } from "./navy-auth";
 
-const redirectUri = "https://navy-frontend.vercel.app/api/drive/oauth/callback";
+const redirectUri = "https://navy-erp-ecru.vercel.app/api/drive/oauth/callback";
 const scope = "https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.email";
 
 function secretKey() {
