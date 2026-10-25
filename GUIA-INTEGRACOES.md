@@ -5,11 +5,11 @@
 | Parte | Estado atual |
 | --- | --- |
 | Next.js, React e TypeScript | Projeto executável e publicado na Vercel. |
-| Interface | Login e Clientes em React com Firebase; Serviços e Agenda interativos com dados locais de demonstração. Outras telas ainda usam HTML de referência do Stitch. |
+| Interface | Login, Clientes e Serviços em React com Firebase. Agenda ainda usa dados locais de demonstração. Outras telas usam HTML de referência do Stitch. |
 | Firebase Authentication | App Web `navy-erp` conectado, E-mail/senha ativo e duas contas com perfis `master_admin` e `admin`. |
-| Cloud Firestore | Banco e regras publicados. Clientes lê e grava cadastros e sessões; demais telas ainda não usam o banco. |
-| Google Drive | API ativada. Rotas privadas de foto de perfil e galeria de Clientes implementadas; falta a proprietária autorizar o app uma vez. |
-| GitHub | Código pronto para versionamento. O deploy atual foi feito pela CLI e ainda não está ligado ao repositório `DiasMath/NAVY-ERP`. |
+| Cloud Firestore | Banco e regras publicados. Clientes grava cadastros e sessões; Serviços grava catálogo e profissionais. |
+| Google Drive | API ativada. Rotas privadas de imagens de Clientes e Serviços implementadas; a conta proprietária deve autorizar o app em Configurações → Integrações. |
+| GitHub | Repositório `DiasMath/NAVY-ERP` conectado aos projetos Vercel; pushes em `main` publicam novas versões. |
 
 ## O que você precisa criar
 
@@ -27,36 +27,23 @@ As variáveis `NEXT_PUBLIC_*` são configuração pública do app Web. Não colo
 ### 2. Google Drive para imagens
 
 1. A pasta privada `NAVY-ERP` foi identificada na conta `sandesdiasmatheus@gmail.com`, e a Google Drive API está ativa no projeto `navy-erp`.
-2. O cliente OAuth Web usa o retorno `https://navy-frontend.vercel.app/api/drive/oauth/callback`. Em **Configurações Gerais → Integrações**, um administrador deve clicar em **Conectar Google Drive** e autorizar com essa conta Google. O aplicativo cria a pasta privada `NAVY Clientes`; depois ela pode ser movida para dentro de `NAVY-ERP` sem torná-la pública.
+2. O cliente OAuth Web usa o retorno `https://navy-erp-ecru.vercel.app/api/drive/oauth/callback`. Em **Configurações Gerais → Integrações**, um administrador deve clicar em **Conectar Google Drive** e autorizar com a conta proprietária. O aplicativo cria a pasta privada `NAVY Clientes`; depois ela pode ser movida para dentro de `NAVY-ERP` sem torná-la pública.
 3. As credenciais OAuth, a chave de criptografia e o JSON da conta de serviço estão em variáveis privadas de Production na Vercel. O JSON local fica fora do repositório; `.env.local` está ignorado pelo Git. Nunca envie esses valores ao GitHub nem use prefixo `NEXT_PUBLIC_` neles.
-4. As rotas Next.js verificam o usuário Firebase e sua unidade, aceitam JPEG/PNG/WebP e recodificam para JPEG. Foto de perfil e galeria são lidas por endpoint autenticado; o Firestore guarda IDs e metadados. A galeria exige confirmação de consentimento antes do envio.
+4. As rotas Next.js verificam o usuário Firebase e sua unidade, aceitam JPEG/PNG/WebP e recodificam para JPEG. Fotos de clientes e de procedimentos são lidas por endpoints autenticados; o Firestore guarda IDs e metadados. A galeria de clientes exige confirmação de consentimento antes do envio.
 
 ### 3. GitHub e Vercel
 
-1. Use o repositório existente `https://github.com/DiasMath/NAVY-ERP`.
-2. Extraia o ZIP e envie o conteúdo da pasta `navy-frontend` à raiz do repositório. O pacote inclui `.gitignore`, `.env.example`, `README.md`, `BACKEND.md` e este guia; não inclui `node_modules`, build nem segredos.
-3. Em **Vercel → navy-frontend → Settings → Git**, conecte esse repositório. O deploy publicado pela CLI continua ativo; após conectar o GitHub, novos pushes podem criar novos deploys. As variáveis já cadastradas no projeto Vercel permanecem lá.
-
-Para enviar pelo terminal, dentro da pasta extraída:
-
-```bash
-npm install
-npm run build
-git init
-git add .
-git commit -m "Primeira versão da NAVY"
-git branch -M main
-git remote add origin https://github.com/DiasMath/NAVY-ERP.git
-git push -u origin main
-```
+1. O código de referência está em `https://github.com/DiasMath/NAVY-ERP` na branch `main`.
+2. O projeto Vercel `navy-erp` publica `https://navy-erp-ecru.vercel.app` a partir do GitHub. Há também um projeto Vercel antigo chamado `navy-frontend`; o endereço e callback atuais são os do projeto `navy-erp`.
+3. As variáveis sensíveis ficam no ambiente da Vercel e não devem ser enviadas ao GitHub. Para desenvolvimento local, use `.env.local`, que é ignorado pelo Git.
 
 ## Ordem recomendada de implementação
 
-1. Criar Firebase e conectar Authentication e Firestore, validando o primeiro administrador.
-2. Validar Clientes com uma conta autorizada e conferir a gravação no console Firestore.
-3. Migrar Serviços e cadastro de profissionais/disponibilidade.
-4. Migrar Agenda com prevenção real de conflitos de horário.
-5. Integrar imagens ao Drive e vincular IDs aos registros pertinentes.
+1. Validar com uma conta autorizada o cadastro, edição e exclusão de Clientes no Firestore.
+2. Conectar manualmente o Google Drive em Configurações → Integrações e verificar fotos de Clientes e Serviços.
+3. Validar o catálogo de Serviços e profissionais no Firestore com uma conta administradora.
+4. Migrar Agenda para Clientes, Serviços, Profissionais e agendamentos do Firestore, com prevenção de conflitos de horário.
+5. Concluir edição e exclusão de sessões clínicas na ficha da cliente.
 
 O login da v1 usa apenas e-mail/senha. Biometria e código por WhatsApp não fazem parte da interface atual.
 

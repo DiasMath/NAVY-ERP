@@ -1,8 +1,8 @@
 # NAVY — ERP de estética
 
-Prévia publicada em [navy-frontend.vercel.app](https://navy-frontend.vercel.app), hospedada na Vercel por um projeto Next.js 15, React 19 e TypeScript.
+Aplicação publicada em [navy-erp-ecru.vercel.app](https://navy-erp-ecru.vercel.app), hospedada na Vercel por um projeto Next.js 15, React 19 e TypeScript. As páginas enviam `noindex, nofollow` aos mecanismos de busca.
 
-O login com Firebase Authentication e os repositórios Firestore estão descritos em [BACKEND.md](BACKEND.md). O passo a passo das integrações está em [GUIA-INTEGRACOES.md](GUIA-INTEGRACOES.md). O projeto `navy-erp` tem duas contas com perfis ativos e regras Firestore publicadas. Clientes já usa dados reais do Firestore; outras telas ainda usam demonstração local ou HTML do Stitch.
+O login com Firebase Authentication e os repositórios Firestore estão descritos em [BACKEND.md](BACKEND.md). O passo a passo das integrações está em [GUIA-INTEGRACOES.md](GUIA-INTEGRACOES.md). O projeto `navy-erp` tem duas contas com perfis ativos e regras Firestore publicadas. Clientes e Serviços usam o Firestore; a Agenda ainda usa demonstração local.
 
 ## Telas
 
@@ -16,7 +16,7 @@ Clientes (`/clientes`) já usa uma tela nativa em React/TypeScript em `features/
 
 A conexão do Drive fica em **Configurações Gerais → Integrações** (`/configuracoes/integracoes`). Clientes mostra apenas os controles de foto e galeria, que ficam indisponíveis enquanto a integração não estiver ativa.
 
-Serviços (`/servicos`) também é uma tela nativa em React/TypeScript em `features/services/`, mantendo o catálogo e a ficha técnica do Stitch. Busca, filtros de categoria, modalidade e status, seleção, criação, edição, duplicação em homologação, ativação/desativação, regras clínicas e exportação CSV funcionam na prévia local. Duração, intervalo, preço e janela de retorno recebem validações antes de salvar. Os dados usam a chave `navy-services-demo-v1` no `localStorage`, que poderá alimentar a tela de Agenda na próxima etapa.
+Serviços (`/servicos`) também é uma tela nativa em React/TypeScript em `features/services/`, mantendo o catálogo e a ficha técnica do Stitch. Busca, filtros, criação, edição, duplicação em homologação, ativação/desativação, regras clínicas e exportação CSV usam os documentos do Firestore. Profissionais habilitados também são persistidos no Firestore. A foto de apresentação é privada no Google Drive quando a integração está conectada; a proporção da imagem é preservada. A Agenda ainda não consome esse catálogo. Dados antigos da prévia em `localStorage` não são importados automaticamente.
 
 Os formulários de Clientes distinguem campos obrigatórios e opcionais e mostram erros ao lado do campo. Cadastro valida nome e sobrenome, telefone brasileiro com DDD sem duplicatas, formato de e-mail, nascimento, cidade, Instagram, origem e dependências do contato preferido. Sessões validam procedimento, data, valor e pagamento; manutenções exigem data futura e rejeitam duplicatas. Observações clínicas e próximo retorno também são conferidos. Novas sessões com pagamento pendente não aumentam o total investido. Os diálogos são centralizados na área abaixo da navbar e à direita do menu, acompanhando a largura do menu aberto ou recolhido.
 
@@ -41,4 +41,4 @@ Abra `http://localhost:3000`. Use `npm run build` para verificar o build e os ti
 
 ## Estado funcional
 
-Clientes grava dados reais no Firestore. O código de upload e leitura privada de imagens no Drive está pronto; para ativá-lo na instalação é preciso conectar a conta Google proprietária em Clientes. Serviços, Agenda e outras telas ainda contêm dados ilustrativos e interações locais. A configuração pública do app Firebase está ativa para o login. Duas contas têm documentos `users/{uid}` ativos. Não inclua informações reais nas telas que ainda não foram migradas. Nenhuma senha ou chave de conta de serviço foi incluída nos arquivos.
+Clientes e Serviços gravam dados reais no Firestore. O upload e a leitura privada de imagens dependem de conectar a conta proprietária do Google Drive em Configurações Gerais → Integrações. A Agenda e outras telas ainda contêm dados ilustrativos e interações locais. A configuração pública do Firebase está ativa para o login. Duas contas têm documentos `users/{uid}` ativos. Não inclua informações reais nas telas que ainda não foram migradas. Nenhuma senha ou chave de conta de serviço foi incluída nos arquivos.

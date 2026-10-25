@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import ContentDialog from "@/components/ContentDialog";
+import type { User } from "firebase/auth";
 import { writeBatch, doc } from "firebase/firestore";
 import { useAuth } from "@/features/auth/AuthProvider";
 import { getFirebaseClient } from "@/lib/firebase/client";
@@ -133,9 +134,28 @@ function ClientForm({ client, clients, saving, photoSaving, canDelete, driveConn
   </form>;
 }
 
-function ClientListItem({ client, selected, onSelect }: { client: ClientRecord; selected: boolean; onSelect: () => void }) {
-  return <button type="button" className={`nc-client-item ${selected ? "nc-client-item-selected" : ""}`} onClick={onSelect} aria-pressed={selected}>
-    <span className={`nc-client-stripe nc-tone-${client.statusTone}`} /><Avatar client={client} />
+function ClientListItem({ client, selected, user, driveConnected, onSelect }: { client: ClientRecord; selected: boolean; user: User | null; driveConnected: boolean; onSelect: () => void }) {
+  const itemRef = useRef<HTMLButtonElement>(null);
+  const [avatar, setAvatar] = useState("");
+  useEffect(() => {
+    if (!user || !driveConnected || !client.avatarDriveFileId || !itemRef.current) { setAvatar(""); return; }
+    setAvatar("");
+    let active = true;
+    let url = "";
+    const observer = new IntersectionObserver(entries => {
+      if (!entries.some(entry => entry.isIntersecting)) return;
+      observer.disconnect();
+      navyApi(user, `/api/clients/${client.id}/images/avatar`).then(response => response.blob()).then(blob => {
+        url = URL.createObjectURL(blob);
+        if (active) setAvatar(url);
+        else URL.revokeObjectURL(url);
+      }).catch(() => { if (active) setAvatar(""); });
+    }, { rootMargin: "200px" });
+    observer.observe(itemRef.current);
+    return () => { active = false; observer.disconnect(); if (url) URL.revokeObjectURL(url); };
+  }, [client.id, client.avatarDriveFileId, driveConnected, user]);
+  return <button ref={itemRef} type="button" className={`nc-client-item ${selected ? "nc-client-item-selected" : ""}`} onClick={onSelect} aria-pressed={selected}>
+    <span className={`nc-client-stripe nc-tone-${client.statusTone}`} /><Avatar client={{ ...client, avatar }} />
     <span className="nc-client-summary"><span className="nc-client-name">{client.name}{client.vip && <em>VIP</em>}{client.badge && <small>{client.badge}</small>}</span><span>{client.instagram ? `${client.instagram} • ` : ""}{client.phone}</span><small>Origem: {client.sourceDetail}{client.visits ? ` • ${client.visits}º atendimento` : ""}</small></span>
     <span className={`nc-client-status nc-status-${client.statusTone}`}>{client.status}</span>
   </button>;
@@ -340,7 +360,7 @@ export default function ClientsPage() {
 
     {dataError && <div className="nc-validation-summary" role="alert">{dataError}</div>}
 
-    <div className="nc-columns"><div className="nc-left"><div className="nc-search-card"><label className="nc-search"><Icon name="search" size={17} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar por nome, telefone, e-mail ou @instagram..." aria-label="Buscar clientes" /></label><div className="nc-filters" role="group" aria-label="Filtrar clientes">{filters.map((item) => <button type="button" key={item} className={filter === item ? "nc-filter-active" : ""} onClick={() => setFilter(item)} aria-pressed={filter === item}>{item} ({counts[item]})</button>)}</div></div><div className="nc-client-list">{loadError && (!loaded.clients || !loaded.sessions) ? <div className="nc-empty">Não foi possível carregar as clientes.</div> : !loaded.clients || !loaded.sessions ? <div className="nc-empty" role="status">Carregando clientes do Firestore...</div> : filtered.length ? filtered.map((client) => <ClientListItem key={client.id} client={client} selected={selected?.id === client.id} onSelect={() => { setSelectedId(client.id); setTab("timeline"); setPhotoConsent(false); }} />) : <div className="nc-empty">{clients.length ? "Nenhuma cliente encontrada. Ajuste a busca ou o filtro." : "Nenhuma cliente cadastrada. Use “+ Nova Cliente” para começar."}</div>}</div></div>
+    <div className="nc-columns"><div className="nc-left"><div className="nc-search-card"><label className="nc-search"><Icon name="search" size={17} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar por nome, telefone, e-mail ou @instagram..." aria-label="Buscar clientes" /></label><div className="nc-filters" role="group" aria-label="Filtrar clientes">{filters.map((item) => <button type="button" key={item} className={filter === item ? "nc-filter-active" : ""} onClick={() => setFilter(item)} aria-pressed={filter === item}>{item} ({counts[item]})</button>)}</div></div><div className="nc-client-list">{loadError && (!loaded.clients || !loaded.sessions) ? <div className="nc-empty">Não foi possível carregar as clientes.</div> : !loaded.clients || !loaded.sessions ? <div className="nc-empty" role="status">Carregando clientes do Firestore...</div> : filtered.length ? filtered.map((client) => <ClientListItem key={client.id} client={client} selected={selected?.id === client.id} user={user} driveConnected={Boolean(drive?.connected)} onSelect={() => { setSelectedId(client.id); setTab("timeline"); setPhotoConsent(false); }} />) : <div className="nc-empty">{clients.length ? "Nenhuma cliente encontrada. Ajuste a busca ou o filtro." : "Nenhuma cliente cadastrada. Use “+ Nova Cliente” para começar."}</div>}</div></div>
 
     <div className="nc-right">{selected ? <div className="nc-dossier" key={selected.id}>
       <div className="nc-profile-top"><div className="nc-profile-identity"><div className="nc-profile-avatar"><Avatar client={{ ...selected, avatar: avatarUrl }} large /><span><Icon name="check" size={12} /></span></div><div><div className="nc-profile-title"><h2>{selected.name}</h2>{selected.vip && <span><Icon name="auto_awesome" size={13} /> Lash Fidelity VIP</span>}</div><p>{selected.city ? `${selected.city} • ` : ""}Cadastrada em {selected.joined}</p><small><Icon name="call" size={13} /> {selected.phone}{selected.instagram && <> <b>•</b> {selected.instagram}</>}</small>{(selected.email || selected.birthDate || selected.preferredContact) && <small className="nc-profile-extra">{selected.email && <><Icon name="mail" size={13} /> {selected.email}</>}{selected.birthDate && <><b>•</b> Nasc. {formatBirthDate(selected.birthDate)}</>}{selected.preferredContact && <><b>•</b> Prefere {selected.preferredContact}</>}</small>}</div></div><div className="nc-profile-actions"><button type="button" className="nc-btn nc-btn-primary" onClick={() => setToast("A Agenda será conectada ao Firestore na próxima etapa.")}><Icon name="event_available" size={17} /> Agendar</button><button type="button" className="nc-btn nc-btn-whatsapp" onClick={() => setDialog("contact")}><Icon name="chat" size={17} /> WhatsApp</button><button type="button" className="nc-btn nc-btn-icon" onClick={() => setDialog("edit")} title="Editar cadastro" aria-label="Editar cadastro"><Icon name="edit_note" size={20} /></button></div></div>

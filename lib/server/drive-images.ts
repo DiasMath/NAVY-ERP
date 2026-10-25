@@ -9,7 +9,7 @@ export async function prepareJpeg(value: FormDataEntryValue | null, kind: "avata
     const input = Buffer.from(await value.arrayBuffer());
     const image = sharp(input, { limitInputPixels: 40_000_000, failOn: "error" }).rotate();
     const output = kind === "avatar"
-      ? image.resize(512, 512, { fit: "cover", position: "attention" })
+      ? image.resize(512, 512, { fit: "contain", background: "#e3eef5" })
       : image.resize(2200, 2200, { fit: "inside", withoutEnlargement: true });
     return await output.jpeg({ quality: 86, mozjpeg: true }).toBuffer();
   } catch { throw new ApiError(400, "Não foi possível processar essa imagem. Escolha outra foto."); }

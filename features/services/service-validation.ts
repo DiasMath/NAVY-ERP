@@ -2,7 +2,7 @@ import { serviceCategories, type Consumable, type ServiceCategory, type ServiceM
 
 export type ServiceField = "name" | "category" | "description" | "durationMinutes" | "bufferMinutes" | "price" | "floorPrice" | "returnMinDays" | "returnMaxDays" | "modality" | "status" | "professionalIds" | "maintenanceServiceId" | "maintenancePrice" | "maintenanceDurationMinutes" | "tags" | "consumables";
 export type ServiceErrors = Partial<Record<ServiceField, string>>;
-export type ServiceInput = Omit<ServiceRecord, "id" | "sku" | "version" | "updatedAt" | "heroSubtitle">;
+export type ServiceInput = Omit<ServiceRecord, "id" | "sku" | "version" | "updatedAt" | "heroSubtitle" | "imageUrl">;
 
 const read = (values: FormData, field: ServiceField) => String(values.get(field) ?? "").trim();
 const number = (value: string) => Number(value.replace(",", "."));
@@ -10,7 +10,7 @@ const moneyPattern = /^\d{1,6}(?:[.,]\d{1,2})?$/;
 const integerPattern = /^\d{1,4}$/;
 const normalize = (value: string) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR");
 
-export function validateService(values: FormData, services: ServiceRecord[], availableProfessionalIds: string[], editingId?: string, imageUrl?: string): { input: ServiceInput; errors: ServiceErrors } {
+export function validateService(values: FormData, services: ServiceRecord[], availableProfessionalIds: string[], editingId?: string): { input: ServiceInput; errors: ServiceErrors } {
   const errors: ServiceErrors = {};
   const name = read(values, "name").replace(/\s+/g, " ");
   const categoryRaw = read(values, "category");
@@ -79,7 +79,7 @@ export function validateService(values: FormData, services: ServiceRecord[], ava
   }
 
   return {
-    input: { name, category, description, durationMinutes, bufferMinutes, price, floorPrice, returnMinDays, returnMaxDays, modality, status, professionalIds, tags, consumables, requiresAnamnesis: values.has("requiresAnamnesis"), requiresPhoto: values.has("requiresPhoto"), requiresSocialConsent: values.has("requiresSocialConsent"), maintenanceServiceId, maintenancePrice, maintenanceDurationMinutes, imageUrl },
+    input: { name, category, description, durationMinutes, bufferMinutes, price, floorPrice, returnMinDays, returnMaxDays, modality, status, professionalIds, tags, consumables, requiresAnamnesis: values.has("requiresAnamnesis"), requiresPhoto: values.has("requiresPhoto"), requiresSocialConsent: values.has("requiresSocialConsent"), maintenanceServiceId, maintenancePrice, maintenanceDurationMinutes },
     errors,
   };
 }
