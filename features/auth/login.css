@@ -51,6 +51,8 @@
 .navy-login-footer{display:flex;flex-direction:column;gap:12px;padding-top:24px;border-top:1px solid #e5dfd7;color:#64748b;font-size:11px}
 .navy-login-footer>div{display:flex;align-items:center;justify-content:center;gap:6px;text-align:center}
 .navy-login-footer svg{flex:none;color:#64748b}
+.navy-login-footer a{color:inherit;text-decoration:none}
+.navy-login-footer a:hover{text-decoration:underline}
 @media(max-width:1279px){.navy-login-editorial{width:50%;padding:48px}.navy-login-auth{width:50%;padding:48px}.navy-login-editorial-copy h1{font-size:36px}.navy-login-editorial-copy p{font-size:14px}}
 @media(max-width:1023px){.navy-login-editorial{display:none}.navy-login-auth{width:100%;padding:40px}}
 @media(max-width:599px){.navy-login-auth{padding:32px 24px}.navy-login-content{gap:24px}.navy-login-form-aux{align-items:flex-start;flex-direction:column;gap:10px}}

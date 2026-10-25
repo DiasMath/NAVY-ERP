@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight, AtSign, Eye, EyeOff, LockKeyhole, ShieldCheck } from "lucide-react";
 import { useAuth } from "./AuthProvider";
@@ -68,7 +69,7 @@ export default function LoginPage() {
       <form className="navy-login-form" onSubmit={submit}><div className="navy-login-field"><label htmlFor="corporate-email">E-mail</label><div className="navy-login-input-wrap"><AtSign size={17} strokeWidth={1.8} /><input id="corporate-email" type="email" autoComplete="username" placeholder="seuemail@empresa.com.br" value={email} onChange={event => setEmail(event.target.value)} required /></div></div><div className="navy-login-field"><label htmlFor="login-password">Senha de acesso</label><div className="navy-login-input-wrap"><LockKeyhole size={17} strokeWidth={1.8} /><input id="login-password" type={showPassword ? "text" : "password"} autoComplete="current-password" placeholder="Digite sua senha" value={password} onChange={event => setPassword(event.target.value)} required /><button type="button" className="navy-login-eye" aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"} onClick={() => setShowPassword(value => !value)}>{showPassword ? <EyeOff size={17} /> : <Eye size={17} />}</button></div></div><div className="navy-login-form-aux"><label><input type="checkbox" checked={remember} onChange={event => setRemember(event.target.checked)} /><span>Lembrar de mim neste dispositivo</span></label><button type="button" onClick={recover}>Esqueci minha senha</button></div><button className="navy-login-submit" type="submit" disabled={busy || status === "loading"}><span>Entrar no NAVY</span><ArrowRight size={17} /></button></form>
 
       {(message || accessError) && <div className="navy-login-message" role="status">{message || accessError}</div>}
-      <footer className="navy-login-footer"><div><LockKeyhole size={15} /><span>NAVY Clinical ERP • Versão 1</span></div></footer>
+      <footer className="navy-login-footer"><div><LockKeyhole size={15} /><span>NAVY Clinical ERP • Versão 1</span></div><div><Link href="/privacidade">Privacidade</Link><span aria-hidden="true"> · </span><Link href="/termos">Termos</Link></div></footer>
     </div></section>
   </main>;
 }

@@ -8,7 +8,7 @@ import { AuthProvider } from "@/features/auth/AuthProvider";
 
 export const metadata: Metadata = {
   title: "NAVY | Gestão de estética",
-  description: "Prévia de interface da NAVY",
+  description: "Plataforma de gestão para clínicas de estética.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
