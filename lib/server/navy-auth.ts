@@ -14,7 +14,10 @@ export async function requireNavyUser(request: NextRequest, manager = false): Pr
   if (!token) throw new ApiError(401, "Faça login para continuar.");
   let uid: string;
   try { uid = (await adminAuth().verifyIdToken(token, true)).uid; }
-  catch { throw new ApiError(401, "Sessão expirada. Entre novamente."); }
+  catch (error) {
+    console.warn("NAVY ID token rejeitado", (error as { code?: string })?.code ?? "unknown");
+    throw new ApiError(401, "Sessão expirada. Entre novamente.");
+  }
   const snapshot = await adminDb().doc(`users/${uid}`).get();
   const data = snapshot.data();
   if (!data || data.active !== true || typeof data.clinicId !== "string" || !/^[A-Za-z0-9_-]{1,128}$/.test(data.clinicId) || !roles.includes(data.role)) throw new ApiError(403, "Esta conta não tem acesso ativo à NAVY.");

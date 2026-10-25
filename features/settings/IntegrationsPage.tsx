@@ -14,11 +14,13 @@ type DriveStatus = {
 };
 
 export default function IntegrationsPage() {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const [drive, setDrive] = useState<DriveStatus | null>(null);
   const [loading, setLoading] = useState(true);
   const [connecting, setConnecting] = useState(false);
   const [message, setMessage] = useState("");
+  const [statusError, setStatusError] = useState("");
+  const [statusRevision, setStatusRevision] = useState(0);
 
   useEffect(() => {
     const result = new URLSearchParams(window.location.search).get("drive");
@@ -30,13 +32,15 @@ export default function IntegrationsPage() {
   useEffect(() => {
     if (!user) return;
     let active = true;
+    setLoading(true);
+    setStatusError("");
     navyApi(user, "/api/drive/status")
       .then(response => response.json())
       .then((status: DriveStatus) => { if (active) setDrive(status); })
-      .catch(error => { if (active) setMessage(error instanceof Error ? error.message : "Não foi possível consultar as integrações."); })
+      .catch(error => { if (active) { setDrive(null); setStatusError(error instanceof Error ? error.message : "Não foi possível consultar as integrações."); } })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
-  }, [user]);
+  }, [user, statusRevision]);
 
   const connectDrive = async () => {
     if (!user || connecting) return;
@@ -65,19 +69,20 @@ export default function IntegrationsPage() {
       <span className="si-tab-active" aria-current="page"><span className="material-symbols-outlined">hub</span> Integrações &amp; WhatsApp API</span>
     </nav>
     {message && <div className="si-message" role="status">{message}</div>}
+    {statusError && <div className="si-message si-message-error" role="alert"><span>Não foi possível verificar o Drive: {statusError}</span><div><button type="button" onClick={() => setStatusRevision(value => value + 1)}>Tentar novamente</button><button type="button" onClick={() => void signOut().then(() => window.location.assign("/login?next=%2Fconfiguracoes%2Fintegracoes"))}>Entrar novamente</button></div></div>}
     <div className="si-grid">
       <section className="si-card" aria-labelledby="si-drive-title">
-        <div className="si-card-top"><span className="si-icon"><span className="material-symbols-outlined">cloud</span></span><span className={`si-status ${drive?.connected ? "si-connected" : ""}`}>{loading ? "Verificando" : drive?.connected ? "Conectado" : "Não conectado"}</span></div>
+        <div className="si-card-top"><span className="si-icon"><span className="material-symbols-outlined">cloud</span></span><span className={`si-status ${drive?.connected ? "si-connected" : ""}`}>{loading ? "Verificando" : statusError ? "Verificação indisponível" : drive?.connected ? "Conectado" : "Não conectado"}</span></div>
         <h2 id="si-drive-title">Google Drive</h2>
         <p>Armazena as fotos de perfil e a galeria das clientes em uma pasta privada. A NAVY libera cada imagem somente para usuários autenticados.</p>
         {drive?.connected && <div className="si-account"><span>Conta autorizada</span><strong>{drive.ownerEmail}</strong><small>Pasta do aplicativo: NAVY Clientes</small></div>}
-        {!loading && !drive?.connected && <div className="si-account"><span>Conta proprietária</span><strong>sandesdiasmatheus@gmail.com</strong><small>A autorização deve ser feita por essa conta Google.</small></div>}
+        {!loading && drive && !drive.connected && <div className="si-account"><span>Conta Google da clínica</span><strong>Escolha a conta na tela do Google</strong><small>Use a conta proprietária da pasta NAVY-ERP.</small></div>}
         <div className="si-actions">
-          {drive?.configured && drive.canConnect && <button type="button" className="si-primary" disabled={connecting} onClick={() => void connectDrive()}>{connecting ? "Abrindo Google..." : drive.connected ? "Reconectar Drive" : "Conectar Google Drive"}</button>}
+          {drive?.configured && drive.canConnect && <button type="button" className="si-primary" disabled={connecting} onClick={() => void connectDrive()}>{connecting ? "Abrindo Google..." : drive.connected ? "Reconectar Google Drive" : "Escolher conta Google"}</button>}
           {drive?.connected && <Link className="si-secondary" href="/clientes">Abrir Clientes</Link>}
         </div>
-        {!loading && !drive?.configured && <p className="si-hint">As credenciais privadas do Drive ainda precisam ser configuradas no servidor.</p>}
-        {!loading && !drive?.canConnect && !drive?.connected && <p className="si-hint">Peça a um administrador da NAVY para autorizar esta integração.</p>}
+        {!loading && drive && !drive.configured && <p className="si-hint">As credenciais privadas do aplicativo ainda precisam ser configuradas no servidor.</p>}
+        {!loading && drive && !drive.canConnect && !drive.connected && <p className="si-hint">Peça a um administrador da NAVY para autorizar esta integração.</p>}
       </section>
       <section className="si-card" aria-labelledby="si-whatsapp-title">
         <div className="si-card-top"><span className="si-icon"><span className="material-symbols-outlined">chat</span></span><span className="si-status">Planejado</span></div>

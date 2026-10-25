@@ -48,7 +48,7 @@ export function makeOAuthUrl(uid: string, clinicId: string) {
   url.searchParams.set("response_type", "code");
   url.searchParams.set("scope", scope);
   url.searchParams.set("access_type", "offline");
-  url.searchParams.set("prompt", "consent");
+  url.searchParams.set("prompt", "select_account consent");
   url.searchParams.set("state", `${payload}.${signature}`);
   return url.toString();
 }
