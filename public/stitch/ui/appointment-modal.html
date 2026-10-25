@@ -1,0 +1,188 @@
+<div id="navy-appointment-dialog" role="dialog" aria-modal="true" aria-labelledby="navy-appointment-title" class="bg-surface-container-lowest w-full max-w-[680px] max-h-[88vh] rounded-2xl shadow-[0_20px_50px_-10px_rgba(22,28,33,0.18)] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+<!-- Modal Header -->
+<div class="px-space-xl pt-space-lg pb-space-md flex items-start justify-between bg-surface-container-lowest relative">
+<div class="flex items-start gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-secondary-container/60 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">calendar_add_on</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<h2 id="navy-appointment-title" class="font-headline-md text-headline-md text-on-surface font-semibold tracking-tight">Novo Agendamento Clínico</h2>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/50 text-on-secondary-container font-label-sm text-label-sm">Inteligente</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary mt-0.5">Escolha uma profissional e os serviços habilitados para o local.</p>
+</div>
+</div>
+<button aria-label="Fechar" class="w-8 h-8 rounded-full flex items-center justify-center text-outline hover:text-on-surface hover:bg-surface-container-low transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Subtle Hairline Separator -->
+<div class="h-[1px] w-full bg-surface-container"></div>
+<!-- Modal Body (Scrollable with structured clinical blocks) -->
+<div class="px-space-xl py-space-md overflow-y-auto flex flex-col gap-y-6">
+<!-- 1. Identificação da Paciente / Cliente -->
+<section class="flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[17px] text-primary">person</span>
+              Identificação da Paciente
+            </label>
+<button class="font-label-sm text-label-sm text-primary hover:text-on-primary-fixed-variant transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[15px]">person_add</span>
+              + Nova Cliente
+            </button>
+</div>
+<!-- Selected Patient Card (Pre-filled High Fidelity Representation) -->
+<div class="p-3.5 bg-surface-container-low rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img class="w-11 h-11 rounded-full object-cover shadow-sm ring-2 ring-surface-container-lowest" data-alt="Portrait photography of Beatriz Albuquerque de Castro, elegant Brazilian client with glowing skin, soft studio light, neutral minimalist aesthetic, editorial style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiatSNGR8vPcbwKMPL3AlJ_wcwqQj3DOcjUnYmb9ipUkAtILig3B_VAZ3O6PabS5TG5fE-g_tIegGcLhM3IuIqE3FUQtjYmCm70bUHre_uZK-fN9-3Ha6OLajtRQWSP5AIncqMQ14iXP0BTZN7Uyv7tXnqDbW_wS1OmKXlW2iafO5uRw9_a8fTpgtq5IIgRXn0KYhqUMNr5bNwwJ6VjFm0uRiCxb0Zi_r20kDCZ9Gc_A4d9q2B1iN0"/>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Beatriz Albuquerque de Castro</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">VIP #14</span>
+</div>
+<div class="flex items-center gap-3 mt-0.5">
+<span class="font-body-sm text-body-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">chat</span>
+                    (11) 98721-4490
+                  </span>
+<span class="text-outline text-xs">•</span>
+<span class="font-label-sm text-label-sm text-outline">Última visita: há 19 dias</span>
+</div>
+</div>
+</div>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-outline hover:text-on-surface hover:bg-surface-container transition-colors" title="Trocar paciente" type="button">
+<span class="material-symbols-outlined text-[18px]">cached</span>
+</button>
+</div>
+</section>
+<!-- 2. Modalidade & Local de Atendimento -->
+<section class="flex flex-col gap-3">
+<span class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[17px] text-primary">pin_drop</span>
+            Modalidade &amp; Local de Atendimento
+          </span>
+<!-- Segmented Toggle -->
+<div class="grid grid-cols-2 p-1 bg-surface-container-low rounded-xl gap-1">
+<button data-navy-appointment-location="Studio" aria-pressed="true" class="flex items-center justify-center gap-2 py-2 rounded-lg bg-surface-container-lowest text-primary shadow-sm font-label-md text-label-md font-semibold transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">spa</span>
+              Cabine Estúdio (Jardins Matriz)
+            </button>
+<button data-navy-appointment-location="Home" aria-pressed="false" class="flex items-center justify-center gap-2 py-2 rounded-lg text-secondary hover:text-on-surface font-label-md text-label-md font-medium transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">home</span>
+              Atendimento Domiciliar VIP
+            </button>
+</div>
+<!-- Cabine & Especialista Selector Card -->
+<div class="p-3 bg-surface-container-low rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-container/30 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">meeting_room</span>
+</div>
+<div class="flex flex-col">
+<span data-navy-appointment-place class="font-label-md text-label-md text-on-surface font-medium">Cabine Master VIP 01 • Andar Jardins</span>
+<label class="font-label-sm text-label-sm text-secondary">Profissional <select data-navy-appointment-professional aria-label="Profissional do agendamento" class="ml-1 rounded-lg border border-outline-variant bg-surface-container-lowest px-2 py-1 text-on-surface"></select></label>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-secondary-container bg-secondary-container px-2.5 py-1 rounded-full">Horário a validar</span>
+</div>
+</section>
+<!-- 3. Data, Horário & Duração Estimada -->
+<section class="flex flex-col gap-2.5">
+<span class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[17px] text-primary">schedule</span>
+            Data &amp; Janela de Atendimento
+          </span>
+<div class="grid grid-cols-3 gap-3">
+<!-- Data Field -->
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-secondary font-medium">Data Agendada</span>
+<div class="flex items-center px-3 py-2 bg-surface-container-low rounded-xl"><input data-navy-appointment-date aria-label="Data agendada" type="date" class="w-full bg-transparent font-label-md text-label-md text-on-surface font-semibold outline-none"/></div>
+</div>
+<!-- Horário Field -->
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-secondary font-medium">Horário Início</span>
+<div class="flex items-center px-3 py-2 bg-surface-container-low rounded-xl"><input data-navy-appointment-time aria-label="Horário de início" type="time" value="14:30" class="w-full bg-transparent font-label-md text-label-md text-on-surface font-semibold outline-none"/></div>
+</div>
+<!-- Duração Automática Calculada -->
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-secondary font-medium">Duração Estimada</span>
+<div class="flex items-center justify-between px-3 py-2 bg-secondary-container/30 rounded-xl">
+<div class="flex flex-col">
+<span data-navy-appointment-duration class="font-label-md text-label-md text-primary font-semibold">Selecione serviços</span>
+<span data-navy-appointment-end class="font-label-sm text-label-sm text-secondary">Duração do catálogo</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-primary">auto_mode</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. Seleção de Procedimentos (Multi-serviço) -->
+<section class="flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[17px] text-primary">design_services</span>
+              Procedimentos Selecionados (<span data-navy-appointment-count>0</span>)
+            </span>
+</div>
+<select data-navy-appointment-add-service aria-label="Adicionar procedimento disponível" class="w-full p-3 bg-surface-container-low rounded-xl text-on-surface font-label-md text-label-md"><option value="">Adicionar procedimento disponível</option></select>
+<div data-navy-appointment-services class="flex flex-col gap-2"><p class="font-body-sm text-body-sm text-secondary">Nenhum procedimento selecionado.</p></div>
+<p class="font-label-sm text-label-sm text-secondary">A lista considera a profissional, o local e os serviços ativos do catálogo. A agenda ainda não valida conflitos de horário.</p>
+</section>
+<!-- 5. Resumo Financeiro & Regra de Ouro NAVY (Sinal Anti No-Show) -->
+<section class="p-4 bg-surface-container-low rounded-2xl flex flex-col gap-3.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[19px] text-primary">security</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold tracking-wide uppercase">Regra Anti No-Show NAVY</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-primary bg-primary px-2.5 py-0.5 rounded-full font-semibold">30% Compulsório</span>
+</div>
+<div class="grid grid-cols-3 gap-3 pt-1">
+<div class="p-2.5 bg-surface-container-lowest rounded-xl flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Total Serviços</span>
+<span data-navy-appointment-total class="font-headline-sm text-headline-sm text-on-surface font-semibold mt-0.5">R$ 0,00</span>
+</div>
+<div class="p-2.5 bg-surface-container-lowest rounded-xl flex flex-col">
+<span class="font-label-sm text-label-sm text-primary font-medium">Sinal de Reserva</span>
+<span data-navy-appointment-deposit class="font-headline-sm text-headline-sm text-primary font-bold mt-0.5">R$ 0,00</span>
+</div>
+<div class="p-2.5 bg-surface-container-lowest rounded-xl flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary font-medium">Saldo no Check-out</span>
+<span data-navy-appointment-balance class="font-headline-sm text-headline-sm text-secondary font-semibold mt-0.5">R$ 0,00</span>
+</div>
+</div>
+<!-- Automated Pix Notification Toggle -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2.5">
+<div class="w-5 h-5 rounded bg-primary text-on-primary flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<label class="font-label-sm text-label-sm text-on-surface cursor-pointer select-none">
+                Prévia de cobrança e comunicação Pix (sem envio)
+              </label>
+</div>
+<span class="material-symbols-outlined text-[18px] text-primary">bolt</span>
+</div>
+</section>
+</div>
+<!-- Subtle Hairline Separator -->
+<div class="h-[1px] w-full bg-surface-container"></div>
+<!-- Modal Footer CTAs -->
+<div class="px-space-xl py-space-md bg-surface-container-lowest flex items-center justify-between">
+<div class="flex items-center gap-2 text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">verified_user</span>
+          Prévia de agendamento • sem salvamento
+        </div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2.5 rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors" type="button">
+            Salvar Rascunho
+          </button>
+<button class="px-6 py-2.5 rounded-xl font-label-md text-label-md text-on-primary bg-primary-container hover:bg-primary transition-all shadow-md flex items-center gap-2 font-semibold" type="button">
+<span class="material-symbols-outlined text-[18px]">event_available</span>
+            Revisar agendamento
+          </button>
+</div>
+</div>
+</div>

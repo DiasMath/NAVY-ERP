@@ -1,0 +1,559 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-error": "#ffffff", "outline": "#72787e", "on-secondary": "#ffffff", "inverse-primary": "#a0cced", "inverse-on-surface": "#ecf1f8", "background": "#f3f7fc", "surface-dim": "#d5dbe1", "inverse-surface": "#2b3136", "on-primary-container": "#053c58", "surface-variant": "#dde3ea", "on-tertiary-fixed-variant": "#4a4640", "secondary-container": "#c6e7fb", "secondary-fixed": "#c6e7fb", "primary-fixed-dim": "#a0cced", "on-error-container": "#93000a", "tertiary-container": "#a7a199", "on-secondary-container": "#496979", "surface-container-lowest": "#ffffff", "surface-bright": "#f3f7fc", "surface-tint": "#376380", "outline-variant": "#c1c7ce", "secondary": "#436273", "on-primary-fixed-variant": "#1c4b67", "on-primary": "#ffffff", "error-container": "#ffdad6", "primary-fixed": "#c8e6ff", "primary-container": "#7ca7c7", "on-tertiary-fixed": "#1e1b16", "on-surface-variant": "#41474d", "surface-container-high": "#e3e9ef", "tertiary-fixed": "#e8e1d9", "on-tertiary": "#ffffff", "surface-container-low": "#eff4fb", "secondary-fixed-dim": "#aacbde", "tertiary": "#625e57", "surface-container": "#e9eef5", "surface": "#f3f7fc", "on-tertiary-container": "#3b3832", "surface-container-highest": "#dde3ea", "tertiary-fixed-dim": "#ccc6bd", "on-secondary-fixed-variant": "#2b4b5a", "on-primary-fixed": "#001e2f", "primary": "#376380", "on-surface": "#161c21", "error": "#ba1a1a", "on-background": "#161c21", "on-secondary-fixed": "#001e2b" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.5rem", "space-xl": "2.25rem", "margin": "2rem", "gutter-mobile": "1rem", "space-xs": "0.25rem", "space-lg": "1.5rem", "gutter": "1.5rem", "margin-mobile": "1rem", "space-md": "1rem" }, "fontFamily": { "headline-xl-mobile": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "label-md": [ "Plus Jakarta Sans" ], "label-sm": [ "Plus Jakarta Sans" ], "headline-md": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ], "headline-xl": [ "Plus Jakarta Sans" ], "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "headline-lg": [ "Plus Jakarta Sans" ], "headline-lg-mobile": [ "Plus Jakarta Sans" ] }, "fontSize": { "headline-xl-mobile": [ "1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.025em", "fontWeight": "600" } ], "headline-sm": [ "1.0625rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "label-md": [ "0.8125rem", { "lineHeight": "1.25rem", "letterSpacing": "0.01em", "fontWeight": "600" } ], "label-sm": [ "0.6875rem", { "lineHeight": "1rem", "letterSpacing": "0.03em", "fontWeight": "600" } ], "headline-md": [ "1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "body-lg": [ "1rem", { "lineHeight": "1.625rem", "fontWeight": "400" } ], "headline-xl": [ "2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.03em", "fontWeight": "600" } ], "body-md": [ "0.875rem", { "lineHeight": "1.5rem", "fontWeight": "400" } ], "body-sm": [ "0.8125rem", { "lineHeight": "1.375rem", "fontWeight": "400" } ], "headline-lg": [ "1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "headline-lg-mobile": [ "1.375rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.02em", "fontWeight": "600" } ] } } } };</script><meta name="description" content="Prévia visual NAVY com dados ilustrativos, sem persistência ou autenticação"><link rel="stylesheet" href="/stitch/navy-ui.css"></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between overflow-y-auto"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-lowest"><div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">spa</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm tracking-tight text-primary uppercase">Navy</span><span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase -mt-1">Clinical ERP</span></div></div><nav class="px-space-md py-space-sm flex flex-col gap-space-md" data-active-classes="bg-secondary-container text-on-secondary-container font-semibold rounded-lg"><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Visão Geral</span><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="dashboard" href="/dashboard" target="_top">Dashboard</a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center justify-between" data-path="relatorios-insights" href="/relatorios" target="_top"><span>Relatórios &amp; Insights</span><span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container text-secondary-fixed-variant">Em breve</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Atendimentos</span><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="agenda-operacional" href="/agenda" target="_top">Agenda Operacional</a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="clientes" href="/clientes" target="_top">Clientes</a><a aria-current="page" class="px-space-sm py-2 transition-colors bg-secondary-container text-on-secondary-container font-semibold rounded-lg" data-path="fichas-anamnese" href="/avaliacoes" target="_top">Fichas Anamnese</a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="fotos-antes-depois" href="/historico-fotos" target="_top">Fotos Antes &amp; Depois</a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="manutencoes" href="/manutencoes" target="_top">Manutenções</a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="pacotes-sessoes" href="/pacotes" target="_top">Pacotes &amp; Sessões</a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Serviços</span><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="catalogo-de-servicos" href="/servicos" target="_top">Catálogo de Serviços</a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="precificacao-estrategica" href="/precificacao" target="_top">Precificação Estratégica</a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Estoque &amp; Compras</span><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="materiais-estoque" href="/estoque" target="_top">Materiais &amp; Estoque</a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="fornecedores" href="/fornecedores" target="_top">Fornecedores</a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="pedidos-de-compra" href="/compras" target="_top">Pedidos de Compra</a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Financeiro</span><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="fluxo-de-caixa" href="/fluxo-caixa" target="_top">Fluxo de Caixa</a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="contas-pagar-receber" href="/contas-pagar" target="_top">Contas a Pagar / Receber</a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="plano-de-contas" href="/plano-contas" target="_top">Plano de Contas</a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Administração</span><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="configuracoes-gerais" href="/configuracoes" target="_top">Configurações Gerais</a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="usuarios-acessos" href="/usuarios" target="_top">Usuários &amp; Acessos</a></div></nav></div><div class="p-space-md m-space-md rounded-xl bg-surface-container-low flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-secondary text-[20px]">verified</span><div><p class="font-label-sm text-label-sm text-on-surface font-semibold">Plano Elegance</p><p class="font-body-sm text-body-sm text-on-surface-variant">Unidade Jardins SP</p></div></div><span class="material-symbols-outlined text-outline text-[18px]">chevron_right</span></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md w-96"><div class="relative w-full"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span><input class="w-full pl-10 pr-4 py-2 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface placeholder-outline focus:outline-none focus:bg-surface-container-lowest transition-colors" placeholder="Buscar pacientes, fichas ou procedimentos..." type="text"></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-3 py-1.5 rounded-lg bg-surface-container-low text-secondary"><span class="material-symbols-outlined text-[18px]">calendar_today</span><span class="font-label-md text-label-md">Hoje, 24 de Outubro</span></div><button aria-label="Ajuda" class="w-9 h-9 rounded-full bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">help_outline</span></button><button aria-label="Notificações" class="relative w-9 h-9 rounded-full bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary"></span></button><div class="flex items-center gap-space-sm pl-2"><div class="flex flex-col text-right"><span class="font-label-md text-label-md text-on-surface font-semibold">Dra. Camila NAVY</span><span class="font-label-sm text-label-sm text-secondary">Master Lash &amp; Beauty</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 px-space-lg py-space-lg bg-background min-h-screen"><div class="flex flex-col w-full gap-space-lg pb-12">
+<!-- Top Breadcrumb & Page Actions Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-tertiary tracking-widest uppercase">Atendimentos</span>
+<span class="text-tertiary-fixed-dim text-xs">/</span>
+<span class="font-label-sm text-label-sm text-primary tracking-widest uppercase font-semibold">Prontuários &amp; Biossegurança</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Fichas de Anamnese &amp; Sensibilidade</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+        Histórico clínico prévio, mapeamento ocular de sensibilidade, testes de adesivo/cola e consentimentos formais com assinatura digital.
+      </p>
+</div>
+<!-- Quick Actions -->
+<div class="flex items-center gap-space-sm self-start md:self-auto shrink-0">
+<button class="px-4 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md hover:bg-surface-container transition-all flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[19px] text-secondary">download</span>
+<span>Exportar Termos Assinados</span>
+</button>
+<button class="px-4 py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-secondary transition-all flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[19px]">add</span>
+<span>Nova Ficha Digital</span>
+</button>
+</div>
+</div>
+<!-- Clinical Overview Stats Ribbon -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Stat 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden group">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Fichas Clínicas Ativas</span>
+<div class="w-8 h-8 rounded-lg bg-secondary-container/50 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">folder_shared</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-headline-xl text-headline-xl text-on-surface">142</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">pacientes base</span>
+</div>
+<div class="mt-2 text-on-surface-variant font-body-sm text-body-sm flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary inline-block"></span>
+<span>100% integradas ao ERP</span>
+</div>
+</div>
+<!-- Stat 2 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden group">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Testes de Sensibilidade</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">biotech</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-headline-xl text-headline-xl text-on-surface">98%</span>
+<span class="font-label-sm text-label-sm text-on-secondary-container bg-secondary-container px-2 py-0.5 rounded-full font-medium">Tolerância Ótima</span>
+</div>
+<div class="mt-2 text-on-surface-variant font-body-sm text-body-sm">
+        Sem eritema ou edema nas 48h
+      </div>
+</div>
+<!-- Stat 3 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden group">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Alertas Clínicos Ativos</span>
+<div class="w-8 h-8 rounded-lg bg-error-container/40 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-headline-xl text-headline-xl text-error">7</span>
+<span class="font-label-sm text-label-sm text-error font-medium">pacientes restritos</span>
+</div>
+<div class="mt-2 text-on-surface-variant font-body-sm text-body-sm">
+        Vapores de cianocrilato / lacrimejamento
+      </div>
+</div>
+<!-- Stat 4 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden group">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Termos LGPD &amp; Imagem</span>
+<div class="w-8 h-8 rounded-lg bg-secondary-fixed/40 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-headline-xl text-headline-xl text-on-surface">138</span>
+<span class="font-label-sm text-label-sm text-secondary">de 142 assinados</span>
+</div>
+<!-- Micro Progress Bar -->
+<div class="mt-2 w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 97.1%;"></div>
+</div>
+</div>
+</div>
+<!-- Master-Detail Split Workspace -->
+<div class="grid grid-cols-12 gap-space-lg items-start">
+<!-- LEFT PANEL: Search, Filters & Patient Records Feed (Col 1-5) -->
+<div class="col-span-12 lg:col-span-5 flex flex-col gap-space-md">
+<!-- Filter & Search Toolbar Container -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col gap-space-sm">
+<!-- Search Input -->
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface placeholder-outline focus:outline-none focus:bg-surface-container-lowest transition-colors" id="patientSearch" placeholder="Buscar por paciente, CPF ou telefone..." type="text">
+</div>
+<!-- Filter Pills Tab Bar -->
+<div class="flex items-center gap-1.5 overflow-x-auto pt-1 pb-1">
+<button class="px-3 py-1.5 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm whitespace-nowrap shadow-sm transition-all flex items-center gap-1.5">
+<span>Todas</span>
+<span class="bg-on-primary/20 px-1.5 py-0.2 rounded-full text-[10px]">142</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm whitespace-nowrap transition-colors flex items-center gap-1.5">
+<span>Com Alertas</span>
+<span class="bg-error-container text-error px-1.5 py-0.2 rounded-full text-[10px] font-semibold">7</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm whitespace-nowrap transition-colors flex items-center gap-1.5">
+<span>Pendentes</span>
+<span class="bg-surface-container text-on-surface-variant px-1.5 py-0.2 rounded-full text-[10px]">4</span>
+</button>
+</div>
+</div>
+<!-- Patients Cards Feed -->
+<div class="flex flex-col gap-space-sm">
+<!-- Patient Card 1: Selected (Juliana Silveira) -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm cursor-pointer transition-all relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex items-start justify-between gap-space-sm pl-2">
+<div class="flex items-center gap-space-sm">
+<div class="relative w-11 h-11 rounded-full overflow-hidden bg-surface-container shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of Juliana Silveira, a sophisticated woman with luminous skin, elegant lash extensions, and neutral minimalist studio lighting matching quiet luxury clinic aesthetics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY625VXNT--9oQ0pJ4gOcc7G4bqfa9HPsgvMDDLrQsjZiPDe66QBxYQJSbxLA3_HvXhLBM-XKvzoLnFdBaqMBCYI_wg-L-EYSRk3Ne2vW4mWJFi6ujivFql_K7gPyInWGvGWEVjYs2D7vBTdq0Ub-qpHWJT9Jy6wHxJt8YWj8Gk_DYOgFVfk3NXKwhiIeBpe9mAeOdzqgmx0UZmwxS5V-MRsuFjTUXwr_57oSwpEJSI4h9RRFcBUb4">
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Juliana Silveira</span>
+<span class="material-symbols-outlined text-primary text-[17px]" title="Identidade Validada">verified</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">32 anos • CPF: ***.482.918-**</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-semibold whitespace-nowrap">
+              Aprovada
+            </span>
+</div>
+<div class="pl-2 pt-1 flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">visibility</span>
+<span class="font-medium text-on-surface">Extensão Volume Brasileiro</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary">Rev: 14 Out, 2023</span>
+</div>
+<!-- Micro alert chip for sensitivity details -->
+<div class="pl-2 flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-secondary font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">air</span>
+              Adesivo Baixo Vapor
+            </span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">
+              TCLE Assinado
+            </span>
+</div>
+</div>
+<!-- Patient Card 2: Carla Mendes -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:bg-surface-bright flex flex-col gap-space-sm cursor-pointer transition-all group">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="relative w-11 h-11 rounded-full overflow-hidden bg-surface-container shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait of Carla Mendes, mature elegant woman smiling calmly, delicate facial features, warm editorial clinic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDloHLAUB2D2wKfuRtpvzZVkq1HwOKaKHiTOOfV-_ZZH190R-RAFtrD_w81AKXQFDhyrn1FysiwY7qr7bYnFvMLu3jWLypBwNRc8vW9Z0fgViybD45g8v6kNwOy9tfS5d7B9onC5jgsZ7IOlhCx8uGl-4iWsn1cmk3U05EVxLeVazi7LplMaTfjZ7nW3_mGA49o-C3YaPztonLvP84qHYzUkZanjifTL-yUZiy1bJYi7xRKJkmXtc0h">
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Carla Mendes</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">45 anos • CPF: ***.109.308-**</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-surface-container text-secondary font-medium whitespace-nowrap">
+              Lash Lifting
+            </span>
+</div>
+<div class="pt-1 flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">spa</span>
+<span class="text-on-surface">Nutrição com Queratina</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary">Rev: 08 Out, 2023</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-secondary font-label-sm text-label-sm">
+              Sensibilidade Zero
+            </span>
+</div>
+</div>
+<!-- Patient Card 3: Patrícia Alencar (With Sensitivity Warning) -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:bg-surface-bright flex flex-col gap-space-sm cursor-pointer transition-all group">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="relative w-11 h-11 rounded-full overflow-hidden bg-surface-container shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait of Patricia Alencar, young creative professional with natural lashes and soft serene ambient beauty studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvYaQLBhznWYt6pDvPRY91DrurQKVJp47o1D5-gfzSAgvh2cet98cHXW6jbb6ikf3lesQwxwuZArCuZ7lTKtpoQYElhty76sLhhz33pb-nzBvUOUwP9faaQkPUkSfDssU1fIAZxCH3jDk4Dc3iNEDtAW6bEoK0bJSEYbEv1unudsfu-5Ctc69NUrvZVZwYkuEFvqumbSbw29mcfFg5xHNGcmyx2XdBOG3jRPLMV3R1i8XwiUp0nzmK">
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface">Patrícia Alencar</span>
+<span class="material-symbols-outlined text-error text-[16px]">priority_high</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">28 anos • CPF: ***.765.238-**</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-semibold whitespace-nowrap">
+              Alerta Vapores
+            </span>
+</div>
+<div class="pt-1 flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">visibility</span>
+<span class="text-on-surface">Volume Russo 4D</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary">Rev: 29 Set, 2023</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-error-container/40 text-error font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">warning</span>
+              Olhos Lacrimejantes
+            </span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">
+              Ventilador Contínuo
+            </span>
+</div>
+</div>
+<!-- Patient Card 4: Beatriz Fontes (Pending Consent) -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:bg-surface-bright flex flex-col gap-space-sm cursor-pointer transition-all group">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="relative w-11 h-11 rounded-full overflow-hidden bg-surface-container shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait of Beatriz Fontes, stylish woman with warm neutral skin tones, calm relaxed aesthetic, professional clinic client photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQGJ6aQeUhPNU7NkQmcnfGX-rjvq0gXQNtM5-3mXwAbE4K51oxppENmJj5-91udheJuX-LR8kR70VDWwbDT96BnabDwM-lHedlXwuEHtNgoWXDLnNmsTmfZ40eV1XSTgpilEuOEXVS7zhme0d1So-5Grd0k_hLzaAdlUHTxBDUOZV3-nSOP-jh6OeeKN_0JH9Bo2vXyS3wRXNft_46L3fQZPIwLzhgm3W-M_Q7ROsakX17XbpFQNhY">
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Beatriz Fontes</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">36 anos • CPF: ***.901.442-**</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-container font-semibold whitespace-nowrap">
+              Pendente Assinatura
+            </span>
+</div>
+<div class="pt-1 flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">visibility</span>
+<span class="text-on-surface">Extensão Fio a Fio Clássico</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary">Rev: 21 Set, 2023</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-tertiary-fixed/60 text-tertiary font-label-sm text-label-sm">
+              Link enviado via SMS
+            </span>
+</div>
+</div>
+<!-- Patient Card 5: Mariana Vasconcelos -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:bg-surface-bright flex flex-col gap-space-sm cursor-pointer transition-all group">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="relative w-11 h-11 rounded-full overflow-hidden bg-surface-container shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait of Mariana Vasconcelos, elegant woman with clean skin, fine natural brows, soft clinical warm background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKCGdSPfomXr7vh6FR47Pe-pPAQFZgAhRmJhpw9BG26SweOxzLGbP2Fp1yhuXPStPKvGxkH08wkEhbdb1NQkLAjkWj3mNiTqM5rzKNKD14aiAEWXF5tzRPdKBvSjfTKsyj7LyjNMTkdtZu7TvM0cL0hFDbbajlYXBc6LZzC6FGvEoGN8QsWNUmPKCD97p9E3E3R5DbP4WbSCv6yn_Cj2_NPSl5SsdxURZSF98k0OJY7crsYot2Bm89">
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Mariana Vasconcelos</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">29 anos • CPF: ***.330.129-**</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-semibold whitespace-nowrap">
+              Aprovada
+            </span>
+</div>
+<div class="pt-1 flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">visibility</span>
+<span class="text-on-surface">Design de Sobrancelhas + Lash</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary">Rev: 18 Set, 2023</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-secondary font-label-sm text-label-sm">
+              Sem alergias relatadas
+            </span>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT PANEL: Full Interactive Clinical Anamnesis Record (Col 6-12) -->
+<div class="col-span-12 lg:col-span-7 flex flex-col gap-space-lg">
+<!-- Record Detail Card Canvas -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-6 lg:p-8 flex flex-col gap-space-lg relative">
+<!-- Record Header & Patient Summary -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pb-6 border-b border-surface-container">
+<div class="flex items-center gap-space-md">
+<div class="relative w-16 h-16 rounded-2xl overflow-hidden bg-surface-container shrink-0 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="High-resolution clinical client portrait of Juliana Silveira in soft natural lighting, showing healthy skin and professional composure" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDD9ZlWi-oEP5XLtLcjZI-1sCUt-vJVqNcfq0FpxoDqFwzwEm5SRb6n_rFRQBrxwRAVDKXey-4ZsgKDP7Zxs7A2TxT0l7TqIYUG_QuHTZNPZf2K-GDdudIgwHIL7dfg9AarzluVOgmF4d_cL3U8lTathSxZDnxdi6Maq3052O1Oq35eJK8czMaqeL4YnVXViVWUzzP_aGNn0FtPjIn5gLucKLhA2Sln0BdgcbBlDs3gD9chNhJ5HOie">
+<div class="absolute bottom-0 right-0 w-4 h-4 rounded-full bg-secondary-container border-2 border-surface-container-lowest"></div>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<h2 class="font-headline-md text-headline-md text-on-surface">Juliana Silveira</h2>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+                  Aprovada com Restrição Leve
+                </span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                Prontuário Digital: #ANAM-2023-0982 • Atualizado em 14/10/2023 às 15:42
+              </span>
+<div class="flex items-center gap-3 mt-1.5 text-secondary font-label-sm text-label-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">phone_iphone</span>
+                  (11) 98412-4029
+                </span>
+<span class="text-tertiary-fixed-dim">•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">medical_services</span>
+                  Dra. Camila NAVY
+                </span>
+</div>
+</div>
+</div>
+<!-- Quick Action Contact -->
+<div class="flex items-center gap-2">
+<a class="px-3 py-2 rounded-lg bg-surface-container-low text-secondary hover:bg-secondary-container hover:text-on-secondary-container transition-colors flex items-center gap-1.5 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+<span>WhatsApp</span>
+</a>
+<button class="w-9 h-9 rounded-lg bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors" title="Mais opções">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Section 1: Mapeamento Ocular & Fisiológico -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-4 rounded-full bg-primary"></span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">1. Mapeamento Ocular &amp; Fisiologia Ciliar</h3>
+</div>
+<span class="font-label-sm text-label-sm text-secondary bg-surface-container-low px-2 py-0.5 rounded">
+              Avaliação Técnica Prévia
+            </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md pt-2">
+<!-- Box: Formato e Eixo -->
+<div class="bg-surface-container-low/60 p-4 rounded-xl flex flex-col gap-1.5">
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Formato &amp; Anatomia dos Olhos</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-primary text-[20px]">eye_tracking</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Amendoado / Levemente Caído no Canto Externo</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Indicação: Efeito Esquilo (Squirrel) ou Boneca para elevação do olhar. Curvaturas C e CC no ponto alto.
+              </p>
+</div>
+<!-- Box: Fios Naturais -->
+<div class="bg-surface-container-low/60 p-4 rounded-xl flex flex-col gap-1.5">
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Saúde &amp; Densidade dos Fios</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-primary text-[20px]">density_medium</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Densidade Média • Fios Anágenos Ativos</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Espessura ideal de peso suportado: <strong>0.07mm</strong>. Evitar leques pesados acima de 4D nos cantos mediais.
+              </p>
+</div>
+<!-- Box: Histórico Ocular -->
+<div class="bg-surface-container-low/60 p-4 rounded-xl flex flex-col gap-1.5">
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Patologias &amp; Sintomas Oculares</span>
+<div class="flex flex-col gap-2 mt-1">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface">Blefarite / Disfunção Meibomiana:</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-secondary font-label-sm text-label-sm font-medium">Não Apresenta</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface">Conjuntivite nos últimos 6 meses:</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-secondary font-label-sm text-label-sm font-medium">Não</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface">Cirurgia Refrativa ou Ocular prévia:</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-secondary font-label-sm text-label-sm font-medium">LASIK há 4 anos</span>
+</div>
+</div>
+</div>
+<!-- Box: Lentes & Sensibilidade Luminosa -->
+<div class="bg-surface-container-low/60 p-4 rounded-xl flex flex-col gap-1.5">
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Lentes de Contato &amp; Fotofobia</span>
+<div class="flex flex-col gap-2 mt-1">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface">Uso de Lentes de Contato:</span>
+<span class="px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-medium">Sim (Retira na maca)</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface">Sensibilidade à Luminária Led:</span>
+<span class="px-2 py-0.5 rounded bg-error-container text-on-error-container font-label-sm text-label-sm font-medium">Moderada (Usar dimmer)</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface">Ressecamento Ocular:</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-secondary font-label-sm text-label-sm font-medium">Ocasional</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 2: Teste Alérgico & Adesivos (Patch Test) -->
+<div class="flex flex-col gap-space-sm pt-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-4 rounded-full bg-secondary"></span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">2. Teste Alérgico &amp; Adesivos (Patch Test)</h3>
+</div>
+<span class="font-label-sm text-label-sm text-secondary bg-secondary-container px-2.5 py-0.5 rounded-full font-semibold">
+              48h Concluído com Segurança
+            </span>
+</div>
+<div class="bg-surface-container-low/40 rounded-xl p-5 flex flex-col gap-space-md">
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-tertiary uppercase">Data da Aplicação Teste</span>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-1">14/09/2023 • 10:30h</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">5 fios de prova por olho</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-tertiary uppercase">Adesivo Testado</span>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-1">Master Lash Elite 0.5s</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Base: Etil-cianoacrilato purificado</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-tertiary uppercase">Reação Apresentada em 48h</span>
+<span class="font-headline-sm text-headline-sm text-primary mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+                  Negativa (Sem Edema)
+                </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Sem prurido ou hiperemia</span>
+</div>
+</div>
+<!-- Protocol Box Notice -->
+<div class="p-3.5 rounded-lg bg-surface-container-lowest flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5">tips_and_updates</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Conduta Clínica Recomendada:</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Embora negativo para alergia de contato direta, paciente relata sensibilidade a cheiros fortes. Utilizar <strong>Adesivo Baixo Vapor (Low Odor)</strong>, nano mister com água destilada gelada nos últimos 5 minutos de procedimento e exaustor de ar próximo à têmpora.
+                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 3: Estilo de Vida & Hábitos -->
+<div class="flex flex-col gap-space-sm pt-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-4 rounded-full bg-tertiary"></span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">3. Hábitos de Rotina &amp; Retenção</h3>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+<div class="p-3 rounded-lg bg-surface-container-low/70 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-tertiary">Posição ao Dormir</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Lado Esquerdo</span>
+<span class="text-[11px] text-on-surface-variant">Fronha de cetim orientada</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low/70 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-tertiary">Sauna / Natação</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Não Pratica</span>
+<span class="text-[11px] text-on-surface-variant">Sem cloro ou vapor quente</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low/70 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-tertiary">Uso de Demaquilante Oleoso</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Não (Água Micelar)</span>
+<span class="text-[11px] text-on-surface-variant">Livre de óleos minerais</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low/70 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-tertiary">Ciclo Hormonal / Gravidez</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Lactante (Bebê 1a)</span>
+<span class="text-[11px] text-on-surface-variant">Estável • Liberada</span>
+</div>
+</div>
+</div>
+<!-- Section 4: Termo de Consentimento Livre e Esclarecido (TCLE) Digital -->
+<div class="flex flex-col gap-space-sm pt-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-4 rounded-full bg-secondary"></span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">4. Termo de Consentimento Livre e Esclarecido (TCLE)</h3>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+              Válido e Assinado
+            </span>
+</div>
+<div class="bg-surface-container-low/50 rounded-xl p-5 flex flex-col gap-4">
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              “Declaro ter respondido com fidelidade a todas as questões sobre saúde, sensibilidade e histórico oftalmológico. Fui instruída sobre o teste de contato de 48h, sobre a queda natural dos cílios na fase telógena e sobre os cuidados essenciais pós-procedimento. Autorizo o procedimento de Extensão de Cílios com adesivos aprovados pela Anvisa.”
+            </p>
+<!-- Digital Signature Seal Box -->
+<div class="p-4 rounded-lg bg-surface-container-lowest flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-secondary-container/40 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[26px]">draw</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Assinatura Biométrica Digital Capturada</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Assinado por Juliana Silveira via Touchscreen</span>
+<span class="text-[11px] text-tertiary">IP: 177.132.88.24 • Hash SHA-256: 7f89d42...e901a • 14/10/2023 15:45:12 BRT</span>
+</div>
+</div>
+<!-- SVG Signature simulation -->
+<div class="shrink-0 flex flex-col items-center sm:items-end">
+<svg class="w-36 h-10 text-primary" fill="none" viewBox="0 0 150 40" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 28C20 28 35 10 45 15C55 20 48 35 60 25C70 16 85 8 95 18C105 28 115 15 130 18C138 20 145 12 148 10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="text-[10px] text-tertiary font-label-sm">Certificado Digital NAVY Sign</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky / Pinned Action Bar inside Modal Detail -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-space-md pt-4 border-t border-surface-container">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-secondary">history</span>
+<span>Histórico de 3 manutenções anteriores sem intercorrências</span>
+</div>
+<div class="flex items-center gap-space-sm w-full sm:w-auto justify-end">
+<button class="px-3.5 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">print</span>
+<span>Imprimir</span>
+</button>
+<button class="px-3.5 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">send</span>
+<span>Revalidar WhatsApp</span>
+</button>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-secondary transition-all flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+<span>Atualizar Ficha</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple client-side search simulation
+  const searchInput = document.getElementById('patientSearch');
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+      const query = e.target.value.toLowerCase();
+      const cards = document.querySelectorAll('.col-span-12.lg\\:col-span-5 .cursor-pointer');
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(query)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  }
+</script></main></div><script defer src="/stitch/navy-ui.js"></script></body></html>

@@ -1,0 +1,137 @@
+/* Shared Stitch UI behavior while the screens are still HTML references. */
+/* Os documentos incorporados têm rolagem própria: use a mesma barra do shell React. */
+html, body, * { scrollbar-width: thin; scrollbar-color: #a8bfcd #edf3f7; }
+html::-webkit-scrollbar, body::-webkit-scrollbar, *::-webkit-scrollbar { width: 6px; height: 6px; }
+html::-webkit-scrollbar-track, body::-webkit-scrollbar-track, *::-webkit-scrollbar-track { background: #edf3f7; border-radius: 999px; }
+html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, *::-webkit-scrollbar-thumb { background: #a8bfcd; border: 1px solid #edf3f7; border-radius: 999px; }
+html::-webkit-scrollbar-thumb:hover, body::-webkit-scrollbar-thumb:hover, *::-webkit-scrollbar-thumb:hover { background: #789bb1; }
+body.navy-menu-collapsed > aside:first-of-type {
+  width: 72px !important;
+  overflow: hidden !important;
+  transition: width .2s ease;
+}
+body.navy-menu-collapsed > div.pl-72 { padding-left: 72px !important; }
+body.navy-menu-collapsed > div.pl-72 > header { left: 72px !important; }
+body > aside:first-of-type, body > div.pl-72, body > div.pl-72 > header { transition: width .2s ease, padding-left .2s ease, left .2s ease; }
+body.navy-menu-collapsed > aside:first-of-type > div:first-child > div:first-child {
+  padding: 0 !important;
+  justify-content: center;
+}
+body.navy-menu-collapsed > aside:first-of-type > div:first-child > div:first-child img,
+body.navy-menu-collapsed > aside:first-of-type > div:first-child > div:first-child > div { display: none; }
+body.navy-menu-collapsed > aside:first-of-type > div:first-child > div:first-child::before {
+  content: "spa";
+  font-family: "Material Symbols Outlined";
+  font-size: 26px;
+  line-height: 44px;
+  text-align: center;
+  color: #376380;
+  background: #eff4fb;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+}
+body.navy-menu-collapsed > aside:first-of-type nav {
+  padding: 10px 7px 8px !important;
+  gap: 4px !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100vh - 132px);
+  scrollbar-width: none;
+}
+body.navy-menu-collapsed > aside:first-of-type nav::-webkit-scrollbar { display: none; }
+body.navy-menu-collapsed > aside:first-of-type nav > div { gap: 0 !important; }
+body.navy-menu-collapsed > aside:first-of-type nav > div > span { display: none; }
+body.navy-menu-collapsed > aside:first-of-type nav a {
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  padding: 0 !important;
+  margin: 0 auto 3px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center !important;
+  border-radius: 8px;
+}
+body.navy-menu-collapsed > aside:first-of-type nav a .font-body-md,
+body.navy-menu-collapsed > aside:first-of-type nav a .font-label-sm { display: none; }
+body.navy-menu-collapsed > aside:first-of-type nav a > div { display: contents; }
+body.navy-menu-collapsed > aside:first-of-type > div:nth-child(2) { display: none; }
+body > aside:first-of-type nav a[data-path="dashboard"] { justify-content: flex-start !important; gap: 12px; }
+#navy-menu-toggle {
+  position: absolute;
+  top: 19px;
+  right: 10px;
+  z-index: 4;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  color: #436273;
+  background: #eff4fb;
+  cursor: pointer;
+}
+#navy-menu-toggle:hover { background: #c6e7fb; }
+body.navy-menu-collapsed #navy-menu-toggle { top: auto; bottom: 14px; right: 22px; }
+#navy-menu-toggle .material-symbols-outlined { font-size: 20px; }
+.navy-profile-trigger { cursor: pointer; border-radius: 10px; padding: 3px; }
+.navy-profile-trigger:hover, .navy-profile-trigger:focus-visible { background: #eff4fb; outline: none; }
+.navy-focus-mode .navy-sensitive { filter: blur(6px); user-select: none; }
+#navy-profile-panel { z-index: 95 !important; max-height: calc(100vh - 82px); overflow-y: auto !important; }
+.navy-ui-backdrop {
+  position: fixed;
+  inset: 64px 0 0 288px;
+  z-index: 80;
+  background: rgba(43,49,54,.30);
+  backdrop-filter: blur(5px);
+}
+body.navy-menu-collapsed .navy-ui-backdrop { left: 72px; }
+.navy-ui-modal-layer {
+  position: fixed;
+  inset: 64px 0 0 288px;
+  z-index: 81;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  pointer-events: none;
+}
+body.navy-menu-collapsed .navy-ui-modal-layer { left: 72px; }
+.navy-ui-modal-layer > * { pointer-events: auto; }
+#navy-appointment-dialog { max-height: min(88vh, calc(100vh - 92px)); }
+#modal-cadastro { background: rgba(43,49,54,.30) !important; backdrop-filter: blur(6px); }
+#modal-cadastro > div { width: min(680px, 100%); max-width: 680px !important; max-height: 88vh; overflow-y: auto; box-shadow: 0 20px 50px -10px rgba(22,28,33,.18); }
+#modal-cadastro h3 { font-size: 20px; line-height: 28px; }
+/* Telas Stitch abertas isoladamente usam o centro da área abaixo da navbar. No shell Next, o iframe já ocupa essa área. */
+body:not(.navy-shell-content) :is(#modal-cadastro,#modal-contratar-pacote,#modal-novo-modelo,#modal-dre,#modal-category,#invite-modal) { padding: 80px 16px 16px 304px !important; }
+body.navy-menu-collapsed:not(.navy-shell-content) :is(#modal-cadastro,#modal-contratar-pacote,#modal-novo-modelo,#modal-dre,#modal-category,#invite-modal) { padding-left: 88px !important; }
+#navy-view-drawer { z-index: 82 !important; }
+.navy-drawer-content { flex: 1; min-height: 0; overflow-y: auto; padding: 20px 24px; background: #eff4fb66; }
+.navy-drawer-card { padding: 16px; border-radius: 12px; background: #fff; box-shadow: 0 2px 8px rgba(37,43,48,.04); margin-bottom: 16px; }
+.navy-drawer-card h3 { margin: 0 0 8px; font: 600 17px/24px "Plus Jakarta Sans", sans-serif; color: #161c21; }
+.navy-drawer-card p { margin: 0; color: #436273; font: 13px/22px Inter, sans-serif; white-space: pre-line; }
+.navy-drawer-identity { display: flex; align-items: center; gap: 14px; }
+.navy-drawer-identity h3 { margin-bottom: 2px; }
+.navy-drawer-avatar { width: 48px; height: 48px; border-radius: 50%; flex: 0 0 48px; display: grid; place-items: center; color: #376380; background: #e9eef5; }
+.navy-drawer-eyebrow { display: block; margin-bottom: 8px; color: #72787e; font: 600 11px/16px "Plus Jakarta Sans", sans-serif; letter-spacing: .08em; }
+.navy-drawer-amount { display: block; margin-top: 14px; color: #376380; font: 600 18px/24px "Plus Jakarta Sans", sans-serif; }
+.navy-drawer-tab[aria-selected="true"] { background: #fff; color: #376380; box-shadow: 0 1px 4px rgba(37,43,48,.08); }
+.navy-ui-toast { position: fixed; right: 24px; bottom: 24px; z-index: 110; max-width: 360px; padding: 12px 16px; border-radius: 12px; background: #2b3136; color: #fff; font: 600 13px/20px "Plus Jakarta Sans", sans-serif; box-shadow: 0 16px 30px rgba(22,28,33,.18); }
+@media (max-width: 760px) {
+  body:not(.navy-shell-content) :is(#modal-cadastro,#modal-contratar-pacote,#modal-novo-modelo,#modal-dre,#modal-category,#invite-modal) { padding: 68px 12px 12px !important; }
+  .navy-ui-backdrop, .navy-ui-modal-layer { left: 0 !important; }
+  .navy-ui-modal-layer { padding: 12px; }
+  #navy-profile-panel { right: 8px !important; max-width: calc(100vw - 16px); }
+  #navy-view-drawer { top: 56px !important; }
+}
+
+/* Shared Next.js chrome owns navigation and header when a screen is embedded. */
+body.navy-shell-content > aside:first-of-type { display: none !important; }
+body.navy-shell-content > div.pl-72 { padding-left: 0 !important; }
+body.navy-shell-content > div.pl-72 > header { display: none !important; }
+body.navy-shell-content > div.pl-72 > main { padding-top: 0 !important; }
+body.navy-shell-content .navy-ui-backdrop,
+body.navy-shell-content .navy-ui-modal-layer { inset: 0 !important; }
+body.navy-shell-content #navy-view-drawer { top: 0 !important; }

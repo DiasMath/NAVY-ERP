@@ -1,0 +1,57 @@
+.navy-login{min-height:100vh;width:100%;display:flex;overflow:hidden;background:#faf8f4;color:#252b30;font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased}
+.navy-login button,.navy-login input{font-family:inherit}
+.navy-login-editorial{position:relative;display:flex;flex-direction:column;justify-content:space-between;width:52%;min-height:100vh;padding:64px;overflow:hidden;color:#fff}
+.navy-login-carousel,.navy-login-slide{position:absolute;inset:0}
+.navy-login-slide{opacity:0;transition:opacity 1.1s ease-in-out}
+.navy-login-slide.is-active{opacity:1}
+.navy-login-hero{width:100%;height:100%;object-fit:cover;object-position:center}
+.navy-login-hero-gradient,.navy-login-hero-light{position:absolute;inset:0;pointer-events:none}
+.navy-login-hero-gradient{background:linear-gradient(to top,rgba(21,29,36,.9),rgba(35,45,54,.4),rgba(250,248,244,.3))}
+.navy-login-hero-light{background:linear-gradient(to right,transparent,rgba(124,167,199,.15),transparent);mix-blend-mode:soft-light}
+.navy-login-editorial-top,.navy-login-editorial-copy{position:relative;z-index:1}
+.navy-login-glass{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border:1px solid rgba(255,255,255,.4);border-radius:999px;background:rgba(255,255,255,.72);backdrop-filter:blur(12px);box-shadow:0 1px 3px rgba(0,0,0,.07);color:#1e293b;font-size:12px;font-weight:500;letter-spacing:.025em;text-transform:uppercase;white-space:nowrap}
+.navy-login-glass i{width:8px;height:8px;flex:0 0 8px;border-radius:50%;background:#7ca7c7;animation:navy-login-pulse 2s infinite}
+@keyframes navy-login-pulse{50%{opacity:.5}}
+.navy-login-editorial-copy{display:flex;flex-direction:column;justify-content:flex-end;gap:24px;max-width:576px;margin-top:auto}
+.navy-login-kicker{display:inline-block;width:max-content;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.8);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.navy-login-editorial-copy h1{margin:16px 0;font-family:'Cormorant Garamond',serif;font-size:clamp(36px,3vw,48px);font-weight:400;line-height:1.25;letter-spacing:-.025em;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.18)}
+.navy-login-editorial-copy p{max-width:512px;margin:0;color:rgba(226,232,240,.95);font-size:16px;font-weight:300;line-height:1.625}
+.navy-login-editorial-copy footer{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);font-size:12px;font-weight:300;letter-spacing:.025em}
+.navy-login-editorial-copy footer svg{flex:none;color:#7ca7c7}
+.navy-login-auth{display:flex;align-items:center;justify-content:center;width:48%;min-height:100vh;padding:64px;background:#faf8f4}
+.navy-login-content{width:100%;max-width:448px;margin:auto;display:flex;flex-direction:column;gap:28px}
+.navy-login-form-header{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+.navy-login-brand-row{display:flex;align-items:center;justify-content:space-between;width:100%;gap:8px}
+.navy-login-brand{display:flex;align-items:center;gap:12px;flex:none}
+.navy-login-mark{display:grid;place-items:center;width:36px;height:36px;border-radius:8px;background:#252b30;box-shadow:0 1px 3px rgba(0,0,0,.1);font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;letter-spacing:.05em;color:#fff}
+.navy-login-brand strong,.navy-login-brand small{display:block;text-transform:uppercase}
+.navy-login-brand strong{font-size:18px;line-height:1;font-weight:600;letter-spacing:.1em}
+.navy-login-brand small{margin-top:3px;color:#64748b;font-size:10px;font-weight:500;letter-spacing:.1em}
+.navy-login-welcome{padding-top:8px}
+.navy-login-welcome h2{margin:0;font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;letter-spacing:-.025em;line-height:1.2;color:#252b30}
+.navy-login-welcome p{margin:2px 0 0;color:#64748b;font-size:12px;line-height:1.5}
+.navy-login-form{display:flex;flex-direction:column;gap:16px}
+.navy-login-field{display:flex;flex-direction:column;gap:6px}
+.navy-login-field label{font-size:12px;font-weight:500;letter-spacing:.025em}
+.navy-login-input-wrap{position:relative;display:flex;align-items:center;width:100%;height:41px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.navy-login-input-wrap>svg{position:absolute;left:14px;z-index:1;color:#94a3b8;pointer-events:none}
+.navy-login-input-wrap input{width:100%;height:100%;padding:10px 40px;border:1px solid #e5dfd7;border-radius:12px;outline:none;background:#fff;color:#252b30;font-size:12px;font-weight:500;transition:border-color .25s,box-shadow .25s}
+.navy-login-input-wrap input::placeholder{color:#94a3b8;opacity:1}
+.navy-login-input-wrap input:focus{border-color:#7ca7c7;box-shadow:0 0 0 1px #7ca7c7}
+.navy-login-eye{position:absolute;right:0;top:0;bottom:0;display:grid;place-items:center;width:42px;border:0;background:transparent;color:#94a3b8}
+.navy-login-eye:hover{color:#252b30}
+.navy-login-form-aux{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 0;color:#64748b;font-size:12px}
+.navy-login-form-aux label{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}
+.navy-login-form-aux input{width:14px;height:14px;margin:0;accent-color:#7ca7c7}
+.navy-login-form-aux button{padding:0;border:0;background:transparent;color:#7ca7c7;font-size:12px;font-weight:500;white-space:nowrap}
+.navy-login-form-aux button:hover{color:#6892b3}
+.navy-login-submit{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:41px;margin-top:8px;padding:12px 16px;border:0;border-radius:12px;background:#7ca7c7;color:#fff;font-size:12px;font-weight:600;letter-spacing:.025em;box-shadow:0 1px 3px rgba(0,0,0,.1);transition:background .25s,box-shadow .25s}
+.navy-login-submit:hover{background:#6892b3;box-shadow:0 4px 8px rgba(0,0,0,.12)}
+.navy-login-message{padding:9px 12px;border:1px solid #dfd6c5;border-radius:8px;background:#fff8ea;color:#775f39;font-size:12px;line-height:1.45}
+.navy-login-footer{display:flex;flex-direction:column;gap:12px;padding-top:24px;border-top:1px solid #e5dfd7;color:#64748b;font-size:11px}
+.navy-login-footer>div{display:flex;align-items:center;justify-content:center;gap:6px;text-align:center}
+.navy-login-footer svg{flex:none;color:#64748b}
+@media(max-width:1279px){.navy-login-editorial{width:50%;padding:48px}.navy-login-auth{width:50%;padding:48px}.navy-login-editorial-copy h1{font-size:36px}.navy-login-editorial-copy p{font-size:14px}}
+@media(max-width:1023px){.navy-login-editorial{display:none}.navy-login-auth{width:100%;padding:40px}}
+@media(max-width:599px){.navy-login-auth{padding:32px 24px}.navy-login-content{gap:24px}.navy-login-form-aux{align-items:flex-start;flex-direction:column;gap:10px}}
+@media(prefers-reduced-motion:reduce){.navy-login-slide{transition:none}}

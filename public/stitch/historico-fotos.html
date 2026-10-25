@@ -1,0 +1,577 @@
+<!DOCTYPE html><html lang="pt-BR" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-error": "#ffffff", "outline": "#72787e", "on-secondary": "#ffffff", "inverse-primary": "#a0cced", "inverse-on-surface": "#ecf1f8", "background": "#f3f7fc", "surface-dim": "#d5dbe1", "inverse-surface": "#2b3136", "on-primary-container": "#053c58", "surface-variant": "#dde3ea", "on-tertiary-fixed-variant": "#4a4640", "secondary-container": "#c6e7fb", "secondary-fixed": "#c6e7fb", "primary-fixed-dim": "#a0cced", "on-error-container": "#93000a", "tertiary-container": "#a7a199", "on-secondary-container": "#496979", "surface-container-lowest": "#ffffff", "surface-bright": "#f3f7fc", "surface-tint": "#376380", "outline-variant": "#c1c7ce", "secondary": "#436273", "on-primary-fixed-variant": "#1c4b67", "on-primary": "#ffffff", "error-container": "#ffdad6", "primary-fixed": "#c8e6ff", "primary-container": "#7ca7c7", "on-tertiary-fixed": "#1e1b16", "on-surface-variant": "#41474d", "surface-container-high": "#e3e9ef", "tertiary-fixed": "#e8e1d9", "on-tertiary": "#ffffff", "surface-container-low": "#eff4fb", "secondary-fixed-dim": "#aacbde", "tertiary": "#625e57", "surface-container": "#e9eef5", "surface": "#f3f7fc", "on-tertiary-container": "#3b3832", "surface-container-highest": "#dde3ea", "tertiary-fixed-dim": "#ccc6bd", "on-secondary-fixed-variant": "#2b4b5a", "on-primary-fixed": "#001e2f", "primary": "#376380", "on-surface": "#161c21", "error": "#ba1a1a", "on-background": "#161c21", "on-secondary-fixed": "#001e2b" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.5rem", "space-xl": "2.25rem", "margin": "2rem", "gutter-mobile": "1rem", "space-xs": "0.25rem", "space-lg": "1.5rem", "gutter": "1.5rem", "margin-mobile": "1rem", "space-md": "1rem" }, "fontFamily": { "headline-xl-mobile": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "label-md": [ "Plus Jakarta Sans" ], "label-sm": [ "Plus Jakarta Sans" ], "headline-md": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ], "headline-xl": [ "Plus Jakarta Sans" ], "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "headline-lg": [ "Plus Jakarta Sans" ], "headline-lg-mobile": [ "Plus Jakarta Sans" ] }, "fontSize": { "headline-xl-mobile": [ "1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.025em", "fontWeight": "600" } ], "headline-sm": [ "1.0625rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "label-md": [ "0.8125rem", { "lineHeight": "1.25rem", "letterSpacing": "0.01em", "fontWeight": "600" } ], "label-sm": [ "0.6875rem", { "lineHeight": "1rem", "letterSpacing": "0.03em", "fontWeight": "600" } ], "headline-md": [ "1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "body-lg": [ "1rem", { "lineHeight": "1.625rem", "fontWeight": "400" } ], "headline-xl": [ "2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.03em", "fontWeight": "600" } ], "body-md": [ "0.875rem", { "lineHeight": "1.5rem", "fontWeight": "400" } ], "body-sm": [ "0.8125rem", { "lineHeight": "1.375rem", "fontWeight": "400" } ], "headline-lg": [ "1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "headline-lg-mobile": [ "1.375rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.02em", "fontWeight": "600" } ] } } } };</script><meta name="description" content="Prévia visual NAVY com dados ilustrativos, sem persistência ou autenticação"><link rel="stylesheet" href="/stitch/navy-ui.css"></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between overflow-y-auto"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-lowest"><div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">spa</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm tracking-tight text-primary uppercase">Navy</span><span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase -mt-1">Clinical ERP</span></div></div><nav class="px-space-md py-space-sm flex flex-col gap-space-md" data-active-classes="bg-secondary-container text-on-secondary-container font-semibold rounded-lg"><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Visão Geral</span><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center gap-2.5" data-path="dashboard" href="/dashboard" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><rect height="7" rx="1" width="7" x="3" y="3"></rect><rect height="7" rx="1" width="7" x="14" y="3"></rect><rect height="7" rx="1" width="7" x="14" y="14"></rect><rect height="7" rx="1" width="7" x="3" y="14"></rect></svg><span class="">Dashboard</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center justify-between" data-path="relatorios-insights" href="/relatorios" target="_top"><div class="flex items-center gap-2.5"><svg class="w-4 h-4 shrink-0 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><line x1="18" x2="18" y1="20" y2="10"></line><line x1="12" x2="12" y1="20" y2="4"></line><line x1="6" x2="6" y1="20" y2="14"></line></svg><span class="">Relatórios &amp; Insights</span></div><span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container text-secondary-fixed-variant">Em breve</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Atendimentos</span><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center gap-2.5" data-path="agenda-operacional" href="/agenda" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg><span class="">Agenda Operacional</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center gap-2.5" data-path="clientes" href="/clientes" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span class="">Clientes</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center gap-2.5" data-path="fichas-anamnese" href="/avaliacoes" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect height="4" rx="1" width="8" x="8" y="2"></rect><path d="M9 12h6"></path><path d="M9 16h6"></path></svg><span class="">Fichas Anamnese</span></a><a class="px-space-sm py-2 rounded-lg bg-secondary-container text-on-secondary-container font-semibold transition-colors font-body-md text-body-md flex items-center gap-2.5" data-path="fotos-antes-depois" href="/historico-fotos" target="_top"><svg class="w-4 h-4 shrink-0 text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg><span class="">Fotos Antes &amp; Depois</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center gap-2.5" data-path="manutencoes" href="/manutencoes" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><span class="">Manutenções</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center gap-2.5" data-path="pacotes-sessoes" href="/pacotes" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg><span class="">Pacotes &amp; Sessões</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Serviços</span><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center gap-2.5" data-path="catalogo-de-servicos" href="/servicos" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span class="">Catálogo de Serviços</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center gap-2.5" data-path="precificacao-estrategica" href="/precificacao" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><rect height="18" rx="2" width="16" x="4" y="3"></rect><line x1="8" x2="16" y1="7" y2="7"></line><line x1="8" x2="8.01" y1="11" y2="11"></line><line x1="12" x2="12.01" y1="11" y2="11"></line><line x1="16" x2="16.01" y1="11" y2="11"></line><line x1="8" x2="8.01" y1="15" y2="15"></line><line x1="12" x2="12.01" y1="15" y2="15"></line><line x1="16" x2="16.01" y1="15" y2="15"></line></svg><span class="">Precificação Estratégica</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Estoque &amp; Compras</span><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center gap-2.5" data-path="materiais-estoque" href="/estoque" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" x2="12" y1="22.08" y2="12"></line></svg><span class="">Materiais &amp; Estoque</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center gap-2.5" data-path="fornecedores" href="/fornecedores" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><rect height="13" width="15" x="1" y="3"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg><span class="">Fornecedores</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center gap-2.5" data-path="pedidos-de-compra" href="/compras" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" x2="21" y1="6" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="">Pedidos de Compra</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Financeiro</span><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center gap-2.5" data-path="fluxo-de-caixa" href="/fluxo-caixa" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><rect height="12" rx="2" width="20" x="2" y="6"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg><span class="">Fluxo de Caixa</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center gap-2.5" data-path="contas-pagar-receber" href="/contas-pagar" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><line x1="7" x2="7" y1="20" y2="4"></line><polyline points="3 8 7 4 11 8"></polyline><line x1="17" x2="17" y1="4" y2="20"></line><polyline points="13 16 17 20 21 16"></polyline></svg><span class="">Contas a Pagar / Receber</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center gap-2.5" data-path="plano-de-contas" href="/plano-contas" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><rect height="4" rx="1" width="6" x="9" y="3"></rect><rect height="4" rx="1" width="6" x="2" y="17"></rect><rect height="4" rx="1" width="6" x="16" y="17"></rect><path d="M12 7v5"></path><path d="M5 17v-2a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v2"></path></svg><span class="">Plano de Contas</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Administração</span><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center gap-2.5" data-path="configuracoes-gerais" href="/configuracoes" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg><span class="">Configurações Gerais</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center gap-2.5" data-path="usuarios-acessos" href="/usuarios" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span class="">Usuários &amp; Acessos</span></a></div></nav></div><div class="p-space-md m-space-md rounded-xl bg-surface-container-low flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-secondary text-[20px]">verified</span><div><p class="font-label-sm text-label-sm text-on-surface font-semibold">Plano Elegance</p><p class="font-body-sm text-body-sm text-on-surface-variant">Unidade Jardins SP</p></div></div><span class="material-symbols-outlined text-outline text-[18px]">chevron_right</span></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md w-96"><div class="relative w-full"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span><input class="w-full pl-10 pr-4 py-2 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface placeholder-outline focus:outline-none focus:bg-surface-container-lowest transition-colors" placeholder="Buscar pacientes, fichas ou procedimentos..." type="text"></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-3 py-1.5 rounded-lg bg-surface-container-low text-secondary"><span class="material-symbols-outlined text-[18px]">calendar_today</span><span class="font-label-md text-label-md">Hoje, 24 de Outubro</span></div><button aria-label="Ajuda" class="w-9 h-9 rounded-full bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">help_outline</span></button><button aria-label="Notificações" class="relative w-9 h-9 rounded-full bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary"></span></button><div class="flex items-center gap-space-sm pl-2"><div class="flex flex-col text-right"><span class="font-label-md text-label-md text-on-surface font-semibold">Dra. Camila NAVY</span><span class="font-label-sm text-label-sm text-secondary">Master Lash &amp; Beauty</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 px-space-lg py-space-lg bg-background min-h-screen"><div class="flex flex-col w-full gap-space-lg pb-12">
+<!-- Breadcrumb & Editorial Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-tertiary">Atendimentos</span>
+<span class="text-tertiary-fixed-dim text-xs">/</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">Registro Visual &amp; Resultados</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Fotos Antes &amp; Depois &amp; Portfólio Clínico</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+        Repositório fotográfico de evolução técnica, alinhamento de expectativas e gestão estrita de consentimento de uso de imagem em conformidade com a LGPD.
+      </p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm shrink-0">
+<button class="px-4 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container-high transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">tune</span>
+<span class="">Filtrar</span>
+</button>
+<button class="px-4 py-2.5 rounded-lg bg-surface-container-low text-secondary font-label-md text-label-md shadow-sm hover:bg-surface-container transition-all flex items-center gap-2" id="toggle-comparator-mode">
+<span class="material-symbols-outlined text-[18px]">compare</span>
+<span class="">Modo Comparador</span>
+</button>
+<button class="px-5 py-2.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md shadow-sm hover:opacity-95 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">add_a_photo</span>
+<span class="">Novo Registro</span>
+</button>
+</div>
+</div>
+<!-- KPI Metrics Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Stat 1 -->
+<div class="relative overflow-hidden p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-tertiary">Acervo Total</span>
+<div class="w-8 h-8 rounded-full bg-secondary-container/40 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">photo_library</span>
+</div>
+</div>
+<div class="mt-4 flex flex-col">
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg text-on-surface tracking-tight">384</span>
+<span class="font-label-sm text-label-sm text-secondary">+12 essa semana</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Registros fotográficos em alta definição</p>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full mt-3 overflow-hidden">
+<div class="bg-primary h-full rounded-full w-full"></div>
+</div>
+</div>
+<!-- Stat 2 -->
+<div class="relative overflow-hidden p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-tertiary">Autorizado Marketing</span>
+<div class="w-8 h-8 rounded-full bg-secondary-container/40 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+</div>
+<div class="mt-4 flex flex-col">
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg text-primary tracking-tight">64%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">(245 fotos)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Prontas para Reels, Feed e Stories</p>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full mt-3 overflow-hidden">
+<div class="bg-primary-container h-full rounded-full w-[64%]"></div>
+</div>
+</div>
+<!-- Stat 3 -->
+<div class="relative overflow-hidden p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-tertiary">Uso Restrito Clínico</span>
+<div class="w-8 h-8 rounded-full bg-error-container/40 flex items-center justify-center text-on-error-container">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+</div>
+</div>
+<div class="mt-4 flex flex-col">
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg text-on-surface tracking-tight">36%</span>
+<span class="font-label-sm text-label-sm text-tertiary font-medium">(139 fotos)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Bloqueadas sob sigilo médico/LGPD</p>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full mt-3 overflow-hidden">
+<div class="bg-outline h-full rounded-full w-[36%]"></div>
+</div>
+</div>
+<!-- Stat 4 -->
+<div class="relative overflow-hidden p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-tertiary">Retenção Técnica</span>
+<div class="w-8 h-8 rounded-full bg-secondary-fixed/50 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">avg_pace</span>
+</div>
+</div>
+<div class="mt-4 flex flex-col">
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg text-secondary tracking-tight">88%</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">aos 21 dias</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Índice médio de saúde dos fios</p>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full mt-3 overflow-hidden">
+<div class="bg-secondary-fixed-dim h-full rounded-full w-[88%]"></div>
+</div>
+</div>
+</div>
+<!-- Featured Spotlight: Comparador Interativo de Evolução Técnica -->
+<section class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-sm pb-space-sm bg-surface-container-lowest">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/40 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">compare_arrows</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-md text-headline-md text-on-surface">Comparador Triplo de Evolução &amp; Retenção</h2>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">Caso Modelo</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Juliana Silveira • Procedimento CIL-002: Volume Brasileiro Premium</p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs self-end md:self-auto">
+<span class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-primary">check_circle</span>
+          Consentimento Pleno Assinado
+        </span>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low text-secondary hover:bg-surface-container font-label-sm text-label-sm flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[16px]">download</span>
+          Exportar Tríptico
+        </button>
+</div>
+</div>
+<!-- Triple Stage Visual Alignment -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Stage 1: Before -->
+<div class="flex flex-col gap-space-xs rounded-xl bg-surface-container-low p-space-sm overflow-hidden group">
+<div class="flex items-center justify-between px-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-tertiary font-semibold">1. Natural / Pré-Procedimento</span>
+<span class="font-label-sm text-label-sm text-outline">03 Out • 14:15</span>
+</div>
+<div class="relative w-full h-56 rounded-lg overflow-hidden bg-surface-container-high shadow-sm">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="High-resolution clinical macro close-up photography of a female eye looking slightly upward, bare natural eyelashes without extensions, soft clinical studio ring-light illumination, warm neutral luxury tones, peaceful serene atmosphere, editorial dermatology catalog aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMZ0BotovcJZ0GnQGeH-p44eFXfYBnsxuh3aq98YGDLzkHDsKHq--pd6wW7ua7LrpI9iFd1lAoY39VGVy53_uJYNJKrn-XnfNA6n3TUz_jWdSG-7BfmDDPB5aR1X_erNe8XjaKCP2pfaZ4tN7WqoXI4fb2MH7VuDl3-Ji2LU4suvckXGGUKmEq1AFhP0M9a-zgahv8Ya2hqQ0R9I2tERrLuSqDhlmBwihQA0RxloVuwTm0boNKEvVq">
+<div class="absolute bottom-2 left-2 px-2.5 py-1 rounded-md bg-surface-container-lowest/90 backdrop-blur-md">
+<span class="font-label-sm text-label-sm text-on-surface font-medium">Base: Fio 0.12 reto</span>
+</div>
+</div>
+<div class="p-2 text-body-sm font-body-sm text-on-surface-variant bg-surface-container-lowest rounded-lg">
+          Avaliação: Fios finos, densidade média, sem falhas de haste. Preparada com Primer pH Neutro.
+        </div>
+</div>
+<!-- Stage 2: Immediate After -->
+<div class="flex flex-col gap-space-xs rounded-xl bg-surface-container-low p-space-sm overflow-hidden group">
+<div class="flex items-center justify-between px-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">2. Imediato Pós-Procedimento</span>
+<span class="font-label-sm text-label-sm text-outline">03 Out • 16:30</span>
+</div>
+<div class="relative w-full h-56 rounded-lg overflow-hidden bg-surface-container-high shadow-sm">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Clinical macro close-up of a female eye immediately after professional Volume Brasileiro lash extension application, pristine symmetrical alignment, dark rich volume fan styling, illuminated under high CRI salon light, flawless skin texture, peaceful serene spa environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2JjXdKf-4ngYDDt2zK5iMEGYgE3Ds3y9OIWBCL6NUOqbsWFLe6RKgUNqeLk0bLyaunnn8HULrNNUIGWq6mFcQOTT-AbpfnpWhSjvth51rtilOrhVqEE8_EOU8KI1WDcvUMDP1ySIkh4C8QUPymRc-f1j8n7YkNy8s0SgtOhW0YTQT6YCG0nU90R0rXj4mNITIpHR30iNfuPzlzWS7JplGoP14CeNAmZ7SId4AFeD73SRlg0_4Xd99">
+<div class="absolute bottom-2 left-2 px-2.5 py-1 rounded-md bg-primary-container text-on-primary">
+<span class="font-label-sm text-label-sm font-medium">Mapping Gatinho 8 a 12mm</span>
+</div>
+<div class="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-surface-container-lowest/90 text-primary font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+            Finalizado
+          </div>
+</div>
+<div class="p-2 text-body-sm font-body-sm text-on-surface-variant bg-surface-container-lowest rounded-lg">
+          Adesivo: Elite Crystal Flex. Isolamento 100%. Curvatura C selecionada para elevar canto externo.
+        </div>
+</div>
+<!-- Stage 3: 21 Days Retention -->
+<div class="flex flex-col gap-space-xs rounded-xl bg-surface-container-low p-space-sm overflow-hidden group">
+<div class="flex items-center justify-between px-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">3. Retenção aos 21 Dias</span>
+<span class="font-label-sm text-label-sm text-outline">24 Out • 09:40</span>
+</div>
+<div class="relative w-full h-56 rounded-lg overflow-hidden bg-surface-container-high shadow-sm">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Clinical beauty macro view of a woman's eye with lash extensions after three weeks of wear before maintenance, showing remarkable lash retention and healthy follicle regrowth, warm golden-hour ambient studio light, serene soft-focus skin, clinical luxury feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpIYBnwkZVuemJAA6ufb3b0USI_Avf0FNc2k80jrf9EwSJPHlKdUS9FEMaUY21Gzqia7bLqOT4hgHvy5ds2aCecEcmh9oGWW_UF7KnTqRsENjRid-d6F9bUrWsgx1H83R8UmSMxrV4rtfXHbPT_88SM5LMgaM-Dya9G3Stg9zr5vkSAwODAKwf-DX9CFa0Sj7o6gcLtBSDQiYB31g-it2x82iloRm8ZjA_I0ZZ9sambfwmTTg9uShs">
+<div class="absolute bottom-2 left-2 px-2.5 py-1 rounded-md bg-secondary text-on-secondary">
+<span class="font-label-sm text-label-sm font-medium">Retenção: 91% dos fios</span>
+</div>
+<div class="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-surface-container-lowest/90 text-secondary font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+            Pré-manutenção
+          </div>
+</div>
+<div class="p-2 text-body-sm font-body-sm text-on-surface-variant bg-surface-container-lowest rounded-lg">
+          Desprendimento de apenas ~14 fios. Higienização home care exemplar com Espuma NAVY Care.
+        </div>
+</div>
+</div>
+<!-- Comparative Specs Ribbon -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-sm pt-space-xs">
+<div class="p-3 rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-sm text-label-sm text-tertiary">Mapeamento Técnico</span>
+<span class="font-label-md text-label-md text-on-surface mt-0.5">Cat Eye (8-9-10-11-12-11mm)</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-sm text-label-sm text-tertiary">Espessura &amp; Curvatura</span>
+<span class="font-label-md text-label-md text-on-surface mt-0.5">Fio Y 0.07 • Curvatura C+</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-sm text-label-sm text-tertiary">Profissional Responsável</span>
+<span class="font-label-md text-label-md text-on-surface mt-0.5">Dra. Camila NAVY</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-sm text-label-sm text-tertiary">Destinação de Imagem</span>
+<span class="font-label-md text-label-md text-primary font-semibold mt-0.5">Feed @ju.silveira &amp; NAVY</span>
+</div>
+</div>
+</section>
+<!-- Filter & Segmentation Bar -->
+<div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-md p-space-md rounded-xl bg-surface-container-lowest shadow-sm">
+<!-- Search and procedure chips -->
+<div class="flex flex-wrap items-center gap-space-sm flex-1">
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+<input class="w-full pl-9 pr-3 py-2 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface placeholder-outline focus:outline-none focus:bg-surface-container-lowest transition-colors" placeholder="Buscar cliente ou tag..." type="text">
+</div>
+<div class="flex flex-wrap items-center gap-1.5">
+<button class="px-3.5 py-1.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold transition-all">Todos (384)</button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container font-label-sm text-label-sm transition-all">Volume Brasileiro</button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container font-label-sm text-label-sm transition-all">Volume Russo</button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container font-label-sm text-label-sm transition-all">Lash Lifting</button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container font-label-sm text-label-sm transition-all">Sobrancelhas &amp; Alinhamento</button>
+</div>
+</div>
+<!-- Dropdown Filter for Consent / Privacy -->
+<div class="flex items-center gap-space-sm shrink-0">
+<div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[18px] text-tertiary">privacy_tip</span>
+<span class="">Consentimento:</span>
+<select class="bg-transparent font-label-sm text-label-sm text-on-surface font-semibold focus:outline-none cursor-pointer">
+<option>Todos os Registros</option>
+<option selected="">Apenas Autorizados p/ Feed &amp; Stories</option>
+<option>Apenas Uso Restrito (Prontuário)</option>
+</select>
+</div>
+<div class="flex items-center rounded-lg bg-surface-container-low p-1">
+<button aria-label="Visualização em Grade" class="w-8 h-8 rounded-md bg-surface-container-lowest text-primary flex items-center justify-center shadow-xs">
+<span class="material-symbols-outlined text-[18px]">grid_view</span>
+</button>
+<button aria-label="Visualização em Lista" class="w-8 h-8 rounded-md text-outline hover:text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">view_list</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Gallery Grid: Before & After Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+<!-- Card 1: Juliana Silveira -->
+<article class="flex flex-col rounded-xl bg-surface-container-lowest overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<!-- Media Split Container -->
+<div class="relative w-full h-64 bg-surface-container-low flex overflow-hidden">
+<!-- Before Half -->
+<div class="w-1/2 h-full relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Macro beauty shot of left eye with sparse natural eyelashes, no makeup, soft clinical illumination, dermatology aesthetic, pale sand aesthetic background, luxury studio aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5FTKxRkG-8NZcEnta29XdvLDxidjYN_8D3aluimswrS5vKPP_BUYxQNpjCPmmTcYklhNRMMSR0eBbxlpjZrehdxiz-9hXKA-GsnjQ70rlkSAkvpWcsMyPCi50txQyhd6UuEISDgiFLKqHAqpO-AGoepA_G1eemK2C4AIIU5877aD3cTgl3UmE--l77SdtpPS0v9au_xkUiZa4uHGhSOiBL6zLRGPlk3zyANjogSboSsk6MAme9-Tw">
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm text-tertiary font-label-sm text-label-sm font-semibold">Antes</span>
+</div>
+<!-- Divider Bar -->
+<div class="w-0.5 h-full bg-surface-container-lowest z-10 relative"></div>
+<!-- After Half -->
+<div class="w-1/2 h-full relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Macro beauty photograph of right eye showing lush Volume Brasileiro lash extensions, curled fan tips, glossy healthy finish, clinical studio ring light, soft luxurious aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXFyxNy2b0atDp7asMX_YST4mN2FH8N4ZotVlOlnBGOhbq0woMdqbV1nsgO7Bssx55CXe_NBX2SIqpqIprYMshQDdJr892KiHwd960C3k4o4xNukN7GkP2V_3KCQ5V4fC3X4fluneNU1roezKMinzsm8LvIeGPaBGevx9-9dyZF-LJYsQ8q3pA9dVRyXVLa_sRPFZJe04dfZrgWuoXYZiDiRMZ1K8RS0fpk1z5PJ2_v6iKkmlQ8Aps">
+<span class="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">Depois</span>
+</div>
+<!-- Floating Consent Pill -->
+<div class="absolute bottom-2 left-2 right-2 flex items-center justify-between">
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/95 backdrop-blur-md text-primary font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">share</span>
+            Autorizado: @ju.silveira
+          </span>
+<button class="w-7 h-7 rounded-full bg-surface-container-lowest/95 backdrop-blur-md flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors shadow-sm" title="Ações Rápidas">
+<span class="material-symbols-outlined text-[16px]">bookmark_border</span>
+</button>
+</div>
+</div>
+<!-- Card Info -->
+<div class="p-space-md flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Volume Brasileiro</span>
+<span class="font-body-sm text-body-sm text-outline">Há 2 dias</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Juliana Silveira</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+          Mapping Boneca com transição suave 8-12mm. Fios 0.07D. Curvatura expressiva sem sobrecarga nos folículos.
+        </p>
+<div class="flex flex-wrap items-center gap-1.5 pt-2">
+<span class="px-2 py-0.5 rounded-md bg-surface-container-low text-tertiary font-label-sm text-label-sm">Fios 0.07D</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container-low text-tertiary font-label-sm text-label-sm">Boneca</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container-low text-tertiary font-label-sm text-label-sm">Sessão 1/3</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs mt-space-xs bg-surface-container-lowest">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Dra. Camila NAVY</span>
+<button class="font-label-sm text-label-sm text-primary hover:underline font-semibold flex items-center gap-1">
+            Ver Ficha Completa
+            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 2: Fernanda Costa -->
+<article class="flex flex-col rounded-xl bg-surface-container-lowest overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<!-- Media Split Container -->
+<div class="relative w-full h-64 bg-surface-container-low flex overflow-hidden">
+<!-- Before Half -->
+<div class="w-1/2 h-full relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Clinical eye close up photograph of straight down-pointing natural eyelashes before a lash lifting perm treatment, clean skin, neutral spa illumination." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABC4ZHE7XGidRW5K3_ry1Lr5F0OQ7bh2Dj6CurowtWe_xWA150Kz64QZMz1fuARvpHCRr5K8UPJ3agK6Tl2K1gIRg5NqzsOti_fr21OYNGTPDp2D989OJLvzlajtNthC7ExTG21UDCi3C38tnJSZkMuubGJTBVLR_HpM-ptTAGaiBoPOtswR9Kq6sDi67mkembldK9g5MpXhaa2K-PuJOZUOt1RmquwMFhIbiePlzq-Ff4pftr1LeK">
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm text-tertiary font-label-sm text-label-sm font-semibold">Antes</span>
+</div>
+<div class="w-0.5 h-full bg-surface-container-lowest z-10 relative"></div>
+<!-- After Half -->
+<div class="w-1/2 h-full relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Macro beauty photo of female eyes with lifted curled tinted natural lashes, radiant healthy eye appearance, high definition aesthetic clinic lighting, luxury wellness ambiance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkKJaXW_IKiM7TaKbkplw2oJgxKE41qt2cHXjuQEkxA6GR-TKWZVnrmx8HH7gpHFhyeThiCi2dW4u_edP9lia-6mUEFE60ot_RynFt7DylTGP_InzswO0nOXf5hjgBI2uYZLc8xjDCWgqnGigoenW4AF7ZAQjosSDWlrXjPt_t6SDgAL-ikdvPluvy5v06ypTyL3GrLL-ES7Q_WJpnS2Mf_ui7ZgyDz4lVu84d0t8ZwLde0ZkGgu5j">
+<span class="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">Depois</span>
+</div>
+<div class="absolute bottom-2 left-2 right-2 flex items-center justify-between">
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/95 backdrop-blur-md text-primary font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">public</span>
+            Autorizado Feed Geral
+          </span>
+<button class="w-7 h-7 rounded-full bg-surface-container-lowest/95 backdrop-blur-md flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors shadow-sm" title="Ações Rápidas">
+<span class="material-symbols-outlined text-[16px]">bookmark_border</span>
+</button>
+</div>
+</div>
+<!-- Card Info -->
+<div class="p-space-md flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Lash Lifting Nutritivo</span>
+<span class="font-body-sm text-body-sm text-outline">Há 4 dias</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Fernanda Costa</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+          Protocolo de hidratação profunda com Queratina Vegana e Alinhamento em Molde L. Tinta preta azulada.
+        </p>
+<div class="flex flex-wrap items-center gap-1.5 pt-2">
+<span class="px-2 py-0.5 rounded-md bg-surface-container-low text-tertiary font-label-sm text-label-sm">Curvatura L</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container-low text-tertiary font-label-sm text-label-sm">Nutri-Glow</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container-low text-tertiary font-label-sm text-label-sm">Durabilidade 8 sem</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs mt-space-xs bg-surface-container-lowest">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Beatriz Ramos</span>
+<button class="font-label-sm text-label-sm text-primary hover:underline font-semibold flex items-center gap-1">
+            Ver Ficha Completa
+            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 3: Carla Mendes (RESTRICTED PRIVACY CASE) -->
+<article class="flex flex-col rounded-xl bg-surface-container-lowest overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<!-- Media Split Container with Security Scrim -->
+<div class="relative w-full h-64 bg-surface-container-low flex overflow-hidden">
+<div class="w-1/2 h-full relative overflow-hidden">
+<img class="w-full h-full object-cover filter blur-[2px] group-hover:blur-0 transition-all duration-300" data-alt="Clinical ophthalmology style macro shot of natural eye lashes with natural uneven hair distribution, neutral clinical lighting, dermatology catalog style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKNIF1HDBfEmAHxFoVgf28MAecKv49LDAIEFTG2QzmuG3RYmHFs3YluJ1Duct0251efX0EFWASClNDjuF1iyetwGyv8_V0T16u2oTfAkm8KN-dHOsbbXvFrLrGDA0HfvN5Cq6BxBfca5p1tzMVx7XhcXmFzd8OHQA81KVFaCMVyljz3QHZYM9wJFQrFpkoHFxPR1fSwmsW8EtxNUxQO3tLoCva4hmXT7kND9EbeklvFKY5k1iu-baM">
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm text-tertiary font-label-sm text-label-sm font-semibold">Antes</span>
+</div>
+<div class="w-0.5 h-full bg-surface-container-lowest z-10 relative"></div>
+<div class="w-1/2 h-full relative overflow-hidden">
+<img class="w-full h-full object-cover filter blur-[2px] group-hover:blur-0 transition-all duration-300" data-alt="Clinical close-up photograph of eye with Hybrid Volume lash extensions, slightly blurred for privacy representation, clean clinic environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd3Bc8qlkegdhuiJi0UhpBqbCVKeVsmjvi5YjwnStmi_FONy2akoLkAMQfV5AOXNIqIAwJ_4NTL2Y_8FATNbkVQvOnix4R-w1UL-24T30RQQzRAPlXYsYpCpIEB0_lIXHlsLLYgMo5BMpObTTL7UaBMgpzIk8y-Bs7oUThyIuG3GZLCX-FJvH61HAExwyWXXsi2jwp4QAw4oaNUdSwulMxw_h62m0s6OUlGS-sHSIvsPrC4xwDpJ8U">
+<span class="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-tertiary-container text-on-tertiary-container font-label-sm text-label-sm font-semibold">Depois</span>
+</div>
+<!-- Warning Pill Overlay -->
+<div class="absolute bottom-2 left-2 right-2 flex items-center justify-between">
+<span class="px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm flex items-center gap-1 shadow-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+            Uso Restrito - Prontuário Interno
+          </span>
+<span class="w-7 h-7 rounded-full bg-surface-container-lowest/90 flex items-center justify-center text-error shadow-sm" title="LGPD Ativo">
+<span class="material-symbols-outlined text-[16px]">gavel</span>
+</span>
+</div>
+</div>
+<!-- Card Info -->
+<div class="p-space-md flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Manutenção Volume Híbrido</span>
+<span class="font-body-sm text-body-sm text-outline">Há 5 dias</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Carla Mendes</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+          Sensibilidade ocular leve prévia. Teste alérgico negativo. NÃO publicar em redes sociais sem nova autorização formal da paciente.
+        </p>
+<div class="flex flex-wrap items-center gap-1.5 pt-2">
+<span class="px-2 py-0.5 rounded-md bg-surface-container-low text-tertiary font-label-sm text-label-sm">Fios Seda 0.05</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container-low text-tertiary font-label-sm text-label-sm">Híbrido</span>
+<span class="px-2 py-0.5 rounded-md bg-error-container/30 text-on-error-container font-label-sm text-label-sm">Sigilo LGPD</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs mt-space-xs bg-surface-container-lowest">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Dra. Camila NAVY</span>
+<button class="font-label-sm text-label-sm text-primary hover:underline font-semibold flex items-center gap-1">
+            Ver Prontuário
+            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 4: Dra. Patrícia Alencar -->
+<article class="flex flex-col rounded-xl bg-surface-container-lowest overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative w-full h-64 bg-surface-container-low flex overflow-hidden">
+<div class="w-1/2 h-full relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Macro clinical beauty view of eye before lash extension application, clean pale skin, focused natural eyebrow and eye, soft studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0HdQYiNL6MYQ58SUkIwBzdaCTa6RsgqFJNnn1jiNe6IMCTyLeUSvfNDRiVmx26y02s4nOGhUrxPNG5eTrUT8kxRsO3amREhwmXz3wL4DMP1OhitxE7l7XX6JUAYu5DJPOhrt3GyX_n647cipbwhEt-TOS2eJjYDkHI3fS9_luV0xlfBIYgvx6ySjt-C1wyLbRiipnh46dEoPaM8BTOhLf5BEW89rGxtrGYNUsA__qzr5XRLyLOD6o">
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm text-tertiary font-label-sm text-label-sm font-semibold">Antes</span>
+</div>
+<div class="w-0.5 h-full bg-surface-container-lowest z-10 relative"></div>
+<div class="w-1/2 h-full relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close up photography of striking Russian Volume lash extensions on an elegant female eye, fluffy voluminous black fans, sophisticated high-end aesthetic spa portrait." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWx_Zo8By7jQxg3h0P9hVZ2JulukoQ7hYEmDhs0LmDYxHdZZ_1tZCzF6jrMXdxihvKrTJIj0P9HhP_JuMKLHlOEni2lpXCWmUmj1LC7tjKo7jIh3fh0WK7-FJKWsmO4McCASYd4tx0JsTkC00l3bITTd6LNnOCfqrrVkOqzAZJYCRVS_IZgVI7ZqcKxU68JxnEn8eq-OSCQ0isVfDpqhYe0Gl_-JfLkDEk__jKiB_HGj3iImVxoWOR">
+<span class="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">Depois</span>
+</div>
+<div class="absolute bottom-2 left-2 right-2 flex items-center justify-between">
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/95 backdrop-blur-md text-primary font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">star</span>
+            Autorizado VIP: @dra.patricia
+          </span>
+<button class="w-7 h-7 rounded-full bg-surface-container-lowest/95 backdrop-blur-md flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors shadow-sm" title="Ações Rápidas">
+<span class="material-symbols-outlined text-[16px]">bookmark_border</span>
+</button>
+</div>
+</div>
+<div class="p-space-md flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Volume Russo VIP</span>
+<span class="font-body-sm text-body-sm text-outline">Há 1 semana</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Dra. Patrícia Alencar</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+          Preenchimento multidimensional com Fans 4D ultrafinos. Curvatura D marcante. Alta durabilidade para viagens longas.
+        </p>
+<div class="flex flex-wrap items-center gap-1.5 pt-2">
+<span class="px-2 py-0.5 rounded-md bg-surface-container-low text-tertiary font-label-sm text-label-sm">Fans 4D 0.05</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container-low text-tertiary font-label-sm text-label-sm">Curvatura D</span>
+<span class="px-2 py-0.5 rounded-md bg-secondary-container/50 text-on-secondary-container font-label-sm text-label-sm">High Profile</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs mt-space-xs bg-surface-container-lowest">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Dra. Camila NAVY</span>
+<button class="font-label-sm text-label-sm text-primary hover:underline font-semibold flex items-center gap-1">
+            Ver Ficha Completa
+            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 5: Carolina Mendes (Sobrancelhas) -->
+<article class="flex flex-col rounded-xl bg-surface-container-lowest overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative w-full h-64 bg-surface-container-low flex overflow-hidden">
+<div class="w-1/2 h-full relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Detailed macro view of unshaped natural brows with scattered baby hairs, neutral clean skin, dermatology clinic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDwc2g7Xb4klLMPoq4-yRuSHtivHnEwLeNFBVQ5axZkf1YR2D61eyMZAO-3fTq1J79qTzk_taHQiPYK71z3y6KDjayDr_htZcW98ut3ukky_QXo2vsX2Lg5C9DXyvKJ2B7h9V5oIKGfstiyih2fXWciCK8ZdSADmNjJfOfbr-gkYBrCWwhCK3O1AXbnwAnPavKFR2I4GrcVntjX_cpkXnGUxQ2KnM2BrGTYV9x76EgYqBLBhCuo6PF">
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm text-tertiary font-label-sm text-label-sm font-semibold">Antes</span>
+</div>
+<div class="w-0.5 h-full bg-surface-container-lowest z-10 relative"></div>
+<div class="w-1/2 h-full relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Macro beauty photo of precisely mapped and tinted eyebrows with natural organic line shaping, glowing skin, soft luxury spa ambiance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkuKLu_O_c0zXs8omd9gp9tbPvUouA6rtXIUY7f9MXXBSk4mqYFRtABxrMBS3XCWcE60TB5FdMDHVfSUgDaD_5WpiawuzaKgBdRbv4KGHKMRIGWK8gJ9nOgKzudL5Dv6fYLOC2XKFIxaiLHANUuDlwswyyP_Su1EFY1nGHPy8eEvf4tCxswj7WY5gx0jcKq-24s8DJ4M_gJiTzePui_e9C2O5QFmWExRNCDiQwRdAyujEqED04p4xE">
+<span class="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">Depois</span>
+</div>
+<div class="absolute bottom-2 left-2 right-2 flex items-center justify-between">
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/95 backdrop-blur-md text-primary font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">check</span>
+            Autorizado Portfólio
+          </span>
+<button class="w-7 h-7 rounded-full bg-surface-container-lowest/95 backdrop-blur-md flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors shadow-sm" title="Ações Rápidas">
+<span class="material-symbols-outlined text-[16px]">bookmark_border</span>
+</button>
+</div>
+</div>
+<div class="p-space-md flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Design Orgânico + Coloração</span>
+<span class="font-body-sm text-body-sm text-outline">Há 1 semana</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Carolina Mendes</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+          Mapeamento facial com paquímetro digital. Epilação com linha 100% algodão egípcio e pigmentação tom castanho médio.
+        </p>
+<div class="flex flex-wrap items-center gap-1.5 pt-2">
+<span class="px-2 py-0.5 rounded-md bg-surface-container-low text-tertiary font-label-sm text-label-sm">Linha Orgânica</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container-low text-tertiary font-label-sm text-label-sm">Henna Híbrida</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container-low text-tertiary font-label-sm text-label-sm">Visagismo</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs mt-space-xs bg-surface-container-lowest">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Lais Figueiredo</span>
+<button class="font-label-sm text-label-sm text-primary hover:underline font-semibold flex items-center gap-1">
+            Ver Ficha Completa
+            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 6: Mariana Sampaio -->
+<article class="flex flex-col rounded-xl bg-surface-container-lowest overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative w-full h-64 bg-surface-container-low flex overflow-hidden">
+<div class="w-1/2 h-full relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Macro photography of delicate light-brown natural lashes before a Mega Volume extension, soft morning daylight, clinical photography look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjWjUZkYqZNvIvqWlGKVecrcHIfbbzR87kocDzuKYRNt7h1gXnn3lZbrCbZCeY5jGdye6lWJ8pgK7oVbqO3KIIOgxVytrhAca20Nb7T8t-oacqWGlKT4M7Na19pmi0yggu7KqXQlcyImaV7zPrYzlj_VqX286zX444DEX-BSobefj3qyM5h3enduFIDHOEKcYv5VXmw8eN-ejh52W1NNFad4TfDIZe-dTxxciNjw6rE98u1uWnyLUk">
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm text-tertiary font-label-sm text-label-sm font-semibold">Antes</span>
+</div>
+<div class="w-0.5 h-full bg-surface-container-lowest z-10 relative"></div>
+<div class="w-1/2 h-full relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Macro beauty photo of woman's eye with dramatic black Mega Volume 6D lashes, perfect fan symmetry, flawless feather-soft texture, luxury cosmetics campaign quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRT_DRgNw75PDHr6D-n68Ldu1ehAdX_Eem436axKu86NattSylzC23dcp3x1R9IKEaBRTJwEmrjjOBuFh5WAhYOrlMk-JSf_OC7CVnWiIm8uAqno0p-GDho8k9YWkotR5o1cj6cmYm5OLkgFvJvF8SejMqZTCUv78h6lCPMA_lMCGlhq6TJ4aXqy46Dlo_kxLGdBTcYkfyvKJMhEZSte6SBvhnm1hdLdpa0sP0OuUgugxTy4B_oa3i">
+<span class="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">Depois</span>
+</div>
+<div class="absolute bottom-2 left-2 right-2 flex items-center justify-between">
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/95 backdrop-blur-md text-primary font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">photo_camera</span>
+            Autorizado Geral
+          </span>
+<button class="w-7 h-7 rounded-full bg-surface-container-lowest/95 backdrop-blur-md flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors shadow-sm" title="Ações Rápidas">
+<span class="material-symbols-outlined text-[16px]">bookmark_border</span>
+</button>
+</div>
+</div>
+<div class="p-space-md flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Mega Volume 6D Glam</span>
+<span class="font-body-sm text-body-sm text-outline">Há 2 semanas</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Mariana Sampaio</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+          Construção artesanal ponto a ponto. Densidade intensa com fios ultrafinos de 0.03mm para preservação da saúde folicular.
+        </p>
+<div class="flex flex-wrap items-center gap-1.5 pt-2">
+<span class="px-2 py-0.5 rounded-md bg-surface-container-low text-tertiary font-label-sm text-label-sm">Fios 0.03 Cashmere</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container-low text-tertiary font-label-sm text-label-sm">Dramático</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container-low text-tertiary font-label-sm text-label-sm">Mapping Esquilo</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs mt-space-xs bg-surface-container-lowest">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Beatriz Ramos</span>
+<button class="font-label-sm text-label-sm text-primary hover:underline font-semibold flex items-center gap-1">
+            Ver Ficha Completa
+            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+<!-- Bottom Conversion Banner: Watermark Generator & Quick Export Drawer Teaser -->
+<div class="mt-space-md p-space-lg rounded-xl bg-gradient-to-r from-primary to-secondary text-on-primary shadow-sm flex flex-col lg:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-on-primary/10 backdrop-blur-md flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[26px]">file_download_off</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm tracking-tight">Exportação Inteligente com Marca d’Água Oficial NAVY Studios</h3>
+<p class="font-body-sm text-body-sm text-on-primary/80 max-w-2xl mt-0.5">
+          Gere montagens com proporção Stories (9:16) ou Feed (4:5) com a tipografia oficial da clínica, logotipo em alta resolução e tag de consentimento da paciente integrada.
+        </p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0 w-full sm:w-auto justify-end">
+<button class="px-4 py-2.5 rounded-lg bg-on-primary/15 hover:bg-on-primary/25 font-label-md text-label-md transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+        Personalizar Marca
+      </button>
+<button class="px-5 py-2.5 rounded-lg bg-surface-container-lowest text-primary font-label-md text-label-md shadow-md hover:bg-surface-container-lowest/95 transition-all flex items-center gap-2 font-semibold">
+<span class="material-symbols-outlined text-[18px]">ios_share</span>
+        Compartilhar no WhatsApp
+      </button>
+</div>
+</div>
+</div>
+<script>
+  // Quick micro-interactions
+  document.getElementById('toggle-comparator-mode')?.addEventListener('click', function() {
+    const featuredSection = document.querySelector('section');
+    if (featuredSection) {
+      featuredSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      featuredSection.classList.add('ring-2', 'ring-primary-container');
+      setTimeout(() => {
+        featuredSection.classList.remove('ring-2', 'ring-primary-container');
+      }, 1500);
+    }
+  });
+</script></main></div>
+
+<script defer src="/stitch/navy-ui.js"></script></body></html>

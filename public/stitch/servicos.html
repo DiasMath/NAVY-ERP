@@ -1,0 +1,507 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-error": "#ffffff", "outline": "#72787e", "on-secondary": "#ffffff", "inverse-primary": "#a0cced", "inverse-on-surface": "#ecf1f8", "background": "#f3f7fc", "surface-dim": "#d5dbe1", "inverse-surface": "#2b3136", "on-primary-container": "#053c58", "surface-variant": "#dde3ea", "on-tertiary-fixed-variant": "#4a4640", "secondary-container": "#c6e7fb", "secondary-fixed": "#c6e7fb", "primary-fixed-dim": "#a0cced", "on-error-container": "#93000a", "tertiary-container": "#a7a199", "on-secondary-container": "#496979", "surface-container-lowest": "#ffffff", "surface-bright": "#f3f7fc", "surface-tint": "#376380", "outline-variant": "#c1c7ce", "secondary": "#436273", "on-primary-fixed-variant": "#1c4b67", "on-primary": "#ffffff", "error-container": "#ffdad6", "primary-fixed": "#c8e6ff", "primary-container": "#7ca7c7", "on-tertiary-fixed": "#1e1b16", "on-surface-variant": "#41474d", "surface-container-high": "#e3e9ef", "tertiary-fixed": "#e8e1d9", "on-tertiary": "#ffffff", "surface-container-low": "#eff4fb", "secondary-fixed-dim": "#aacbde", "tertiary": "#625e57", "surface-container": "#e9eef5", "surface": "#f3f7fc", "on-tertiary-container": "#3b3832", "surface-container-highest": "#dde3ea", "tertiary-fixed-dim": "#ccc6bd", "on-secondary-fixed-variant": "#2b4b5a", "on-primary-fixed": "#001e2f", "primary": "#376380", "on-surface": "#161c21", "error": "#ba1a1a", "on-background": "#161c21", "on-secondary-fixed": "#001e2b" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.5rem", "space-xl": "2.25rem", "margin": "2rem", "gutter-mobile": "1rem", "space-xs": "0.25rem", "space-lg": "1.5rem", "gutter": "1.5rem", "margin-mobile": "1rem", "space-md": "1rem" }, "fontFamily": { "headline-xl-mobile": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "label-md": [ "Plus Jakarta Sans" ], "label-sm": [ "Plus Jakarta Sans" ], "headline-md": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ], "headline-xl": [ "Plus Jakarta Sans" ], "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "headline-lg": [ "Plus Jakarta Sans" ], "headline-lg-mobile": [ "Plus Jakarta Sans" ] }, "fontSize": { "headline-xl-mobile": [ "1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.025em", "fontWeight": "600" } ], "headline-sm": [ "1.0625rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "label-md": [ "0.8125rem", { "lineHeight": "1.25rem", "letterSpacing": "0.01em", "fontWeight": "600" } ], "label-sm": [ "0.6875rem", { "lineHeight": "1rem", "letterSpacing": "0.03em", "fontWeight": "600" } ], "headline-md": [ "1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "body-lg": [ "1rem", { "lineHeight": "1.625rem", "fontWeight": "400" } ], "headline-xl": [ "2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.03em", "fontWeight": "600" } ], "body-md": [ "0.875rem", { "lineHeight": "1.5rem", "fontWeight": "400" } ], "body-sm": [ "0.8125rem", { "lineHeight": "1.375rem", "fontWeight": "400" } ], "headline-lg": [ "1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "headline-lg-mobile": [ "1.375rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.02em", "fontWeight": "600" } ] } } } };</script><meta name="description" content="Prévia visual NAVY com dados ilustrativos, sem persistência ou autenticação"><link rel="stylesheet" href="/stitch/navy-ui.css"></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between overflow-y-auto"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-lowest"><div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">spa</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm tracking-tight text-primary uppercase">Navy</span><span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase -mt-1">Clinical ERP</span></div></div><nav class="px-space-md py-space-sm flex flex-col gap-space-md" data-active-classes="bg-secondary-container text-on-secondary-container font-semibold rounded-lg"><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Visão Geral</span><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="dashboard" href="/dashboard" target="_top"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-body-md text-body-md">Dashboard</span></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="relatorios-insights" href="/relatorios" target="_top"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">insights</span><span class="font-body-md text-body-md">Relatórios &amp; Insights</span></div><span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container text-secondary-fixed-variant">Em breve</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Atendimentos</span><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="agenda-operacional" href="/agenda" target="_top"><span class="material-symbols-outlined text-[20px]">calendar_today</span><span class="font-body-md text-body-md">Agenda Operacional</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="clientes" href="/clientes" target="_top"><span class="material-symbols-outlined text-[20px]">group</span><span class="font-body-md text-body-md">Clientes</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="fichas-anamnese" href="/avaliacoes" target="_top"><span class="material-symbols-outlined text-[20px]">description</span><span class="font-body-md text-body-md">Fichas Anamnese</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="fotos-antes-depois" href="/historico-fotos" target="_top"><span class="material-symbols-outlined text-[20px]">photo_camera</span><span class="font-body-md text-body-md">Fotos Antes &amp; Depois</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="manutenções" href="/manutencoes" target="_top"><span class="material-symbols-outlined text-[20px]">event_repeat</span><span class="font-body-md text-body-md">Manutenções</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="pacotes-sessoes" href="/pacotes" target="_top"><span class="material-symbols-outlined text-[20px]">auto_awesome_motion</span><span class="font-body-md text-body-md">Pacotes &amp; Sessões</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Serviços</span><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg bg-secondary-container text-on-secondary-container font-semibold transition-colors" data-path="catalogo-de-servicos" href="/servicos" target="_top"><span class="material-symbols-outlined text-[20px]">palette</span><span class="font-body-md text-body-md">Catálogo de Serviços</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="precificacao-estrategica" href="/precificacao" target="_top"><span class="material-symbols-outlined text-[20px]">price_change</span><span class="font-body-md text-body-md">Precificação Estratégica</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Estoque &amp; Compras</span><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="materiais-estoque" href="/estoque" target="_top"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-body-md text-body-md">Materiais &amp; Estoque</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="fornecedores" href="/fornecedores" target="_top"><span class="material-symbols-outlined text-[20px]">local_shipping</span><span class="font-body-md text-body-md">Fornecedores</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="pedidos-de-compra" href="/compras" target="_top"><span class="material-symbols-outlined text-[20px]">shopping_bag</span><span class="font-body-md text-body-md">Pedidos de Compra</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Financeiro</span><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="fluxo-de-caixa" href="/fluxo-caixa" target="_top"><span class="material-symbols-outlined text-[20px]">account_balance_wallet</span><span class="font-body-md text-body-md">Fluxo de Caixa</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="contas-pagar-receber" href="/contas-pagar" target="_top"><span class="material-symbols-outlined text-[20px]">payments</span><span class="font-body-md text-body-md">Contas a Pagar / Receber</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="plano-de-contas" href="/plano-contas" target="_top"><span class="material-symbols-outlined text-[20px]">account_tree</span><span class="font-body-md text-body-md">Plano de Contas</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Administração</span><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="configuracoes-gerais" href="/configuracoes" target="_top"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-body-md text-body-md">Configurações Gerais</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="usuarios-acessos" href="/usuarios" target="_top"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span class="font-body-md text-body-md">Usuários &amp; Acessos</span></a></div></nav></div><div class="p-space-md m-space-md rounded-xl bg-surface-container-low flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-secondary text-[20px]">verified</span><div><p class="font-label-sm text-label-sm text-on-surface font-semibold">Plano Elegance</p><p class="font-body-sm text-body-sm text-on-surface-variant">Unidade Jardins SP</p></div></div><span class="material-symbols-outlined text-outline text-[18px]">chevron_right</span></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md w-96"><div class="relative w-full"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span><input class="w-full pl-10 pr-4 py-2 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface placeholder-outline focus:outline-none focus:bg-surface-container-lowest transition-colors" placeholder="Buscar pacientes, fichas ou procedimentos..." type="text"></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-3 py-1.5 rounded-lg bg-surface-container-low text-secondary"><span class="material-symbols-outlined text-[18px]">calendar_today</span><span class="font-label-md text-label-md">Hoje, 24 de Outubro</span></div><button aria-label="Ajuda" class="w-9 h-9 rounded-full bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">help_outline</span></button><button aria-label="Notificações" class="relative w-9 h-9 rounded-full bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary"></span></button><div class="flex items-center gap-space-sm pl-2"><div class="flex flex-col text-right"><span class="font-label-md text-label-md text-on-surface font-semibold">Dra. Camila NAVY</span><span class="font-label-sm text-label-sm text-secondary">Master Lash &amp; Beauty</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 px-space-lg py-space-lg bg-background min-h-screen"><div class="flex flex-col w-full gap-space-lg pb-12">
+<!-- Top Context Header Area -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-xs text-secondary font-label-sm uppercase tracking-widest">
+<span>Serviços</span>
+<span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+<span class="text-on-surface font-semibold">Gestão do Portfólio</span>
+</div>
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md mt-1">
+<div class="flex flex-col max-w-2xl">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Catálogo de Procedimentos</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+          Configure categorias, durações clínicas, regras de manutenção preventiva e insumos vinculados com rastreabilidade de custos.
+        </p>
+</div>
+<div class="flex items-center gap-space-sm flex-wrap">
+<button class="px-4 py-2 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors flex items-center gap-2 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary">file_download</span>
+<span>Exportar Tabela</span>
+</button>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-secondary transition-colors flex items-center gap-2 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>+ Novo Procedimento</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Summary Stats Bar: Quiet Clinical Metrics -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Total Ativo</span>
+<span class="font-headline-lg text-headline-lg text-on-surface mt-1">14</span>
+<div class="flex items-center gap-1 mt-1 text-secondary font-body-sm text-body-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>100% calibrados</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">spa</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Tempo Médio em Cabine</span>
+<span class="font-headline-lg text-headline-lg text-on-surface mt-1">105 <span class="font-body-md text-body-md font-normal text-on-surface-variant">min</span></span>
+<div class="flex items-center gap-1 mt-1 text-secondary font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[15px]">schedule</span>
+<span>Slot padrão 15m buffer</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[20px]">timer</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Maior Ticket Médio</span>
+<span class="font-headline-lg text-headline-lg text-on-surface mt-1">R$ 380<span class="text-body-md font-normal text-on-surface-variant">,00</span></span>
+<div class="flex items-center gap-1 mt-1 text-on-secondary-container font-body-sm text-body-sm">
+<span class="font-semibold">Volume Russo VIP</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Janela de Retorno</span>
+<span class="font-headline-lg text-headline-lg text-on-surface mt-1">18 a 21 <span class="font-body-md text-body-md font-normal text-on-surface-variant">dias</span></span>
+<div class="flex items-center gap-1 mt-1 text-secondary font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[15px]">event_repeat</span>
+<span>Ciclo seguro de cílios</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">autorenew</span>
+</div>
+</div>
+</div>
+<!-- Filter & Segmentation Toolbar -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md">
+<!-- Category Tabs -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 border-b border-surface-container-high">
+<button class="px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-secondary-container text-on-secondary-container whitespace-nowrap transition-colors">
+        Todos (14)
+      </button>
+<button class="px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container whitespace-nowrap transition-colors">
+        Cílios &amp; Extensão (6)
+      </button>
+<button class="px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container whitespace-nowrap transition-colors">
+        Sobrancelhas &amp; Design (3)
+      </button>
+<button class="px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container whitespace-nowrap transition-colors">
+        Lash Lifting &amp; Tratamentos (2)
+      </button>
+<button class="px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container whitespace-nowrap transition-colors">
+        Facial &amp; Pele (2)
+      </button>
+<button class="px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container whitespace-nowrap transition-colors">
+        Combos &amp; Pacotes (1)
+      </button>
+</div>
+<!-- Inputs & Selectors -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-sm items-center">
+<div class="md:col-span-6 relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface placeholder-outline focus:outline-none focus:bg-surface-container-lowest transition-colors" placeholder="Buscar por nome do procedimento, código SKU ou insumo..." type="text">
+</div>
+<div class="md:col-span-3">
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-low text-on-surface font-body-sm text-body-sm py-2 px-3 pr-8 rounded-lg focus:outline-none cursor-pointer">
+<option>Modalidade: Todas (Studio &amp; Home)</option>
+<option>Apenas Cabine Studio</option>
+<option>Atendimento Domiciliar VIP</option>
+</select>
+<span class="material-symbols-outlined pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-outline text-[18px]">expand_more</span>
+</div>
+</div>
+<div class="md:col-span-3">
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-low text-on-surface font-body-sm text-body-sm py-2 px-3 pr-8 rounded-lg focus:outline-none cursor-pointer">
+<option>Status: Apenas Ativos (14)</option>
+<option>Em Homologação (1)</option>
+<option>Descontinuados / Inativos</option>
+</select>
+<span class="material-symbols-outlined pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-outline text-[18px]">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Split Architecture: Master Catalog (Left) + Detailed Technical Sheet (Right) -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<!-- Left Column: Master Table / Card Feed (xl:col-span-7 or 8) -->
+<div class="xl:col-span-7 flex flex-col gap-space-md">
+<!-- Card Item 1: Selected / Highlighted -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow relative overflow-hidden bg-gradient-to-r from-secondary-container/20 to-transparent">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary"></div>
+<div class="pl-2 flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface">Volume Brasileiro Personalizado</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">CIL-002</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-secondary font-label-sm text-label-sm">Cílios</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Técnica em formato Y para volume com leveza natural e máxima retenção.</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm shrink-0">Ativo</span>
+</div>
+<!-- Attributes Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm py-2 my-1 rounded-lg bg-surface-container-low px-3">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Duração</span>
+<span class="font-label-md text-label-md text-on-surface">1h 45m <span class="text-outline font-normal text-[11px]">(105 min)</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Tabela / Piso</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">R$ 280 <span class="text-outline font-normal text-[11px]">/ R$ 195</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Manutenção Ideal</span>
+<span class="font-label-md text-label-md text-primary">18 a 21 dias</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Modalidade</span>
+<span class="font-label-md text-label-md text-on-surface">Studio &amp; VIP Home</span>
+</div>
+</div>
+<!-- Micro specs & clinical links -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between text-body-sm text-body-sm text-secondary gap-2 pt-1">
+<div class="flex items-center gap-space-sm flex-wrap">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-primary">medical_information</span>
+<span>Anamnese Ocular</span>
+</div>
+<span class="text-outline">•</span>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-primary">photo_camera</span>
+<span>Foto Antes &amp; Depois</span>
+</div>
+<span class="text-outline">•</span>
+<div class="flex items-center gap-1 text-on-secondary-container">
+<span class="material-symbols-outlined text-[16px]">inventory_2</span>
+<span>3 insumos vinculados</span>
+</div>
+</div>
+<span class="font-label-md text-label-md text-primary flex items-center gap-1 cursor-pointer hover:underline self-end sm:self-auto">
+              Visualizando Ficha
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</span>
+</div>
+</div>
+</div>
+<!-- Card Item 2 -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-surface-container-high"></div>
+<div class="pl-2 flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface">Extensão Clássica Fio a Fio</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm">CIL-001</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-secondary font-label-sm text-label-sm">Cílios</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Isolamento rigoroso fio por fio. Efeito rímel sofisticado com acabamento acetinado.</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm shrink-0">Ativo</span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm py-2 my-1 rounded-lg bg-surface-container-low px-3">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Duração</span>
+<span class="font-label-md text-label-md text-on-surface">2h 00m <span class="text-outline font-normal text-[11px]">(120 min)</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Tabela / Piso</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">R$ 220 <span class="text-outline font-normal text-[11px]">/ R$ 160</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Manutenção Ideal</span>
+<span class="font-label-md text-label-md text-on-surface">15 a 18 dias</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Modalidade</span>
+<span class="font-label-md text-label-md text-on-surface">Studio Cabine</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between text-body-sm text-body-sm text-secondary gap-2 pt-1">
+<div class="flex items-center gap-space-sm flex-wrap text-on-surface-variant">
+<span>Fios Mink 0.15</span>
+<span class="text-outline">•</span>
+<span>Cola Sensitive Hypo</span>
+<span class="text-outline">•</span>
+<span>Retoque Tabela: R$ 120,00</span>
+</div>
+<button class="font-label-md text-label-md text-secondary hover:text-on-surface flex items-center gap-1 self-end sm:self-auto transition-colors" type="button">
+              Detalhes
+              <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card Item 3 -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-surface-container-high"></div>
+<div class="pl-2 flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface">Volume Russo Glamour VIP</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm">CIL-003</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-secondary font-label-sm text-label-sm">Cílios</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Montagem manual de fans artesanais de 3D a 6D ultra-leves para máxima densidade.</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm shrink-0">Ativo</span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm py-2 my-1 rounded-lg bg-surface-container-low px-3">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Duração</span>
+<span class="font-label-md text-label-md text-on-surface">2h 30m <span class="text-outline font-normal text-[11px]">(150 min)</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Tabela / Piso</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">R$ 380 <span class="text-outline font-normal text-[11px]">/ R$ 255</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Manutenção Ideal</span>
+<span class="font-label-md text-label-md text-on-surface">21 a 24 dias</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Modalidade</span>
+<span class="font-label-md text-label-md text-on-surface">Studio &amp; VIP</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between text-body-sm text-body-sm text-secondary gap-2 pt-1">
+<div class="flex items-center gap-space-sm flex-wrap text-on-surface-variant">
+<span>Fans 0.05 / 0.07</span>
+<span class="text-outline">•</span>
+<span>Retoque Tabela: R$ 190,00</span>
+<span class="text-outline">•</span>
+<span>Avaliação Prévia</span>
+</div>
+<button class="font-label-md text-label-md text-secondary hover:text-on-surface flex items-center gap-1 self-end sm:self-auto transition-colors" type="button">
+              Detalhes
+              <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card Item 4 -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-surface-container-high"></div>
+<div class="pl-2 flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface">Design de Sobrancelhas Personalizado</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm">SOB-001</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-secondary font-label-sm text-label-sm">Sobrancelhas</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Mapeamento com paquímetro digital e linha orgânica com epilação de alta precisão.</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm shrink-0">Ativo</span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm py-2 my-1 rounded-lg bg-surface-container-low px-3">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Duração</span>
+<span class="font-label-md text-label-md text-on-surface">45 min</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Tabela / Piso</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">R$ 60 <span class="text-outline font-normal text-[11px]">/ R$ 40</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Manutenção Ideal</span>
+<span class="font-label-md text-label-md text-on-surface">20 dias</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Modalidade</span>
+<span class="font-label-md text-label-md text-on-surface">Studio Cabine</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between text-body-sm text-body-sm text-secondary gap-2 pt-1">
+<div class="flex items-center gap-space-sm flex-wrap text-on-surface-variant">
+<span>Mapeamento Geométrico</span>
+<span class="text-outline">•</span>
+<span>Pinça Cirúrgica Autoclavada</span>
+</div>
+<button class="font-label-md text-label-md text-secondary hover:text-on-surface flex items-center gap-1 self-end sm:self-auto transition-colors" type="button">
+              Detalhes
+              <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card Item 5 -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-surface-container-high"></div>
+<div class="pl-2 flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface">Lash Lifting Nutritivo com Queratina</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm">LFT-001</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-secondary font-label-sm text-label-sm">Tratamentos</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Curvatura biológica dos fios naturais com infusão reparadora de botox e peptídeos.</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm shrink-0">Ativo</span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm py-2 my-1 rounded-lg bg-surface-container-low px-3">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Duração</span>
+<span class="font-label-md text-label-md text-on-surface">1h 15m <span class="text-outline font-normal text-[11px]">(75 min)</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Tabela / Piso</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">R$ 190 <span class="text-outline font-normal text-[11px]">/ R$ 125</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Manutenção Ideal</span>
+<span class="font-label-md text-label-md text-on-surface">45 dias</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Modalidade</span>
+<span class="font-label-md text-label-md text-on-surface">Studio Cabine</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between text-body-sm text-body-sm text-secondary gap-2 pt-1">
+<div class="flex items-center gap-space-sm flex-wrap text-on-surface-variant">
+<span>Permanente Italiano</span>
+<span class="text-outline">•</span>
+<span>Keratin Tint Booster</span>
+</div>
+<button class="font-label-md text-label-md text-secondary hover:text-on-surface flex items-center gap-1 self-end sm:self-auto transition-colors" type="button">
+              Detalhes
+              <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Inspection Card / Selected Service Dossier (xl:col-span-5) -->
+<div class="xl:col-span-5 flex flex-col gap-space-md sticky top-20">
+<div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md">
+<!-- Inspection Header -->
+<div class="flex items-start justify-between pb-space-sm border-b border-surface-container-high">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Ficha Técnica do Procedimento</span>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-0.5">Volume Brasileiro Personalizado</h2>
+<span class="font-body-sm text-body-sm text-on-surface-variant">SKU: CIL-002 • Versão 3.4 (Ativa)</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface transition-colors" title="Editar Parâmetros" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface transition-colors" title="Mais opções" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Visual Hero / Clinical Representation Card -->
+<div class="relative w-full h-44 rounded-xl overflow-hidden bg-surface-container flex items-end p-4">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Close up shot of delicate individual eyelash extensions being precisely applied with stainless steel tweezers in an elegant aesthetic clinic. Soft daylight, serene beige and ivory tones, clean clinical lighting with subtle calm luxury feel." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCpvezStiN2hVc-iomNyOmRZ_dcNNmxq_xiusDqtWBBiESTFzNsx5szjFI1f12E492X2eFkgPAA3VTyhjbFz43wfWqmhAwDqckpMoH-Z4mcPykMmEcvt16dcceyr3_RifTuI8kiDMyqNXrBTP-GLj4pvykSYnHiN_Kb2oTGJmC44TZr9vGuXQcdTP2F4t5sNYhZQEYRtM6MF3JxHX_kUgiqjyPDAkiC9D3CXQHw0LkEvdRCaY1i6TUH')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-inverse-surface/20 to-transparent"></div>
+<div class="relative z-10 flex items-center justify-between w-full text-inverse-on-surface">
+<div>
+<span class="font-label-sm text-label-sm text-primary-fixed uppercase tracking-wider">Protocolo NAVY Signature</span>
+<p class="font-headline-sm text-headline-sm text-on-primary">Fios Cashmere Y 0.07D</p>
+</div>
+<a class="px-3 py-1.5 rounded-lg bg-surface-container-lowest/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm hover:bg-surface-container-lowest transition-colors flex items-center gap-1 shadow-sm" data-path="precificacao-estrategica" href="/precificacao" target="_top">
+<span>Simular Preço</span>
+<span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+</a>
+</div>
+</div>
+<!-- Checklist de Insumos Vinculados (Automated BOM / Cost Structure) -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">inventory</span>
+              Checklist de Baixa de Insumos
+            </span>
+<span class="font-label-sm text-label-sm text-secondary">Custo Médio: R$ 33,00</span>
+</div>
+<div class="flex flex-col gap-1.5 mt-1">
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Fios Ellipse Cashmere Y 0.07D</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">1 chicote proporcional</span>
+</div>
+</div>
+<span class="font-label-md text-label-md text-secondary">R$ 18,50</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Cola Master Lash Elite</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">4 gotas por atendimento</span>
+</div>
+</div>
+<span class="font-label-md text-label-md text-secondary">R$ 6,20</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Kit Biossegurança &amp; Pads Colágeno</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">1 kit descartável esterilizado</span>
+</div>
+</div>
+<span class="font-label-md text-label-md text-secondary">R$ 8,30</span>
+</div>
+</div>
+</div>
+<!-- Compliance & LGPD Configuration -->
+<div class="flex flex-col gap-space-xs pt-2 border-t border-surface-container-high">
+<span class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[18px]">verified_user</span>
+            Consentimento Clínico &amp; LGPD
+          </span>
+<div class="flex flex-col gap-2 mt-1">
+<label class="flex items-start gap-2 text-body-sm text-body-sm text-on-surface cursor-pointer">
+<input checked="" class="mt-1 rounded border-outline-variant text-primary focus:ring-0 cursor-pointer" type="checkbox">
+<span>Anamnese prévia de sensibilidade e teste de adesivo obrigatórios no prontuário.</span>
+</label>
+<label class="flex items-start gap-2 text-body-sm text-body-sm text-on-surface cursor-pointer">
+<input checked="" class="mt-1 rounded border-outline-variant text-primary focus:ring-0 cursor-pointer" type="checkbox">
+<span>Captura de Foto Antes/Depois obrigatória para arquivo médico interno.</span>
+</label>
+<label class="flex items-start gap-2 text-body-sm text-body-sm text-on-surface-variant cursor-pointer">
+<input class="mt-1 rounded border-outline-variant text-primary focus:ring-0 cursor-pointer" type="checkbox">
+<span>Autorização explícita para divulgação em mídias sociais (Opcional / Consentimento por sessão).</span>
+</label>
+</div>
+</div>
+<!-- Preventive Maintenance Link -->
+<div class="p-space-sm rounded-lg bg-secondary-container/40 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">sync</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Regra de Manutenção Vinculada</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Retoque até 21 dias: R$ 140,00 (60 min)</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-lowest font-label-sm text-label-sm text-primary font-semibold">Automático</span>
+</div>
+<!-- Footer / Version Meta -->
+<div class="flex items-center justify-between text-label-sm text-label-sm text-outline pt-2 border-t border-surface-container-high">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">history</span>
+            Atualizado em 15/Set/2023
+          </span>
+<span>Responsável: Dra. Camila NAVY</span>
+</div>
+</div>
+</div>
+</div>
+</div></main></div>
+
+<script defer src="/stitch/navy-ui.js"></script></body></html>

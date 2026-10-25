@@ -1,0 +1,144 @@
+.stitch-shell{--stitch-sidebar-width:230px;--stitch-header-height:51px;min-height:100vh;background:#f3f7fc;color:#161c21;font-family:Inter,Arial,sans-serif}
+.stitch-shell-collapsed{--stitch-sidebar-width:58px}
+.stitch-shell .material-symbols-outlined{font-family:'Material Symbols Outlined';font-size:18px;line-height:1;font-weight:400;font-style:normal;letter-spacing:normal;text-transform:none;white-space:nowrap;word-wrap:normal;direction:ltr;font-feature-settings:'liga';-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
+.stitch-sidebar{position:fixed;z-index:100;inset:0 auto 0 0;width:var(--stitch-sidebar-width);display:flex;flex-direction:column;background:#fff;box-shadow:0 1px 8px rgba(0,0,0,.04);transition:width .2s ease;overflow:hidden}
+.stitch-sidebar-top{position:relative;height:52px;flex:0 0 52px;display:flex;align-items:center;padding:0 15px;gap:8px}
+.stitch-brand{display:flex;align-items:center;gap:9px;min-width:0;white-space:nowrap}
+.stitch-brand img{width:42px;height:27px;object-fit:contain;flex:none}
+.stitch-brand span{display:flex;flex-direction:column;gap:1px}
+.stitch-brand strong{font:600 13px/16px 'Plus Jakarta Sans',sans-serif;color:#376380;letter-spacing:.06em}
+.stitch-brand small{font:600 8px/10px 'Plus Jakarta Sans',sans-serif;color:#72787e;text-transform:uppercase;letter-spacing:.11em}
+.stitch-sidebar-toggle,.stitch-sidebar-mobile-close{border:0;border-radius:7px;width:25px;height:25px;flex:none;display:grid;place-items:center;background:#eff4fb;color:#436273}
+.stitch-sidebar-toggle{margin-left:auto}
+.stitch-sidebar-toggle:hover,.stitch-sidebar-mobile-close:hover{background:#c6e7fb}
+.stitch-sidebar-mobile-close{display:none}
+.stitch-sidebar-nav{flex:1;min-height:0;overflow-x:hidden;overflow-y:scroll;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:#b8c9d5 #f3f6f9;padding:0 8px 12px 13px}
+.stitch-sidebar-nav::-webkit-scrollbar{width:6px}
+.stitch-sidebar-nav::-webkit-scrollbar-track{background:#f3f6f9;border-radius:10px}
+.stitch-sidebar-nav::-webkit-scrollbar-thumb{background:#b8c9d5;border:1px solid #f3f6f9;border-radius:10px}
+.stitch-sidebar-nav::-webkit-scrollbar-thumb:hover{background:#8ba9bc}
+.stitch-sidebar a:focus-visible,.stitch-sidebar button:focus-visible,.stitch-header a:focus-visible,.stitch-header button:focus-visible,.stitch-header input:focus-visible{outline:2px solid #376380;outline-offset:2px}
+.stitch-nav-group{display:flex;flex-direction:column;gap:2px;margin-bottom:18px}
+.stitch-nav-heading{display:block;font:600 9px/15px 'Plus Jakarta Sans',sans-serif;text-transform:uppercase;color:#72787e;padding:0 7px;margin-bottom:2px;white-space:nowrap}
+.stitch-nav-link{height:34px;min-height:34px;display:flex;align-items:center;gap:10px;border-radius:7px;padding:0 7px;color:#41474d;font:400 11px/16px Inter,sans-serif;white-space:nowrap;transition:background .15s,color .15s}
+.stitch-nav-link .material-symbols-outlined{font-size:17px;flex:none}
+.stitch-nav-link span:last-child{overflow:hidden;text-overflow:ellipsis}
+.stitch-nav-link:hover{background:#e9eef5;color:#161c21}
+.stitch-nav-active,.stitch-nav-active:hover{background:#c6e7fb;color:#2b4b5a}
+.stitch-sidebar-unit{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:10px 13px 13px;padding:10px 12px;background:#eff4fb;border-radius:10px;color:#436273;white-space:nowrap}
+.stitch-sidebar-unit:hover{background:#e3edf6;color:#2b4b5a}
+.stitch-sidebar-unit span{display:flex;flex-direction:column;gap:2px}
+.stitch-sidebar-unit strong{font:600 9px/13px 'Plus Jakarta Sans',sans-serif}
+.stitch-sidebar-unit small{font:400 8px/11px 'Plus Jakarta Sans',sans-serif;color:#72787e}
+.stitch-sidebar-unit .material-symbols-outlined{font-size:17px}
+.stitch-shell-collapsed .stitch-sidebar-top{justify-content:center;padding:0}
+.stitch-shell-collapsed .stitch-brand{width:42px;height:42px;justify-content:center}
+.stitch-shell-collapsed .stitch-brand img{display:none}
+.stitch-shell-collapsed .stitch-brand:before{content:'spa';font:26px/40px 'Material Symbols Outlined';width:42px;height:42px;text-align:center;color:#376380;background:#eff4fb;border-radius:10px}
+.stitch-shell-collapsed .stitch-brand span,.stitch-shell-collapsed .stitch-nav-heading,.stitch-shell-collapsed .stitch-nav-link span:last-child,.stitch-shell-collapsed .stitch-sidebar-unit{display:none}
+.stitch-shell-collapsed .stitch-sidebar-toggle{position:fixed;bottom:7px;left:16px;margin:0;background:transparent}
+.stitch-shell-collapsed .stitch-sidebar-nav{padding:6px 3px 35px 4px}
+.stitch-shell-collapsed .stitch-nav-group{margin-bottom:2px;gap:1px}
+.stitch-shell-collapsed .stitch-nav-link{width:44px;height:38px;min-height:38px;padding:0;justify-content:center;margin:0 auto}
+
+.stitch-header{position:fixed;z-index:90;top:0;left:var(--stitch-sidebar-width);right:0;height:var(--stitch-header-height);display:flex;align-items:center;justify-content:space-between;gap:14px;padding:0 20px;background:rgba(255,255,255,.96);box-shadow:0 1px 8px rgba(0,0,0,.04);backdrop-filter:blur(14px);transition:left .2s ease}
+.stitch-popover-shade{position:fixed;inset:0;z-index:85;border:0;background:transparent;cursor:default}
+.stitch-header-search-wrap{position:relative;z-index:2;display:flex;align-items:center;min-width:0;flex:1}
+.stitch-header-search{position:relative;display:flex;align-items:center;gap:7px;width:min(410px,100%);height:32px;background:#eff4fb;border-radius:7px;padding:0 10px;color:#72787e}
+.stitch-header-search .material-symbols-outlined{font-size:17px}
+.stitch-header-search input{background:none;border:0;outline:0;width:100%;min-width:0;color:#161c21;font:400 10px/16px Inter,sans-serif}
+.stitch-header-search input::placeholder{color:#72787e}
+.stitch-search-results{position:absolute;z-index:120;top:37px;left:0;width:100%;padding:5px;background:#fff;border:1px solid #dde3ea;border-radius:8px;box-shadow:0 12px 25px rgba(20,40,60,.14)}
+.stitch-search-results a{display:flex;align-items:center;gap:9px;padding:8px;border-radius:5px;font:500 11px/16px Inter,sans-serif}
+.stitch-search-results a:hover{background:#eff4fb}
+.stitch-search-empty{display:block;padding:9px;color:#72787e;font:400 10px/16px Inter,sans-serif}
+.stitch-header-actions{position:relative;z-index:2;display:flex;align-items:center;gap:13px;flex:none}
+.stitch-header-date{height:29px;display:flex;align-items:center;gap:7px;border:0;border-radius:7px;background:#eff4fb;color:#41474d;padding:0 9px;white-space:nowrap;font:400 10px/16px Inter,sans-serif}
+.stitch-header-date .material-symbols-outlined{color:#376380;font-size:16px}
+.stitch-header-date .material-symbols-outlined:last-child{color:#72787e;font-size:15px}
+.stitch-header-icon{position:relative;width:29px;height:29px;display:grid;place-items:center;border:0;background:transparent;color:#41474d;border-radius:50%}
+.stitch-header-icon:hover,.stitch-profile-trigger:hover{background:#eff4fb}
+.stitch-header-icon i{position:absolute;right:5px;top:4px;width:5px;height:5px;background:#376380;border-radius:50%}
+.stitch-header-divider{height:25px;width:1px;background:#e9eef5}
+.stitch-header-popover-wrap{position:relative}
+.stitch-profile-trigger{display:flex;align-items:center;gap:10px;background:transparent;border:0;border-radius:8px;padding:3px;color:#161c21;text-align:right}
+.stitch-profile-trigger span{display:flex;flex-direction:column;gap:2px;white-space:nowrap}
+.stitch-profile-trigger strong{font:600 10px/13px 'Plus Jakarta Sans',sans-serif}
+.stitch-profile-trigger small{font:400 8px/11px 'Plus Jakarta Sans',sans-serif;color:#436273}
+.stitch-profile-trigger img{width:30px;height:30px;object-fit:cover;border-radius:50%;box-shadow:0 0 0 1px #e3e9ef}
+.stitch-help-popover,.stitch-profile-menu{position:absolute;right:0;top:42px;background:#fff;border:1px solid #e9eef5;border-radius:12px;box-shadow:0 18px 38px rgba(37,43,48,.18);z-index:130}
+.stitch-help-popover{width:260px;padding:17px}
+.stitch-help-popover strong{font:600 13px 'Plus Jakarta Sans',sans-serif}
+.stitch-help-popover p{font:400 11px/1.5 Inter,sans-serif;color:#72787e;margin:8px 0 0}
+.stitch-help-popover a{display:inline-block;margin-top:12px;color:#376380;font:600 11px/16px 'Plus Jakarta Sans',sans-serif}
+.stitch-help-popover a:hover{text-decoration:underline}
+.stitch-profile-menu{width:330px;max-width:calc(100vw - 20px);overflow:hidden}
+.stitch-profile-identity{display:flex;gap:12px;align-items:center;padding:17px;background:#eff4fb}
+.stitch-profile-identity img{width:47px;height:47px;object-fit:cover;border-radius:50%;flex:none}
+.stitch-profile-identity>span{min-width:0;display:flex;flex-direction:column;gap:4px}
+.stitch-profile-identity strong{font:600 13px/17px 'Plus Jakarta Sans',sans-serif;white-space:nowrap}
+.stitch-profile-identity strong .material-symbols-outlined{font-size:14px;color:#376380;vertical-align:middle}
+.stitch-profile-identity small{font:400 10px/13px Inter,sans-serif;color:#436273}
+.stitch-profile-section{padding:13px 17px;border-bottom:1px solid #e9eef5;display:flex;flex-direction:column;gap:4px}
+.stitch-profile-section span{font:600 9px 'Plus Jakarta Sans',sans-serif;letter-spacing:.08em;color:#72787e}
+.stitch-profile-section strong{font:600 11px 'Plus Jakarta Sans',sans-serif}
+.stitch-profile-section small{font:400 10px Inter,sans-serif;color:#72787e}
+.stitch-profile-links{padding:7px}
+.stitch-profile-links a,.stitch-profile-signout,.stitch-focus-toggle{display:flex;align-items:center;gap:9px;min-height:33px;padding:0 11px;font:500 10px/15px Inter,sans-serif;border-radius:6px}
+.stitch-profile-links a:hover,.stitch-profile-signout:hover{background:#eff4fb}
+.stitch-profile-links .material-symbols-outlined,.stitch-profile-signout .material-symbols-outlined,.stitch-focus-toggle .material-symbols-outlined{font-size:17px;color:#436273}
+.stitch-focus-toggle{border-top:1px solid #e9eef5;border-radius:0;padding:8px 18px;cursor:pointer}
+.stitch-focus-toggle input{margin-left:auto;accent-color:#376380}
+.stitch-profile-signout{border-top:1px solid #e9eef5;border-radius:0;padding:10px 18px;color:#9c4e45}
+.stitch-profile-signout .material-symbols-outlined{color:#9c4e45}
+.stitch-profile-signout:is(button){width:100%;background:transparent;border-right:0;border-bottom:0;border-left:0;text-align:left;cursor:pointer}
+.stitch-mobile-menu{display:none;border:0;background:transparent;color:#436273;width:32px;height:32px;place-items:center}
+.stitch-shell-toast{position:fixed;z-index:160;right:18px;bottom:18px;padding:10px 14px;border-radius:9px;background:#2b3136;color:#fff;box-shadow:0 10px 25px rgba(0,0,0,.18);font:600 11px/15px 'Plus Jakarta Sans',sans-serif}
+.stitch-mobile-shade{display:none}
+
+.stitch-shell .stitch-viewport{position:fixed;left:var(--stitch-sidebar-width);right:0;top:var(--stitch-header-height);bottom:0;width:auto;height:auto;transition:left .2s ease}
+.stitch-shell .stitch-frame{width:125%;height:125%;transform:scale(.8);transform-origin:top left;visibility:hidden}
+.stitch-shell .stitch-frame-ready{visibility:visible}
+.stitch-native-content{position:fixed;left:var(--stitch-sidebar-width);right:0;top:var(--stitch-header-height);bottom:0;overflow-x:hidden;overflow-y:scroll;padding:20px;background:#f3f7fc;transition:left .2s ease}
+.stitch-native-content:has(.ag-month){overflow:hidden}
+.right-view-layer{position:fixed;z-index:89;top:var(--stitch-header-height);right:0;bottom:0;left:var(--stitch-sidebar-width);transition:left .2s ease}
+.right-view-shade{position:absolute;inset:0;border:0;background:rgba(24,44,60,.25);cursor:default}
+.right-view-panel{position:absolute;top:0;right:0;bottom:0;width:min(490px,100%);background:#fff;box-shadow:-18px 0 48px rgba(20,39,53,.19);border-left:1px solid #dce5eb;outline:0;overflow:hidden}
+.stitch-native-content .coming-page{max-width:1200px;margin:0 auto}
+.stitch-shell .modal-backdrop{padding:calc(var(--stitch-header-height) + 16px) 16px 16px calc(var(--stitch-sidebar-width) + 16px);transition:padding-left .2s ease}
+.stitch-shell .modal{max-height:min(800px,calc(100dvh - var(--stitch-header-height) - 32px));scrollbar-width:thin;scrollbar-color:#b8c9d5 #f3f6f9}
+.stitch-shell .modal::-webkit-scrollbar{width:6px}.stitch-shell .modal::-webkit-scrollbar-track{background:#f3f6f9;border-radius:10px}.stitch-shell .modal::-webkit-scrollbar-thumb{background:#b8c9d5;border-radius:10px}
+
+/* O chrome compartilhado acompanha a legibilidade das telas nativas. */
+.stitch-nav-heading{font-size:9.5px}
+.stitch-nav-link{font-size:11.5px}
+.stitch-header-search input,.stitch-header-date,.stitch-profile-trigger strong{font-size:10.5px}
+.stitch-profile-trigger small,.stitch-sidebar-unit small{font-size:9px}
+
+@media(max-width:760px){
+  .stitch-shell,.stitch-shell-collapsed{--stitch-sidebar-width:0px;--stitch-header-height:56px}
+  .stitch-sidebar,.stitch-shell-collapsed .stitch-sidebar{width:280px;transform:translateX(-100%);transition:transform .2s ease;z-index:140}
+  .stitch-shell-mobile-open .stitch-sidebar{transform:translateX(0)}
+  .stitch-mobile-shade{display:block;position:fixed;inset:0;z-index:135;background:rgba(28,42,54,.38);border:0}
+  .stitch-sidebar-mobile-close{display:grid;margin-left:auto}
+  .stitch-sidebar-toggle{display:none}
+  .stitch-shell-collapsed .stitch-sidebar-top{justify-content:flex-start;padding:0 15px}
+  .stitch-shell-collapsed .stitch-brand{width:auto;height:auto}
+  .stitch-shell-collapsed .stitch-brand:before{display:none}
+  .stitch-shell-collapsed .stitch-brand img{display:block}
+  .stitch-shell-collapsed .stitch-brand span,.stitch-shell-collapsed .stitch-nav-heading,.stitch-shell-collapsed .stitch-nav-link span:last-child,.stitch-shell-collapsed .stitch-sidebar-unit{display:flex}
+  .stitch-shell-collapsed .stitch-sidebar-nav{padding:0 8px 12px 13px}
+  .stitch-shell-collapsed .stitch-nav-group{margin-bottom:18px;gap:2px}
+  .stitch-shell-collapsed .stitch-nav-link{width:auto;height:34px;min-height:34px;padding:0 7px;justify-content:flex-start}
+  .stitch-header{padding:0 12px;gap:8px}
+  .stitch-mobile-menu{display:grid;margin-right:4px}
+  .stitch-header-search{max-width:360px}
+  .stitch-header-date{width:29px;justify-content:center;padding:0}
+  .stitch-header-date>span:not(.material-symbols-outlined),.stitch-header-date .material-symbols-outlined:last-child,.stitch-header-divider{display:none}
+  .stitch-header-actions{gap:2px}
+  .stitch-help-popover,.stitch-profile-menu{position:fixed;top:58px;right:8px;left:8px;width:auto;max-width:none;max-height:calc(100vh - 66px);overflow-y:auto}
+  .stitch-search-results{width:min(280px,calc(100vw - 58px))}
+  .stitch-profile-trigger span{display:none}
+  .stitch-shell .stitch-frame{width:100%;height:100%;transform:none}
+  .stitch-native-content{padding:15px}
+}

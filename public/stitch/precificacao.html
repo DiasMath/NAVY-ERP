@@ -1,0 +1,588 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-error": "#ffffff", "outline": "#72787e", "on-secondary": "#ffffff", "inverse-primary": "#a0cced", "inverse-on-surface": "#ecf1f8", "background": "#f3f7fc", "surface-dim": "#d5dbe1", "inverse-surface": "#2b3136", "on-primary-container": "#053c58", "surface-variant": "#dde3ea", "on-tertiary-fixed-variant": "#4a4640", "secondary-container": "#c6e7fb", "secondary-fixed": "#c6e7fb", "primary-fixed-dim": "#a0cced", "on-error-container": "#93000a", "tertiary-container": "#a7a199", "on-secondary-container": "#496979", "surface-container-lowest": "#ffffff", "surface-bright": "#f3f7fc", "surface-tint": "#376380", "outline-variant": "#c1c7ce", "secondary": "#436273", "on-primary-fixed-variant": "#1c4b67", "on-primary": "#ffffff", "error-container": "#ffdad6", "primary-fixed": "#c8e6ff", "primary-container": "#7ca7c7", "on-tertiary-fixed": "#1e1b16", "on-surface-variant": "#41474d", "surface-container-high": "#e3e9ef", "tertiary-fixed": "#e8e1d9", "on-tertiary": "#ffffff", "surface-container-low": "#eff4fb", "secondary-fixed-dim": "#aacbde", "tertiary": "#625e57", "surface-container": "#e9eef5", "surface": "#f3f7fc", "on-tertiary-container": "#3b3832", "surface-container-highest": "#dde3ea", "tertiary-fixed-dim": "#ccc6bd", "on-secondary-fixed-variant": "#2b4b5a", "on-primary-fixed": "#001e2f", "primary": "#376380", "on-surface": "#161c21", "error": "#ba1a1a", "on-background": "#161c21", "on-secondary-fixed": "#001e2b" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.5rem", "space-xl": "2.25rem", "margin": "2rem", "gutter-mobile": "1rem", "space-xs": "0.25rem", "space-lg": "1.5rem", "gutter": "1.5rem", "margin-mobile": "1rem", "space-md": "1rem" }, "fontFamily": { "headline-xl-mobile": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "label-md": [ "Plus Jakarta Sans" ], "label-sm": [ "Plus Jakarta Sans" ], "headline-md": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ], "headline-xl": [ "Plus Jakarta Sans" ], "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "headline-lg": [ "Plus Jakarta Sans" ], "headline-lg-mobile": [ "Plus Jakarta Sans" ] }, "fontSize": { "headline-xl-mobile": [ "1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.025em", "fontWeight": "600" } ], "headline-sm": [ "1.0625rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "label-md": [ "0.8125rem", { "lineHeight": "1.25rem", "letterSpacing": "0.01em", "fontWeight": "600" } ], "label-sm": [ "0.6875rem", { "lineHeight": "1rem", "letterSpacing": "0.03em", "fontWeight": "600" } ], "headline-md": [ "1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "body-lg": [ "1rem", { "lineHeight": "1.625rem", "fontWeight": "400" } ], "headline-xl": [ "2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.03em", "fontWeight": "600" } ], "body-md": [ "0.875rem", { "lineHeight": "1.5rem", "fontWeight": "400" } ], "body-sm": [ "0.8125rem", { "lineHeight": "1.375rem", "fontWeight": "400" } ], "headline-lg": [ "1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "headline-lg-mobile": [ "1.375rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.02em", "fontWeight": "600" } ] } } } };</script><meta name="description" content="Prévia visual NAVY com dados ilustrativos, sem persistência ou autenticação"><link rel="stylesheet" href="/stitch/navy-ui.css"></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between overflow-y-auto"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-lowest"><div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">spa</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm tracking-tight text-primary uppercase">Navy</span><span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase -mt-1">Clinical ERP</span></div></div><nav class="px-space-md py-space-sm flex flex-col gap-space-md" data-active-classes="bg-secondary-container text-on-secondary-container font-semibold rounded-lg"><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Visão Geral</span><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="dashboard" href="/dashboard" target="_top"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-body-md text-body-md">Dashboard</span></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="relatorios-insights" href="/relatorios" target="_top"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">insights</span><span class="font-body-md text-body-md">Relatórios &amp; Insights</span></div><span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container text-secondary-fixed-variant">Em breve</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Atendimentos</span><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="agenda-operacional" href="/agenda" target="_top"><span class="material-symbols-outlined text-[20px]">calendar_today</span><span class="font-body-md text-body-md">Agenda Operacional</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="clientes" href="/clientes" target="_top"><span class="material-symbols-outlined text-[20px]">group</span><span class="font-body-md text-body-md">Clientes</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="fichas-anamnese" href="/avaliacoes" target="_top"><span class="material-symbols-outlined text-[20px]">description</span><span class="font-body-md text-body-md">Fichas Anamnese</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="fotos-antes-depois" href="/historico-fotos" target="_top"><span class="material-symbols-outlined text-[20px]">photo_camera</span><span class="font-body-md text-body-md">Fotos Antes &amp; Depois</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="manutenções" href="/manutencoes" target="_top"><span class="material-symbols-outlined text-[20px]">event_repeat</span><span class="font-body-md text-body-md">Manutenções</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="pacotes-sessoes" href="/pacotes" target="_top"><span class="material-symbols-outlined text-[20px]">auto_awesome_motion</span><span class="font-body-md text-body-md">Pacotes &amp; Sessões</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Serviços</span><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="catalogo-de-servicos" href="/servicos" target="_top"><span class="material-symbols-outlined text-[20px]">palette</span><span class="font-body-md text-body-md">Catálogo de Serviços</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 bg-secondary-container text-on-secondary-container font-semibold rounded-lg transition-colors" data-path="precificacao-estrategica" href="/precificacao" target="_top"><span class="material-symbols-outlined text-[20px]">price_change</span><span class="font-body-md text-body-md">Precificação Estratégica</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Estoque &amp; Compras</span><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="materiais-estoque" href="/estoque" target="_top"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-body-md text-body-md">Materiais &amp; Estoque</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="fornecedores" href="/fornecedores" target="_top"><span class="material-symbols-outlined text-[20px]">local_shipping</span><span class="font-body-md text-body-md">Fornecedores</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="pedidos-de-compra" href="/compras" target="_top"><span class="material-symbols-outlined text-[20px]">shopping_bag</span><span class="font-body-md text-body-md">Pedidos de Compra</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Financeiro</span><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="fluxo-de-caixa" href="/fluxo-caixa" target="_top"><span class="material-symbols-outlined text-[20px]">account_balance_wallet</span><span class="font-body-md text-body-md">Fluxo de Caixa</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="contas-pagar-receber" href="/contas-pagar" target="_top"><span class="material-symbols-outlined text-[20px]">payments</span><span class="font-body-md text-body-md">Contas a Pagar / Receber</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="plano-de-contas" href="/plano-contas" target="_top"><span class="material-symbols-outlined text-[20px]">account_tree</span><span class="font-body-md text-body-md">Plano de Contas</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Administração</span><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="configuracoes-gerais" href="/configuracoes" target="_top"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-body-md text-body-md">Configurações Gerais</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="usuarios-acessos" href="/usuarios" target="_top"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span class="font-body-md text-body-md">Usuários &amp; Acessos</span></a></div></nav></div><div class="p-space-md m-space-md rounded-xl bg-surface-container-low flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-secondary text-[20px]">verified</span><div><p class="font-label-sm text-label-sm text-on-surface font-semibold">Plano Elegance</p><p class="font-body-sm text-body-sm text-on-surface-variant">Unidade Jardins SP</p></div></div><span class="material-symbols-outlined text-outline text-[18px]">chevron_right</span></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md w-96"><div class="relative w-full"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span><input class="w-full pl-10 pr-4 py-2 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface placeholder-outline focus:outline-none focus:bg-surface-container-lowest transition-colors" placeholder="Buscar pacientes, fichas ou procedimentos..." type="text"></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-3 py-1.5 rounded-lg bg-surface-container-low text-secondary"><span class="material-symbols-outlined text-[18px]">calendar_today</span><span class="font-label-md text-label-md">Hoje, 24 de Outubro</span></div><button aria-label="Ajuda" class="w-9 h-9 rounded-full bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">help_outline</span></button><button aria-label="Notificações" class="relative w-9 h-9 rounded-full bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary"></span></button><div class="flex items-center gap-space-sm pl-2"><div class="flex flex-col text-right"><span class="font-label-md text-label-md text-on-surface font-semibold">Dra. Camila NAVY</span><span class="font-label-sm text-label-sm text-secondary">Master Lash &amp; Beauty</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 px-space-lg py-space-lg bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Context Header -->
+<div class="flex flex-col xl:flex-row xl:items-end justify-between gap-space-lg pb-space-lg">
+<div class="flex flex-col max-w-2xl">
+<!-- Eyebrow Navigation -->
+<div class="flex items-center gap-space-xs text-secondary font-label-sm text-label-sm uppercase tracking-wider mb-2">
+<span>Serviços</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-semibold">Inteligência Financeira &amp; Custos</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Precificação Estratégica &amp; Margem Real</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+        Simulador dinâmico de formação de preço com apuração de custos diretos, rateio de custos fixos e proteção de piso mínimo para alta rentabilidade estética.
+      </p>
+</div>
+<!-- Header Actions & Procedure Filter -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="relative min-w-[270px]">
+<label class="sr-only" for="procedureSelect">Selecionar Procedimento</label>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[20px] pointer-events-none">spa</span>
+<select class="w-full pl-10 pr-9 py-2.5 bg-surface-container-lowest text-on-surface font-label-md text-label-md rounded-xl shadow-sm appearance-none focus:outline-none focus:bg-surface-container-lowest transition-colors cursor-pointer" id="procedureSelect">
+<option selected="" value="cil-002">Volume Brasileiro Personalizado (CIL-002)</option>
+<option value="cil-004">Mega Volume Russo Velvet (CIL-004)</option>
+<option value="cil-001">Clássico Fio a Fio Silk (CIL-001)</option>
+<option value="sobr-003">Nanobrows Hiper-realista (SOB-003)</option>
+<option value="lab-001">Hydra Gloss VIP Experience (LAB-001)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline text-[18px] pointer-events-none">expand_more</span>
+</div>
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-surface-container-lowest hover:bg-surface-container-low text-on-surface font-label-md text-label-md shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary">tune</span>
+<span>Configurações de Piso</span>
+</button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-container hover:bg-primary text-on-surface font-label-md text-label-md shadow-sm hover:shadow-md transition-all active:scale-[0.99]" id="btnSalvarTabela" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark_added</span>
+<span class="font-semibold text-on-primary">Salvar Nova Tabela Oficial</span>
+</button>
+</div>
+</div>
+<!-- Key Metrics Row (4 Cards) -->
+<section aria-label="Indicadores Resumo do Procedimento" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md mb-space-lg">
+<!-- Card 1: Preço Atual & Margem -->
+<div class="relative overflow-hidden bg-surface-container-lowest p-5 rounded-2xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">Preço de Tabela Atual</span>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">Tabela Ativa</span>
+</div>
+<div>
+<div class="flex items-baseline gap-1">
+<span class="font-label-md text-label-md text-secondary">R$</span>
+<span class="font-headline-xl text-headline-xl text-on-surface tracking-tight" id="kpiPrecoAtual">280,00</span>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center gap-1 text-[12px] font-semibold text-[#3b7554] bg-[#edf6f0] px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+            58.2% Margem Bruta
+          </span>
+<span class="text-outline text-body-sm font-body-sm">Ticket Médio</span>
+</div>
+</div>
+<div class="absolute -right-3 -bottom-3 w-16 h-16 rounded-full bg-surface-container-low opacity-60 pointer-events-none"></div>
+</div>
+<!-- Card 2: Custo Variável Total -->
+<div class="relative overflow-hidden bg-surface-container-lowest p-5 rounded-2xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">Custo Variável Total</span>
+<div class="w-7 h-7 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[16px]">receipt_long</span>
+</div>
+</div>
+<div>
+<div class="flex items-baseline gap-1">
+<span class="font-label-md text-label-md text-secondary">R$</span>
+<span class="font-headline-xl text-headline-xl text-on-surface tracking-tight" id="kpiCustoVariavel">62,80</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+          Insumos + Taxa cartão + Impostos
+        </p>
+</div>
+<div class="absolute -right-3 -bottom-3 w-16 h-16 rounded-full bg-surface-container-low opacity-60 pointer-events-none"></div>
+</div>
+<!-- Card 3: Custo Fixo Operacional -->
+<div class="relative overflow-hidden bg-surface-container-lowest p-5 rounded-2xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">Custo Fixo Rateado</span>
+<div class="w-7 h-7 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+</div>
+</div>
+<div>
+<div class="flex items-baseline gap-1">
+<span class="font-label-md text-label-md text-secondary">R$</span>
+<span class="font-headline-xl text-headline-xl text-on-surface tracking-tight">54,20</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          Base de 105 min de cabine clínica
+        </p>
+</div>
+<div class="absolute -right-3 -bottom-3 w-16 h-16 rounded-full bg-surface-container-low opacity-60 pointer-events-none"></div>
+</div>
+<!-- Card 4: Preço Mínimo Seguro -->
+<div class="relative overflow-hidden bg-surface-container-lowest p-5 rounded-2xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">Preço Mínimo Seguro</span>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">lock</span>
+          Piso Ativo
+        </span>
+</div>
+<div>
+<div class="flex items-baseline gap-1">
+<span class="font-label-md text-label-md text-secondary">R$</span>
+<span class="font-headline-xl text-headline-xl text-primary tracking-tight" id="kpiPrecoPiso">195,00</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[#3b7554] text-[16px]">security</span>
+          Bloqueio automático contra prejuízo
+        </p>
+</div>
+<div class="absolute -right-3 -bottom-3 w-16 h-16 rounded-full bg-secondary-container/40 pointer-events-none"></div>
+</div>
+</section>
+<!-- Main Asymmetric 2-Column Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN: Composição de Custo e Parâmetros (7 Cols) -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<!-- Card: Insumos Diretos & Descartáveis -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pb-4 border-b border-surface-container-low">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[19px]">clean_hands</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Insumos &amp; Descartáveis Utilizados</h2>
+<p class="font-body-sm text-body-sm text-secondary">Quantidades e custos diretos parametrizados por sessão</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-3 py-1 rounded-full bg-surface-container-low text-secondary font-medium">4 itens calculados</span>
+</div>
+<!-- Insumos Table List -->
+<div class="mt-4 flex flex-col gap-2.5">
+<!-- Item 1 -->
+<div class="flex items-center justify-between p-3.5 rounded-xl bg-surface-container-low/60 hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-7 h-7 rounded-full bg-surface-container-lowest flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Fios Cashmere Y 0.07D Premium</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Consumo calibrado: 1 chicote completo</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-surface font-semibold">R$ 18,50</p>
+<p class="font-label-sm text-label-sm text-secondary">R$ 18,50 / un</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center justify-between p-3.5 rounded-xl bg-surface-container-low/60 hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-7 h-7 rounded-full bg-surface-container-lowest flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[16px]">water_drop</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Cola Master Lash Elite (Secagem 0.5s)</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">4 gotas por atendimento (Frasco 5ml)</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-surface font-semibold">R$ 6,20</p>
+<p class="font-label-sm text-label-sm text-secondary">R$ 1,55 / gota</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center justify-between p-3.5 rounded-xl bg-surface-container-low/60 hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-7 h-7 rounded-full bg-surface-container-lowest flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[16px]">healing</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Par de Pads de Colágeno + Fita Micropore</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">1 kit hipoalergênico descartável</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-surface font-semibold">R$ 5,10</p>
+<p class="font-label-sm text-label-sm text-secondary">1 par estéril</p>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="flex items-center justify-between p-3.5 rounded-xl bg-surface-container-low/60 hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-7 h-7 rounded-full bg-surface-container-lowest flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[16px]">sanitizer</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Kit Higiene (Escovinha, Microbrush, Touca &amp; Máscara)</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Protocolo Biossegurança NAVY Jardins</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-surface font-semibold">R$ 3,20</p>
+<p class="font-label-sm text-label-sm text-secondary">Pacote unitário</p>
+</div>
+</div>
+</div>
+<!-- Insumos Subtotal Bar -->
+<div class="mt-4 p-4 rounded-xl bg-surface-container-high/60 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">calculate</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Subtotal Insumos Diretos</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">R$ 33,00</span>
+</div>
+</div>
+<!-- Card: Tempo & Custos Operacionais Rateados -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pb-4 border-b border-surface-container-low">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[19px]">hourglass_top</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Tempo &amp; Custos Operacionais Rateados</h2>
+<p class="font-body-sm text-body-sm text-secondary">Ocupação de cabine, infraestrutura, tributos e valor hora</p>
+</div>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[15px]">timer</span>
+            105 min (1h 45m)
+          </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md mt-5">
+<!-- Rateio Hora Clínica -->
+<div class="p-4 rounded-xl bg-surface-container-low/40 flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">Hora Clínica NAVY</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Aluguel, Luz, Software, Esterilização</p>
+</div>
+<span class="font-label-sm text-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded">R$ 31,00/h</span>
+</div>
+<div class="flex items-baseline justify-between mt-4 pt-3 border-t border-surface-variant/40">
+<span class="font-body-sm text-body-sm text-secondary">Custo Rateado (1.75h)</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">R$ 54,20</span>
+</div>
+</div>
+<!-- Meio de Pagamento Estimado -->
+<div class="p-4 rounded-xl bg-surface-container-low/40 flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">Taxa de Meios de Pagamento</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Média ponderada Cartão Crédito &amp; Pix</p>
+</div>
+<span class="font-label-sm text-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded">2.8%</span>
+</div>
+<div class="flex items-baseline justify-between mt-4 pt-3 border-t border-surface-variant/40">
+<span class="font-body-sm text-body-sm text-secondary">Impacto Financeiro</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface" id="costTaxaPgto">R$ 7,84</span>
+</div>
+</div>
+<!-- Carga Tributária -->
+<div class="p-4 rounded-xl bg-surface-container-low/40 flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">Tributação Estimada (Simples)</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Emissão de NFS-e Estética &amp; Beleza</p>
+</div>
+<span class="font-label-sm text-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded">6.0%</span>
+</div>
+<div class="flex items-baseline justify-between mt-4 pt-3 border-t border-surface-variant/40">
+<span class="font-body-sm text-body-sm text-secondary">Imposto Retido</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface" id="costImposto">R$ 16,80</span>
+</div>
+</div>
+<!-- Mão de Obra Master -->
+<div class="p-4 rounded-xl bg-surface-container-low/40 flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">Pró-Labore Alvo Master</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Remuneração clínica direta por sessão</p>
+</div>
+<span class="font-label-sm text-label-sm text-[#3b7554] bg-[#edf6f0] px-2 py-0.5 rounded font-semibold">Alvo Fixo</span>
+</div>
+<div class="flex items-baseline justify-between mt-4 pt-3 border-t border-surface-variant/40">
+<span class="font-body-sm text-body-sm text-secondary">Remuneração Reservada</span>
+<span class="font-label-md text-label-md font-semibold text-primary">R$ 85,00</span>
+</div>
+</div>
+</div>
+<!-- Pro-tip Notice -->
+<div class="mt-5 p-3.5 rounded-xl bg-surface-container-low flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[20px]">info</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            A Hora Clínica é calculada automaticamente através do módulo <strong class="text-on-surface font-semibold">Custos Operacionais</strong> considerando ocupação média de 78% das cabines da Unidade Jardins.
+          </p>
+</div>
+</div>
+<!-- Historical / Mini Visual Banner -->
+<div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-surface-container to-surface-container-low p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-2xl bg-surface-container-lowest flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-[26px]">balance</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Ponto de Equilíbrio Mensal do Procedimento</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Necessários <strong class="text-on-surface">19 atendimentos/mês</strong> deste serviço para pagar toda a estrutura de cabine correspondente.</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md text-primary font-bold">19</span>
+<span class="font-label-sm text-label-sm text-secondary leading-tight uppercase">Sessões<br>Alvo</span>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Painel de Decisão Comercial & DRE (5 Cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<!-- Interactive Simulator & Floor Protection Guard -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between pb-4 border-b border-surface-container-low">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[19px]">sliders</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Simulador Comercial de Desconto</h2>
+</div>
+<span class="text-outline font-label-sm text-label-sm">Tempo Real</span>
+</div>
+<div class="mt-5 flex flex-col gap-5">
+<!-- Discount Slider Component -->
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-md text-label-md text-on-surface font-medium">Desconto Aplicado na Negociação</span>
+<div class="flex items-center gap-1.5 font-label-md text-label-md font-bold text-on-surface bg-surface-container-low px-2.5 py-1 rounded-lg">
+<span class="text-secondary">R$</span>
+<span id="labelDescontoValor">30,00</span>
+<span class="text-secondary font-normal" id="labelDescontoPercent">(10.7%)</span>
+</div>
+</div>
+<input class="w-full h-2 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-[#376380]" id="sliderDesconto" max="120" min="0" step="5" type="range" value="30">
+<div class="flex justify-between font-label-sm text-label-sm text-secondary mt-1.5">
+<span>0% (Sem desconto)</span>
+<span>R$ 85,00 (Teto Máximo)</span>
+<span class="text-error font-medium">Bloqueio &gt; R$ 85</span>
+</div>
+</div>
+<!-- Simulation Output Box -->
+<div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md text-secondary">Preço Final Simulado:</span>
+<div class="flex items-baseline gap-1">
+<span class="font-label-md text-label-md text-secondary">R$</span>
+<span class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight" id="simPrecoFinal">250,00</span>
+</div>
+</div>
+<!-- Dynamic Floor Safety Badge -->
+<div class="flex items-center gap-2 p-2.5 rounded-lg bg-[#edf6f0] text-[#2c6344] transition-all" id="boxStatusPiso">
+<span class="material-symbols-outlined text-[18px]" id="iconStatusPiso">verified_user</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold" id="txtStatusTitulo">Acima do Piso Seguro NAVY</span>
+<span class="font-label-sm text-label-sm opacity-90" id="txtStatusDesc">Margem de segurança de R$ 55,00 preservada.</span>
+</div>
+</div>
+</div>
+<!-- Regra da Trava de Prejuízo (Anti-Dumping) -->
+<div class="p-3.5 rounded-xl bg-surface-container-low/40 flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5">policy</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Política de Travamento de Piso</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 leading-relaxed">
+                Desconto máximo permitido sem autorização da Master: <strong class="text-on-surface font-semibold">R$ 85,00</strong> (Piso mínimo seguro: <strong class="text-on-surface font-semibold">R$ 195,00</strong>). Propostas com preço inferior bloqueiam a confirmação no sistema.
+              </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Demonstrativo Gerencial de Resultado (DRE por Atendimento) -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between pb-4 border-b border-surface-container-low">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[19px]">account_balance_wallet</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">DRE Gerencial por Atendimento</h2>
+<p class="font-body-sm text-body-sm text-secondary">Demonstrativo baseado no Preço Simulado</p>
+</div>
+</div>
+</div>
+<div class="mt-4 flex flex-col text-body-sm font-body-sm">
+<!-- Row 1: Faturamento Bruto -->
+<div class="flex items-center justify-between py-2.5 px-3 rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="text-on-surface font-semibold">Faturamento Bruto</span>
+<div class="flex items-center gap-3">
+<span class="text-secondary font-label-sm text-label-sm">100.0%</span>
+<span class="font-semibold text-on-surface" id="dreFatBruto">R$ 250,00</span>
+</div>
+</div>
+<!-- Row 2: Insumos Diretos -->
+<div class="flex items-center justify-between py-2 px-3 text-secondary hover:bg-surface-container-low transition-colors">
+<span class="flex items-center gap-1.5">
+<span class="text-outline text-xs">(-)</span> Insumos e Descartáveis
+            </span>
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm" id="dreInsumosPct">13.2%</span>
+<span class="text-on-surface font-medium">R$ 33,00</span>
+</div>
+</div>
+<!-- Row 3: Taxas Financeiras e Impostos -->
+<div class="flex items-center justify-between py-2 px-3 text-secondary hover:bg-surface-container-low transition-colors">
+<span class="flex items-center gap-1.5">
+<span class="text-outline text-xs">(-)</span> Taxas e Tributação
+            </span>
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm" id="dreTaxasPct">8.8%</span>
+<span class="text-on-surface font-medium" id="dreTaxasVal">R$ 22,00</span>
+</div>
+</div>
+<!-- Row 4: Margem de Contribuição (Subtotal) -->
+<div class="flex items-center justify-between py-2.5 px-3 my-1 rounded-lg bg-surface-container-low/80">
+<span class="text-on-surface font-semibold flex items-center gap-1.5">
+<span class="text-primary text-xs">(=)</span> Margem de Contribuição
+            </span>
+<div class="flex items-center gap-3">
+<span class="text-primary font-label-sm text-label-sm font-semibold" id="dreMargemContribPct">78.0%</span>
+<span class="font-semibold text-primary" id="dreMargemContribVal">R$ 195,00</span>
+</div>
+</div>
+<!-- Row 5: Rateio Custos Fixos -->
+<div class="flex items-center justify-between py-2 px-3 text-secondary hover:bg-surface-container-low transition-colors">
+<span class="flex items-center gap-1.5">
+<span class="text-outline text-xs">(-)</span> Rateio Custos Fixos
+            </span>
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm" id="dreCustosFixosPct">21.6%</span>
+<span class="text-on-surface font-medium">R$ 54,20</span>
+</div>
+</div>
+<!-- Row 6: Margem Líquida Real -->
+<div class="flex items-center justify-between py-3 px-3 mt-2 rounded-xl bg-primary text-on-primary">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold">Margem Líquida Livre NAVY</span>
+<span class="text-primary-fixed text-label-sm opacity-90">+ R$ 85,00 Pró-Labore Master garantido</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="font-headline-sm text-headline-sm font-bold text-on-primary" id="dreMargemLiquidaVal">R$ 55,80</span>
+<span class="text-primary-fixed text-label-sm" id="dreMargemLiquidaPct">22.3% Líquido</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Comparativo de Mercado (Benchmarking Jardins/SP) -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between pb-3 border-b border-surface-container-low">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">store</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Mercado Jardins &amp; Itaim (SP)</h3>
+</div>
+<span class="font-label-sm text-label-sm text-secondary bg-surface-container-low px-2.5 py-0.5 rounded-full">Auditoria Q4</span>
+</div>
+<div class="mt-4 flex flex-col gap-3">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-secondary">Faixa Média Concorrentes:</span>
+<span class="font-semibold text-on-surface">R$ 260,00 a R$ 320,00</span>
+</div>
+<!-- Range Representation Progress Bar -->
+<div class="relative w-full h-3 bg-surface-container-high rounded-full overflow-hidden">
+<!-- Market Band -->
+<div class="absolute left-[30%] right-[10%] h-full bg-secondary-fixed-dim/60 rounded-full"></div>
+<!-- NAVY Position Dot -->
+<div class="absolute left-[50%] -top-0.5 w-4 h-4 rounded-full bg-primary ring-2 ring-surface-container-lowest shadow"></div>
+</div>
+<div class="flex items-center justify-between text-label-sm font-label-sm text-secondary">
+<span>R$ 220 (Low-end)</span>
+<span class="text-primary font-semibold">NAVY Atual: R$ 280</span>
+<span>R$ 380 (Flagship)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 p-3 rounded-xl bg-surface-container-low">
+<strong class="text-on-surface font-semibold">Posicionamento:</strong> Quiet Luxury Acessível com percepção de valor superior e blindagem de margem.
+          </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Simulator Client-Side Logic -->
+<script>
+    (function initPricingSimulator() {
+      const slider = document.getElementById('sliderDesconto');
+      const labelDescontoValor = document.getElementById('labelDescontoValor');
+      const labelDescontoPercent = document.getElementById('labelDescontoPercent');
+      const simPrecoFinal = document.getElementById('simPrecoFinal');
+      
+      const boxStatusPiso = document.getElementById('boxStatusPiso');
+      const iconStatusPiso = document.getElementById('iconStatusPiso');
+      const txtStatusTitulo = document.getElementById('txtStatusTitulo');
+      const txtStatusDesc = document.getElementById('txtStatusDesc');
+
+      const dreFatBruto = document.getElementById('dreFatBruto');
+      const dreInsumosPct = document.getElementById('dreInsumosPct');
+      const dreTaxasPct = document.getElementById('dreTaxasPct');
+      const dreTaxasVal = document.getElementById('dreTaxasVal');
+      const dreMargemContribPct = document.getElementById('dreMargemContribPct');
+      const dreMargemContribVal = document.getElementById('dreMargemContribVal');
+      const dreCustosFixosPct = document.getElementById('dreCustosFixosPct');
+      const dreMargemLiquidaVal = document.getElementById('dreMargemLiquidaVal');
+      const dreMargemLiquidaPct = document.getElementById('dreMargemLiquidaPct');
+
+      const precoBase = 280.00;
+      const custoInsumos = 33.00;
+      const rateioFixo = 54.20;
+      const precoPiso = 195.00;
+      const taxaImpostoPct = 0.06;
+      const taxaCartaoPct = 0.028;
+
+      function updateCalculation() {
+        const desconto = parseFloat(slider.value) || 0;
+        const precoFinal = Math.max(0, precoBase - desconto);
+        const descontoPercentual = ((desconto / precoBase) * 100).toFixed(1);
+
+        // Update Labels
+        labelDescontoValor.textContent = desconto.toFixed(2).replace('.', ',');
+        labelDescontoPercent.textContent = `(${descontoPercentual}%)`;
+        simPrecoFinal.textContent = precoFinal.toFixed(2).replace('.', ',');
+
+        // Financial Math
+        const impostosETaxas = precoFinal * (taxaImpostoPct + taxaCartaoPct);
+        const margemContribuicao = precoFinal - custoInsumos - impostosETaxas;
+        const margemLiquida = margemContribuicao - rateioFixo;
+
+        // DRE Update
+        dreFatBruto.textContent = `R$ ${precoFinal.toFixed(2).replace('.', ',')}`;
+        
+        const insumosPercent = precoFinal > 0 ? ((custoInsumos / precoFinal) * 100).toFixed(1) : '0';
+        dreInsumosPct.textContent = `${insumosPercent}%`;
+
+        const taxasPercent = precoFinal > 0 ? (((taxaImpostoPct + taxaCartaoPct) * 100)).toFixed(1) : '0';
+        dreTaxasPct.textContent = `${taxasPercent}%`;
+        dreTaxasVal.textContent = `R$ ${impostosETaxas.toFixed(2).replace('.', ',')}`;
+
+        const mcPercent = precoFinal > 0 ? ((margemContribuicao / precoFinal) * 100).toFixed(1) : '0';
+        dreMargemContribPct.textContent = `${mcPercent}%`;
+        dreMargemContribVal.textContent = `R$ ${margemContribuicao.toFixed(2).replace('.', ',')}`;
+
+        const fixosPercent = precoFinal > 0 ? ((rateioFixo / precoFinal) * 100).toFixed(1) : '0';
+        dreCustosFixosPct.textContent = `${fixosPercent}%`;
+
+        dreMargemLiquidaVal.textContent = `R$ ${margemLiquida.toFixed(2).replace('.', ',')}`;
+        const mlPercent = precoFinal > 0 ? ((margemLiquida / precoFinal) * 100).toFixed(1) : '0';
+        dreMargemLiquidaPct.textContent = `${mlPercent}% Líquido`;
+
+        // Floor Status Logic
+        const saldoSeguranca = precoFinal - precoPiso;
+
+        if (precoFinal >= precoPiso) {
+          boxStatusPiso.className = "flex items-center gap-2 p-2.5 rounded-lg bg-[#edf6f0] text-[#2c6344] transition-all";
+          iconStatusPiso.textContent = "verified_user";
+          txtStatusTitulo.textContent = "Acima do Piso Seguro NAVY";
+          txtStatusDesc.textContent = `Margem de segurança de R$ ${saldoSeguranca.toFixed(2).replace('.', ',')} preservada.`;
+        } else {
+          boxStatusPiso.className = "flex items-center gap-2 p-2.5 rounded-lg bg-error-container text-on-error-container transition-all";
+          iconStatusPiso.textContent = "warning";
+          txtStatusTitulo.textContent = "Abaixo do Piso Mínimo (Bloqueio)";
+          txtStatusDesc.textContent = `Prejuízo de R$ ${Math.abs(saldoSeguranca).toFixed(2).replace('.', ',')} por atendimento. Exige liberação Master.`;
+        }
+      }
+
+      slider.addEventListener('input', updateCalculation);
+
+      // Toast feedback on save button
+      const btnSalvar = document.getElementById('btnSalvarTabela');
+      btnSalvar.addEventListener('click', function() {
+        const originalText = btnSalvar.innerHTML;
+        btnSalvar.classList.add('opacity-90');
+        btnSalvar.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span><span>Tabela Oficial Atualizada!</span>';
+        setTimeout(() => {
+          btnSalvar.innerHTML = originalText;
+          btnSalvar.classList.remove('opacity-90');
+        }, 2200);
+      });
+    })();
+  </script>
+</div></main></div>
+
+<script defer src="/stitch/navy-ui.js"></script></body></html>

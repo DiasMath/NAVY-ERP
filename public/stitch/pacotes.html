@@ -1,0 +1,717 @@
+<!DOCTYPE html><html lang="pt-BR" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-error": "#ffffff", "outline": "#72787e", "on-secondary": "#ffffff", "inverse-primary": "#a0cced", "inverse-on-surface": "#ecf1f8", "background": "#f3f7fc", "surface-dim": "#d5dbe1", "inverse-surface": "#2b3136", "on-primary-container": "#053c58", "surface-variant": "#dde3ea", "on-tertiary-fixed-variant": "#4a4640", "secondary-container": "#c6e7fb", "secondary-fixed": "#c6e7fb", "primary-fixed-dim": "#a0cced", "on-error-container": "#93000a", "tertiary-container": "#a7a199", "on-secondary-container": "#496979", "surface-container-lowest": "#ffffff", "surface-bright": "#f3f7fc", "surface-tint": "#376380", "outline-variant": "#c1c7ce", "secondary": "#436273", "on-primary-fixed-variant": "#1c4b67", "on-primary": "#ffffff", "error-container": "#ffdad6", "primary-fixed": "#c8e6ff", "primary-container": "#7ca7c7", "on-tertiary-fixed": "#1e1b16", "on-surface-variant": "#41474d", "surface-container-high": "#e3e9ef", "tertiary-fixed": "#e8e1d9", "on-tertiary": "#ffffff", "surface-container-low": "#eff4fb", "secondary-fixed-dim": "#aacbde", "tertiary": "#625e57", "surface-container": "#e9eef5", "surface": "#f3f7fc", "on-tertiary-container": "#3b3832", "surface-container-highest": "#dde3ea", "tertiary-fixed-dim": "#ccc6bd", "on-secondary-fixed-variant": "#2b4b5a", "on-primary-fixed": "#001e2f", "primary": "#376380", "on-surface": "#161c21", "error": "#ba1a1a", "on-background": "#161c21", "on-secondary-fixed": "#001e2b" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.5rem", "space-xl": "2.25rem", "margin": "2rem", "gutter-mobile": "1rem", "space-xs": "0.25rem", "space-lg": "1.5rem", "gutter": "1.5rem", "margin-mobile": "1rem", "space-md": "1rem" }, "fontFamily": { "headline-xl-mobile": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "label-md": [ "Plus Jakarta Sans" ], "label-sm": [ "Plus Jakarta Sans" ], "headline-md": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ], "headline-xl": [ "Plus Jakarta Sans" ], "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "headline-lg": [ "Plus Jakarta Sans" ], "headline-lg-mobile": [ "Plus Jakarta Sans" ] }, "fontSize": { "headline-xl-mobile": [ "1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.025em", "fontWeight": "600" } ], "headline-sm": [ "1.0625rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "label-md": [ "0.8125rem", { "lineHeight": "1.25rem", "letterSpacing": "0.01em", "fontWeight": "600" } ], "label-sm": [ "0.6875rem", { "lineHeight": "1rem", "letterSpacing": "0.03em", "fontWeight": "600" } ], "headline-md": [ "1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "body-lg": [ "1rem", { "lineHeight": "1.625rem", "fontWeight": "400" } ], "headline-xl": [ "2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.03em", "fontWeight": "600" } ], "body-md": [ "0.875rem", { "lineHeight": "1.5rem", "fontWeight": "400" } ], "body-sm": [ "0.8125rem", { "lineHeight": "1.375rem", "fontWeight": "400" } ], "headline-lg": [ "1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "headline-lg-mobile": [ "1.375rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.02em", "fontWeight": "600" } ] } } } };</script><meta name="description" content="Prévia visual NAVY com dados ilustrativos, sem persistência ou autenticação"><link rel="stylesheet" href="/stitch/navy-ui.css"></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between overflow-y-auto"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-lowest"><div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">spa</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm tracking-tight text-primary uppercase">Navy</span><span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase -mt-1">Clinical ERP</span></div></div><nav class="px-space-md py-space-sm flex flex-col gap-space-md" data-active-classes="bg-secondary-container text-on-secondary-container font-semibold rounded-lg"><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Visão Geral</span><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center" data-path="dashboard" href="/dashboard" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><rect height="7" rx="1" width="7" x="3" y="3"></rect><rect height="7" rx="1" width="7" x="14" y="3"></rect><rect height="7" rx="1" width="7" x="14" y="14"></rect><rect height="7" rx="1" width="7" x="3" y="14"></rect></svg><span class="">Dashboard</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center justify-between" data-path="relatorios-insights" href="/relatorios" target="_top"><div class="flex items-center"><svg class="w-4 h-4 shrink-0 text-secondary mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg><span class="">Relatórios &amp; Insights</span></div><span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container text-secondary-fixed-variant">Em breve</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Atendimentos</span><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center" data-path="agenda-operacional" href="/agenda" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="4"></rect><path d="M16 2v4"></path><path d="M8 2v4"></path><path d="M3 10h18"></path></svg><span class="">Agenda Operacional</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center" data-path="clientes" href="/clientes" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span class="">Clientes</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center" data-path="fichas-anamnese" href="/avaliacoes" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect height="4" rx="1" width="8" x="8" y="2"></rect><path d="M9 12h6"></path><path d="M9 16h6"></path></svg><span class="">Fichas Anamnese</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center" data-path="fotos-antes-depois" href="/historico-fotos" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg><span class="">Fotos Antes &amp; Depois</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center" data-path="manutencoes" href="/manutencoes" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><span class="">Manutenções</span></a><a class="px-space-sm py-2 rounded-lg bg-secondary-container text-on-secondary-container font-semibold transition-colors font-body-md text-body-md flex items-center" data-path="pacotes-sessoes" href="/pacotes" target="_top"><svg class="w-4 h-4 shrink-0 text-on-secondary-container mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><rect height="14" rx="2" width="18" x="3" y="5"></rect><path d="M3 10h18"></path><path d="M7 15h2"></path><path d="M13 15h4"></path></svg><span class="">Pacotes &amp; Sessões</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Serviços</span><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center" data-path="catalogo-de-servicos" href="/servicos" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span class="">Catálogo de Serviços</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center" data-path="precificacao-estrategica" href="/precificacao" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg><span class="">Precificação Estratégica</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Estoque &amp; Compras</span><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center" data-path="materiais-estoque" href="/estoque" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="m21 8-9-4-9 4 9 4 9-4z"></path><path d="m3 8 9 4 9-4v8l-9 4-9-4V8z"></path><path d="M12 12v8"></path></svg><span class="">Materiais &amp; Estoque</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center" data-path="fornecedores" href="/fornecedores" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><rect height="11" rx="2" width="16" x="1" y="3"></rect><path d="M17 8h4l2 3v3h-6V8z"></path><circle cx="5.5" cy="17.5" r="2.5"></circle><circle cx="18.5" cy="17.5" r="2.5"></circle></svg><span class="">Fornecedores</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center" data-path="pedidos-de-compra" href="/compras" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" x2="21" y1="6" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="">Pedidos de Compra</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Financeiro</span><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center" data-path="fluxo-de-caixa" href="/fluxo-caixa" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><rect height="12" rx="2" width="20" x="2" y="6"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg><span class="">Fluxo de Caixa</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center" data-path="contas-pagar-receber" href="/contas-pagar" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><line x1="12" x2="12" y1="19" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg><span class="">Contas a Pagar / Receber</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center" data-path="plano-de-contas" href="/plano-contas" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><rect height="6" rx="1" width="6" x="9" y="3"></rect><rect height="6" rx="1" width="6" x="3" y="15"></rect><rect height="6" rx="1" width="6" x="15" y="15"></rect><path d="M12 9v3m-6 3v-3h12v3"></path></svg><span class="">Plano de Contas</span></a></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-1 font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Administração</span><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center" data-path="configuracoes-gerais" href="/configuracoes" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg><span class="">Configurações Gerais</span></a><a class="px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md flex items-center" data-path="usuarios-acessos" href="/usuarios" target="_top"><svg class="w-4 h-4 shrink-0 text-secondary mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span class="">Usuários &amp; Acessos</span></a></div></nav></div><div class="p-space-md m-space-md rounded-xl bg-surface-container-low flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-secondary text-[20px]">verified</span><div><p class="font-label-sm text-label-sm text-on-surface font-semibold">Plano Elegance</p><p class="font-body-sm text-body-sm text-on-surface-variant">Unidade Jardins SP</p></div></div><span class="material-symbols-outlined text-outline text-[18px]">chevron_right</span></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md w-96"><div class="relative w-full"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span><input class="w-full pl-10 pr-4 py-2 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface placeholder-outline focus:outline-none focus:bg-surface-container-lowest transition-colors" placeholder="Buscar pacientes, fichas ou procedimentos..." type="text"></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-3 py-1.5 rounded-lg bg-surface-container-low text-secondary"><span class="material-symbols-outlined text-[18px]">calendar_today</span><span class="font-label-md text-label-md">Hoje, 24 de Outubro</span></div><button aria-label="Ajuda" class="w-9 h-9 rounded-full bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">help_outline</span></button><button aria-label="Notificações" class="relative w-9 h-9 rounded-full bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary"></span></button><div class="flex items-center gap-space-sm pl-2"><div class="flex flex-col text-right"><span class="font-label-md text-label-md text-on-surface font-semibold">Dra. Camila NAVY</span><span class="font-label-sm text-label-sm text-secondary">Master Lash &amp; Beauty</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 px-space-lg py-space-lg bg-background min-h-screen"><div class="flex flex-col w-full gap-space-lg">
+<!-- Top Navigation & Action Context -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-tertiary">Atendimentos</span>
+<span class="text-tertiary text-xs">/</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Programas &amp; Planos de Assinatura</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Pacotes de Sessões &amp; Créditos Pré-pagos</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">Gestão de planos de recorrência, pacotes de manutenções antecipadas e controle minucioso de créditos consumidos por cliente em tratamento.</p>
+</div>
+<div class="flex items-center gap-space-sm self-start lg:self-auto shrink-0">
+<button class="px-4 py-2.5 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md transition-all flex items-center gap-2" onclick="openModal('modal-novo-modelo')">
+<span class="material-symbols-outlined text-[18px] text-secondary">tune</span>
+<span>Criar Modelo de Plano</span>
+</button>
+<button class="px-5 py-2.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md shadow-sm transition-all flex items-center gap-2" onclick="openModal('modal-contratar-pacote')">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span>+ Contratar Novo Pacote</span>
+</button>
+</div>
+</div>
+<!-- Key Metrics Row (Asymmetric Clinical Bento) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<!-- Metric 1 -->
+<div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between relative overflow-hidden group">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Planos Ativos</span>
+<div class="w-8 h-8 rounded-full bg-secondary-container/60 flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-headline-xl text-headline-xl text-on-surface tracking-tight">34</span>
+<span class="font-label-md text-label-md text-secondary">contratos vigentes</span>
+</div>
+<div class="mt-2 flex items-center gap-1.5 text-secondary">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span class="font-body-sm text-body-sm">+4 contratados este mês</span>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between relative overflow-hidden group">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Receita Antecipada</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-headline-xl text-headline-xl text-on-surface tracking-tight">R$ 18.450</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">,00</span>
+</div>
+<div class="mt-2 flex items-center gap-1.5">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">
+          100% recebido em caixa
+        </span>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between relative overflow-hidden group">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Créditos a Executar</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[18px]">hourglass_top</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-headline-xl text-headline-xl text-on-surface tracking-tight">82</span>
+<span class="font-label-md text-label-md text-secondary">sessões pendentes</span>
+</div>
+<div class="mt-2 flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span>Tempo médio de giro: 42 dias</span>
+</div>
+</div>
+<!-- Metric 4 -->
+<div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between relative overflow-hidden group">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Taxa de Renovação</span>
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[18px]">cached</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-headline-xl text-headline-xl text-primary tracking-tight">89%</span>
+<span class="font-label-md text-label-md text-secondary">pós-término</span>
+</div>
+<div class="mt-2 flex items-center gap-1 text-secondary font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px]">workspace_premium</span>
+<span>Fidelidade LTV Alta</span>
+</div>
+</div>
+</div>
+<!-- Operational Filter & Navigation Ribbon -->
+<div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-sm p-2 rounded-xl bg-surface-container-lowest shadow-sm">
+<!-- Horizontal Filter Chips -->
+<div class="flex items-center gap-1 overflow-x-auto pb-1 lg:pb-0" id="filter-tabs">
+<button class="px-3.5 py-1.5 rounded-lg bg-secondary-container text-on-secondary-container font-label-md text-label-md transition-all whitespace-nowrap shadow-sm">
+        Todos os Pacotes (34)
+      </button>
+<button class="px-3.5 py-1.5 rounded-lg hover:bg-surface-container text-on-surface-variant font-label-md text-label-md transition-all whitespace-nowrap">
+        Plano Elegance Club (18)
+      </button>
+<button class="px-3.5 py-1.5 rounded-lg hover:bg-surface-container text-on-surface-variant font-label-md text-label-md transition-all whitespace-nowrap">
+        Combo Cílios + Brow (11)
+      </button>
+<button class="px-3.5 py-1.5 rounded-lg hover:bg-surface-container text-error font-label-md text-label-md transition-all whitespace-nowrap flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+        Quase Esgotados (5)
+      </button>
+</div>
+<!-- Search Input & Quick Actions -->
+<div class="flex items-center gap-space-sm">
+<div class="relative w-full sm:w-80">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface placeholder-outline focus:outline-none focus:bg-surface-container-lowest transition-colors" placeholder="Buscar por cliente, plano ou ID..." type="text">
+</div>
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant transition-colors" title="Filtrar por data de expiração">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Active Client Packages: Rich Bespoke Cards -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+<!-- CARD 1: Juliana Silveira -->
+<div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between transition-all hover:shadow-md relative overflow-hidden">
+<div class="flex flex-col gap-space-sm">
+<!-- Card Header Meta -->
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close-up serene editorial portrait of an elegant woman with delicate eyelash extensions and warm radiant skin in soft clinical interior lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZf10fYrIKH9UYWPgoSmTbJP7sICnzkc6bLD18jYKGGmkwa0Y7YZOsXJSYKwDl0Mw5Pq0RTOn3DdKnpBYYQdkw2Dun_7z1ItDb1mQqfnzKh4t6bq-uKXh0o91Pzvduhq4qX5MgAJ5U9h7zFoHuSGslW5h95dLXPzVfsVPDOUwTIWfpG5zG9AItCp6ihJeOO3bZtRnNQwe-Ua9PxZ3bANi4ZEKenZ8Fg1ZS_EiSU_m5vl3F8udMujOV">
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">Juliana Silveira</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm">#NAVY-842</span>
+</div>
+<span class="font-body-sm text-body-sm text-primary font-medium">Plano Elegance Lash Trimestral</span>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm whitespace-nowrap">
+            1 Crédito Restante
+          </span>
+</div>
+<!-- Sessions Progress Matrix -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm mt-1">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Créditos de Manutenção: 3 de 4 Usados</span>
+<span class="font-body-sm text-body-sm text-secondary">Resta 1 sessão preventiva</span>
+</div>
+<!-- Step Progression Badges -->
+<div class="grid grid-cols-4 gap-2">
+<div class="flex flex-col items-center gap-1.5 p-2 rounded-lg bg-surface-container-lowest text-center">
+<span class="material-symbols-outlined text-[18px] text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm text-on-surface font-medium">1ª Sessão</span>
+<span class="font-body-sm text-[11px] text-outline">18/Ago</span>
+</div>
+<div class="flex flex-col items-center gap-1.5 p-2 rounded-lg bg-surface-container-lowest text-center">
+<span class="material-symbols-outlined text-[18px] text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm text-on-surface font-medium">2ª Sessão</span>
+<span class="font-body-sm text-[11px] text-outline">08/Set</span>
+</div>
+<div class="flex flex-col items-center gap-1.5 p-2 rounded-lg bg-surface-container-lowest text-center">
+<span class="material-symbols-outlined text-[18px] text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm text-on-surface font-medium">3ª Sessão</span>
+<span class="font-body-sm text-[11px] text-outline">05/Out</span>
+</div>
+<div class="flex flex-col items-center gap-1.5 p-2 rounded-lg bg-surface-container-high/60 text-center relative overflow-hidden">
+<span class="material-symbols-outlined text-[18px] text-secondary">radio_button_unchecked</span>
+<span class="font-label-sm text-label-sm text-secondary font-bold">4ª Sessão</span>
+<span class="font-body-sm text-[11px] text-primary font-semibold">Disponível</span>
+</div>
+</div>
+<!-- Progress Bar Indicator -->
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all" style="width: 75%;"></div>
+</div>
+</div>
+<!-- Meta Financials & Next Schedule -->
+<div class="grid grid-cols-2 gap-space-sm pt-2">
+<div class="flex flex-col gap-0.5">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Próxima Sugestão</span>
+<div class="flex items-center gap-1.5 text-on-surface font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px] text-primary">event_available</span>
+<span>14 de Novembro</span>
+</div>
+</div>
+<div class="flex flex-col gap-0.5 text-right">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Valor Contratado</span>
+<div class="flex items-center justify-end gap-1 font-label-md text-label-md text-on-surface">
+<span>R$ 780,00</span>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-container text-secondary font-normal">-15% OFF</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm text-outline pt-1">
+<span>Pagamento: Quitado à vista via Pix</span>
+<span>Expira em: 30/Dez/2023</span>
+</div>
+</div>
+<!-- Footer Action CTA -->
+<div class="flex items-center gap-space-sm mt-5 pt-3">
+<button class="flex-1 py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md transition-colors flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+<span>Agendar Próxima Sessão</span>
+</button>
+<button class="px-3 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-secondary font-label-md text-label-md transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+<span>Extrato de Consumo</span>
+</button>
+</div>
+</div>
+<!-- CARD 2: Dra. Patrícia Alencar -->
+<div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between transition-all hover:shadow-md relative overflow-hidden">
+<div class="flex flex-col gap-space-sm">
+<!-- Card Header Meta -->
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Chic elegant physician woman in tailored neutral cashmere blouse with immaculate styled brows and refined lash extensions in a warm beige aesthetic lounge" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxj4HNC7diOeBviRb1h4_yArcXZ6xaWNn7OVMbgQ-ANAlkKU6AMI5MdIlFhnQSO61ZIyysDKTtkZNMa7Ict9uQVEQq0MJv6oTDSMBJFVHIsYzwlKxp866v_6FOmKdLN2xByrthWSEtQjP_hiAzKN4OFeQVBGkQWUprCYckD3vl-X7S6d9jprDJIzwDy7iGVOhFKUbTBwu_sobyUXSpioxDbPVH01IhqDvH63PIKUbXHL59hKQ5-juq">
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">Dra. Patrícia Alencar</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-secondary-container font-label-sm text-label-sm">VIP Black</span>
+</div>
+<span class="font-body-sm text-body-sm text-primary font-medium">VIP Lash &amp; Brows Anual Concierge</span>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm whitespace-nowrap">
+            5 Sessões Restantes
+          </span>
+</div>
+<!-- Sessions Progress Matrix -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm mt-1">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Saldo Anual: 7 de 12 Utilizadas</span>
+<span class="font-body-sm text-body-sm text-secondary">Atendimento em Domicílio Incluso</span>
+</div>
+<!-- Micro Visual Counter -->
+<div class="flex items-center gap-1.5 flex-wrap">
+<!-- 7 consumed -->
+<div class="w-6 h-6 rounded-md bg-primary text-on-primary flex items-center justify-center text-[11px] font-bold">1</div>
+<div class="w-6 h-6 rounded-md bg-primary text-on-primary flex items-center justify-center text-[11px] font-bold">2</div>
+<div class="w-6 h-6 rounded-md bg-primary text-on-primary flex items-center justify-center text-[11px] font-bold">3</div>
+<div class="w-6 h-6 rounded-md bg-primary text-on-primary flex items-center justify-center text-[11px] font-bold">4</div>
+<div class="w-6 h-6 rounded-md bg-primary text-on-primary flex items-center justify-center text-[11px] font-bold">5</div>
+<div class="w-6 h-6 rounded-md bg-primary text-on-primary flex items-center justify-center text-[11px] font-bold">6</div>
+<div class="w-6 h-6 rounded-md bg-primary text-on-primary flex items-center justify-center text-[11px] font-bold">7</div>
+<!-- 5 remaining -->
+<div class="w-6 h-6 rounded-md bg-surface-container-highest text-secondary flex items-center justify-center text-[11px] font-semibold">8</div>
+<div class="w-6 h-6 rounded-md bg-surface-container-highest text-secondary flex items-center justify-center text-[11px] font-semibold">9</div>
+<div class="w-6 h-6 rounded-md bg-surface-container-highest text-secondary flex items-center justify-center text-[11px] font-semibold">10</div>
+<div class="w-6 h-6 rounded-md bg-surface-container-highest text-secondary flex items-center justify-center text-[11px] font-semibold">11</div>
+<div class="w-6 h-6 rounded-md bg-surface-container-highest text-secondary flex items-center justify-center text-[11px] font-semibold">12</div>
+</div>
+<!-- Progress Bar Indicator -->
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden mt-1">
+<div class="bg-primary h-full rounded-full transition-all" style="width: 58.3%;"></div>
+</div>
+</div>
+<!-- Meta Details -->
+<div class="grid grid-cols-2 gap-space-sm pt-2">
+<div class="flex flex-col gap-0.5">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Protocolo de Assinatura</span>
+<span class="font-label-md text-label-md text-on-surface">Manutenção quinzenal VIP</span>
+</div>
+<div class="flex flex-col gap-0.5 text-right">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Total Quitado</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">R$ 3.200,00</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm text-outline pt-1">
+<span>Concierge exclusivo NAVY</span>
+<span>Validade: 15/Mai/2024</span>
+</div>
+</div>
+<!-- Footer Action CTA -->
+<div class="flex items-center gap-space-sm mt-5 pt-3">
+<button class="flex-1 py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md transition-colors flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">home_pin</span>
+<span>Agendar Sessão Home Care</span>
+</button>
+<button class="px-3 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-secondary font-label-md text-label-md transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span>Histórico</span>
+</button>
+</div>
+</div>
+<!-- CARD 3: Camila Rocha -->
+<div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between transition-all hover:shadow-md relative overflow-hidden">
+<div class="flex flex-col gap-space-sm">
+<!-- Card Header Meta -->
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close up warm lifestyle portrait of a young brunette woman with Russian volume lashes and glowing skin smiling gently in daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAl4FnPxnXxet5QUaskf9CEjSePBaIcpTWuu4BPEh_tHi7nNDoG0NXKsGdYux-g9xWUq7Sn9d-E1Ze7A0vXy3UZ2PjlHS4HstX64LjCWRkuI0lHjoF-ix1yuvaSkDUrEN8v9A-NP_Lf3F8X93slPUTW0A5WDDVG97nZhWn6mPr59XX8_0TBz4FEP7wcRwL5-B6DvcS6wW5Q7VwVKuM2uvAujJBKV-ZtU5H_sIjahcJJQ4Wpcp1ySmSf">
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">Camila Rocha</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm">#NAVY-910</span>
+</div>
+<span class="font-body-sm text-body-sm text-primary font-medium">Combo 3x Manutenção Volume Russo</span>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm whitespace-nowrap">
+            2 Sessões Restantes
+          </span>
+</div>
+<!-- Sessions Progress Matrix -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm mt-1">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">1 de 3 Sessões Realizadas</span>
+<span class="font-body-sm text-body-sm text-secondary">33% consumido</span>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<div class="flex flex-col items-center gap-1.5 p-2 rounded-lg bg-surface-container-lowest text-center">
+<span class="material-symbols-outlined text-[18px] text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm text-on-surface font-medium">1ª Sessão</span>
+<span class="font-body-sm text-[11px] text-outline">02/Out</span>
+</div>
+<div class="flex flex-col items-center gap-1.5 p-2 rounded-lg bg-surface-container-high/60 text-center">
+<span class="material-symbols-outlined text-[18px] text-secondary">radio_button_unchecked</span>
+<span class="font-label-sm text-label-sm text-secondary font-bold">2ª Sessão</span>
+<span class="font-body-sm text-[11px] text-primary font-medium">Disponível</span>
+</div>
+<div class="flex flex-col items-center gap-1.5 p-2 rounded-lg bg-surface-container-high/60 text-center">
+<span class="material-symbols-outlined text-[18px] text-secondary">radio_button_unchecked</span>
+<span class="font-label-sm text-label-sm text-secondary font-bold">3ª Sessão</span>
+<span class="font-body-sm text-[11px] text-outline">Pendente</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all" style="width: 33.3%;"></div>
+</div>
+</div>
+<!-- Meta Financials -->
+<div class="grid grid-cols-2 gap-space-sm pt-2">
+<div class="flex flex-col gap-0.5">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Profissional Preferencial</span>
+<span class="font-label-md text-label-md text-on-surface">Dra. Camila NAVY</span>
+</div>
+<div class="flex flex-col gap-0.5 text-right">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Valor do Combo</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">R$ 510,00</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm text-outline pt-1">
+<span>Cartão de Crédito 2x</span>
+<span>Validade: 20/Jan/2024</span>
+</div>
+</div>
+<!-- Footer CTA -->
+<div class="flex items-center gap-space-sm mt-5 pt-3">
+<button class="flex-1 py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md transition-colors flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">calendar_add_on</span>
+<span>Agendar Sessão 2</span>
+</button>
+<button class="px-3 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-secondary font-label-md text-label-md transition-colors">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</div>
+</div>
+<!-- CARD 4: Helena Ramos Vasconcelos (Esgotado / Renovação) -->
+<div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between transition-all hover:shadow-md relative overflow-hidden">
+<!-- Soft status strip -->
+<div class="absolute top-0 left-0 right-0 h-1 bg-tertiary-container"></div>
+<div class="flex flex-col gap-space-sm">
+<!-- Card Header Meta -->
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Editorial portrait of a mature sophisticated woman with natural styled eyelashes and radiant skin smiling warmly in modern aesthetic clinic setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAMLzVYw33Sdtpl8L1K9f0HXLVZvjdkLmfbz9o8_ObimNPybRwH5KI1YqkEAyQE_YWg_3DiWwSXYAXt-lbRXpTF8lD1C_E1R1V1-tKxkK6aBHHMWa8r4Y9Te10JnqeEoBVaPWEmiZbXOoMfnFGo9sUNm3W6_wdwbSEM0gCe3JiJFEDT7phes-2g2dVm1suhDlZK-NoHJB-qCMoSy91BHpy5VBANkUnNL_V1FNijFx6JmtvofJOP2DL">
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">Helena Ramos Vasconcelos</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm">#NAVY-619</span>
+</div>
+<span class="font-body-sm text-body-sm text-tertiary font-medium">Pacote Semestral Lash Lifting + Nutrição</span>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-on-tertiary-container font-label-sm text-label-sm whitespace-nowrap flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[14px]">done_all</span>
+            100% Concluído
+          </span>
+</div>
+<!-- Sessions Progress Matrix -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm mt-1">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">4 de 4 Sessões Consumidas</span>
+<span class="font-body-sm text-body-sm text-error font-medium">Créditos Esgotados</span>
+</div>
+<div class="grid grid-cols-4 gap-2">
+<div class="flex flex-col items-center gap-1 p-1.5 rounded-lg bg-surface-container-lowest text-center">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-[11px] text-outline">Sessão 1</span>
+</div>
+<div class="flex flex-col items-center gap-1 p-1.5 rounded-lg bg-surface-container-lowest text-center">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-[11px] text-outline">Sessão 2</span>
+</div>
+<div class="flex flex-col items-center gap-1 p-1.5 rounded-lg bg-surface-container-lowest text-center">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-[11px] text-outline">Sessão 3</span>
+</div>
+<div class="flex flex-col items-center gap-1 p-1.5 rounded-lg bg-surface-container-lowest text-center">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-[11px] text-outline">Sessão 4</span>
+</div>
+</div>
+<div class="w-full bg-primary h-2 rounded-full overflow-hidden"></div>
+</div>
+<!-- Retention Alert Box -->
+<div class="p-3 rounded-lg bg-secondary-container/40 flex items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">loyalty</span>
+<span class="font-body-sm text-body-sm text-on-surface">Excelente retenção: Helena frequenta o espaço a cada 28 dias.</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-semibold shrink-0">Oportunidade VIP</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm text-outline pt-1">
+<span>Último procedimento realizado há 12 dias</span>
+<span>Pacote encerrado</span>
+</div>
+</div>
+<!-- Footer CTA with high emphasis on renewal -->
+<div class="flex items-center gap-space-sm mt-5 pt-3">
+<button class="flex-1 py-2 rounded-lg bg-secondary-container hover:bg-secondary-fixed text-on-secondary-fixed-variant font-label-md text-label-md transition-colors flex items-center justify-center gap-1.5 font-bold shadow-sm">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+<span>Oferecer Renovação no WhatsApp</span>
+</button>
+<button class="px-3 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">autorenew</span>
+<span>Reativar</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Official Pre-defined Package Catalog / Blueprints -->
+<div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Modelos Oficiais de Pacotes Disponíveis para Venda</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Regras contratuais, prazos de validade e proteção de margem líquida NAVY Clinical ERP.</p>
+</div>
+<button class="font-label-md text-label-md text-primary hover:text-on-primary-container font-semibold flex items-center gap-1 self-start sm:self-auto" onclick="openModal('modal-novo-modelo')">
+<span>Configurar Novos Modelos</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<!-- 3 Blueprint Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md pt-2">
+<!-- Model 1 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between transition-all hover:bg-surface-container-high/40">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">Trimestral Recorrente</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">Mais Vendido</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-1">Plano Retoque Frequente</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">4 sessões de manutenção preventiva a cada 21 dias com garantia de retenção e reposição expressa.</p>
+<div class="mt-4 flex flex-col gap-1.5 py-3 border-y border-surface-container-high text-body-sm font-body-sm">
+<div class="flex items-center justify-between">
+<span class="text-secondary">Validade Contratual:</span>
+<span class="font-semibold text-on-surface">90 dias corridos</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-secondary">Margem Líquida Alvo:</span>
+<span class="font-semibold text-primary">64.5%</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-secondary">Regra de Cancelamento:</span>
+<span class="text-on-surface">Taxa adm. de 10%</span>
+</div>
+</div>
+</div>
+<div class="mt-4 flex items-center justify-between pt-2">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Valor Sugerido</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">R$ 780,00</span>
+</div>
+<button class="px-3.5 py-2 rounded-lg bg-surface-container-lowest hover:bg-primary hover:text-on-primary text-on-surface font-label-md text-label-md transition-all shadow-sm" onclick="contratarPlano('Plano Retoque Frequente', 780, 4)">
+            Contratar
+          </button>
+</div>
+</div>
+<!-- Model 2 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between transition-all hover:bg-surface-container-high/40">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">Anual de Luxo</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">High Ticket</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-1">Clube VIP Cílios &amp; Brows</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">12 manutenções anuais + Design e Tintura personalizados com opção de home-care exclusivo.</p>
+<div class="mt-4 flex flex-col gap-1.5 py-3 border-y border-surface-container-high text-body-sm font-body-sm">
+<div class="flex items-center justify-between">
+<span class="text-secondary">Validade Contratual:</span>
+<span class="font-semibold text-on-surface">365 dias corridos</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-secondary">Margem Líquida Alvo:</span>
+<span class="font-semibold text-primary">71.2%</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-secondary">Regra de Cancelamento:</span>
+<span class="text-on-surface">Crédito intransferível</span>
+</div>
+</div>
+</div>
+<div class="mt-4 flex items-center justify-between pt-2">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Valor Sugerido</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">R$ 3.200,00</span>
+</div>
+<button class="px-3.5 py-2 rounded-lg bg-surface-container-lowest hover:bg-primary hover:text-on-primary text-on-surface font-label-md text-label-md transition-all shadow-sm" onclick="contratarPlano('Clube VIP Cílios &amp; Brows', 3200, 12)">
+            Contratar
+          </button>
+</div>
+</div>
+<!-- Model 3 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between transition-all hover:bg-surface-container-high/40">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">Semestral Tratamento</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/60 text-on-secondary-container font-label-sm text-label-sm">Nutrição Pro</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-1">Pack 4x Lash Lifting Nutritivo</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Sessões a cada 45 dias com hidratação de queratina botânica e blend de séruns restauradores.</p>
+<div class="mt-4 flex flex-col gap-1.5 py-3 border-y border-surface-container-high text-body-sm font-body-sm">
+<div class="flex items-center justify-between">
+<span class="text-secondary">Validade Contratual:</span>
+<span class="font-semibold text-on-surface">180 dias corridos</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-secondary">Margem Líquida Alvo:</span>
+<span class="font-semibold text-primary">68.0%</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-secondary">Regra de Cancelamento:</span>
+<span class="text-on-surface">Reembolso proporcional</span>
+</div>
+</div>
+</div>
+<div class="mt-4 flex items-center justify-between pt-2">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Valor Sugerido</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">R$ 640,00</span>
+</div>
+<button class="px-3.5 py-2 rounded-lg bg-surface-container-lowest hover:bg-primary hover:text-on-primary text-on-surface font-label-md text-label-md transition-all shadow-sm" onclick="contratarPlano('Pack 4x Lash Lifting Nutritivo', 640, 4)">
+            Contratar
+          </button>
+</div>
+</div>
+</div>
+</div>
+<!-- MODAL: Contratar Novo Pacote para Cliente -->
+<div class="fixed inset-0 z-50 bg-inverse-surface/40 backdrop-blur-sm hidden items-center justify-center p-4" id="modal-contratar-pacote">
+<div class="w-full max-w-lg rounded-2xl bg-surface-container-lowest p-space-lg shadow-xl flex flex-col gap-space-md animate-in fade-in zoom-in-95">
+<div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[24px]">assignment_add</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Contratar Pacote / Plano</h3>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors" onclick="closeModal('modal-contratar-pacote')">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface font-medium">Selecione o Cliente</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">person_search</span>
+<input class="w-full pl-9 pr-3 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Nome ou CPF da cliente..." type="text">
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface font-medium">Modelo de Pacote</label>
+<select class="w-full px-3 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20" id="modal-select-plano">
+<option value="Plano Retoque Frequente">Plano Retoque Frequente (4 sessões - R$ 780,00)</option>
+<option value="Clube VIP Cílios &amp; Brows">Clube VIP Cílios &amp; Brows (12 sessões - R$ 3.200,00)</option>
+<option value="Pack 4x Lash Lifting Nutritivo">Pack 4x Lash Lifting Nutritivo (4 sessões - R$ 640,00)</option>
+<option value="Combo 3x Manutenção Volume Russo">Combo 3x Manutenção Volume Russo (3 sessões - R$ 510,00)</option>
+</select>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface font-medium">Quantidade de Sessões</label>
+<input class="w-full px-3 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none" id="modal-input-sessoes" type="number" value="4">
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface font-medium">Valor Total Fechado</label>
+<input class="w-full px-3 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none" id="modal-input-valor" type="text" value="R$ 780,00">
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface font-medium">Condição de Liquidação</label>
+<div class="grid grid-cols-3 gap-2">
+<label class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low cursor-pointer">
+<input checked="" class="accent-primary" name="forma-pagto" type="radio">
+<span class="font-body-sm text-body-sm text-on-surface">Pix à Vista</span>
+</label>
+<label class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low cursor-pointer">
+<input class="accent-primary" name="forma-pagto" type="radio">
+<span class="font-body-sm text-body-sm text-on-surface">Cartão 3x</span>
+</label>
+<label class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low cursor-pointer">
+<input class="accent-primary" name="forma-pagto" type="radio">
+<span class="font-body-sm text-body-sm text-on-surface">Boleto Recorr.</span>
+</label>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-2">
+<button class="px-4 py-2 rounded-lg hover:bg-surface-container text-secondary font-label-md text-label-md transition-colors" onclick="closeModal('modal-contratar-pacote')">Cancelar</button>
+<button class="px-5 py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md transition-all shadow-sm" onclick="confirmarContratacao()">Confirmar &amp; Gerar Créditos</button>
+</div>
+</div>
+</div>
+<!-- MODAL: Criar Novo Modelo de Plano -->
+<div class="fixed inset-0 z-50 bg-inverse-surface/40 backdrop-blur-sm hidden items-center justify-center p-4" id="modal-novo-modelo">
+<div class="w-full max-w-lg rounded-2xl bg-surface-container-lowest p-space-lg shadow-xl flex flex-col gap-space-md animate-in fade-in zoom-in-95">
+<div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[24px]">tune</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Novo Modelo Estratégico de Plano</h3>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors" onclick="closeModal('modal-novo-modelo')">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface font-medium">Nome Comercial do Pacote</label>
+<input class="w-full px-3 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none" placeholder="Ex: Pacote Verão Intenso - Cílios + Brow Lamination" type="text">
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface font-medium">Sessões Incluídas</label>
+<input class="w-full px-3 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none" placeholder="Ex: 6" type="number">
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface font-medium">Prazo de Validade (Dias)</label>
+<input class="w-full px-3 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none" placeholder="Ex: 120" type="number">
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface font-medium">Preço Tabela Regular</label>
+<input class="w-full px-3 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none" placeholder="R$ 1.200,00" type="text">
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface font-medium">Preço Pacote Antecipado</label>
+<input class="w-full px-3 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none" placeholder="R$ 980,00" type="text">
+</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low flex items-center justify-between text-body-sm font-body-sm text-secondary">
+<span>Margem Bruta Estimada: <strong class="text-primary font-semibold">66.8%</strong></span>
+<span class="text-xs text-outline">Proteção antifalta ativada</span>
+</div>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-2">
+<button class="px-4 py-2 rounded-lg hover:bg-surface-container text-secondary font-label-md text-label-md transition-colors" onclick="closeModal('modal-novo-modelo')">Voltar</button>
+<button class="px-5 py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md transition-all shadow-sm" onclick="closeModal('modal-novo-modelo')">Salvar Modelo</button>
+</div>
+</div>
+</div>
+<script>
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function contratarPlano(nome, valor, sessoes) {
+      const select = document.getElementById('modal-select-plano');
+      const inputValor = document.getElementById('modal-input-valor');
+      const inputSessoes = document.getElementById('modal-input-sessoes');
+
+      if (select) select.value = nome;
+      if (inputValor) inputValor.value = 'R$ ' + valor.toFixed(2).replace('.', ',');
+      if (inputSessoes) inputSessoes.value = sessoes;
+
+      openModal('modal-contratar-pacote');
+    }
+
+    function confirmarContratacao() {
+      closeModal('modal-contratar-pacote');
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl bg-on-surface text-surface flex items-center gap-2 shadow-lg text-body-sm font-body-sm transition-opacity duration-300';
+      toast.innerHTML = '<span class="material-symbols-outlined text-[18px] text-primary-fixed">check_circle</span> Pacote registrado com sucesso! Créditos liberados para agendamento.';
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 400);
+      }, 3500);
+    }
+  </script>
+</div></main></div>
+
+<script defer src="/stitch/navy-ui.js"></script></body></html>

@@ -1,0 +1,334 @@
+<aside id="navy-view-drawer" role="dialog" aria-modal="true" aria-label="Detalhes do atendimento" class="fixed top-16 right-0 bottom-0 w-[530px] max-w-full bg-surface-container-lowest shadow-2xl z-50 flex flex-col overflow-hidden animate-in slide-in-from-right duration-300">
+<!-- Drawer Header -->
+<div class="p-space-lg bg-surface-container-lowest shadow-[0_1px_4px_rgba(0,0,0,0.03)] flex flex-col gap-3 relative z-10">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold">Conclusão de Atendimento</span>
+<span class="px-2.5 py-0.5 rounded-full bg-[#EDF5F1] text-[#4A8B6B] font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#4A8B6B]"></span>
+              Procedimento Finalizado
+            </span>
+</div>
+<span class="font-label-sm text-label-sm text-outline tracking-wider uppercase mt-1">ID #NAVY-8429 • Cabine VIP 01 • Jardins</span>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-outline hover:bg-surface-container hover:text-on-surface transition-colors" id="closeDrawerBtn">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Quick Action / Switcher tabs inside drawer -->
+<div class="flex items-center gap-1 bg-surface-container-low p-1 rounded-xl">
+<button class="flex-1 py-1 px-2 rounded-lg bg-surface-container-lowest text-primary font-label-sm text-label-sm shadow-xs font-semibold flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">task_alt</span>
+          Fechamento &amp; Estoque
+        </button>
+<button class="flex-1 py-1 px-2 rounded-lg text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm flex items-center justify-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px]">history_edu</span>
+          Anamnese &amp; Prontuário
+        </button>
+<button class="flex-1 py-1 px-2 rounded-lg text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm flex items-center justify-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+          Anotações Técnicas
+        </button>
+</div>
+</div>
+<!-- Scrollable Drawer Body -->
+<div class="flex-1 overflow-y-auto px-space-lg py-space-md flex flex-col gap-space-lg bg-surface-container-low/40">
+<!-- Client Identification Card -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover shadow-xs" data-alt="Portrait photography of an elegant Latin brunette woman with glowing skin, soft studio lighting, high-end aesthetics clinic patient profile picture, quiet luxury style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWtC8UIg4QA3YwfOSl7KEdt-ptU3FKQCCcTija1HsB6I6Vgb4TnfAPdl6MtVmkrkVo3fgHTZe3xr_IHpzPaYumOqAiT4tyU6PbBkb02bFssov7QmkedDNrfLrJZn0_I_8Wzg0J3laHSFtmaWqv_IQW6St9XSH4JJPXIVdHi1ufYmi_CHQkzoetIgrbGQLv42VB1bpZxSkW85J9-1Mjf7f2uNySIzcf9JNf0sCcXQ149DYHfUyK7Fu-"/>
+<span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-primary text-on-primary text-[10px] flex items-center justify-center font-bold">14</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Beatriz Albuquerque</span>
+<span class="material-symbols-outlined text-primary text-[16px]" title="Cliente Verificada VIP">verified</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-medium">Cliente Recorrente VIP • Desde Março/2023</span>
+</div>
+</div>
+<a class="w-9 h-9 rounded-xl bg-[#EDF5F1] text-[#4A8B6B] flex items-center justify-center hover:bg-[#C9E2D5] transition-colors" href="#" title="Contato indisponível nesta prévia" title="Conversar no WhatsApp">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+</a>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low/80 flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">straighten</span>
+<span class="font-label-sm text-label-sm"><strong class="text-on-surface">Mapping Ativo:</strong> Efeito Esquilo Híbrido (8–13mm • Curvatura C/D)</span>
+</div>
+<span class="font-label-sm text-label-sm text-[#4A8B6B] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#4A8B6B]"></span>
+            Hipoalergênico
+          </span>
+</div>
+</div>
+<!-- Executed Service Summary -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between pb-2 border-b border-surface-container">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Procedimento Concluído</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">Dra. Camila NAVY (CRBM 48.912)</span>
+</div>
+<div class="flex items-start justify-between">
+<div>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold block">Volume Russo Master VIP</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">+ Design Estratégico de Sobrancelhas na Linha Egípcia</span>
+</div>
+<div class="text-right">
+<span class="font-headline-sm text-headline-sm text-primary font-semibold">1h 45m</span>
+<span class="font-label-sm text-label-sm text-outline block">14:30 → 16:15</span>
+</div>
+</div>
+</div>
+<!-- SECTION 1: Automatic Stock Deduction & Adhesive Life -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">inventory</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Baixa Automática no Estoque</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-[#EDF5F1] text-[#4A8B6B] font-label-sm text-label-sm font-semibold">4 itens rastreados</span>
+</div>
+<div class="flex flex-col gap-2">
+<!-- Item 1: Master Elite Glue -->
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary shadow-xs">
+<span class="material-symbols-outlined text-[18px]">water_drop</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-medium">Adesivo Master Elite Extra Black</span>
+<span class="font-label-sm text-label-sm text-outline">Lote #CX-902 • Aberto há 16 dias (Máx 21 dias)</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-md text-label-md text-on-surface font-semibold">4 gotas</span>
+<span class="font-label-sm text-label-sm text-[#4A8B6B] block">OK Frescor</span>
+</div>
+</div>
+<!-- Item 2: Hydrogel Collagen Eyepads -->
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center text-secondary shadow-xs">
+<span class="material-symbols-outlined text-[18px]">healing</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-medium">Eyepads Hidrogel de Colágeno Marinho</span>
+<span class="font-label-sm text-label-sm text-outline">Lote #HP-2024 • Uso único lacrado</span>
+</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">1 par</span>
+</div>
+<!-- Item 3: Faux Mink Lashes -->
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center text-secondary shadow-xs">
+<span class="material-symbols-outlined text-[18px]">fiber_manual_record</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-medium">Fios Cashmere Faux Mink 0.07 (C/D)</span>
+<span class="font-label-sm text-label-sm text-outline">Consumo por amostragem de leque</span>
+</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">1 chicote</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary/40 bg-surface-container-lowest accent-primary cursor-pointer" type="checkbox"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Consumo padrão NAVY respeitado</span>
+</label>
+<button class="font-label-sm text-label-sm text-primary font-semibold hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">add_circle</span>
+            Adicionar Insumo Extra
+          </button>
+</div>
+</div>
+<!-- SECTION 2: Immediate Clinical Photos (Before & After) -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">photo_camera</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Registro Fotográfico Imediato</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-[#EAF4FA] text-primary font-label-sm text-label-sm">Mapping Ocular</span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="flex flex-col gap-1.5">
+<div class="relative rounded-lg overflow-hidden h-28 bg-surface-container-high group">
+<img class="w-full h-full object-cover" data-alt="Macro beauty photography of closed eye before eyelash extension treatment, natural sparse lashes, clean aesthetic clinic, neutral background, soft diffused lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_KsB1RRQhRVYhN-SxswWd_-X_iBtvbEPNVVYXtR70ixqXpXP7IOGOD0slG34UtIkeItOIxpm-K2QIFxG_gbG7dNnU7QEbezBesWMq5HJOUPSJUY_dQrLctvsAIbw6Y4hAa0E_6KCvMMeMgKXKIICTEgW89Jj5bO3YuJh4H9dJZ4FbPCSO3IYqkZlLsojjVpo36fYu4Scu_wzvkiV0wAGbIugHHUHm8q6PJz-0ulO4sowNOFjM1o9l"/>
+<span class="absolute bottom-1.5 left-1.5 px-2 py-0.5 rounded bg-on-surface/70 text-on-primary font-label-sm text-[10px] uppercase font-semibold backdrop-blur-xs">Antes • 14:32</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline text-center">Densidade Inicial (45%)</span>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="relative rounded-lg overflow-hidden h-28 bg-surface-container-high group">
+<img class="w-full h-full object-cover" data-alt="Macro beauty photography of closed eye after russian volume eyelash extensions, flawlessly fanned lashes, perfect curl and symmetry, clinical studio lighting, quiet luxury" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA97jHl7DyHXRFbX_Fp1H2lUuZFywhElvQ4dLIwNlGzs3VUbTz1l4QsXDgEzJOXXiAZp2HXICsD-DMFtHERCTD3mbaibTjbdda1y0NINOwOT_F2OfMBUC2J_z_dyYpBb8pxLr9y3yyQi3NS8u7RZq_YA8FzdiGW9C4tiZyLA4LVCPu3lSBKjy3mwpUmRQIPup0nwO3VJnSN-dFsLt-M51eyLmZSKhQLGVSyB5srzUk3ClFRkGKSXAYc"/>
+<span class="absolute bottom-1.5 left-1.5 px-2 py-0.5 rounded bg-[#4A8B6B]/80 text-on-primary font-label-sm text-[10px] uppercase font-semibold backdrop-blur-xs">Depois • 16:12</span>
+<button class="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-surface-container-lowest/90 text-on-surface flex items-center justify-center shadow-xs hover:bg-surface-container-lowest" title="Expandir visualização">
+<span class="material-symbols-outlined text-[14px]">fullscreen</span>
+</button>
+</div>
+<span class="font-label-sm text-label-sm text-[#4A8B6B] font-medium text-center">Simetria Atingida (100%)</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1.5 text-outline">
+<span class="material-symbols-outlined text-[16px] text-[#4A8B6B]">verified_user</span>
+<span class="font-label-sm text-label-sm">Termo de Imagem: Autorizado</span>
+</div>
+<button class="flex items-center gap-1 px-3 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm transition-colors">
+<span class="material-symbols-outlined text-[16px]">add_a_photo</span>
+            Nova Foto
+          </button>
+</div>
+</div>
+<!-- SECTION 3: Financial Reconciliation & Smart Split -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">account_balance_wallet</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Conciliação Financeira</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-[#EDF5F1] text-[#4A8B6B] font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+            Margem Líquida: 68%
+          </span>
+</div>
+<!-- Breakdown Calculations -->
+<div class="flex flex-col gap-2 bg-surface-container-low/70 p-3 rounded-xl">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant">Valor Total do Atendimento</span>
+<span class="text-on-surface font-semibold">R$ 380,00</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant">Descontos ou Cortesia</span>
+<span class="text-outline">R$ 0,00 (Tabela Praticada)</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm text-[#4A8B6B]">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+              Sinal Pago no Agendamento (30% Pix)
+            </span>
+<span class="font-semibold">- R$ 114,00</span>
+</div>
+<div class="h-px bg-surface-variant my-1"></div>
+<div class="flex items-baseline justify-between">
+<div>
+<span class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider block">Saldo Restante a Receber</span>
+<span class="font-label-sm text-label-sm text-outline">Conciliação imediata no caixa</span>
+</div>
+<div class="text-right">
+<span class="font-headline-xl text-headline-xl text-primary font-bold">R$ 266,00</span>
+</div>
+</div>
+</div>
+<!-- Payment Method Tabs -->
+<div class="flex flex-col gap-2">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Forma de Pagamento para o Saldo</span>
+<div class="grid grid-cols-4 gap-2">
+<button class="py-2.5 px-2 rounded-xl bg-primary text-on-primary font-label-sm text-label-sm font-semibold flex flex-col items-center justify-center gap-1 shadow-xs ring-2 ring-primary/20">
+<span class="material-symbols-outlined text-[20px]">qr_code_2</span>
+              Pix Auto
+            </button>
+<button class="py-2.5 px-2 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-medium flex flex-col items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[20px]">credit_card</span>
+              Crédito
+            </button>
+<button class="py-2.5 px-2 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-medium flex flex-col items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[20px]">payment</span>
+              Débito
+            </button>
+<button class="py-2.5 px-2 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-medium flex flex-col items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+              Dinheiro
+            </button>
+</div>
+</div>
+<!-- Dynamic Pix Interactive Box -->
+<div class="p-3.5 rounded-xl bg-surface-container-low border border-dashed border-outline-variant flex items-center gap-4">
+<!-- Inline Minimal SVG QR Code Representation -->
+<div class="w-24 h-24 bg-surface-container-lowest p-1.5 rounded-lg shadow-xs flex-shrink-0 flex items-center justify-center">
+<svg class="w-full h-full text-on-surface" fill="currentColor" viewbox="0 0 100 100">
+<!-- Corner Finder 1 -->
+<rect fill="none" height="28" rx="3" stroke="currentColor" stroke-width="6" width="28" x="5" y="5"></rect>
+<rect fill="currentColor" height="12" rx="2" width="12" x="13" y="13"></rect>
+<!-- Corner Finder 2 -->
+<rect fill="none" height="28" rx="3" stroke="currentColor" stroke-width="6" width="28" x="67" y="5"></rect>
+<rect fill="currentColor" height="12" rx="2" width="12" x="75" y="13"></rect>
+<!-- Corner Finder 3 -->
+<rect fill="none" height="28" rx="3" stroke="currentColor" stroke-width="6" width="28" x="5" y="67"></rect>
+<rect fill="currentColor" height="12" rx="2" width="12" x="13" y="75"></rect>
+<!-- Data Dots Pattern -->
+<rect fill="currentColor" height="6" width="6" x="42" y="8"></rect>
+<rect fill="currentColor" height="6" width="6" x="52" y="8"></rect>
+<rect fill="currentColor" height="8" width="8" x="42" y="20"></rect>
+<rect fill="currentColor" height="6" width="6" x="55" y="22"></rect>
+<rect fill="currentColor" height="14" width="6" x="10" y="42"></rect>
+<rect fill="currentColor" height="6" width="14" x="22" y="42"></rect>
+<rect fill="#7CA7C7" height="16" rx="2" width="16" x="42" y="42"></rect>
+<rect fill="currentColor" height="6" width="8" x="66" y="42"></rect>
+<rect fill="currentColor" height="12" width="12" x="80" y="42"></rect>
+<rect fill="currentColor" height="18" width="6" x="66" y="56"></rect>
+<rect fill="currentColor" height="6" width="10" x="82" y="62"></rect>
+<rect fill="currentColor" height="8" width="16" x="42" y="68"></rect>
+<rect fill="currentColor" height="10" width="8" x="48" y="82"></rect>
+<rect fill="currentColor" height="12" width="16" x="76" y="80"></rect>
+</svg>
+</div>
+<div class="flex-1 flex flex-col gap-2 min-w-0">
+<div class="flex items-center gap-1.5 text-[#C98642]">
+<span class="w-2 h-2 rounded-full bg-[#C98642] animate-ping"></span>
+<span class="font-label-sm text-label-sm font-semibold">Aguardando leitura do QR Code...</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Pix Banco Central: NAVY Pagamentos SA</span>
+<button class="w-fit flex items-center gap-1.5 px-3 py-1 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm shadow-xs hover:bg-surface-container transition-all" id="copyPixBtn">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span>Copiar Chave Copia e Cola</span>
+</button>
+</div>
+</div>
+</div>
+<!-- SECTION 4: Intelligent Preventative Maintenance Scheduling -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">event_repeat</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Próxima Manutenção Preventiva</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-[#FAF3EB] text-[#C98642] font-label-sm text-label-sm font-semibold">Janela 18–21 Dias</span>
+</div>
+<div class="p-3 rounded-xl bg-[#FAF8F4] flex flex-col gap-2">
+<div class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">tips_and_updates</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Período Ideal: 11 a 14 de Novembro</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Garante preservação de 80% da estrutura sem necessidade de remoção química total.</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 pt-1">
+<label class="flex items-start gap-2.5 cursor-pointer">
+<input checked="" class="w-4 h-4 mt-0.5 rounded text-primary focus:ring-primary/40 accent-primary cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-medium">Pré-agendar manutenção sugerida (Terça, 12/Nov às 15:00)</span>
+<span class="font-body-sm text-body-sm text-outline">Disparo de lembrete cordial via WhatsApp 48h antes</span>
+</div>
+</label>
+</div>
+</div>
+<div class="h-4"></div>
+</div>
+<!-- Fixed Drawer Footer (Actions) -->
+<div class="p-space-lg bg-surface-container-lowest shadow-[0_-4px_16px_rgba(0,0,0,0.04)] flex items-center justify-between gap-space-md relative z-20">
+<button class="px-4 py-2.5 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors">
+        Salvar Rascunho
+      </button>
+<button class="flex-1 flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary/90 shadow-md transition-all" id="finishPaymentBtn">
+<span class="material-symbols-outlined text-[18px]">lock_clock</span>
+<span>Dar Baixa e Liquidar R$ 266,00</span>
+</button>
+</div>
+</aside>

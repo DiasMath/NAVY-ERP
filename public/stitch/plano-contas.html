@@ -1,0 +1,740 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "secondary": "#436273", "primary-fixed": "#c8e6ff", "surface-container-high": "#e3e9ef", "on-tertiary-container": "#3b3832", "tertiary-fixed": "#e8e1d9", "inverse-surface": "#2b3136", "on-primary-fixed": "#001e2f", "secondary-fixed": "#c6e7fb", "outline": "#72787e", "on-background": "#161c21", "on-surface-variant": "#41474d", "on-tertiary": "#ffffff", "tertiary-fixed-dim": "#ccc6bd", "on-primary-container": "#053c58", "surface-container": "#e9eef5", "surface-container-lowest": "#ffffff", "on-tertiary-fixed-variant": "#4a4640", "primary": "#376380", "surface-container-low": "#eff4fb", "error-container": "#ffdad6", "on-primary-fixed-variant": "#1c4b67", "secondary-container": "#c6e7fb", "on-secondary-fixed-variant": "#2b4b5a", "secondary-fixed-dim": "#aacbde", "surface-container-highest": "#dde3ea", "surface": "#f3f7fc", "on-primary": "#ffffff", "on-secondary-container": "#496979", "primary-container": "#7ca7c7", "tertiary": "#625e57", "background": "#f3f7fc", "inverse-on-surface": "#ecf1f8", "surface-bright": "#f3f7fc", "outline-variant": "#c1c7ce", "on-secondary-fixed": "#001e2b", "on-tertiary-fixed": "#1e1b16", "on-secondary": "#ffffff", "surface-dim": "#d5dbe1", "surface-variant": "#dde3ea", "surface-tint": "#376380", "inverse-primary": "#a0cced", "on-error": "#ffffff", "on-surface": "#161c21", "on-error-container": "#93000a", "error": "#ba1a1a", "primary-fixed-dim": "#a0cced", "tertiary-container": "#a7a199" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.5rem", "gutter-mobile": "1rem", "space-xs": "0.25rem", "space-md": "1rem", "space-lg": "1.5rem", "space-xl": "2.25rem", "margin": "2rem", "gutter": "1.5rem", "margin-mobile": "1rem" }, "fontFamily": { "body-lg": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "body-sm": ["Inter"], "headline-xl": ["Plus Jakarta Sans"], "headline-xl-mobile": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "body-md": ["Inter"], "headline-md": ["Plus Jakarta Sans"] }, "fontSize": { "body-lg": ["1rem", { "lineHeight": "1.625rem", "fontWeight": "400" }], "headline-sm": ["1.0625rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-sm": ["0.8125rem", { "lineHeight": "1.375rem", "fontWeight": "400" }], "headline-xl": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.03em", "fontWeight": "600" }], "headline-xl-mobile": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.025em", "fontWeight": "600" }], "label-md": ["0.8125rem", { "lineHeight": "1.25rem", "letterSpacing": "0.01em", "fontWeight": "600" }], "label-sm": ["0.6875rem", { "lineHeight": "1rem", "letterSpacing": "0.03em", "fontWeight": "600" }], "headline-lg": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }], "headline-lg-mobile": ["1.375rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.02em", "fontWeight": "600" }], "body-md": ["0.875rem", { "lineHeight": "1.5rem", "fontWeight": "400" }], "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" }] } } } }</script><meta name="description" content="Prévia visual NAVY com dados ilustrativos, sem persistência ou autenticação"><link rel="stylesheet" href="/stitch/navy-ui.css"></head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen"><aside class="fixed left-0 top-0 h-screen w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col flex-1 min-h-0"><div class="h-16 px-space-lg flex items-center gap-space-sm"><div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-on-primary font-headline-md font-bold tracking-tight shadow-[0_2px_6px_rgba(55,99,128,0.25)]">N</div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-tight">NAVY</span><span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Clinical ERP</span></div></div><div class="flex-1 overflow-y-auto px-space-md py-space-sm space-y-space-md"><nav class="space-y-space-md" data-active-classes="bg-secondary-container text-on-secondary-container font-semibold rounded-lg shadow-[0_1px_4px_rgba(67,98,115,0.08)]"><div class="space-y-space-xs"><p class="px-space-sm font-label-sm text-label-sm text-on-surface-variant/70 uppercase tracking-wider font-semibold">Visão Geral</p><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-150" data-path="dashboard" href="/dashboard" target="_top"><span class="material-symbols-outlined text-[19px]">grid_view</span><span>Dashboard</span></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-150" data-path="relatorios-insights" href="/relatorios" target="_top"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[19px]">insights</span><span>Relatórios &amp; Insights</span></div><span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant">Em breve</span></a></div><div class="space-y-space-xs"><p class="px-space-sm font-label-sm text-label-sm text-on-surface-variant/70 uppercase tracking-wider font-semibold">Atendimentos</p><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-150" data-path="agenda-operacional" href="/agenda" target="_top"><span class="material-symbols-outlined text-[19px]">calendar_today</span><span>Agenda Operacional</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-150" data-path="clientes" href="/clientes" target="_top"><span class="material-symbols-outlined text-[19px]">group</span><span>Clientes</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-150" data-path="fichas-anamnese" href="/avaliacoes" target="_top"><span class="material-symbols-outlined text-[19px]">clinical_notes</span><span>Fichas Anamnese</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-150" data-path="fotos-antes-depois" href="/historico-fotos" target="_top"><span class="material-symbols-outlined text-[19px]">photo_library</span><span>Fotos Antes &amp; Depois</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-150" data-path="manutenções" href="/manutencoes" target="_top"><span class="material-symbols-outlined text-[19px]">event_repeat</span><span>Manutenções</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-150" data-path="pacotes-sessoes" href="/pacotes" target="_top"><span class="material-symbols-outlined text-[19px]">card_membership</span><span>Pacotes &amp; Sessões</span></a></div><div class="space-y-space-xs"><p class="px-space-sm font-label-sm text-label-sm text-on-surface-variant/70 uppercase tracking-wider font-semibold">Serviços</p><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-150" data-path="catalogo-de-servicos" href="/servicos" target="_top"><span class="material-symbols-outlined text-[19px]">spa</span><span>Catálogo de Serviços</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-150" data-path="precificacao-estrategica" href="/precificacao" target="_top"><span class="material-symbols-outlined text-[19px]">price_change</span><span>Precificação Estratégica</span></a></div><div class="space-y-space-xs"><p class="px-space-sm font-label-sm text-label-sm text-on-surface-variant/70 uppercase tracking-wider font-semibold">Estoque &amp; Compras</p><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-150" data-path="materiais-estoque" href="/estoque" target="_top"><span class="material-symbols-outlined text-[19px]">inventory_2</span><span>Materiais &amp; Estoque</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-150" data-path="fornecedores" href="/fornecedores" target="_top"><span class="material-symbols-outlined text-[19px]">local_shipping</span><span>Fornecedores</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-150" data-path="pedidos-de-compra" href="/compras" target="_top"><span class="material-symbols-outlined text-[19px]">shopping_bag</span><span>Pedidos de Compra</span></a></div><div class="space-y-space-xs"><p class="px-space-sm font-label-sm text-label-sm text-on-surface-variant/70 uppercase tracking-wider font-semibold">Financeiro</p><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-150" data-path="fluxo-de-caixa" href="/fluxo-caixa" target="_top"><span class="material-symbols-outlined text-[19px]">account_balance_wallet</span><span>Fluxo de Caixa</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-150" data-path="contas-pagar-receber" href="/contas-pagar" target="_top"><span class="material-symbols-outlined text-[19px]">payments</span><span>Contas a Pagar / Receber</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-2 transition-all duration-150 bg-secondary-container text-on-secondary-container font-semibold rounded-lg shadow-[0_1px_4px_rgba(67,98,115,0.08)]" data-path="plano-de-contas" href="/plano-contas" target="_top"><span class="material-symbols-outlined text-[19px]">account_tree</span><span>Plano de Contas</span></a></div><div class="space-y-space-xs"><p class="px-space-sm font-label-sm text-label-sm text-on-surface-variant/70 uppercase tracking-wider font-semibold">Administração</p><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-150" data-path="configuracoes-gerais" href="/configuracoes" target="_top"><span class="material-symbols-outlined text-[19px]">tune</span><span>Configurações Gerais</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-150" data-path="usuarios-acessos" href="/usuarios" target="_top"><span class="material-symbols-outlined text-[19px]">admin_panel_settings</span><span>Usuários &amp; Acessos</span></a></div></nav></div></div><div class="p-space-md m-space-sm rounded-xl bg-surface-container-low flex flex-col gap-1"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm font-semibold text-primary uppercase tracking-wide">Plano Elegance</span><span class="w-2 h-2 rounded-full bg-secondary"></span></div><p class="font-body-sm text-body-sm text-on-surface-variant">Unidade Jardins SP</p></div></aside><div class="pl-72 flex flex-col min-h-screen"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md z-40 px-space-lg flex items-center justify-between shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="flex items-center gap-space-md w-full max-w-xl"><div class="relative w-full"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[20px] text-on-surface-variant/70">search</span><input class="w-full h-10 pl-10 pr-4 rounded-xl bg-surface-container-low text-on-surface placeholder:text-on-surface-variant/60 font-body-md text-body-md outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container/40 transition-all" placeholder="Buscar pacientes, fichas, insumos ou pedidos..." type="text"></div></div><div class="flex items-center gap-space-lg"><span class="font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap">Hoje, 24 de Outubro</span><div class="flex items-center gap-space-xs"><button class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors relative" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span></button><button class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">help</span></button></div><div class="h-6 w-px bg-surface-container-high"></div><div class="flex items-center gap-space-sm pl-space-xs"><div class="text-right"><p class="font-headline-sm text-body-md text-on-surface leading-tight font-semibold">Dra. Camila NAVY</p><p class="font-label-sm text-label-sm text-on-surface-variant">Master Lash &amp; Beauty</p></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-[calc(100vh-4rem)] px-space-xl py-space-lg"><div class="flex flex-col w-full space-y-space-lg">
+<!-- Header / Breadcrumb & Actions Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm tracking-wider uppercase text-on-surface-variant font-semibold">FINANCEIRO</span>
+<span class="material-symbols-outlined text-[14px] text-outline-variant">chevron_right</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase text-primary font-semibold">ESTRUTURAÇÃO GERENCIAL</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Plano de Contas &amp; Centros de Resultado</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+        Estrutura gerencial simplificada e intuitiva para clínicas de estética de alto padrão. Classificação de receitas e despesas sem complexidade contábil artificial, focada na lucratividade real da maca.
+      </p>
+</div>
+<!-- Quick Action Buttons -->
+<div class="flex items-center gap-space-sm flex-shrink-0">
+<button class="h-10 px-4 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors font-headline-sm text-label-md flex items-center gap-2 shadow-sm" onclick="toggleDREModal(true)" type="button">
+<span class="material-symbols-outlined text-[18px]">query_stats</span>
+<span>Visualizar DRE Simplificada</span>
+</button>
+<button class="h-10 px-4 rounded-lg bg-primary text-on-primary hover:bg-on-primary-container transition-all font-headline-sm text-label-md flex items-center gap-2 shadow-sm hover:shadow-md" onclick="openNewCategoryModal()" type="button">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span>+ Nova Categoria de Conta</span>
+</button>
+</div>
+</div>
+<!-- Cards de Alocação Orçamentária no Topo -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Card 1: Receitas Operacionais Brutas -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md flex flex-col justify-between shadow-sm hover:shadow transition-shadow relative overflow-hidden">
+<div class="space-y-1">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase font-semibold tracking-wider">Receitas Operacionais</span>
+<span class="material-symbols-outlined text-primary text-[20px]">trending_up</span>
+</div>
+<p class="font-headline-lg text-headline-lg text-on-surface font-semibold">R$ 42.850,00</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Faturamento consolidado mês vigente</p>
+</div>
+<div class="mt-4 pt-3 space-y-2">
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden flex">
+<div class="bg-primary h-full" style="width: 72%" title="72% Serviços em Maca"></div>
+<div class="bg-secondary h-full" style="width: 18%" title="18% Pacotes &amp; Assinaturas"></div>
+<div class="bg-tertiary-container h-full" style="width: 10%" title="10% Venda Home Care"></div>
+</div>
+<div class="flex items-center justify-between text-[11px] font-label-sm text-on-surface-variant pt-1">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span> 72% Maca</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary inline-block"></span> 18% Pacotes</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-tertiary-container inline-block"></span> 10% Home</span>
+</div>
+</div>
+</div>
+<!-- Card 2: Custos Variáveis dos Procedimentos (CPV) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md flex flex-col justify-between shadow-sm hover:shadow transition-shadow">
+<div class="space-y-1">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase font-semibold tracking-wider">Custos Variáveis (Insumos)</span>
+<span class="font-label-sm text-label-sm font-semibold px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container">10.2% da Rec.</span>
+</div>
+<p class="font-headline-lg text-headline-lg text-on-surface font-semibold">R$ 4.390,00</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">CPV Insumos e taxas de meio de pgto.</p>
+</div>
+<div class="mt-4 pt-3 space-y-1.5">
+<div class="flex justify-between items-center text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Teto operacional ideal: 12.0%</span>
+<span class="text-secondary font-semibold">Meta Atingida</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 85%"></div>
+</div>
+</div>
+</div>
+<!-- Card 3: Despesas Fixas Operacionais -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md flex flex-col justify-between shadow-sm hover:shadow transition-shadow">
+<div class="space-y-1">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase font-semibold tracking-wider">Despesas Fixas do Studio</span>
+<span class="font-label-sm text-label-sm font-semibold px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant">20.9%</span>
+</div>
+<p class="font-headline-lg text-headline-lg text-on-surface font-semibold">R$ 8.950,00</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Studio, equipe base e plataformas</p>
+</div>
+<div class="mt-4 pt-3 space-y-1.5">
+<div class="flex justify-between items-center text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Ponto de Equilíbrio</span>
+<span class="text-on-surface font-semibold">R$ 13.340,00</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 32%"></div>
+</div>
+</div>
+</div>
+<!-- Card 4: Margem de Contribuição Global -->
+<div class="bg-primary text-on-primary rounded-xl p-space-md flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="space-y-1 z-10">
+<div class="flex items-center justify-between text-primary-fixed">
+<span class="font-label-sm text-label-sm uppercase font-semibold tracking-wider">Margem de Contribuição</span>
+<span class="material-symbols-outlined text-[20px]">verified</span>
+</div>
+<p class="font-headline-lg text-headline-lg text-on-primary font-semibold">89.8%</p>
+<p class="font-body-sm text-body-sm text-primary-fixed/80">Lucro bruto direto em cada procedimento</p>
+</div>
+<div class="mt-4 pt-3 z-10 flex items-center justify-between font-label-sm text-label-sm text-primary-fixed">
+<span>Sobra pós-maca</span>
+<span class="font-semibold text-on-primary">R$ 38.460,00</span>
+</div>
+<!-- Faint background glow for quiet luxury -->
+<div class="absolute -right-8 -bottom-8 w-32 h-32 rounded-full bg-primary-container/20 blur-xl pointer-events-none"></div>
+</div>
+</div>
+<!-- Main Section: Estrutura em Árvore & Painel Lateral -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Árvore Hierárquica do Plano de Contas (9 Colunas no Desktop) -->
+<div class="lg:col-span-8 bg-surface-container-lowest rounded-xl p-space-lg shadow-sm space-y-space-md">
+<!-- Table Header & Filter Bar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-sm">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Estrutura Hierárquica de Contas</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Classificação ativa com vínculos de rateio para a unidade Jardins</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-label-sm font-label-sm text-primary hover:text-on-primary-container px-2.5 py-1.5 rounded-lg bg-surface-container-low transition-colors" onclick="expandAllNodes()" type="button">
+            Expandir Todos
+          </button>
+<button class="text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface px-2.5 py-1.5 rounded-lg bg-surface-container-low transition-colors" onclick="collapseAllNodes()" type="button">
+            Recolher Todos
+          </button>
+</div>
+</div>
+<!-- Tree Table List -->
+<div class="space-y-space-sm">
+<!-- GRUPO 1: RECEITAS OPERACIONAIS -->
+<div class="rounded-xl bg-surface-container-low/70 overflow-hidden transition-all duration-200" id="group-1">
+<!-- Master Row -->
+<div class="flex items-center justify-between px-space-md py-3.5 cursor-pointer hover:bg-surface-container-high/40 transition-colors select-none" onclick="toggleNode('node-1-content', 'node-1-icon')">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px] text-primary transition-transform duration-200" id="node-1-icon">expand_more</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-primary/10 text-primary font-bold">1.0</span>
+<span class="font-headline-sm text-body-md text-on-surface font-semibold">RECEITAS OPERACIONAIS</span>
+<span class="font-label-sm text-[11px] px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-medium">Entrada Direta</span>
+</div>
+<div class="flex items-center gap-6">
+<span class="font-label-sm text-label-sm text-on-surface-variant hidden sm:inline">100% da Receita</span>
+<span class="font-headline-sm text-body-md text-on-surface font-semibold tracking-tight">R$ 42.850,00</span>
+</div>
+</div>
+<!-- Group 1 Content -->
+<div class="px-space-md pb-space-sm space-y-space-xs" id="node-1-content">
+<!-- Sub-item 1.1 -->
+<div class="bg-surface-container-lowest rounded-lg p-3 space-y-2">
+<div class="flex items-center justify-between cursor-pointer select-none" onclick="toggleNode('subnode-1-1-content', 'subnode-1-1-icon')">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant transition-transform duration-200" id="subnode-1-1-icon">expand_more</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">1.1</span>
+<span class="font-headline-sm text-body-sm font-semibold text-on-surface">Receitas de Extensão &amp; Saúde de Cílios</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant px-1.5 py-0.2 rounded bg-surface-container">62 atendimentos</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant">56.3%</span>
+<span class="font-label-md text-body-sm font-semibold text-on-surface">R$ 24.120,00</span>
+</div>
+</div>
+<!-- Children of 1.1 -->
+<div class="pl-6 space-y-1.5 pt-1 text-body-sm" id="subnode-1-1-content">
+<div class="flex items-center justify-between py-1 px-2 rounded hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-label-sm text-on-surface-variant">1.1.01</span>
+<span class="text-on-surface">Volume Brasileiro &amp; Híbrido</span>
+</div>
+<span class="font-medium text-on-surface">R$ 13.800,00</span>
+</div>
+<div class="flex items-center justify-between py-1 px-2 rounded hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-label-sm text-on-surface-variant">1.1.02</span>
+<span class="text-on-surface">Lash Lifting &amp; Tratamento Nutritivo</span>
+</div>
+<span class="font-medium text-on-surface">R$ 5.420,00</span>
+</div>
+<div class="flex items-center justify-between py-1 px-2 rounded hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-label-sm text-on-surface-variant">1.1.03</span>
+<span class="text-on-surface">Retoques e Manutenções Preventivas</span>
+</div>
+<span class="font-medium text-on-surface">R$ 4.900,00</span>
+</div>
+</div>
+</div>
+<!-- Sub-item 1.2 -->
+<div class="bg-surface-container-lowest rounded-lg p-3 space-y-2">
+<div class="flex items-center justify-between cursor-pointer select-none" onclick="toggleNode('subnode-1-2-content', 'subnode-1-2-icon')">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant transition-transform duration-200" id="subnode-1-2-icon">expand_more</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">1.2</span>
+<span class="font-headline-sm text-body-sm font-semibold text-on-surface">Receitas de Sobrancelhas &amp; Estética Complementar</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant">15.7%</span>
+<span class="font-label-md text-body-sm font-semibold text-on-surface">R$ 6.730,00</span>
+</div>
+</div>
+<!-- Children of 1.2 -->
+<div class="pl-6 space-y-1.5 pt-1 text-body-sm" id="subnode-1-2-content">
+<div class="flex items-center justify-between py-1 px-2 rounded hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-on-surface-variant">1.2.01</span>
+<span class="text-on-surface">Design Estratégico &amp; Henna Híbrida</span>
+</div>
+<span class="font-medium text-on-surface">R$ 4.250,00</span>
+</div>
+<div class="flex items-center justify-between py-1 px-2 rounded hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-on-surface-variant">1.2.02</span>
+<span class="text-on-surface">Brow Lamination &amp; Alinhamento</span>
+</div>
+<span class="font-medium text-on-surface">R$ 2.480,00</span>
+</div>
+</div>
+</div>
+<!-- Sub-item 1.3 -->
+<div class="bg-surface-container-lowest rounded-lg p-3 flex items-center justify-between">
+<div class="flex items-center gap-2 pl-6">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">1.3</span>
+<span class="font-headline-sm text-body-sm font-semibold text-on-surface">Planos Recorrentes &amp; Pacotes Pré-pagos</span>
+<span class="font-label-sm text-[10px] px-1.5 py-0.2 rounded bg-primary-fixed text-on-primary-fixed uppercase tracking-wider font-semibold">Recorrência</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant">18.0%</span>
+<span class="font-label-md text-body-sm font-semibold text-on-surface">R$ 7.720,00</span>
+</div>
+</div>
+<!-- Sub-item 1.4 -->
+<div class="bg-surface-container-lowest rounded-lg p-3 flex items-center justify-between">
+<div class="flex items-center gap-2 pl-6">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">1.4</span>
+<span class="font-headline-sm text-body-sm font-semibold text-on-surface">Produtos Home Care &amp; Revenda Clínica</span>
+<span class="font-label-sm text-[10px] px-1.5 py-0.2 rounded bg-tertiary-fixed text-on-tertiary-fixed uppercase tracking-wider font-semibold">Varejo</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant">10.0%</span>
+<span class="font-label-md text-body-sm font-semibold text-on-surface">R$ 4.280,00</span>
+</div>
+</div>
+</div>
+</div>
+<!-- GRUPO 2: CUSTOS VARIÁVEIS DIRETOS -->
+<div class="rounded-xl bg-surface-container-low/70 overflow-hidden transition-all duration-200" id="group-2">
+<!-- Master Row -->
+<div class="flex items-center justify-between px-space-md py-3.5 cursor-pointer hover:bg-surface-container-high/40 transition-colors select-none" onclick="toggleNode('node-2-content', 'node-2-icon')">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px] text-secondary transition-transform duration-200" id="node-2-icon">expand_more</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-secondary/15 text-secondary font-bold">2.0</span>
+<span class="font-headline-sm text-body-md text-on-surface font-semibold">CUSTOS VARIÁVEIS DIRETOS (CMV / Insumos)</span>
+<span class="font-label-sm text-[11px] px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-medium">Dedutível da Maca</span>
+</div>
+<div class="flex items-center gap-6">
+<span class="font-label-sm text-label-sm text-on-surface-variant hidden sm:inline">10.2% da Receita</span>
+<span class="font-headline-sm text-body-md text-on-surface font-semibold tracking-tight">R$ 4.390,00</span>
+</div>
+</div>
+<!-- Group 2 Content -->
+<div class="px-space-md pb-space-sm space-y-space-xs text-body-sm" id="node-2-content">
+<div class="bg-surface-container-lowest rounded-lg p-3 flex items-center justify-between hover:bg-surface-container-lowest/90 transition-colors">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-on-surface-variant font-semibold">2.1</span>
+<div>
+<p class="font-medium text-on-surface">Fios, Adesivos &amp; Removedores Especiais</p>
+<p class="text-body-sm text-on-surface-variant text-[12px]">Colas de alta retenção, chicotes PBT e primer nanotecnológico</p>
+</div>
+</div>
+<span class="font-medium text-on-surface">R$ 2.140,00</span>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-3 flex items-center justify-between hover:bg-surface-container-lowest/90 transition-colors">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-on-surface-variant font-semibold">2.2</span>
+<div>
+<p class="font-medium text-on-surface">Descartáveis, EPIs &amp; Biossegurança</p>
+<p class="text-body-sm text-on-surface-variant text-[12px]">Pads de hidrogel, micropore antialérgico, toucas e luvas nitrílicas</p>
+</div>
+</div>
+<span class="font-medium text-on-surface">R$ 1.250,00</span>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-3 flex items-center justify-between hover:bg-surface-container-lowest/90 transition-colors">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-on-surface-variant font-semibold">2.3</span>
+<div>
+<p class="font-medium text-on-surface">Taxas de Intermediação de Cartão / Pagamentos</p>
+<p class="text-body-sm text-on-surface-variant text-[12px]">Taxa média real de 2.33% com conciliação automática</p>
+</div>
+</div>
+<span class="font-medium text-on-surface">R$ 1.000,00</span>
+</div>
+</div>
+</div>
+<!-- GRUPO 3: DESPESAS FIXAS OPERACIONAIS -->
+<div class="rounded-xl bg-surface-container-low/70 overflow-hidden transition-all duration-200" id="group-3">
+<!-- Master Row -->
+<div class="flex items-center justify-between px-space-md py-3.5 cursor-pointer hover:bg-surface-container-high/40 transition-colors select-none" onclick="toggleNode('node-3-content', 'node-3-icon')">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px] text-tertiary transition-transform duration-200" id="node-3-icon">expand_more</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-bold">3.0</span>
+<span class="font-headline-sm text-body-md text-on-surface font-semibold">DESPESAS FIXAS OPERACIONAIS</span>
+<span class="font-label-sm text-[11px] px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-medium">Manutenção Base</span>
+</div>
+<div class="flex items-center gap-6">
+<span class="font-label-sm text-label-sm text-on-surface-variant hidden sm:inline">20.9% da Receita</span>
+<span class="font-headline-sm text-body-md text-on-surface font-semibold tracking-tight">R$ 8.950,00</span>
+</div>
+</div>
+<!-- Group 3 Content -->
+<div class="px-space-md pb-space-sm space-y-space-xs text-body-sm" id="node-3-content">
+<div class="bg-surface-container-lowest rounded-lg p-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-on-surface-variant font-semibold">3.1</span>
+<div>
+<p class="font-medium text-on-surface">Ocupação &amp; Studio</p>
+<p class="text-body-sm text-on-surface-variant text-[12px]">Locação Jardins, condomínio, energia trifásica, água e higienização</p>
+</div>
+</div>
+<span class="font-medium text-on-surface">R$ 5.490,00</span>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-on-surface-variant font-semibold">3.2</span>
+<div>
+<p class="font-medium text-on-surface">Pessoal &amp; Pró-labore Master</p>
+<p class="text-body-sm text-on-surface-variant text-[12px]">Recepção concierge e retirada fixa da gestora técnica</p>
+</div>
+</div>
+<span class="font-medium text-on-surface">R$ 2.200,00</span>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-on-surface-variant font-semibold">3.3</span>
+<div>
+<p class="font-medium text-on-surface">Sistemas, Software ERP &amp; Telefonia</p>
+<p class="text-body-sm text-on-surface-variant text-[12px]">NAVY Clinical ERP, link dedicado fibra e WhatsApp API Oficial</p>
+</div>
+</div>
+<span class="font-medium text-on-surface">R$ 380,00</span>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-on-surface-variant font-semibold">3.4</span>
+<div>
+<p class="font-medium text-on-surface">Marketing &amp; Posicionamento de Marca</p>
+<p class="text-body-sm text-on-surface-variant text-[12px]">Tráfego pago local e identidade sensorial olfativa/embalagens</p>
+</div>
+</div>
+<span class="font-medium text-on-surface">R$ 880,00</span>
+</div>
+</div>
+</div>
+<!-- GRUPO 4: INVESTIMENTOS & RESERVA ESTRATÉGICA -->
+<div class="rounded-xl bg-surface-container-low/70 overflow-hidden transition-all duration-200" id="group-4">
+<!-- Master Row -->
+<div class="flex items-center justify-between px-space-md py-3.5 cursor-pointer hover:bg-surface-container-high/40 transition-colors select-none" onclick="toggleNode('node-4-content', 'node-4-icon')">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px] text-outline transition-transform duration-200" id="node-4-icon">expand_more</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-bold">4.0</span>
+<span class="font-headline-sm text-body-md text-on-surface font-semibold">INVESTIMENTOS &amp; RESERVA ESTRATÉGICA</span>
+<span class="font-label-sm text-[11px] px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-medium">Patrimônio</span>
+</div>
+<div class="flex items-center gap-6">
+<span class="font-label-sm text-label-sm text-on-surface-variant hidden sm:inline">11.6% da Receita</span>
+<span class="font-headline-sm text-body-md text-on-surface font-semibold tracking-tight">R$ 4.980,00</span>
+</div>
+</div>
+<!-- Group 4 Content -->
+<div class="px-space-md pb-space-sm space-y-space-xs text-body-sm" id="node-4-content">
+<div class="bg-surface-container-lowest rounded-lg p-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-on-surface-variant font-semibold">4.1</span>
+<div>
+<p class="font-medium text-on-surface">Fundo de Reserva Operacional</p>
+<p class="text-body-sm text-on-surface-variant text-[12px]">Aporte mensal de segurança de liquidez da clínica</p>
+</div>
+</div>
+<span class="font-medium text-on-surface">R$ 3.000,00</span>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-on-surface-variant font-semibold">4.2</span>
+<div>
+<p class="font-medium text-on-surface">Cursos, Especializações Técnicas e Novos Equipamentos</p>
+<p class="text-body-sm text-on-surface-variant text-[12px]">Congresso Internacional Lash Art e nova maca motorizada ergonômica</p>
+</div>
+</div>
+<span class="font-medium text-on-surface">R$ 1.980,00</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Painel Lateral: Centros de Resultado & Regra de Ouro NAVY (4 Colunas) -->
+<div class="lg:col-span-4 space-y-space-md">
+<!-- Card: Regra de Ouro NAVY -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">shield</span>
+</div>
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm font-semibold tracking-wider uppercase text-secondary">Integridade de Dados</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">A Regra de Ouro NAVY</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Nenhuma despesa pode ser lançada no financeiro sem vinculação a um Centro de Custo válido. Essa regra assegura que o simulador de margens unitárias por maca e por profissional nunca apresente distorções.
+            </p>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between bg-surface-container-low p-3 rounded-lg">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Status de Conformidade</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">100% Calibrado</span>
+</div>
+</div>
+<!-- Card: Centros de Custo Ativos & Eficiência -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Centros de Resultado</h3>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant">4 Centros</span>
+</div>
+<div class="space-y-space-sm">
+<!-- Centro 1 -->
+<div class="p-3 rounded-lg bg-surface-container-low space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Maca 01 - Master Dra. Camila</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">82% Margem</span>
+</div>
+<div class="flex justify-between text-body-sm text-on-surface-variant text-[12px]">
+<span>Receita: R$ 26.500</span>
+<span>Custos Dir.: R$ 2.450</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 82%"></div>
+</div>
+</div>
+<!-- Centro 2 -->
+<div class="p-3 rounded-lg bg-surface-container-low space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Maca 02 - Lash &amp; Brow Designer</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">74% Margem</span>
+</div>
+<div class="flex justify-between text-body-sm text-on-surface-variant text-[12px]">
+<span>Receita: R$ 12.070</span>
+<span>Custos Dir.: R$ 1.940</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 74%"></div>
+</div>
+</div>
+<!-- Centro 3 -->
+<div class="p-3 rounded-lg bg-surface-container-low space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Balcão Boutique &amp; Home Care</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">48% Margem</span>
+</div>
+<div class="flex justify-between text-body-sm text-on-surface-variant text-[12px]">
+<span>Receita: R$ 4.280</span>
+<span>CMV Produtos: R$ 2.225</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 48%"></div>
+</div>
+</div>
+<!-- Centro 4 -->
+<div class="p-3 rounded-lg bg-surface-container-low space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Administração &amp; Infraestrutura</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">Centro de Custo</span>
+</div>
+<div class="flex justify-between text-body-sm text-on-surface-variant text-[12px]">
+<span>Alocação Fixa</span>
+<span>Total: R$ 8.950</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full rounded-full" style="width: 100%"></div>
+</div>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-headline-sm text-label-sm transition-colors flex items-center justify-center gap-1.5" onclick="openCostCenterModal()" type="button">
+<span class="material-symbols-outlined text-[18px]">domain_add</span>
+<span>Gerenciar Centros de Custo</span>
+</button>
+</div>
+<!-- Card: Visual Clássico do Ambiente Clínico Elegante -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-sm">
+<div class="relative w-full h-44 rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Modern high-end luxury eyelash and beauty clinic interior with architectural beige curves, ergonomic minimalist lash bed, quiet daylight, warm cream walls, clean clinical surfaces and brass accents in soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwkttzoDI5xkjzxV1d00A01UF4tHw6-IHz-Qmi1BdKjnaMSrVd5SVbfj-8GMzO2je3RQDH7zL4hzqcn1MQ2JX-tVXqEKk06gs6hbwk5c_Bke_2oykWWnWAS9S01qfJk9tv2gYm6_ABTeJBkbaHFOXcZ2-mbCzPwjlSRyCftQb_JCQtMbN5YOO2-mnik3TYiIfw0qI89LU3FrNOMPj0aZRq9Abu2MA2xky7jNsFL24bdrO-2d2j0sTF">
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-transparent to-transparent flex items-end p-3">
+<p class="font-headline-sm text-body-sm text-on-tertiary">Studio Jardins • Ambiente Clínico Acreditado</p>
+</div>
+</div>
+<p class="text-body-sm text-on-surface-variant leading-relaxed">
+          O padrão NAVY combina precisão financeira clínica com o conforto de um refúgio estético exclusivo.
+        </p>
+</div>
+</div>
+</div>
+<!-- MODAL: DRE Simplificada Gerencial (Invisível por padrão, ativado via JS) -->
+<div class="fixed inset-0 z-50 hidden bg-inverse-surface/30 backdrop-blur-sm flex items-center justify-center p-4 transition-all" id="modal-dre">
+<div class="bg-surface-container-lowest w-full max-w-2xl rounded-xl shadow-2xl p-space-lg space-y-space-md">
+<div class="flex items-center justify-between pb-space-sm border-b border-surface-container">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[24px]">receipt_long</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">DRE Gerencial Simplificada</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Demonstrativo de Resultado do Exercício • Mês Atual</p>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors" onclick="toggleDREModal(false)" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Linhas DRE -->
+<div class="space-y-2 text-body-sm">
+<div class="flex justify-between py-2 px-3 rounded bg-surface-container-low font-semibold text-on-surface">
+<span>(+) RECEITA BRUTA OPERACIONAL</span>
+<span class="text-primary font-headline-sm">R$ 42.850,00</span>
+</div>
+<div class="flex justify-between py-1.5 px-3 text-on-surface-variant pl-6">
+<span>(-) Custos Variáveis dos Procedimentos (Insumos/CPV)</span>
+<span class="text-error font-medium">- R$ 3.390,00</span>
+</div>
+<div class="flex justify-between py-1.5 px-3 text-on-surface-variant pl-6">
+<span>(-) Custos Meios de Pagamento (Cartão / Split)</span>
+<span class="text-error font-medium">- R$ 1.000,00</span>
+</div>
+<div class="flex justify-between py-2 px-3 rounded bg-secondary-container/40 font-semibold text-on-secondary-container">
+<span>(=) MARGEM DE CONTRIBUIÇÃO (89.8%)</span>
+<span class="font-headline-sm">R$ 38.460,00</span>
+</div>
+<div class="flex justify-between py-1.5 px-3 text-on-surface-variant pl-6">
+<span>(-) Despesas Fixas com Ocupação &amp; Studio</span>
+<span class="text-error font-medium">- R$ 5.490,00</span>
+</div>
+<div class="flex justify-between py-1.5 px-3 text-on-surface-variant pl-6">
+<span>(-) Pró-labore Técnico &amp; Pessoal</span>
+<span class="text-error font-medium">- R$ 2.200,00</span>
+</div>
+<div class="flex justify-between py-1.5 px-3 text-on-surface-variant pl-6">
+<span>(-) Sistemas, Telefonia &amp; Marketing</span>
+<span class="text-error font-medium">- R$ 1.260,00</span>
+</div>
+<div class="flex justify-between py-2 px-3 rounded bg-surface-container font-semibold text-on-surface">
+<span>(=) RESULTADO OPERACIONAL LÍQUIDO</span>
+<span class="text-primary font-headline-sm">R$ 29.510,00</span>
+</div>
+<div class="flex justify-between py-1.5 px-3 text-on-surface-variant pl-6">
+<span>(-) Investimento em Formação &amp; Equipamentos</span>
+<span class="text-on-surface-variant font-medium">- R$ 1.980,00</span>
+</div>
+<div class="flex justify-between py-1.5 px-3 text-on-surface-variant pl-6">
+<span>(-) Fundo de Reserva &amp; Liquidez</span>
+<span class="text-on-surface-variant font-medium">- R$ 3.000,00</span>
+</div>
+<div class="flex justify-between py-3 px-3 rounded-lg bg-primary text-on-primary font-headline-sm text-body-md mt-2">
+<span>(=) LUCRO LÍQUIDO DISPONÍVEL (DISTRIBUIÇÃO)</span>
+<span class="text-headline-sm font-bold">R$ 24.530,00</span>
+</div>
+</div>
+<div class="flex justify-end pt-2">
+<button class="h-10 px-5 rounded-lg bg-surface-container text-on-surface font-headline-sm text-label-md hover:bg-surface-container-high transition-colors" onclick="toggleDREModal(false)" type="button">
+          Fechar Visualização
+        </button>
+</div>
+</div>
+</div>
+<!-- MODAL: Cadastro de Nova Categoria de Conta -->
+<div class="fixed inset-0 z-50 hidden bg-inverse-surface/30 backdrop-blur-sm flex items-center justify-center p-4 transition-all" id="modal-category">
+<div class="bg-surface-container-lowest w-full max-w-lg rounded-xl shadow-2xl p-space-lg space-y-space-md">
+<div class="flex items-center justify-between pb-space-sm border-b border-surface-container">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Nova Categoria de Conta</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Adicione uma rubrica ao plano de contas gerencial</p>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors" onclick="toggleCategoryModal(false)" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<form class="space-y-space-md" onsubmit="handleCategorySubmit(event)">
+<!-- Grupo Principal -->
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Grupo de Contas Pai</label>
+<select class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md border-0 focus:ring-2 focus:ring-primary-container outline-none">
+<option value="1">1.0 RECEITAS OPERACIONAIS</option>
+<option value="2">2.0 CUSTOS VARIÁVEIS DIRETOS (CMV / Insumos)</option>
+<option selected="" value="3">3.0 DESPESAS FIXAS OPERACIONAIS</option>
+<option value="4">4.0 INVESTIMENTOS &amp; RESERVA ESTRATÉGICA</option>
+</select>
+</div>
+<!-- Código & Nome -->
+<div class="grid grid-cols-3 gap-3">
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Código</label>
+<input class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md border-0 focus:ring-2 focus:ring-primary-container outline-none" placeholder="Ex: 3.5" type="text" value="3.5">
+</div>
+<div class="col-span-2 space-y-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Nome da Categoria</label>
+<input class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md border-0 focus:ring-2 focus:ring-primary-container outline-none" placeholder="Ex: Manutenção de Equipamentos" required="" type="text">
+</div>
+</div>
+<!-- Centro de Custo Vinculado Obrigatório -->
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface-variant">Centro de Custo Padrão (Obrigatório)</label>
+<span class="font-label-sm text-[11px] text-primary font-semibold">Regra de Ouro NAVY</span>
+</div>
+<select class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md border-0 focus:ring-2 focus:ring-primary-container outline-none" required="">
+<option value="">Selecione um Centro de Custo para conciliação...</option>
+<option value="1">Maca 01 - Master Dra. Camila</option>
+<option value="2">Maca 02 - Lash &amp; Brow Designer</option>
+<option value="3">Balcão Boutique &amp; Home Care</option>
+<option selected="" value="4">Administração &amp; Infraestrutura Geral</option>
+</select>
+</div>
+<!-- Descrição / Observação de Diretriz -->
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Diretrizes de Classificação (Opcional)</label>
+<textarea class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md border-0 focus:ring-2 focus:ring-primary-container outline-none resize-none" placeholder="Orientações para o time da recepção na classificação de comprovantes..." rows="2"></textarea>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-2">
+<button class="h-10 px-4 rounded-lg bg-surface-container text-on-surface font-headline-sm text-label-md hover:bg-surface-container-high transition-colors" onclick="toggleCategoryModal(false)" type="button">
+            Cancelar
+          </button>
+<button class="h-10 px-5 rounded-lg bg-primary text-on-primary font-headline-sm text-label-md hover:bg-on-primary-container transition-colors shadow-sm" type="submit">
+            Salvar Categoria
+          </button>
+</div>
+</form>
+</div>
+</div>
+<!-- Toast Notification Feedback -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-16 opacity-0 transition-all duration-300 pointer-events-none bg-inverse-surface text-inverse-on-surface px-4 py-3 rounded-lg shadow-lg flex items-center gap-3" id="toast-feedback">
+<span class="material-symbols-outlined text-[20px] text-primary-container">check_circle</span>
+<span class="font-body-sm text-body-sm font-medium" id="toast-message">Categoria cadastrada com sucesso!</span>
+</div>
+</div>
+<!-- Script de Interações e Acordeão da Árvore de Contas -->
+<script>
+  function toggleNode(contentId, iconId) {
+    const content = document.getElementById(contentId);
+    const icon = document.getElementById(iconId);
+    
+    if (!content) return;
+
+    if (content.classList.contains('hidden')) {
+      content.classList.remove('hidden');
+      if (icon) icon.style.transform = 'rotate(0deg)';
+    } else {
+      content.classList.add('hidden');
+      if (icon) icon.style.transform = 'rotate(-90deg)';
+    }
+  }
+
+  function expandAllNodes() {
+    const contents = ['node-1-content', 'subnode-1-1-content', 'subnode-1-2-content', 'node-2-content', 'node-3-content', 'node-4-content'];
+    const icons = ['node-1-icon', 'subnode-1-1-icon', 'subnode-1-2-icon', 'node-2-icon', 'node-3-icon', 'node-4-icon'];
+
+    contents.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('hidden');
+    });
+
+    icons.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.transform = 'rotate(0deg)';
+    });
+  }
+
+  function collapseAllNodes() {
+    const contents = ['node-1-content', 'subnode-1-1-content', 'subnode-1-2-content', 'node-2-content', 'node-3-content', 'node-4-content'];
+    const icons = ['node-1-icon', 'subnode-1-1-icon', 'subnode-1-2-icon', 'node-2-icon', 'node-3-icon', 'node-4-icon'];
+
+    contents.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('hidden');
+    });
+
+    icons.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.transform = 'rotate(-90deg)';
+    });
+  }
+
+  function toggleDREModal(show) {
+    const modal = document.getElementById('modal-dre');
+    if (!modal) return;
+    if (show) {
+      modal.classList.remove('hidden');
+    } else {
+      modal.classList.add('hidden');
+    }
+  }
+
+  function toggleCategoryModal(show) {
+    const modal = document.getElementById('modal-category');
+    if (!modal) return;
+    if (show) {
+      modal.classList.remove('hidden');
+    } else {
+      modal.classList.add('hidden');
+    }
+  }
+
+  function openNewCategoryModal() {
+    toggleCategoryModal(true);
+  }
+
+  function openCostCenterModal() {
+    showToast('Módulo de parametrização de Centros de Custo carregado.');
+  }
+
+  function handleCategorySubmit(e) {
+    e.preventDefault();
+    toggleCategoryModal(false);
+    showToast('Nova rubrica gerencial vinculada ao Centro de Custo com sucesso!');
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById('toast-feedback');
+    const msgEl = document.getElementById('toast-message');
+    if (!toast || !msgEl) return;
+
+    msgEl.innerText = message;
+    toast.classList.remove('translate-y-16', 'opacity-0');
+    toast.classList.add('translate-y-0', 'opacity-100');
+
+    setTimeout(() => {
+      toast.classList.remove('translate-y-0', 'opacity-100');
+      toast.classList.add('translate-y-16', 'opacity-0');
+    }, 3500);
+  }
+</script></main></div><script defer src="/stitch/navy-ui.js"></script></body></html>
