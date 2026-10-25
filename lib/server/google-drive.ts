@@ -152,5 +152,14 @@ export async function downloadDriveImage(clinicId: string, fileId: string) {
 
 export async function deleteDriveFile(clinicId: string, fileId: string) {
   const { token } = await accessToken(clinicId);
-  await driveFetch(token, `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}`, { method: "DELETE" });
+  const response = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}`, {
+    method: "DELETE", headers: { Authorization: `Bearer ${token}` }, cache: "no-store",
+  });
+  // A imagem pode ter sido excluída diretamente no Drive. Nesse caso, ainda
+  // precisamos remover a referência no Firestore para liberar o cadastro.
+  if (response.status === 404) return;
+  if (!response.ok) {
+    console.error("Google Drive API", response.status, await response.text());
+    throw new ApiError(502, "Falha na comunicação com o Google Drive.");
+  }
 }

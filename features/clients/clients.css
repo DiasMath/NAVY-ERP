@@ -33,6 +33,8 @@
 .nc-photo-actions .nc-btn{min-height:27px;padding:0 9px}
 .nc-photo-message{font-size:9.5px;color:#436273}
 .nc-photo-error{color:#a04449}
+.nc-photo-missing{height:90px;display:grid;place-items:center;padding:8px;text-align:center;background:#eff4fb;color:#647985;font-size:9px}
+.nc-retry-link{border:0;background:none;color:#376380;text-decoration:underline;cursor:pointer;font:inherit}
 .nc-dialog-backdrop{padding:calc(var(--stitch-header-height, 51px) + 16px) 16px 16px calc(var(--stitch-sidebar-width, 230px) + 16px);transition:padding-left .2s ease}
 .nc-dialog{max-height:min(800px,calc(100dvh - var(--stitch-header-height, 51px) - 32px));display:flex;flex-direction:column;overflow:hidden}
 .nc-dialog-wide{width:min(700px,100%)}
