@@ -14,13 +14,15 @@ type DriveStatus = {
 };
 
 export default function IntegrationsPage() {
-  const { user, signOut } = useAuth();
+  const { user, profile, signOut } = useAuth();
   const [drive, setDrive] = useState<DriveStatus | null>(null);
   const [loading, setLoading] = useState(true);
   const [connecting, setConnecting] = useState(false);
   const [message, setMessage] = useState("");
   const [statusError, setStatusError] = useState("");
   const [statusRevision, setStatusRevision] = useState(0);
+  const canManageDrive = profile?.role === "master_admin" || profile?.role === "admin";
+  const canConnectDrive = canManageDrive && drive?.configured !== false && drive?.canConnect !== false;
 
   useEffect(() => {
     const result = new URLSearchParams(window.location.search).get("drive");
@@ -76,9 +78,9 @@ export default function IntegrationsPage() {
         <h2 id="si-drive-title">Google Drive</h2>
         <p>Armazena as fotos de perfil e a galeria das clientes em uma pasta privada. A NAVY libera cada imagem somente para usuários autenticados.</p>
         {drive?.connected && <div className="si-account"><span>Conta autorizada</span><strong>{drive.ownerEmail}</strong><small>Pasta do aplicativo: NAVY Clientes</small></div>}
-        {!loading && drive && !drive.connected && <div className="si-account"><span>Conta Google da clínica</span><strong>Escolha a conta na tela do Google</strong><small>Use a conta proprietária da pasta NAVY-ERP.</small></div>}
+        {!loading && !drive?.connected && <div className="si-account"><span>Conta Google da clínica</span><strong>{statusError ? "Conexão não verificada" : "Nenhuma conta autorizada"}</strong><small>Escolha a conta proprietária da pasta NAVY-ERP na tela do Google.</small></div>}
         <div className="si-actions">
-          {drive?.configured && drive.canConnect && <button type="button" className="si-primary" disabled={connecting} onClick={() => void connectDrive()}>{connecting ? "Abrindo Google..." : drive.connected ? "Reconectar Google Drive" : "Escolher conta Google"}</button>}
+          {!loading && canConnectDrive && <button type="button" className="si-primary" disabled={connecting} onClick={() => void connectDrive()}>{connecting ? "Abrindo Google..." : drive?.connected ? "Reconectar Google Drive" : "Conectar Google Drive"}</button>}
           {drive?.connected && <Link className="si-secondary" href="/clientes">Abrir Clientes</Link>}
         </div>
         {!loading && drive && !drive.configured && <p className="si-hint">As credenciais privadas do aplicativo ainda precisam ser configuradas no servidor.</p>}
