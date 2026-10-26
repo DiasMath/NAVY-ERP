@@ -112,7 +112,7 @@ export type SessionField = "service" | "date" | "amount" | "payment" | "duration
 export type SessionErrors = Partial<Record<SessionField, string>>;
 export type SessionInput = Omit<ClientSession, "id">;
 
-export function validateSession(values: FormData, planned: boolean, sessions: ClientSession[]): { input: SessionInput; errors: SessionErrors } {
+export function validateSession(values: FormData, planned: boolean, sessions: ClientSession[], editingId?: string): { input: SessionInput; errors: SessionErrors } {
   const errors: SessionErrors = {};
   const service = String(values.get("service") ?? "").trim().replace(/\s+/g, " ");
   const date = String(values.get("date") ?? "").trim();
@@ -130,7 +130,7 @@ export function validateSession(values: FormData, planned: boolean, sessions: Cl
   if (!validDate || !Number.isFinite(timestamp)) errors.date = "Informe uma data e um horário válidos.";
   else if (planned && timestamp < Date.now() - 60_000) errors.date = "Escolha um horário futuro para a manutenção.";
   else if (!planned && timestamp > Date.now() + 5 * 60_000) errors.date = "Uma sessão concluída não pode ter data futura.";
-  else if (planned && sessions.some((session) => session.payment === "Agendado" && session.date === date && session.service.toLocaleLowerCase("pt-BR") === service.toLocaleLowerCase("pt-BR"))) errors.date = "Já existe esta manutenção planejada neste horário.";
+  else if (planned && sessions.some((session) => session.id !== editingId && session.payment === "Agendado" && session.date === date && session.service.toLocaleLowerCase("pt-BR") === service.toLocaleLowerCase("pt-BR"))) errors.date = "Já existe esta manutenção planejada neste horário.";
 
   if (!planned && (amountText === "" || !Number.isFinite(amount) || amount < 0 || amount > 999_999 || !/^\d+(?:[.,]\d{1,2})?$/.test(amountText))) errors.amount = "Informe um valor válido entre R$ 0 e R$ 999.999, com até 2 casas decimais.";
   if (!planned && !["Pix", "Cartão Crédito", "Dinheiro", "Pendente"].includes(payment)) errors.payment = "Escolha uma forma de pagamento válida.";

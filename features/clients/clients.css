@@ -70,5 +70,10 @@
 .nc-agenda-date strong{font-size:10px}.nc-agenda-date small{font-size:9px;color:#657987;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .nc-agenda-meta{display:flex;align-items:flex-end;flex-direction:column;gap:3px;white-space:nowrap}
 .nc-agenda-meta em{font-size:8.5px;font-style:normal;color:#376380}.nc-agenda-meta b{font-size:10px}
+.nc-agenda-appointment{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:6px;padding:9px 10px;border:1px solid #e5edf2;border-radius:8px;background:#fff}
+.nc-agenda-appointment span{display:flex;flex-direction:column;gap:3px;min-width:0}
+.nc-agenda-appointment strong{font-size:10px;color:#293d49}
+.nc-agenda-appointment small{font-size:9px;color:#657987}
+.nc-agenda-appointment a{color:#376380;font-size:9.5px;font-weight:700;white-space:nowrap}
 .nc-agenda-item>.material-symbols-outlined{color:#6c8ca1;flex:none}
 @media(max-width:760px){.nc-profile-actions{flex-wrap:wrap}.nc-agenda-heading{align-items:flex-start;flex-direction:column}}

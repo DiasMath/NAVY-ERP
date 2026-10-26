@@ -2,21 +2,22 @@
 
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import ContentDialog from "@/components/ContentDialog";
+import Link from "next/link";
 import type { User } from "firebase/auth";
 import { writeBatch, doc } from "firebase/firestore";
 import { useAuth } from "@/features/auth/AuthProvider";
 import { getFirebaseClient } from "@/lib/firebase/client";
 import { navyApi, NavyApiError } from "@/lib/firebase/navy-api";
-import type { ClientDocument, ClinicalSessionDocument } from "@/lib/firebase/documents";
+import type { AppointmentDocument, ClientDocument, ClinicalSessionDocument } from "@/lib/firebase/documents";
 import { createFirebaseRepositories } from "@/lib/firebase/repositories";
-import { type ClientRecord, type ClientSource, type PreferredContact } from "./client-data";
+import { type ClientRecord, type ClientSession, type ClientSource, type PreferredContact } from "./client-data";
 import { toClientDocument, toClientRecord, toSessionDocument } from "./client-firestore";
 import { prepareImageUpload } from "./client-images";
 import { formatBrazilPhone, validDateOnly, validateClient, validateSession, type ClientErrors, type ClientField, type ClientInput, type SessionErrors, type SessionField, type SessionInput } from "./client-validation";
 
 type Filter = "Todas" | "VIP / Retorno" | "Instagram" | "Indicação";
 type Tab = "timeline" | "anamnesis" | "gallery" | "preferences";
-type Dialog = "create" | "edit" | "delete" | "session" | "maintenance" | "reminder" | "contact" | "clinical" | "preferences" | null;
+type Dialog = "create" | "edit" | "delete" | "session" | "maintenance" | "sessionEdit" | "sessionDelete" | "reminder" | "contact" | "clinical" | "preferences" | null;
 type Photo = { id: string; name: string; url?: string };
 type DriveStatus = { connected: boolean };
 
@@ -34,6 +35,7 @@ const formatDate = (value: string) => new Intl.DateTimeFormat("pt-BR", { day: "2
 const formatShortDate = (value: string) => new Intl.DateTimeFormat("pt-BR", { day: "numeric", month: "long" }).format(new Date(`${value}T12:00:00`));
 const initials = (name: string) => name.trim().split(/\s+/).slice(0, 2).map((part) => part[0]?.toUpperCase()).join("");
 const formatBirthDate = (value: string) => value.split("-").reverse().join("/");
+const nextPlannedDate = (sessions: ClientSession[]) => sessions.filter(session => session.payment === "Agendado" && session.date.slice(0, 10) >= todayInput()).map(session => session.date.slice(0, 10)).sort()[0] ?? "";
 
 function Icon({ name, size = 18 }: { name: string; size?: number }) {
   return <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: size }}>{name}</span>;
@@ -49,11 +51,11 @@ function FieldError({ field, errors }: { field: ClientField; errors: ClientError
   return errors[field] ? <span className="nc-field-error" id={`nc-error-${field}`}>{errors[field]}</span> : null;
 }
 
-function SessionForm({ client, planned, saving, onSave, onClose }: { client: ClientRecord; planned: boolean; saving: boolean; onSave: (values: SessionInput, planned: boolean) => void; onClose: () => void }) {
+function SessionForm({ client, planned, editing, saving, onSave, onClose }: { client: ClientRecord; planned: boolean; editing?: ClientSession; saving: boolean; onSave: (values: SessionInput, planned: boolean) => void; onClose: () => void }) {
   const [errors, setErrors] = useState<SessionErrors>({});
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const result = validateSession(new FormData(event.currentTarget), planned, client.sessions);
+    const result = validateSession(new FormData(event.currentTarget), planned, client.sessions, editing?.id);
     setErrors(result.errors);
     const first = Object.keys(result.errors)[0] as SessionField | undefined;
     if (first) { event.currentTarget.querySelector<HTMLElement>(`[name="${first}"]`)?.focus(); return; }
@@ -62,13 +64,13 @@ function SessionForm({ client, planned, saving, onSave, onClose }: { client: Cli
   const clearError = (field: string) => { if (field in errors) setErrors((current) => ({ ...current, [field]: undefined })); };
   const error = (field: SessionField) => errors[field] ? <span className="nc-field-error" id={`nc-session-error-${field}`}>{errors[field]}</span> : null;
   return <form className="nc-form" noValidate onSubmit={submit} onChange={(event) => clearError(event.target.getAttribute("name") ?? "")}>
-    <p>Esta ação salva a sessão na ficha da cliente no Firestore. Retornos planejados ainda não aparecem na Agenda. <strong>* Campos obrigatórios; os demais são opcionais.</strong></p>
+    <p>Esta ação salva a sessão na ficha da cliente no Firestore. Retornos planejados ficam na ficha; use “Agendar” para reservar um horário na Agenda. <strong>* Campos obrigatórios; os demais são opcionais.</strong></p>
     {Object.values(errors).some(Boolean) && <div className="nc-validation-summary" role="alert">Revise os campos destacados antes de salvar.</div>}
-    <label>Procedimento *<input name="service" required minLength={3} maxLength={100} defaultValue={planned ? client.sessions.find((session) => session.payment !== "Agendado")?.service ?? "" : ""} placeholder="Ex: Manutenção Volume Brasileiro" aria-invalid={Boolean(errors.service)} aria-describedby={errors.service ? "nc-session-error-service" : undefined} />{error("service")}</label>
-    <div className="nc-form-row"><label>Data e horário *<input name="date" type="datetime-local" required defaultValue={dateTimeInput(planned)} aria-invalid={Boolean(errors.date)} aria-describedby={errors.date ? "nc-session-error-date" : undefined} />{error("date")}</label>{!planned && <label>Valor (R$) *<input name="amount" type="number" inputMode="decimal" min="0" max="999999" step="0.01" required defaultValue="0" aria-invalid={Boolean(errors.amount)} aria-describedby={errors.amount ? "nc-session-error-amount" : undefined} />{error("amount")}</label>}</div>
-    {!planned && <div className="nc-form-row"><label>Pagamento *<select name="payment" required aria-invalid={Boolean(errors.payment)} aria-describedby={errors.payment ? "nc-session-error-payment" : undefined}><option>Pix</option><option>Cartão Crédito</option><option>Dinheiro</option><option>Pendente</option></select>{error("payment")}</label><label>Duração<input name="duration" maxLength={40} defaultValue="1h" placeholder="Ex: 1h 30m" aria-invalid={Boolean(errors.duration)} aria-describedby={errors.duration ? "nc-session-error-duration" : undefined} />{error("duration")}</label></div>}
-    <label>Observações<textarea name="note" rows={3} maxLength={500} placeholder="Detalhes do atendimento" aria-invalid={Boolean(errors.note)} aria-describedby={errors.note ? "nc-session-error-note" : undefined} />{error("note")}</label>
-    <div className="nc-dialog-actions"><button type="button" className="nc-btn nc-btn-quiet" onClick={onClose} disabled={saving}>Cancelar</button><button type="submit" className="nc-btn nc-btn-primary" disabled={saving}>{saving ? "Salvando..." : planned ? "Planejar retorno" : "Registrar sessão"}</button></div>
+    <label>Procedimento *<input name="service" required minLength={3} maxLength={100} defaultValue={editing?.service ?? (planned ? client.sessions.find((session) => session.payment !== "Agendado")?.service ?? "" : "")} placeholder="Ex: Manutenção Volume Brasileiro" aria-invalid={Boolean(errors.service)} aria-describedby={errors.service ? "nc-session-error-service" : undefined} />{error("service")}</label>
+    <div className="nc-form-row"><label>Data e horário *<input name="date" type="datetime-local" required defaultValue={editing?.date ?? dateTimeInput(planned)} aria-invalid={Boolean(errors.date)} aria-describedby={errors.date ? "nc-session-error-date" : undefined} />{error("date")}</label>{!planned && <label>Valor (R$) *<input name="amount" type="number" inputMode="decimal" min="0" max="999999" step="0.01" required defaultValue={editing?.amount ?? 0} aria-invalid={Boolean(errors.amount)} aria-describedby={errors.amount ? "nc-session-error-amount" : undefined} />{error("amount")}</label>}</div>
+    {!planned && <div className="nc-form-row"><label>Pagamento *<select name="payment" required defaultValue={editing?.payment ?? "Pix"} aria-invalid={Boolean(errors.payment)} aria-describedby={errors.payment ? "nc-session-error-payment" : undefined}><option>Pix</option><option>Cartão Crédito</option><option>Dinheiro</option><option>Pendente</option></select>{error("payment")}</label><label>Duração<input name="duration" maxLength={40} defaultValue={editing?.duration ?? "1h"} placeholder="Ex: 1h 30m" aria-invalid={Boolean(errors.duration)} aria-describedby={errors.duration ? "nc-session-error-duration" : undefined} />{error("duration")}</label></div>}
+    <label>Observações<textarea name="note" rows={3} maxLength={500} defaultValue={editing?.note} placeholder="Detalhes do atendimento" aria-invalid={Boolean(errors.note)} aria-describedby={errors.note ? "nc-session-error-note" : undefined} />{error("note")}</label>
+    <div className="nc-dialog-actions"><button type="button" className="nc-btn nc-btn-quiet" onClick={onClose} disabled={saving}>Cancelar</button><button type="submit" className="nc-btn nc-btn-primary" disabled={saving}>{saving ? "Salvando..." : editing ? "Salvar sessão" : planned ? "Planejar retorno" : "Registrar sessão"}</button></div>
   </form>;
 }
 
@@ -161,9 +163,10 @@ function ClientListItem({ client, selected, user, driveConnected, onSelect }: { 
   </button>;
 }
 
-function ClientAgendaSection() {
+function ClientAgendaSection({ appointments }: { appointments: AppointmentDocument[] }) {
   return <section className="nc-agenda-section">
-    <div className="nc-agenda-heading"><div><h3>Agendamentos na Agenda</h3><p>A Agenda será conectada ao Firestore na próxima etapa.</p></div></div>
+    <div className="nc-agenda-heading"><div><h3>Agendamentos na Agenda</h3><p>{appointments.length ? `${appointments.length} compromisso${appointments.length === 1 ? "" : "s"} vinculado${appointments.length === 1 ? "" : "s"} a esta cliente.` : "Nenhum agendamento vinculado a esta cliente."}</p></div></div>
+    {appointments.map(item => <div className="nc-agenda-appointment" key={item.id}><span><strong>{new Date(`${item.date}T12:00:00`).toLocaleDateString("pt-BR")} às {item.time}</strong><small>{item.lines.map(line => line.name).join(" + ")} · {item.status}</small></span><Link href={`/agenda?appointmentId=${encodeURIComponent(item.id)}`}>Ver na Agenda</Link></div>)}
   </section>;
 }
 
@@ -172,7 +175,8 @@ export default function ClientsPage() {
   const repositories = useMemo(() => profile ? createFirebaseRepositories(getFirebaseClient().db, profile.clinicId) : null, [profile]);
   const [clientDocuments, setClientDocuments] = useState<ClientDocument[]>([]);
   const [sessionDocuments, setSessionDocuments] = useState<ClinicalSessionDocument[]>([]);
-  const [loaded, setLoaded] = useState({ clients: false, sessions: false });
+  const [appointmentDocuments, setAppointmentDocuments] = useState<AppointmentDocument[]>([]);
+  const [loaded, setLoaded] = useState({ clients: false, sessions: false, appointments: false });
   const [dataError, setDataError] = useState("");
   const [loadError, setLoadError] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -181,6 +185,7 @@ export default function ClientsPage() {
   const [selectedId, setSelectedId] = useState("");
   const [tab, setTab] = useState<Tab>("timeline");
   const [dialog, setDialog] = useState<Dialog>(null);
+  const [editingSessionId, setEditingSessionId] = useState("");
   const [toast, setToast] = useState("");
   const [photos, setPhotos] = useState<Record<string, Photo[]>>({});
   const [photoLoadState, setPhotoLoadState] = useState<"idle" | "loading" | "ready" | "error">("idle");
@@ -208,13 +213,14 @@ export default function ClientsPage() {
 
   useEffect(() => {
     if (!repositories) return;
-    setLoaded({ clients: false, sessions: false });
+    setLoaded({ clients: false, sessions: false, appointments: false });
     setDataError("");
     setLoadError(false);
     const onError = () => { setLoadError(true); setDataError("Não foi possível carregar os dados do Firestore. Confira a conexão e tente recarregar a página."); };
     const stopClients = repositories.clients.subscribe(items => { setClientDocuments(items); setLoaded(current => ({ ...current, clients: true })); }, onError);
     const stopSessions = repositories.sessions.subscribe(items => { setSessionDocuments(items); setLoaded(current => ({ ...current, sessions: true })); }, onError);
-    return () => { stopClients(); stopSessions(); };
+    const stopAppointments = repositories.appointments.subscribe(items => { setAppointmentDocuments(items); setLoaded(current => ({ ...current, appointments: true })); }, onError);
+    return () => { stopClients(); stopSessions(); stopAppointments(); };
   }, [repositories]);
   useEffect(() => { if (!toast) return; const timeout = window.setTimeout(() => setToast(""), 4200); return () => window.clearTimeout(timeout); }, [toast]);
 
@@ -227,6 +233,9 @@ export default function ClientsPage() {
     return matchesQuery && matchesFilter;
   }), [clients, query, filter]);
   const selected = filtered.find((client) => client.id === selectedId) ?? filtered[0] ?? null;
+  const selectedAppointments = appointmentDocuments.filter(item => item.clientId === selected?.id).sort((a, b) => `${b.date}T${b.time}`.localeCompare(`${a.date}T${a.time}`));
+  const editingSession = selected?.sessions.find(session => session.id === editingSessionId);
+  const canDeleteSessions = profile?.role === "master_admin" || profile?.role === "admin";
   useEffect(() => {
     if (!user || !selected?.avatarDriveFileId || !drive?.connected) { setAvatarUrl(""); return; }
     let active = true;
@@ -287,17 +296,44 @@ export default function ClientsPage() {
   const saveSession = (values: SessionInput, planned: boolean) => runSave(async () => {
     if (!repositories || !selected) throw new Error("Cliente indisponível");
     const session = toSessionDocument(selected.id, values);
+    const { id: _id, clientId: _clientId, createdAt: _createdAt, ...changes } = session;
+    if (dialog === "sessionEdit" && editingSession) {
+      if (planned) {
+        if (!profile) throw new Error("Unidade indisponível");
+        const db = getFirebaseClient().db;
+        const batch = writeBatch(db);
+        batch.update(doc(db, "clinics", profile.clinicId, "sessions", editingSession.id), changes);
+        if (!selected.returnDate || selected.returnDate === editingSession.date.slice(0, 10)) {
+          const sessions = selected.sessions.map(item => item.id === editingSession.id ? { ...item, ...values } : item);
+          batch.update(doc(db, "clinics", profile.clinicId, "clients", selected.id), { returnDate: nextPlannedDate(sessions), updatedAt: new Date().toISOString() });
+        }
+        await batch.commit();
+      } else await repositories.sessions.update(editingSession.id, changes);
+      setEditingSessionId("");
+      return;
+    }
     if (planned) {
       if (!profile) throw new Error("Unidade indisponível");
       const db = getFirebaseClient().db;
       const batch = writeBatch(db);
       const { id, ...sessionData } = session;
       batch.set(doc(db, "clinics", profile.clinicId, "sessions", id), sessionData);
-      batch.update(doc(db, "clinics", profile.clinicId, "clients", selected.id), { returnDate: values.date.slice(0, 10), updatedAt: new Date().toISOString() });
+      batch.update(doc(db, "clinics", profile.clinicId, "clients", selected.id), { returnDate: nextPlannedDate([...selected.sessions, { id, ...values }]), updatedAt: new Date().toISOString() });
       await batch.commit();
     } else await repositories.sessions.save(session);
     setTab("timeline");
-  }, planned ? "Retorno salvo na ficha. A Agenda será integrada depois." : "Sessão registrada no Firestore.");
+  }, dialog === "sessionEdit" ? "Sessão atualizada no Firestore." : planned ? "Retorno salvo na ficha." : "Sessão registrada no Firestore.");
+  const deleteSession = () => runSave(async () => {
+    if (!repositories || !profile || !selected || !editingSession || !canDeleteSessions) throw new Error("Sessão indisponível");
+    if (editingSession.payment === "Agendado" && selected.returnDate === editingSession.date.slice(0, 10)) {
+      const db = getFirebaseClient().db;
+      const batch = writeBatch(db);
+      batch.delete(doc(db, "clinics", profile.clinicId, "sessions", editingSession.id));
+      batch.update(doc(db, "clinics", profile.clinicId, "clients", selected.id), { returnDate: nextPlannedDate(selected.sessions.filter(item => item.id !== editingSession.id)), updatedAt: new Date().toISOString() });
+      await batch.commit();
+    } else await repositories.sessions.remove(editingSession.id);
+    setEditingSessionId("");
+  }, "Sessão excluída do Firestore.");
   const saveNotes = (values: { clinicalNote?: string; preferences?: string; returnDate?: string }) => runSave(async () => {
     if (!repositories || !selected) throw new Error("Cliente indisponível");
     await repositories.clients.update(selected.id, { ...values, updatedAt: new Date().toISOString() });
@@ -306,7 +342,7 @@ export default function ClientsPage() {
     if (!user || !selected) throw new Error("Cliente indisponível");
     await navyApi(user, `/api/clients/${selected.id}`, { method: "DELETE" });
     setSelectedId(""); setTab("timeline");
-  }, "Cadastro e sessões excluídos do Firestore.");
+  }, "Cadastro e registros vinculados excluídos do Firestore.");
 
   const uploadAvatar = async (file: File) => {
     if (!user || !selected || !drive?.connected || photoSaving) return;
@@ -373,10 +409,24 @@ export default function ClientsPage() {
     <div className="nc-columns"><div className="nc-left"><div className="nc-search-card"><label className="nc-search"><Icon name="search" size={17} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar por nome, telefone, e-mail ou @instagram..." aria-label="Buscar clientes" /></label><div className="nc-filters" role="group" aria-label="Filtrar clientes">{filters.map((item) => <button type="button" key={item} className={filter === item ? "nc-filter-active" : ""} onClick={() => setFilter(item)} aria-pressed={filter === item}>{item} ({counts[item]})</button>)}</div></div><div className="nc-client-list">{loadError && (!loaded.clients || !loaded.sessions) ? <div className="nc-empty">Não foi possível carregar as clientes.</div> : !loaded.clients || !loaded.sessions ? <div className="nc-empty" role="status">Carregando clientes do Firestore...</div> : filtered.length ? filtered.map((client) => <ClientListItem key={client.id} client={client} selected={selected?.id === client.id} user={user} driveConnected={Boolean(drive?.connected)} onSelect={() => { setSelectedId(client.id); setTab("timeline"); setPhotoConsent(false); }} />) : <div className="nc-empty">{clients.length ? "Nenhuma cliente encontrada. Ajuste a busca ou o filtro." : "Nenhuma cliente cadastrada. Use “+ Nova Cliente” para começar."}</div>}</div></div>
 
     <div className="nc-right">{selected ? <div className="nc-dossier" key={selected.id}>
-      <div className="nc-profile-top"><div className="nc-profile-identity"><div className="nc-profile-avatar"><Avatar client={{ ...selected, avatar: avatarUrl }} large /><span><Icon name="check" size={12} /></span></div><div><div className="nc-profile-title"><h2>{selected.name}</h2>{selected.vip && <span><Icon name="auto_awesome" size={13} /> Lash Fidelity VIP</span>}</div><p>{selected.city ? `${selected.city} • ` : ""}Cadastrada em {selected.joined}</p><small><Icon name="call" size={13} /> {selected.phone}{selected.instagram && <> <b>•</b> {selected.instagram}</>}</small>{(selected.email || selected.birthDate || selected.preferredContact) && <small className="nc-profile-extra">{selected.email && <><Icon name="mail" size={13} /> {selected.email}</>}{selected.birthDate && <><b>•</b> Nasc. {formatBirthDate(selected.birthDate)}</>}{selected.preferredContact && <><b>•</b> Prefere {selected.preferredContact}</>}</small>}</div></div><div className="nc-profile-actions"><button type="button" className="nc-btn nc-btn-primary" onClick={() => setToast("A Agenda será conectada ao Firestore na próxima etapa.")}><Icon name="event_available" size={17} /> Agendar</button><button type="button" className="nc-btn nc-btn-whatsapp" onClick={() => setDialog("contact")}><Icon name="chat" size={17} /> WhatsApp</button><button type="button" className="nc-btn nc-btn-icon" onClick={() => setDialog("edit")} title="Editar cadastro" aria-label="Editar cadastro"><Icon name="edit_note" size={20} /></button></div></div>
+      <div className="nc-profile-top"><div className="nc-profile-identity"><div className="nc-profile-avatar"><Avatar client={{ ...selected, avatar: avatarUrl }} large /><span><Icon name="check" size={12} /></span></div><div><div className="nc-profile-title"><h2>{selected.name}</h2>{selected.vip && <span><Icon name="auto_awesome" size={13} /> Lash Fidelity VIP</span>}</div><p>{selected.city ? `${selected.city} • ` : ""}Cadastrada em {selected.joined}</p><small><Icon name="call" size={13} /> {selected.phone}{selected.instagram && <> <b>•</b> {selected.instagram}</>}</small>{(selected.email || selected.birthDate || selected.preferredContact) && <small className="nc-profile-extra">{selected.email && <><Icon name="mail" size={13} /> {selected.email}</>}{selected.birthDate && <><b>•</b> Nasc. {formatBirthDate(selected.birthDate)}</>}{selected.preferredContact && <><b>•</b> Prefere {selected.preferredContact}</>}</small>}</div></div><div className="nc-profile-actions"><button type="button" className="nc-btn nc-btn-primary" onClick={() => window.location.assign(`/agenda?new=1&clientId=${encodeURIComponent(selected.id)}`)}><Icon name="event_available" size={17} /> Agendar</button><button type="button" className="nc-btn nc-btn-whatsapp" onClick={() => setDialog("contact")}><Icon name="chat" size={17} /> WhatsApp</button><button type="button" className="nc-btn nc-btn-icon" onClick={() => setDialog("edit")} title="Editar cadastro" aria-label="Editar cadastro"><Icon name="edit_note" size={20} /></button></div></div>
       <div className="nc-metrics"><div><small>LTV TOTAL INVESTIDO</small><strong>{money(selected.lifetimeValue)}</strong><span className="nc-metric-green"><Icon name="trending_up" size={13} /> {selected.visits} procedimentos registrados</span></div><div><small>TICKET MÉDIO</small><strong>{money(selected.visits ? selected.lifetimeValue / selected.visits : 0)}</strong><span>Procedimentos + Home care</span></div><div><small>FREQUÊNCIA MÉDIA</small><strong className="nc-metric-blue">{selected.frequencyDays ? `A cada ${selected.frequencyDays} dias` : "A definir"}</strong><span>{selected.frequencyDays ? "Alta assiduidade" : "Após novos atendimentos"}</span></div></div>
       <div className="nc-tabs" role="tablist" aria-label="Seções da cliente">{([["timeline", "history", "Linha do Tempo & Atendimentos"], ["anamnesis", "medical_information", "Ficha Anamnese & Sensibilidades"], ["gallery", "photo_library", "Galeria Antes/Depois (Consentida)"], ["preferences", "tune", "Manutenções & Preferências"]] as const).map(([id, icon, label]) => <button key={id} type="button" role="tab" aria-selected={tab === id} className={tab === id ? "nc-tab-active" : ""} onClick={() => setTab(id)}><Icon name={icon} size={17} />{label}</button>)}</div>
-      {tab === "timeline" && <div className="nc-tab-content"><div className="nc-clinical-alert"><Icon name="info" size={21} /><div><strong>Alerta de Prontuário &amp; Mapeamento</strong><p>{selected.clinicalNote}</p></div></div><div className="nc-return-banner"><span className="nc-return-icon"><Icon name="calendar_clock" size={21} /></span><div><small>AÇÃO PREVENTIVA SUGERIDA</small><strong>{selected.returnDate ? `Janela ideal de Retorno: ${formatShortDate(selected.returnDate)}` : "Planeje a próxima manutenção"}</strong><p>Organize o próximo contato e acompanhe as preferências da cliente.</p></div><div className="nc-return-actions"><button type="button" className="nc-btn nc-btn-primary" onClick={() => setDialog("maintenance")}>Planejar retorno na ficha</button><button type="button" className="nc-btn nc-btn-white" onClick={() => setDialog("reminder")}>Gerar Lembrete</button></div></div><ClientAgendaSection /><div className="nc-history-title"><h3>Histórico Clínico Detalhado <span>{selected.sessions.length} {selected.sessions.length === 1 ? "sessão" : "sessões"}</span></h3><button type="button" onClick={() => setDialog("session")}>+ Registrar Nova Sessão</button></div><div className="nc-timeline">{selected.sessions.length ? selected.sessions.map((session) => <div className="nc-timeline-item" key={session.id}><span className="nc-timeline-node" /><div className="nc-session"><div><small>{formatDate(session.date)}</small><h4>{session.service}</h4></div><span className={session.payment === "Agendado" ? "nc-session-planned" : session.payment === "Pendente" ? "nc-session-pending" : "nc-session-paid"}>{session.payment === "Agendado" ? "Retorno planejado" : session.payment === "Pendente" ? `Pagamento pendente • ${money(session.amount)}` : `Concluído • ${money(session.amount)} (${session.payment})`}</span><p>{session.note || "Sem observações adicionais."}</p><footer><Icon name="timer" size={14} /> Duração: {session.duration}</footer></div></div>) : <div className="nc-empty">Nenhuma sessão registrada. Use “Registrar Nova Sessão” para começar.</div>}</div></div>}
+      {tab === "timeline" && <div className="nc-tab-content">
+        <div className="nc-clinical-alert"><Icon name="info" size={21} /><div><strong>Alerta de Prontuário &amp; Mapeamento</strong><p>{selected.clinicalNote}</p></div></div>
+        <div className="nc-return-banner"><span className="nc-return-icon"><Icon name="calendar_clock" size={21} /></span><div><small>AÇÃO PREVENTIVA SUGERIDA</small><strong>{selected.returnDate ? `Janela ideal de Retorno: ${formatShortDate(selected.returnDate)}` : "Planeje a próxima manutenção"}</strong><p>Organize o próximo contato e acompanhe as preferências da cliente.</p></div><div className="nc-return-actions"><button type="button" className="nc-btn nc-btn-primary" onClick={() => setDialog("maintenance")}>Planejar retorno na ficha</button><button type="button" className="nc-btn nc-btn-white" onClick={() => setDialog("reminder")}>Gerar Lembrete</button></div></div>
+        <ClientAgendaSection appointments={selectedAppointments} />
+        <div className="nc-history-title"><h3>Histórico Clínico Detalhado <span>{selected.sessions.length} {selected.sessions.length === 1 ? "sessão" : "sessões"}</span></h3><button type="button" onClick={() => setDialog("session")}>+ Registrar Nova Sessão</button></div>
+        <div className="nc-timeline">{selected.sessions.length ? selected.sessions.map((session) => <div className="nc-timeline-item" key={session.id}>
+          <span className="nc-timeline-node" />
+          <div className="nc-session"><div><small>{formatDate(session.date)}</small><h4>{session.service}</h4></div>
+            <span className={session.payment === "Agendado" ? "nc-session-planned" : session.payment === "Pendente" ? "nc-session-pending" : "nc-session-paid"}>{session.payment === "Agendado" ? "Retorno planejado" : session.payment === "Pendente" ? `Pagamento pendente • ${money(session.amount)}` : `Concluído • ${money(session.amount)} (${session.payment})`}</span>
+            <p>{session.note || "Sem observações adicionais."}</p>
+            <footer><Icon name="timer" size={14} /> Duração: {session.duration}</footer>
+            <div className="nc-session-actions"><button type="button" onClick={() => { setEditingSessionId(session.id); setDialog("sessionEdit"); }}>Editar sessão</button>{canDeleteSessions && <button type="button" onClick={() => { setEditingSessionId(session.id); setDialog("sessionDelete"); }}>Excluir</button>}</div>
+          </div>
+        </div>) : <div className="nc-empty">Nenhuma sessão registrada. Use “Registrar Nova Sessão” para começar.</div>}</div>
+      </div>}
       {tab === "anamnesis" && <div className="nc-tab-content nc-secondary-tab"><div><Icon name="medical_information" size={25} /><h3>Ficha Anamnese &amp; Sensibilidades</h3><p>Notas clínicas registradas para {selected.name}.</p></div><div className="nc-info-card"><small>ALERTA DE PRONTUÁRIO &amp; MAPEAMENTO</small><p>{selected.clinicalNote}</p></div><button type="button" className="nc-btn nc-btn-primary" onClick={() => setDialog("clinical")}>Editar observações clínicas</button></div>}
       {tab === "gallery" && <div className="nc-tab-content nc-secondary-tab">
         <div><Icon name="photo_library" size={25} /><h3>Galeria Antes/Depois</h3><p>{drive?.connected ? "Imagens privadas guardadas no Google Drive e vinculadas a esta cliente." : "A integração de fotos é administrada em Configurações → Integrações."}</p></div>
@@ -398,7 +448,8 @@ export default function ClientsPage() {
 
     {(dialog === "create" || dialog === "edit") && <DialogFrame title={dialog === "create" ? "Cadastro da Cliente" : "Editar Cadastro da Cliente"} onClose={() => { if (!saving && !photoSaving) setDialog(null); }}><ClientForm key={dialog === "edit" ? selected?.id : "new"} client={dialog === "edit" ? selected ?? undefined : undefined} clients={clients} saving={saving} photoSaving={photoSaving} driveConnected={Boolean(drive?.connected)} avatarUrl={avatarUrl} canDelete={profile?.role === "master_admin" || profile?.role === "admin"} onSave={saveClient} onClose={() => setDialog(null)} onDelete={() => setDialog("delete")} onAvatarUpload={uploadAvatar} onAvatarRemove={removeAvatar} /></DialogFrame>}
     {dialog === "delete" && selected && <DialogFrame title="Excluir Cadastro" onClose={() => { if (!saving) setDialog(null); }}><div className="nc-form"><p>Excluir permanentemente o cadastro de {selected.name} e suas sessões registradas no Firestore?</p><div className="nc-dialog-actions"><button type="button" className="nc-btn nc-btn-quiet" onClick={() => setDialog("edit")} disabled={saving}>Cancelar</button><button type="button" className="nc-btn nc-btn-danger" onClick={deleteClient} disabled={saving}>{saving ? "Excluindo..." : "Excluir cadastro"}</button></div></div></DialogFrame>}
-    {(dialog === "session" || dialog === "maintenance") && selected && <DialogFrame title={dialog === "session" ? "Registrar Nova Sessão" : "Planejar Retorno"} onClose={() => { if (!saving) setDialog(null); }}><SessionForm key={`${selected.id}-${dialog}`} client={selected} planned={dialog === "maintenance"} saving={saving} onSave={saveSession} onClose={() => setDialog(null)} /></DialogFrame>}
+    {(dialog === "session" || dialog === "maintenance" || dialog === "sessionEdit") && selected && <DialogFrame title={dialog === "sessionEdit" ? "Editar Sessão" : dialog === "session" ? "Registrar Nova Sessão" : "Planejar Retorno"} onClose={() => { if (!saving) setDialog(null); }}><SessionForm key={`${selected.id}-${dialog}-${editingSessionId}`} client={selected} planned={dialog === "maintenance" || (dialog === "sessionEdit" && editingSession?.payment === "Agendado")} editing={dialog === "sessionEdit" ? editingSession : undefined} saving={saving} onSave={saveSession} onClose={() => setDialog(null)} /></DialogFrame>}
+    {dialog === "sessionDelete" && selected && editingSession && <DialogFrame title="Excluir Sessão" onClose={() => { if (!saving) setDialog(null); }}><div className="nc-form"><p>Excluir permanentemente “{editingSession.service}” de {selected.name}? O histórico e os indicadores serão recalculados.</p><div className="nc-dialog-actions"><button type="button" className="nc-btn nc-btn-quiet" onClick={() => setDialog(null)} disabled={saving}>Cancelar</button><button type="button" className="nc-btn nc-btn-danger" onClick={deleteSession} disabled={saving}>{saving ? "Excluindo..." : "Excluir sessão"}</button></div></div></DialogFrame>}
     {(dialog === "clinical" || dialog === "preferences") && selected && <DialogFrame title={dialog === "clinical" ? "Observações Clínicas" : "Manutenções & Preferências"} onClose={() => { if (!saving) setDialog(null); }}><NotesForm key={`${selected.id}-${dialog}`} client={selected} clinical={dialog === "clinical"} saving={saving} onSave={saveNotes} onClose={() => setDialog(null)} /></DialogFrame>}
     {(dialog === "contact" || dialog === "reminder") && selected && <DialogFrame title={dialog === "contact" ? "Rascunho para WhatsApp" : "Gerar Lembrete de Retorno"} onClose={() => setDialog(null)}><div className="nc-form"><p>Confira o rascunho e copie a mensagem. Nenhum contato será aberto ou enviado automaticamente.</p><label>Telefone da cliente<input readOnly value={selected.phone} /></label><label>Mensagem<textarea id="nc-message" rows={5} defaultValue={dialog === "contact" ? `Olá, ${selected.name.split(" ")[0]}! Aqui é da NAVY. Como podemos ajudar você?` : `Olá, ${selected.name.split(" ")[0]}! Sua janela de manutenção ${selected.returnDate ? `começa em ${formatShortDate(selected.returnDate)}` : "está chegando"}. Vamos encontrar um horário?`} /></label><div className="nc-dialog-actions"><button type="button" className="nc-btn nc-btn-quiet" onClick={() => setDialog(null)}>Fechar</button><button type="button" className="nc-btn nc-btn-primary" onClick={() => copyMessage((document.getElementById("nc-message") as HTMLTextAreaElement)?.value ?? "")}>Copiar mensagem</button></div></div></DialogFrame>}
     {toast && <div className="nc-toast" role="status">{toast}</div>}
