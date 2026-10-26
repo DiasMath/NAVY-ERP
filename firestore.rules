@@ -23,10 +23,11 @@ service cloud.firestore {
     match /clinics/{clinicId}/{segment}/{documentId} {
       allow read: if segment in ['clients', 'services', 'professionals', 'appointments', 'sessions']
         && isMember(clinicId);
-      allow create, update: if (segment in ['clients', 'appointments', 'sessions'] && isMember(clinicId))
+      // Agendamentos são escritos pela API, que verifica conflitos em transação.
+      allow create, update: if (segment in ['clients', 'sessions'] && isMember(clinicId))
         || (segment in ['services', 'professionals'] && isManager(clinicId));
       // Clientes são excluídas apenas pela rota de servidor, que impede órfãos no Drive.
-      allow delete: if segment in ['services', 'professionals', 'appointments', 'sessions']
+      allow delete: if segment in ['services', 'professionals', 'sessions']
         && isManager(clinicId);
     }
 
