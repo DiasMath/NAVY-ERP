@@ -80,6 +80,7 @@ function BookingDialog({ clients, professionals, catalog, appointments, onSave, 
   return <ContentDialog title={editing ? "Editar agendamento" : prefill?.intent === "maintenance" ? "Agendar manutenção" : "Novo agendamento clínico"} wide onClose={onClose}>
     <form className="ag-booking-form" onSubmit={submit} noValidate>
       <p className="ag-booking-intro">{prefill?.intent === "maintenance" ? "Cliente e data de retorno preenchidas. Escolha o serviço de manutenção e um horário livre." : "Agendamentos salvos no Firestore, com confirmação de disponibilidade no servidor."}</p>
+      {(!professionals.length || !catalog.some(item => item.status === "Ativo")) && <div className="ag-form-error" role="status">Para agendar, cadastre ao menos uma profissional ativa e um serviço ativo no Catálogo de Serviços.</div>}
       <div className="ag-form-heading">{icon("person", 18)} Identificação da cliente</div>
       <label className="ag-field">Cliente *<select value={clientId} onChange={event => { setClientId(event.target.value); setError(""); }}><option value="">Selecione uma cliente</option>{clients.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label>
       <div className="ag-form-heading">{icon("pin_drop", 18)} Modalidade e profissional</div>
