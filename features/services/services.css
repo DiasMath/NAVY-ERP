@@ -83,7 +83,19 @@
 .sv-hero-image{background:#e3eef5}
 .sv-hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
 .sv-hero-image:after{content:"";position:absolute;inset:42% 0 0;background:linear-gradient(transparent,rgba(22,28,33,.76));pointer-events:none}
-.sv-agenda-pending{display:block;margin-top:10px;color:#436273;font-size:10px;line-height:1.5}
+.sv-professional-manager{display:flex;flex-direction:column;gap:14px;padding:18px;color:#334958;font-size:12px}
+.sv-professional-manager>p{margin:0;line-height:1.5}
+.sv-professional-manager form{display:flex;align-items:flex-end;gap:8px}
+.sv-professional-manager form label{display:flex;flex:1;flex-direction:column;gap:5px;min-width:0;font-weight:600}
+.sv-professional-manager input{width:100%;min-width:0;border:1px solid #d8e5ed;border-radius:7px;padding:9px 10px;font:inherit}
+.sv-professional-list{display:flex;flex-direction:column;gap:7px;max-height:320px;overflow:auto}
+.sv-professional-row{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid #e3e9ef;border-radius:8px;padding:9px 10px}
+.sv-professional-row>span{display:flex;flex-direction:column;gap:2px;min-width:0}
+.sv-professional-row strong{font-size:11px}
+.sv-professional-row small{font-size:10px;color:#647985}
+.sv-professional-row>div{display:flex;gap:5px}
+.sv-professional-row form{width:100%}
+.sv-book-service{margin-top:10px}
 .sv-photo-info{min-width:0;flex:1}
 .sv-photo-info>strong,.sv-photo-info>span{display:block}
 .sv-photo-info>strong{font:600 12px/17px 'Plus Jakarta Sans',sans-serif;color:#161c21}
@@ -128,6 +140,6 @@
 .sv-add-professional button{white-space:nowrap}
 @media(max-width:1050px){.sv-filter-row{grid-template-columns:repeat(3,minmax(0,1fr))}.sv-search{grid-column:1/-1}}
 @media(max-width:760px){.sv-filter-row{grid-template-columns:repeat(2,minmax(0,1fr))}.sv-search{grid-column:1/-1}}
-@media(max-width:520px){.sv-filter-row{grid-template-columns:1fr}.sv-search{grid-column:auto}.sv-add-professional{align-items:stretch;flex-direction:column}.sv-availability-facts{grid-template-columns:1fr}.sv-card{min-height:145px}.sv-attributes{grid-template-columns:1fr 1fr}.sv-attributes>span:last-child{grid-column:1/-1}}
+@media(max-width:520px){.sv-filter-row{grid-template-columns:1fr}.sv-search{grid-column:auto}.sv-add-professional{align-items:stretch;flex-direction:column}.sv-availability-facts{grid-template-columns:1fr}.sv-card{min-height:145px}.sv-attributes{grid-template-columns:1fr 1fr}.sv-attributes>span:last-child{grid-column:1/-1}.sv-professional-manager form,.sv-professional-row{align-items:stretch;flex-direction:column}.sv-professional-row>div{justify-content:flex-end}}
 .sv-book-service{display:inline-flex;align-items:center;justify-content:center;gap:6px;align-self:flex-start;border-radius:7px;background:#376380;color:#fff;padding:8px 11px;font-size:10.5px;font-weight:700}
 .sv-book-service:hover{background:#2b4b5a}
