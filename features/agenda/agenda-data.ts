@@ -3,6 +3,7 @@ export type AgendaPlace = "Studio" | "Home";
 export type AgendaLine = { serviceId: string; name: string; price: number; durationMinutes: number; bufferMinutes: number };
 export type AgendaAppointment = {
   id: string;
+  bookingKind?: "catalog" | "manual";
   clientId: string;
   professionalId: string;
   date: string;

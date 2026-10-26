@@ -14,31 +14,41 @@ const saoPauloNow = () => Object.fromEntries(new Intl.DateTimeFormat("en-CA", { 
 export async function POST(request: NextRequest) {
   try {
     const user = await requireNavyUser(request);
-    const body = await request.json() as { id?: string; clientId?: string; professionalId?: string; serviceIds?: string[]; date?: string; time?: string; place?: AgendaPlace; address?: string };
+    const body = await request.json() as { id?: string; bookingKind?: "catalog" | "manual"; clientId?: string; professionalId?: string; serviceIds?: string[]; manualName?: string; manualDurationMinutes?: number; manualPrice?: number; date?: string; time?: string; place?: AgendaPlace; address?: string };
     const { clientId, professionalId, date, time, place } = body;
-    if (!clientId || !professionalId || !date || !time) throw new ApiError(400, "Preencha cliente, profissional, data e horário.");
-    assertDocumentId(clientId); assertDocumentId(professionalId);
+    const manual = body.bookingKind === "manual";
+    if (body.bookingKind !== undefined && !["catalog", "manual"].includes(body.bookingKind)) throw new ApiError(400, "Tipo de agendamento inválido.");
+    if (!clientId || !date || !time || (!manual && !professionalId)) throw new ApiError(400, "Preencha cliente, data, horário e, para serviços do catálogo, a profissional.");
+    assertDocumentId(clientId);
+    if (!manual) assertDocumentId(professionalId!);
     if (body.id) assertDocumentId(body.id);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !/^\d{2}:\d{2}$/.test(time) || Number.isNaN(new Date(`${date}T${time}`).valueOf()) || new Date(`${date}T12:00:00`).toISOString().slice(0, 10) !== date || Number(time.slice(0, 2)) > 23 || Number(time.slice(3)) > 59) throw new ApiError(400, "Data ou horário inválido.");
     if (place !== "Studio" && place !== "Home") throw new ApiError(400, "Selecione o local do atendimento.");
     if (place === "Home" && (!body.address || body.address.trim().length < 5 || body.address.length > 300)) throw new ApiError(400, "Informe o endereço do atendimento domiciliar.");
-    if (!Array.isArray(body.serviceIds) || body.serviceIds.length < 1 || body.serviceIds.length > 10 || new Set(body.serviceIds).size !== body.serviceIds.length) throw new ApiError(400, "Selecione de 1 a 10 serviços distintos.");
-    body.serviceIds.forEach(assertDocumentId);
+    if (manual) {
+      if (professionalId || body.serviceIds?.length) throw new ApiError(400, "Agendamento avulso não usa profissional nem serviço do catálogo.");
+      if (typeof body.manualName !== "string" || !body.manualName.trim() || body.manualName.trim().length > 120) throw new ApiError(400, "Informe uma descrição de até 120 caracteres.");
+      if (!Number.isInteger(body.manualDurationMinutes) || body.manualDurationMinutes! < 15 || body.manualDurationMinutes! > 480) throw new ApiError(400, "A duração deve ser de 15 a 480 minutos.");
+      if (typeof body.manualPrice !== "number" || !Number.isFinite(body.manualPrice) || body.manualPrice < 0 || body.manualPrice > 100000) throw new ApiError(400, "Informe um valor válido para o atendimento.");
+    } else {
+      if (!Array.isArray(body.serviceIds) || body.serviceIds.length < 1 || body.serviceIds.length > 10 || new Set(body.serviceIds).size !== body.serviceIds.length) throw new ApiError(400, "Selecione de 1 a 10 serviços distintos.");
+      body.serviceIds.forEach(assertDocumentId);
+    }
     const db = adminDb();
     const base = db.collection("clinics").doc(user.clinicId);
     const appointmentId = body.id ?? crypto.randomUUID();
     const appointmentRef = base.collection("appointments").doc(appointmentId);
-    const lockRef = base.collection("scheduleLocks").doc(`${professionalId}_${date}`);
+    const lockRef = base.collection("scheduleLocks").doc(`${manual ? "unassigned" : professionalId}_${date}`);
     const result = await db.runTransaction(async transaction => {
-      const [lock, existing, client, professional, ...services] = await Promise.all([
+      const [lock, existing, client] = await Promise.all([
         transaction.get(lockRef), transaction.get(appointmentRef), transaction.get(base.collection("clients").doc(clientId)),
-        transaction.get(base.collection("professionals").doc(professionalId)),
-        ...body.serviceIds!.map(id => transaction.get(base.collection("services").doc(id))),
       ]);
+      const professional = manual ? null : await transaction.get(base.collection("professionals").doc(professionalId!));
+      const services = manual ? [] : await Promise.all(body.serviceIds!.map(id => transaction.get(base.collection("services").doc(id))));
       if (body.id && !existing.exists) throw new ApiError(404, "Agendamento não encontrado.");
       if (!client.exists) throw new ApiError(404, "Cliente não encontrada.");
-      if (!professional.exists || professional.data()?.active === false) throw new ApiError(400, "Profissional indisponível.");
-      const lines = services.map(snapshot => {
+      if (!manual && (!professional?.exists || professional.data()?.active === false)) throw new ApiError(400, "Profissional indisponível.");
+      const lines = manual ? [{ serviceId: "manual", name: body.manualName!.trim(), price: body.manualPrice!, durationMinutes: body.manualDurationMinutes!, bufferMinutes: 0 }] : services.map(snapshot => {
         const data = snapshot.data();
         if (!data || data.status !== "Ativo" || !Array.isArray(data.professionalIds) || !data.professionalIds.includes(professionalId) || (place === "Studio" ? data.modality === "Home" : data.modality === "Studio")) throw new ApiError(400, "Um dos serviços não está disponível para esta profissional e local.");
         if (!Number.isFinite(data.price) || !Number.isFinite(data.durationMinutes) || !Number.isFinite(data.bufferMinutes) || data.durationMinutes <= 0 || data.bufferMinutes < 0) throw new ApiError(400, "Confira preço e duração dos serviços.");
@@ -47,6 +57,7 @@ export async function POST(request: NextRequest) {
       const duration = lines.reduce((sum, line) => sum + line.durationMinutes + line.bufferMinutes, 0);
       const start = minutes(time);
       const previous = existing.data() as AppointmentDocument | undefined;
+      if (previous && (previous.bookingKind === "manual") !== manual) throw new ApiError(400, "O tipo de um agendamento existente não pode ser alterado.");
       const nowLocal = saoPauloNow();
       const nowKey = `${nowLocal.year}-${nowLocal.month}-${nowLocal.day}T${nowLocal.hour}:${nowLocal.minute}`;
       const unchangedPastSlot = Boolean(previous && previous.date === date && previous.time === time);
@@ -55,12 +66,12 @@ export async function POST(request: NextRequest) {
       const conflict = sameDay.docs.some(snapshot => {
         if (snapshot.id === appointmentId) return false;
         const item = snapshot.data() as AppointmentDocument;
-        return item.professionalId === professionalId && item.status !== "Cancelado" && start < minutes(item.time) + reserved(item) && start + duration > minutes(item.time);
+        return item.professionalId === (manual ? "" : professionalId) && item.status !== "Cancelado" && start < minutes(item.time) + reserved(item) && start + duration > minutes(item.time);
       });
-      if (conflict) throw new ApiError(409, "Esta profissional já tem um atendimento neste horário. Escolha outro horário.");
+      if (conflict) throw new ApiError(409, manual ? "Já existe um agendamento avulso neste horário. Escolha outro horário." : "Esta profissional já tem um atendimento neste horário. Escolha outro horário.");
       const now = new Date().toISOString();
       const item: AppointmentDocument = {
-        id: appointmentId, clientId, professionalId, date, time, place,
+        id: appointmentId, bookingKind: manual ? "manual" : "catalog", clientId, professionalId: manual ? "" : professionalId!, date, time, place,
         ...(place === "Home" ? { address: body.address!.trim() } : {}), lines,
         status: previous?.status === "Cancelado" ? "Pendente" : previous?.status ?? "Pendente",
         materials: previous?.materials ?? [],
