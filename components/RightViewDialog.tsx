@@ -6,9 +6,10 @@ type RightViewDialogProps = {
   title: string;
   onClose: () => void;
   children: ReactNode;
+  wide?: boolean;
 };
 
-export default function RightViewDialog({ title, onClose, children }: RightViewDialogProps) {
+export default function RightViewDialog({ title, onClose, children, wide = false }: RightViewDialogProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
@@ -31,5 +32,5 @@ export default function RightViewDialog({ title, onClose, children }: RightViewD
     return () => { document.removeEventListener("keydown", onKeyDown); previousFocus?.focus(); };
   }, []);
 
-  return <div className="right-view-layer"><button type="button" className="right-view-shade" aria-label="Fechar ficha" onClick={onClose} /><div ref={panelRef} className="right-view-panel" role="dialog" aria-modal="true" aria-label={title} tabIndex={-1}>{children}</div></div>;
+  return <div className="right-view-layer"><button type="button" className="right-view-shade" aria-label={`Fechar ${title}`} onClick={onClose} /><div ref={panelRef} className={`right-view-panel${wide ? " right-view-panel-wide" : ""}`} role="dialog" aria-modal="true" aria-label={title} tabIndex={-1}>{children}</div></div>;
 }

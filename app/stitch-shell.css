@@ -104,6 +104,7 @@
 .right-view-layer{position:fixed;z-index:89;top:var(--stitch-header-height);right:0;bottom:0;left:var(--stitch-sidebar-width);transition:left .2s ease}
 .right-view-shade{position:absolute;inset:0;border:0;background:rgba(24,44,60,.25);cursor:default}
 .right-view-panel{position:absolute;top:0;right:0;bottom:0;width:min(490px,100%);background:#fff;box-shadow:-18px 0 48px rgba(20,39,53,.19);border-left:1px solid #dce5eb;outline:0;overflow:hidden}
+.right-view-panel-wide{width:min(700px,100%)}
 .stitch-native-content .coming-page{max-width:1200px;margin:0 auto}
 .stitch-shell .modal-backdrop{padding:calc(var(--stitch-header-height) + 16px) 16px 16px calc(var(--stitch-sidebar-width) + 16px);transition:padding-left .2s ease}
 .stitch-shell .modal{max-height:min(800px,calc(100dvh - var(--stitch-header-height) - 32px));scrollbar-width:thin;scrollbar-color:#b8c9d5 #f3f6f9}

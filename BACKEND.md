@@ -1,6 +1,6 @@
 # Estrutura de backend da NAVY
 
-O projeto permanece em **Next.js 15 + React 19 + TypeScript** na Vercel. Clientes, Serviços e Agenda usam o Firestore com atualização em tempo real por unidade. A criação e edição de agendamentos passam por uma API autenticada que valida cliente, os dados do catálogo quando usados e conflitos em uma transação. O projeto Firebase `navy-erp`, seu app Web e o Firestore existem. O provedor E-mail/senha está ativo. Publique a versão de `firestore.rules` deste commit junto com a aplicação para impedir gravações diretas de agendamentos pelo navegador.
+O projeto permanece em **Next.js 15 + React 19 + TypeScript** na Vercel. Clientes, Serviços e Agenda usam o Firestore com atualização em tempo real na única unidade NAVY Matriz. O caminho interno `clinics/navy-matriz` preserva os dados existentes; a interface não pede seleção de clínica. A criação e edição de agendamentos passam por uma API autenticada que valida cliente, dados do catálogo e conflitos em transação. O projeto Firebase `navy-erp`, seu app Web e o Firestore existem. O provedor E-mail/senha está ativo. As regras atuais do Firestore já foram publicadas com Clientes.
 
 ## Organização
 
@@ -27,7 +27,9 @@ clinics/{clinicId}/clientPhotos/{id}→ metadados e ID privado de foto
 clinics/{clinicId}/integrations/drive→ refresh token criptografado e ID da pasta
 ```
 
-Os agendamentos guardam `clientId`, `bookingKind`, `professionalId` e linhas de atendimento com preço/duração no momento da marcação. O tipo `catalog` exige profissional e serviços ativos. O tipo `manual` permite descrição, duração e valor sem catálogo, com `professionalId` vazio; reservas avulsas simultâneas conflitam entre si na agenda da unidade. A API usa `scheduleLocks` e consulta os compromissos do dia na mesma transação para rejeitar reservas sobrepostas. Sessões clínicas da tela de Clientes ficam em documentos separados; visitas/LTV são calculados a partir delas. Um retorno planejado na ficha ainda não reserva horário: use **Agendar** para criar o compromisso na Agenda. A foto de perfil guarda um `avatarDriveFileId` no cadastro, e a galeria guarda metadados em `clientPhotos`; os bytes ficam no Google Drive. O refresh token OAuth é criptografado com AES-GCM e fica no documento de integração, sem leitura pelo SDK Web.
+Os agendamentos guardam `clientId`, `bookingKind`, `professionalId` e linhas de atendimento com preço/duração no momento da marcação. O tipo `catalog` exige profissional e serviços ativos. O tipo `manual` permite descrição, duração e valor sem catálogo, com `professionalId` vazio; reservas avulsas simultâneas conflitam entre si na agenda da unidade. A API usa `scheduleLocks` e consulta os compromissos do dia na mesma transação para rejeitar reservas sobrepostas. Depois de concluir um compromisso, a ficha da cliente permite registrar uma sessão preenchida com os dados da reserva. Essa sessão usa o ID do agendamento para impedir duplicação e guarda `appointmentId` e, quando há apenas um procedimento, `serviceId`. Visitas e LTV vêm das sessões; o valor só entra no LTV quando o pagamento é registrado. Um agendamento com sessão vinculada não pode ser remarcado, reaberto ou cancelado antes da exclusão da sessão. Um retorno planejado na ficha ainda não reserva horário: use **Agendar** para criar o compromisso na Agenda. A foto de perfil guarda um `avatarDriveFileId` no cadastro, e a galeria guarda metadados em `clientPhotos`; os bytes ficam no Google Drive. O refresh token OAuth é criptografado com AES-GCM e fica no documento de integração, sem leitura pelo SDK Web.
+
+O campo `paymentMethod` do agendamento é uma intenção de recebimento. O registro de pagamento é `paymentStatus`/`paymentMethod` da sessão clínica; o total recebido da cliente soma apenas sessões com `paymentStatus: "paid"`. A Agenda lê a sessão vinculada para mostrar o valor e o estado reais. Não existe lançamento no módulo Financeiro nem baixa de estoque nesta etapa.
 
 ## Acesso
 
@@ -38,7 +40,7 @@ O formulário de login usa Firebase Authentication quando o app Web está config
 1. Projeto Firebase `navy-erp` e aplicativo Web: já criados.
 2. Authentication com **E-mail/senha** está ativo; as duas primeiras contas foram criadas no console e têm perfis ativos. Para novas contas, crie o usuário no console e seu documento de perfil correspondente. Nenhuma senha é armazenada neste repositório.
 3. Banco Cloud Firestore: já criado. Conferir o modo e a localização no console.
-4. Publique `firestore.rules` deste commit no projeto `navy-erp` antes de usar a nova Agenda. Confirme no Rules Simulator ou Emulator que membros podem ler `appointments`, mas não escrever diretamente nessa coleção nem em `scheduleLocks`.
+4. As regras do Firestore da Agenda já foram publicadas no projeto `navy-erp`. Para mudanças futuras nessas regras, confira no Rules Simulator ou Emulator que membros podem ler `appointments`, mas não escrever diretamente nessa coleção nem em `scheduleLocks`.
 5. Para contas futuras, criar manualmente `users/{uid}` com os campos abaixo, usando o UID do usuário criado no Authentication:
 
 ```json
@@ -54,8 +56,8 @@ O formulário de login usa Firebase Authentication quando o app Web está config
 
 ## Próximos incrementos
 
-1. Publicar as regras Firestore atualizadas e testar agendamentos reais com uma conta autorizada, incluindo reserva concorrente, edição, cancelamento e consulta na ficha da cliente.
-2. Vincular sessões clínicas concluídas a agendamentos, profissionais e serviços do catálogo.
-3. Configurar escala e indisponibilidades reais de profissionais. A janela atual da Agenda é de 08:00 a 20:00.
+1. Cadastrar profissionais e serviços reais da NAVY Matriz.
+2. Configurar escala e indisponibilidades reais de profissionais. A janela atual da Agenda é de 08:00 a 20:00.
+3. Integrar pagamento e baixa de insumos quando os módulos Financeiro e Estoque forem implementados.
 
 Os dados ilustrativos antigos de Clientes no navegador não foram importados automaticamente. A coleção real começa vazia. O controle de telefone duplicado é feito na interface; antes de operação concorrente em escala, precisará de uma garantia no backend. A listagem atual acompanha a coleção completa e precisará de paginação conforme o volume de clientes crescer.

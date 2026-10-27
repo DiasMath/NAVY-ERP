@@ -46,6 +46,7 @@ export async function POST(request: NextRequest) {
       const professional = manual ? null : await transaction.get(base.collection("professionals").doc(professionalId!));
       const services = manual ? [] : await Promise.all(body.serviceIds!.map(id => transaction.get(base.collection("services").doc(id))));
       if (body.id && !existing.exists) throw new ApiError(404, "Agendamento não encontrado.");
+      if (existing.exists && (await transaction.get(base.collection("sessions").doc(appointmentId))).exists) throw new ApiError(409, "Este agendamento já tem uma sessão registrada. Exclua a sessão antes de alterar a reserva.");
       if (!client.exists) throw new ApiError(404, "Cliente não encontrada.");
       if (!manual && (!professional?.exists || professional.data()?.active === false)) throw new ApiError(400, "Profissional indisponível.");
       const lines = manual ? [{ serviceId: "manual", name: body.manualName!.trim(), price: body.manualPrice!, durationMinutes: body.manualDurationMinutes!, bufferMinutes: 0 }] : services.map(snapshot => {
@@ -111,9 +112,22 @@ export async function PATCH(request: NextRequest) {
       changes.note = body.note.trim();
     }
     if (!Object.keys(changes).length) throw new ApiError(400, "Nenhuma alteração informada.");
-    const ref = adminDb().doc(`clinics/${user.clinicId}/appointments/${body.id}`);
-    if (!(await ref.get()).exists) throw new ApiError(404, "Agendamento não encontrado.");
-    await ref.update({ ...changes, updatedAt: new Date().toISOString() });
+    const db = adminDb();
+    const base = db.collection("clinics").doc(user.clinicId);
+    const ref = base.collection("appointments").doc(body.id);
+    const sessionRef = base.collection("sessions").doc(body.id);
+    await db.runTransaction(async transaction => {
+      const [appointment, session] = await Promise.all([transaction.get(ref), transaction.get(sessionRef)]);
+      if (!appointment.exists) throw new ApiError(404, "Agendamento não encontrado.");
+      if (changes.status && changes.status !== "Concluído" && session.exists) throw new ApiError(409, "Este atendimento já tem uma sessão registrada. Exclua a sessão antes de reabrir ou cancelar.");
+      if (changes.status === "Concluído") {
+        const item = appointment.data() as AppointmentDocument;
+        const now = saoPauloNow();
+        const nowKey = `${now.year}-${now.month}-${now.day}T${now.hour}:${now.minute}`;
+        if (`${item.date}T${item.time}` > nowKey) throw new ApiError(400, "Conclua o atendimento somente após o início do horário agendado.");
+      }
+      transaction.update(ref, { ...changes, updatedAt: new Date().toISOString() });
+    });
     return NextResponse.json({ ok: true });
   } catch (error) { return apiError(error); }
 }

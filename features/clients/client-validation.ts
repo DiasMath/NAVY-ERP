@@ -110,7 +110,7 @@ export function validateClient(values: FormData, clients: ClientRecord[], editin
 
 export type SessionField = "service" | "date" | "amount" | "payment" | "duration" | "note";
 export type SessionErrors = Partial<Record<SessionField, string>>;
-export type SessionInput = Omit<ClientSession, "id">;
+export type SessionInput = Omit<ClientSession, "id" | "appointmentId" | "serviceId">;
 
 export function validateSession(values: FormData, planned: boolean, sessions: ClientSession[], editingId?: string): { input: SessionInput; errors: SessionErrors } {
   const errors: SessionErrors = {};
@@ -133,7 +133,7 @@ export function validateSession(values: FormData, planned: boolean, sessions: Cl
   else if (planned && sessions.some((session) => session.id !== editingId && session.payment === "Agendado" && session.date === date && session.service.toLocaleLowerCase("pt-BR") === service.toLocaleLowerCase("pt-BR"))) errors.date = "Já existe esta manutenção planejada neste horário.";
 
   if (!planned && (amountText === "" || !Number.isFinite(amount) || amount < 0 || amount > 999_999 || !/^\d+(?:[.,]\d{1,2})?$/.test(amountText))) errors.amount = "Informe um valor válido entre R$ 0 e R$ 999.999, com até 2 casas decimais.";
-  if (!planned && !["Pix", "Cartão Crédito", "Dinheiro", "Pendente"].includes(payment)) errors.payment = "Escolha uma forma de pagamento válida.";
+  if (!planned && !["Pix", "Cartão Crédito", "Cartão Débito", "Dinheiro", "Pendente", ...(editingId ? ["Pago"] : [])].includes(payment)) errors.payment = "Escolha uma forma de pagamento válida.";
   if (duration.length > 40) errors.duration = "Use até 40 caracteres para a duração.";
   if (note.length > 500) errors.note = "Use até 500 caracteres nas observações.";
 
