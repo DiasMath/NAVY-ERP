@@ -8,6 +8,7 @@ import { useAuth } from "@/features/auth/AuthProvider";
 import { getFirebaseClient } from "@/lib/firebase/client";
 import { navyApi } from "@/lib/firebase/navy-api";
 import { createFirebaseRepositories } from "@/lib/firebase/repositories";
+import { newAgendaHref } from "@/features/agenda/agenda-links";
 import type { ServiceDocument, ProfessionalDocument } from "@/lib/firebase/documents";
 import { categoryPrefixes, durationLabel, modalityLabel, serviceCategories, type ServiceCategory, type ServiceModality, type ServiceProfessional, type ServiceRecord, type ServiceStatus } from "./service-data";
 import { validateService, type ServiceErrors, type ServiceField, type ServiceInput } from "./service-validation";
@@ -47,7 +48,7 @@ async function prepareServicePhoto(file: File): Promise<string> {
   }
 }
 
-function ServiceForm({ service, services, professionals, saving, driveConnected, onSave, onClose }: { service?: ServiceRecord; services: ServiceRecord[]; professionals: ServiceProfessional[]; saving: boolean; driveConnected: boolean; onSave: (input: ServiceInput, addedProfessionals: ServiceProfessional[], image: File | null, removeImage: boolean) => void; onClose: () => void }) {
+function ServiceForm({ service, services, professionals, knownProfessionals, saving, driveConnected, onSave, onClose }: { service?: ServiceRecord; services: ServiceRecord[]; professionals: ServiceProfessional[]; knownProfessionals: ProfessionalDocument[]; saving: boolean; driveConnected: boolean; onSave: (input: ServiceInput, addedProfessionals: ServiceProfessional[], image: File | null, removeImage: boolean) => void; onClose: () => void }) {
   const [errors, setErrors] = useState<ServiceErrors>({});
   const [category, setCategory] = useState<ServiceCategory>(service?.category ?? serviceCategories[0]);
   const [sku, setSku] = useState(service?.sku ?? nextSku(serviceCategories[0], services));
@@ -65,7 +66,7 @@ function ServiceForm({ service, services, professionals, saving, driveConnected,
   const addProfessional = () => {
     const name = newProfessionalName.trim().replace(/\s+/g, " ");
     if (name.length < 3 || name.length > 80) { setProfessionalError("Informe um nome com 3 a 80 caracteres."); return; }
-    if (draftProfessionals.some((item) => normalise(item.name) === normalise(name))) { setProfessionalError("Este profissional já está na lista."); return; }
+    if (draftProfessionals.some((item) => normalise(item.name) === normalise(name)) || knownProfessionals.some((item) => normalise(item.name) === normalise(name))) { setProfessionalError("Este profissional já existe. Se estiver inativo, reative-o em Profissionais."); return; }
     const professional = { id: crypto.randomUUID(), name };
     setDraftProfessionals((current) => [...current, professional]);
     setSelectedProfessionalIds((current) => [...current, professional.id]);
@@ -130,6 +131,29 @@ function ServiceForm({ service, services, professionals, saving, driveConnected,
   </form>;
 }
 
+function ProfessionalManager({ professionals, saving, onCreate, onRename, onToggle }: { professionals: ProfessionalDocument[]; saving: boolean; onCreate: (name: string) => Promise<void>; onRename: (id: string, name: string) => Promise<void>; onToggle: (id: string, active: boolean) => Promise<void> }) {
+  const [name, setName] = useState("");
+  const [editingId, setEditingId] = useState("");
+  const [editingName, setEditingName] = useState("");
+  const [error, setError] = useState("");
+  const attempt = async (action: () => Promise<void>, success: () => void = () => {}) => {
+    setError("");
+    try { await action(); success(); }
+    catch (cause) { setError(cause instanceof Error ? cause.message : "Não foi possível salvar a profissional."); }
+  };
+  return <div className="sv-professional-manager">
+    <p>Cadastre as profissionais antes de vinculá-las aos procedimentos. Apenas profissionais ativas aparecem na Agenda.</p>
+    <form onSubmit={event => { event.preventDefault(); if (!saving) void attempt(() => onCreate(name), () => setName("")); }}>
+      <label>Nome da profissional<input value={name} maxLength={80} onChange={event => { setName(event.target.value); setError(""); }} placeholder="Nome e sobrenome" /></label>
+      <button type="submit" className="nc-btn nc-btn-primary" disabled={saving}>Adicionar</button>
+    </form>
+    {error && <div className="nc-validation-summary" role="alert">{error}</div>}
+    <div className="sv-professional-list">{professionals.length ? [...professionals].sort((a, b) => Number(b.active) - Number(a.active) || a.name.localeCompare(b.name, "pt-BR")).map(item => <div key={item.id} className="sv-professional-row">
+      {editingId === item.id ? <form onSubmit={event => { event.preventDefault(); if (!saving) void attempt(() => onRename(item.id, editingName), () => setEditingId("")); }}><input aria-label={`Novo nome de ${item.name}`} value={editingName} maxLength={80} onChange={event => setEditingName(event.target.value)} /><button type="submit" className="nc-btn nc-btn-soft" disabled={saving}>Salvar</button><button type="button" className="nc-btn nc-btn-quiet" onClick={() => setEditingId("")} disabled={saving}>Cancelar</button></form> : <><span><strong>{item.name}</strong><small>{item.active ? "Ativa" : "Inativa"}</small></span><div><button type="button" className="nc-btn nc-btn-quiet" onClick={() => { setEditingId(item.id); setEditingName(item.name); setError(""); }} disabled={saving}>Renomear</button><button type="button" className="nc-btn nc-btn-soft" onClick={() => void attempt(() => onToggle(item.id, !item.active))} disabled={saving}>{item.active ? "Desativar" : "Reativar"}</button></div></>}
+    </div>) : <p>Nenhuma profissional cadastrada.</p>}</div>
+  </div>;
+}
+
 function ServiceCard({ service, professionals, selected, onSelect }: { service: ServiceRecord; professionals: ServiceProfessional[]; selected: boolean; onSelect: () => void }) {
   const assigned = professionals.filter((item) => service.professionalIds.includes(item.id));
   return <button type="button" className={`sv-card ${selected ? "sv-card-selected" : ""}`} onClick={onSelect} aria-pressed={selected}>
@@ -149,7 +173,7 @@ function ServiceDetail({ service, services, professionals, canManage, menuOpen, 
   return <aside className="sv-detail"><div className="sv-detail-card">
     <div className="sv-detail-header"><div><small>FICHA TÉCNICA DO PROCEDIMENTO</small><h2>{service.name}</h2><p>SKU: {service.sku} • Versão {service.version} ({service.status})</p></div>{canManage && <div className="sv-detail-actions"><button type="button" title="Editar Parâmetros" aria-label="Editar Parâmetros" onClick={onEdit}><Icon name="tune" size={18} /></button><div className="sv-menu-wrap"><button type="button" title="Mais opções" aria-label="Mais opções" aria-expanded={menuOpen} onClick={onMenu}><Icon name="more_vert" size={18} /></button>{menuOpen && <div className="sv-menu"><button type="button" onClick={onEdit}><Icon name="edit" size={16} /> Editar procedimento</button><button type="button" onClick={onDuplicate}><Icon name="content_copy" size={16} /> Duplicar como rascunho</button><button type="button" onClick={onStatus}><Icon name={service.status === "Inativo" ? "check_circle" : "block"} size={16} /> {service.status === "Inativo" ? "Reativar" : "Desativar"}</button><button type="button" className="sv-menu-delete" onClick={onDelete}><Icon name="delete" size={16} /> Excluir procedimento</button></div>}</div></div>}</div>
     <div className={`sv-hero ${service.imageUrl ? "sv-hero-image" : ""}`}>{service.imageUrl && <img className="sv-hero-photo" src={service.imageUrl} alt={`Foto do procedimento ${service.name}`} />}<div><small>APRESENTAÇÃO DO SERVIÇO</small><strong>{service.heroSubtitle || service.name}</strong></div><Link href="/precificacao">Simular Preço <Icon name="arrow_outward" size={14} /></Link></div>
-    <section className="sv-detail-section sv-availability"><div className="sv-section-heading"><strong><Icon name="groups" size={18} />Agenda e disponibilidade</strong></div><div className="sv-availability-facts"><span><small>Duração</small><strong>{durationLabel(service.durationMinutes)} + {service.bufferMinutes} min de intervalo</strong></span><span><small>Modalidade</small><strong>{modalityLabel(service.modality)}</strong></span></div><div className="sv-professional-chips"><small>Profissionais habilitados</small><div>{assigned.length ? assigned.map((item) => <span key={item.id}>{item.name}</span>) : <em>Nenhum profissional definido</em>}</div></div>{service.status === "Ativo" && assigned.length > 0 && <small className="sv-agenda-pending">Este serviço ficará disponível para agendamento quando a Agenda for conectada ao Firestore.</small>}</section>
+    <section className="sv-detail-section sv-availability"><div className="sv-section-heading"><strong><Icon name="groups" size={18} />Agenda e disponibilidade</strong></div><div className="sv-availability-facts"><span><small>Duração</small><strong>{durationLabel(service.durationMinutes)} + {service.bufferMinutes} min de intervalo</strong></span><span><small>Modalidade</small><strong>{modalityLabel(service.modality)}</strong></span></div><div className="sv-professional-chips"><small>Profissionais habilitados</small><div>{assigned.length ? assigned.map((item) => <span key={item.id}>{item.name}</span>) : <em>Nenhum profissional definido</em>}</div></div>{service.status === "Ativo" && assigned.length > 0 && <Link className="sv-book-service" href={newAgendaHref({ serviceId: service.id, professionalId: assigned[0].id })}>Agendar este serviço <Icon name="arrow_forward" size={14} /></Link>}</section>
     <section className="sv-detail-section"><div className="sv-section-heading"><strong><Icon name="inventory_2" size={18} />Insumos do procedimento</strong><small>Custo: {service.consumables.length ? currency(cost) : "a calcular"}</small></div><div className="sv-consumables">{service.consumables.length ? service.consumables.map((item, index) => <div key={`${item.name}-${index}`}><i /><span><strong>{item.name}</strong><small>{item.quantity}</small></span><b>{currency(item.cost)}</b></div>) : <p>Sem insumos vinculados. Use “Editar Parâmetros” para adicionar.</p>}</div><div className="sv-margin-note"><span>Margem preliminar após insumos</span><strong>{margin === null ? "a calcular" : `${margin.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}%`}</strong></div><small className="sv-margin-help">Considera o preço de tabela e apenas os insumos cadastrados. Outros custos serão tratados em Precificação.</small></section>
     <section className="sv-detail-section sv-consent"><div className="sv-section-heading"><strong><Icon name="verified_user" size={18} />Requisitos do atendimento</strong></div><label><input type="checkbox" checked={service.requiresAnamnesis} disabled={!canManage} onChange={() => onToggle("requiresAnamnesis")} />Exigir anamnese prévia neste procedimento.</label><label><input type="checkbox" checked={service.requiresPhoto} disabled={!canManage} onChange={() => onToggle("requiresPhoto")} />Solicitar foto antes/depois no atendimento, com consentimento.</label><label><input type="checkbox" checked={service.requiresSocialConsent} disabled={!canManage} onChange={() => onToggle("requiresSocialConsent")} />Exigir autorização para divulgação, por sessão.</label><small className="sv-clinical-help">Fotos e consentimentos da cliente são registrados no atendimento; estas opções apenas configuram o requisito.</small></section>
     <div className="sv-maintenance"><Icon name="sync" size={20} /><span><strong>Retorno e manutenção</strong><small>{maintenance ? `${maintenance.name} • ${returnLabel(service)}` : service.returnMinDays ? `Retorno recomendado: ${returnLabel(service)}` : "Nenhum serviço de manutenção vinculado"}</small>{service.maintenancePrice && service.maintenanceDurationMinutes && <small>Referência de retoque: {currency(service.maintenancePrice)} • {service.maintenanceDurationMinutes} min</small>}</span><em>{maintenance ? "Vinculado" : "Opcional"}</em></div>
@@ -174,7 +198,7 @@ export default function ServicesPage() {
   const [status, setStatus] = useState<StatusFilter>("Ativo");
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState("");
-  const [dialog, setDialog] = useState<"create" | "edit" | "delete" | null>(null);
+  const [dialog, setDialog] = useState<"create" | "edit" | "delete" | "professionals" | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [toast, setToast] = useState("");
 
@@ -227,6 +251,40 @@ export default function ServicesPage() {
   const withReturn = active.filter((item) => item.returnMinDays && item.returnMaxDays).length;
 
   const reportError = (error: unknown) => setToast(error instanceof Error ? error.message : "Não foi possível salvar no Firestore.");
+  const professionalName = (raw: string, currentId?: string) => {
+    const name = raw.trim().replace(/\s+/g, " ");
+    if (name.length < 3 || name.length > 80) throw new Error("Informe um nome com 3 a 80 caracteres.");
+    if (professionalDocuments.some(item => item.id !== currentId && normalise(item.name) === normalise(name))) throw new Error("Já existe uma profissional com este nome.");
+    return name;
+  };
+  const createProfessional = async (raw: string) => {
+    if (!repositories || !canManage || saving) return;
+    const name = professionalName(raw);
+    setSaving(true);
+    try { await repositories.professionals.save({ id: crypto.randomUUID(), name, active: true }); setToast("Profissional cadastrada no Firestore."); }
+    finally { setSaving(false); }
+  };
+  const renameProfessional = async (id: string, raw: string) => {
+    if (!repositories || !canManage || saving) return;
+    const name = professionalName(raw, id);
+    setSaving(true);
+    try { await repositories.professionals.update(id, { name }); setToast("Nome da profissional atualizado."); }
+    finally { setSaving(false); }
+  };
+  const toggleProfessional = async (id: string, active: boolean) => {
+    if (!repositories || !canManage || saving) return;
+    setSaving(true);
+    try {
+      if (!active) {
+        if (serviceDocuments.some(item => item.status === "Ativo" && item.professionalIds.includes(id))) throw new Error("Retire esta profissional dos serviços ativos antes de desativá-la.");
+        const appointments = await repositories.appointments.list();
+        if (appointments.some(item => item.professionalId === id && item.status !== "Cancelado" && item.date >= today())) throw new Error("Cancele ou reagende os compromissos futuros desta profissional antes de desativá-la.");
+      }
+      await repositories.professionals.update(id, { active });
+      setToast(active ? "Profissional reativada." : "Profissional desativada.");
+    }
+    finally { setSaving(false); }
+  };
   const saveService = async (input: ServiceInput, addedProfessionals: ServiceProfessional[], image: File | null, removeImage: boolean) => {
     if (!profile || !repositories || !canManage || saving) return;
     setSaving(true);
@@ -237,7 +295,7 @@ export default function ServicesPage() {
       const previous = editing ? serviceDocuments.find(item => item.id === id) : undefined;
       const item: ServiceDocument = {
         ...input, id, sku: editing ? selected.sku : nextSku(input.category, services),
-        heroSubtitle: editing ? selected.heroSubtitle : input.name,
+        heroSubtitle: input.name,
         version: editing ? (Number(selected.version) + 0.1).toFixed(1) : "1.0",
         updatedAt: today(),
         ...(previous?.imageDriveFileId ? { imageDriveFileId: previous.imageDriveFileId } : {}),
@@ -271,7 +329,7 @@ export default function ServicesPage() {
     let suffix = 2;
     while (services.some((item) => item.category === selected.category && normalise(item.name) === normalise(copyName))) copyName = `${baseName} (${suffix++})`;
     const { imageDriveFileId: _image, ...fields } = original;
-    const copy: ServiceDocument = { ...fields, id, sku: nextSku(selected.category, services), name: copyName, status: "Homologação", version: "1.0", updatedAt: today() };
+    const copy: ServiceDocument = { ...fields, id, sku: nextSku(selected.category, services), name: copyName, heroSubtitle: copyName, status: "Homologação", version: "1.0", updatedAt: today() };
     setSaving(true);
     try { await repositories.services.save(copy); setStatus("Homologação"); setCategory("Todos"); setModality("Todas"); setProfessionalFilter("Todos"); setQuery(""); setSelectedId(id); setMenuOpen(false); setToast("Rascunho duplicado no Firestore."); }
     catch (error) { reportError(error); }
@@ -280,7 +338,7 @@ export default function ServicesPage() {
   const toggleStatus = async () => {
     if (!selected || !repositories || !canManage || saving) return;
     const next = selected.status === "Inativo" ? "Ativo" : "Inativo";
-    if (next === "Ativo" && !selected.professionalIds.length) {
+    if (next === "Ativo" && !selected.professionalIds.some((id) => professionals.some((professional) => professional.id === id))) {
       setMenuOpen(false);
       setDialog("edit");
       setToast("Selecione um profissional antes de reativar este procedimento.");
@@ -328,12 +386,13 @@ export default function ServicesPage() {
   };
 
   return <div className="sv-page" onClick={(event) => { if (menuOpen && !(event.target as HTMLElement).closest(".sv-menu-wrap")) setMenuOpen(false); }}>
-    <div className="sv-heading"><div><div className="sv-eyebrow">SERVIÇOS <Icon name="chevron_right" size={13} /> <strong>GESTÃO DO PORTFÓLIO</strong></div><h1>Catálogo de Procedimentos</h1><p>Configure categorias, durações clínicas, regras de manutenção preventiva e insumos vinculados com rastreabilidade de custos.</p></div><div className="sv-heading-actions"><button type="button" className="sv-btn sv-btn-soft" onClick={exportCsv} disabled={!loaded || Boolean(loadError)}><Icon name="file_download" size={17} />Exportar Tabela</button>{canManage && <button type="button" className="sv-btn sv-btn-primary" onClick={() => setDialog("create")} disabled={!loaded || Boolean(loadError)}><Icon name="add" size={18} />+ Novo Procedimento</button>}</div></div>
+    <div className="sv-heading"><div><div className="sv-eyebrow">SERVIÇOS <Icon name="chevron_right" size={13} /> <strong>GESTÃO DO PORTFÓLIO</strong></div><h1>Catálogo de Procedimentos</h1><p>Configure categorias, durações clínicas, regras de manutenção preventiva e insumos vinculados com rastreabilidade de custos.</p></div><div className="sv-heading-actions"><button type="button" className="sv-btn sv-btn-soft" onClick={exportCsv} disabled={!loaded || Boolean(loadError)}><Icon name="file_download" size={17} />Exportar Tabela</button>{canManage && <><button type="button" className="sv-btn sv-btn-soft" onClick={() => setDialog("professionals")} disabled={!loaded || Boolean(loadError)}><Icon name="groups" size={17} />Profissionais ({professionals.length})</button><button type="button" className="sv-btn sv-btn-primary" onClick={() => setDialog("create")} disabled={!loaded || Boolean(loadError)}><Icon name="add" size={18} />+ Novo Procedimento</button></>}</div></div>
     {loadError && <div className="nc-validation-summary" role="alert">{loadError}</div>}
     <div className="sv-stats"><div><span>SERVIÇOS ATIVOS</span><strong>{active.length}</strong><small><i />Em {activeCategories} {activeCategories === 1 ? "categoria" : "categorias"}</small><Icon name="spa" size={22} /></div><div><span>DURAÇÃO MÉDIA</span><strong>{averageDuration}<em> min</em></strong><small><Icon name="schedule" size={13} /> Dos procedimentos ativos</small><Icon name="timer" size={22} /></div><div><span>MAIOR PREÇO DE TABELA</span><strong>{highest ? currency(highest.price) : "—"}</strong><small>{highest?.name ?? "Nenhum procedimento"}</small><Icon name="payments" size={22} /></div><div><span>COM RETORNO PREVISTO</span><strong>{withReturn}</strong><small><Icon name="event_repeat" size={13} /> Com prazo cadastrado</small><Icon name="autorenew" size={22} /></div></div>
     <div className="sv-toolbar"><div className="sv-category-tabs" role="group" aria-label="Filtrar por categoria">{(["Todos", ...serviceCategories] as CategoryFilter[]).map((item) => <button key={item} type="button" aria-pressed={category === item} className={category === item ? "sv-filter-active" : ""} onClick={() => setCategory(item)}>{item} ({item === "Todos" ? statusServices.length : statusServices.filter((service) => service.category === item).length})</button>)}</div><div className="sv-filter-row"><label className="sv-search"><Icon name="search" size={18} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar por nome do procedimento, código SKU ou insumo..." aria-label="Buscar procedimentos" /></label><select value={professionalFilter} onChange={(event) => setProfessionalFilter(event.target.value)} aria-label="Filtrar profissional"><option value="Todos">Todos os profissionais</option>{professionals.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select><select value={modality} onChange={(event) => setModality(event.target.value as ModalityFilter)} aria-label="Filtrar modalidade"><option value="Todas">Todas as modalidades</option><option value="Studio">Apenas Cabine Studio</option><option value="Home">Atendimento Domiciliar VIP</option></select><select value={status} onChange={(event) => setStatus(event.target.value as StatusFilter)} aria-label="Filtrar status"><option value="Ativo">Apenas Ativos ({active.length})</option><option value="Homologação">Em Homologação ({services.filter((item) => item.status === "Homologação").length})</option><option value="Inativo">Inativos ({services.filter((item) => item.status === "Inativo").length})</option><option value="Todos">Todos os status ({services.length})</option></select></div></div>
     <div className="sv-columns"><div className="sv-list">{!loaded && !loadError ? <div className="sv-empty" role="status">Carregando procedimentos do Firestore...</div> : filtered.length ? filtered.map((item) => <ServiceCard key={item.id} service={item} professionals={professionals} selected={item.id === selected?.id} onSelect={() => { setSelectedId(item.id); setMenuOpen(false); }} />) : <div className="sv-empty"><Icon name="search_off" size={26} /><strong>{services.length ? "Nenhum procedimento encontrado" : "Nenhum procedimento cadastrado"}</strong><p>{services.length ? "Experimente outra busca ou ajuste os filtros." : "Crie o primeiro procedimento para montar o catálogo."}</p>{services.length > 0 && <button type="button" onClick={() => { setQuery(""); setCategory("Todos"); setModality("Todas"); setProfessionalFilter("Todos"); setStatus("Ativo"); }}>Limpar filtros</button>}</div>}</div>{selected && <ServiceDetail service={{ ...selected, imageUrl: serviceImageUrl }} services={services} professionals={professionals} canManage={canManage} menuOpen={menuOpen} onMenu={() => setMenuOpen((current) => !current)} onEdit={() => { setMenuOpen(false); setDialog("edit"); }} onDuplicate={() => void duplicate()} onStatus={() => void toggleStatus()} onDelete={() => { setMenuOpen(false); setDialog("delete"); }} onToggle={(key) => void toggleRule(key)} />}</div>
-    {(dialog === "create" || dialog === "edit") && <ContentDialog title={dialog === "create" ? "Novo Procedimento" : "Editar Parâmetros do Procedimento"} wide onClose={() => { if (!saving) setDialog(null); }}><ServiceForm key={dialog === "edit" ? selected?.id : "new"} service={dialog === "edit" && selected ? { ...selected, imageUrl: serviceImageUrl } : undefined} services={services} professionals={professionals} saving={saving} driveConnected={driveConnected} onSave={(input, added, image, remove) => void saveService(input, added, image, remove)} onClose={() => setDialog(null)} /></ContentDialog>}
+    {(dialog === "create" || dialog === "edit") && <ContentDialog title={dialog === "create" ? "Novo Procedimento" : "Editar Parâmetros do Procedimento"} wide onClose={() => { if (!saving) setDialog(null); }}><ServiceForm key={dialog === "edit" ? selected?.id : "new"} service={dialog === "edit" && selected ? { ...selected, imageUrl: serviceImageUrl } : undefined} services={services} professionals={professionals} knownProfessionals={professionalDocuments} saving={saving} driveConnected={driveConnected} onSave={(input, added, image, remove) => void saveService(input, added, image, remove)} onClose={() => setDialog(null)} /></ContentDialog>}
+    {dialog === "professionals" && <ContentDialog title="Profissionais" onClose={() => { if (!saving) setDialog(null); }}><ProfessionalManager professionals={professionalDocuments} saving={saving} onCreate={createProfessional} onRename={renameProfessional} onToggle={toggleProfessional} /></ContentDialog>}
     {dialog === "delete" && selected && <ContentDialog title="Excluir Procedimento" onClose={() => { if (!saving) setDialog(null); }}><div className="nc-form sv-delete-confirm"><p>Excluir <strong>{selected.name}</strong> ({selected.sku}) do Firestore?</p><p>Se já foi usado em atendimentos, o histórico será preservado e você poderá desativar o procedimento.</p><div className="nc-dialog-actions"><button type="button" className="nc-btn nc-btn-quiet" onClick={() => setDialog(null)} disabled={saving}>Cancelar</button><button type="button" className="nc-btn nc-btn-danger" onClick={() => void deleteService()} disabled={saving}>{saving ? "Excluindo..." : "Excluir procedimento"}</button></div></div></ContentDialog>}
     {toast && <div className="nc-toast" role="status">{toast}</div>}
   </div>;
