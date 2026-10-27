@@ -338,7 +338,7 @@ export default function ServicesPage() {
   const toggleStatus = async () => {
     if (!selected || !repositories || !canManage || saving) return;
     const next = selected.status === "Inativo" ? "Ativo" : "Inativo";
-    if (next === "Ativo" && !selected.professionalIds.length) {
+    if (next === "Ativo" && !selected.professionalIds.some((id) => professionals.some((professional) => professional.id === id))) {
       setMenuOpen(false);
       setDialog("edit");
       setToast("Selecione um profissional antes de reativar este procedimento.");
