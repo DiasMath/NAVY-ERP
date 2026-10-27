@@ -13,7 +13,7 @@ service cloud.firestore {
     function legacyPermission(permission) {
       return profile().role in ['master_admin', 'admin']
         || (profile().role == 'reception' && permission in ['clients.read', 'clients.write', 'sessions.read', 'sessions.write', 'services.read', 'professionals.read', 'agenda.read', 'agenda.write', 'integrations.read'])
-        || (profile().role == 'professional' && permission in ['clients.read', 'clients.write', 'sessions.read', 'sessions.write', 'services.read', 'professionals.read', 'agenda.read', 'integrations.read']);
+        || (profile().role == 'professional' && permission in ['clients.read', 'clients.write', 'sessions.read', 'sessions.write', 'services.read', 'professionals.read', 'agenda.read', 'agenda.write', 'integrations.read']);
     }
     function can(clinicId, permission) {
       return isMember(clinicId) && (profile().role == 'master_admin'
@@ -35,13 +35,17 @@ service cloud.firestore {
         || (segment == 'appointments' && can(clinicId, 'agenda.read'))
         || (segment == 'sessions' && can(clinicId, 'sessions.read'));
       // Agendamentos são escritos pela API, que verifica conflitos em transação.
-      allow create, update: if (segment == 'clients' && can(clinicId, 'clients.write'))
+      allow create: if (segment == 'clients' && can(clinicId, 'clients.write'))
         || (segment == 'sessions' && can(clinicId, 'sessions.write'))
         || (segment == 'services' && can(clinicId, 'services.write'))
-        || (segment == 'professionals' && can(clinicId, 'professionals.write'));
+        || (segment == 'professionals' && can(clinicId, 'professionals.write') && request.resource.data.get('userUid', '') == '');
+      allow update: if (segment == 'clients' && can(clinicId, 'clients.write'))
+        || (segment == 'sessions' && can(clinicId, 'sessions.write'))
+        || (segment == 'services' && can(clinicId, 'services.write'))
+        || (segment == 'professionals' && can(clinicId, 'professionals.write') && resource.data.get('userUid', '') == '' && request.resource.data.get('userUid', '') == '');
       // Clientes são excluídas apenas pela rota de servidor, que impede órfãos no Drive.
       allow delete: if (segment == 'services' && can(clinicId, 'services.delete'))
-        || (segment == 'professionals' && can(clinicId, 'professionals.write'))
+        || (segment == 'professionals' && can(clinicId, 'professionals.write') && resource.data.get('userUid', '') == '')
         || (segment == 'sessions' && can(clinicId, 'sessions.delete'));
     }
 

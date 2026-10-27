@@ -34,7 +34,7 @@ export const defaultPermissions: Record<UserRole, NavyPermission[]> = {
   master_admin: allPermissions,
   admin: allPermissions,
   reception: ["clients.read", "clients.write", "sessions.read", "sessions.write", "services.read", "professionals.read", "agenda.read", "agenda.write", "integrations.read"],
-  professional: ["clients.read", "clients.write", "sessions.read", "sessions.write", "services.read", "professionals.read", "agenda.read", "integrations.read"],
+  professional: ["clients.read", "clients.write", "sessions.read", "sessions.write", "services.read", "professionals.read", "agenda.read", "agenda.write", "integrations.read"],
   employee: ["services.read", "professionals.read"],
 };
 
