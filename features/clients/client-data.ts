@@ -3,6 +3,8 @@ export type PreferredContact = "WhatsApp" | "Telefone" | "Instagram" | "E-mail";
 
 export type ClientSession = {
   id: string;
+  appointmentId?: string;
+  serviceId?: string;
   date: string;
   service: string;
   amount: number;

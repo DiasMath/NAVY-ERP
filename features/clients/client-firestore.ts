@@ -41,6 +41,8 @@ export function toClientRecord(document: ClientDocument, documents: ClinicalSess
     .filter(session => session.clientId === document.id)
     .map(session => ({
       id: session.id,
+      appointmentId: session.appointmentId,
+      serviceId: session.serviceId,
       date: session.startedAt,
       service: session.serviceName,
       amount: session.amount,

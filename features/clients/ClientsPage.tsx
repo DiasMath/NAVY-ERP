@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import ContentDialog from "@/components/ContentDialog";
 import Link from "next/link";
 import type { User } from "firebase/auth";
-import { writeBatch, doc } from "firebase/firestore";
+import { writeBatch, doc, runTransaction } from "firebase/firestore";
 import { useAuth } from "@/features/auth/AuthProvider";
 import { getFirebaseClient } from "@/lib/firebase/client";
 import { navyApi, NavyApiError } from "@/lib/firebase/navy-api";
@@ -13,6 +13,8 @@ import { createFirebaseRepositories } from "@/lib/firebase/repositories";
 import { type ClientRecord, type ClientSession, type ClientSource, type PreferredContact } from "./client-data";
 import { toClientDocument, toClientRecord, toSessionDocument } from "./client-firestore";
 import { prepareImageUpload } from "./client-images";
+import { appointmentDuration, appointmentPrice } from "@/features/agenda/agenda-data";
+import { durationLabel } from "@/features/services/service-data";
 import { formatBrazilPhone, validDateOnly, validateClient, validateSession, type ClientErrors, type ClientField, type ClientInput, type SessionErrors, type SessionField, type SessionInput } from "./client-validation";
 
 type Filter = "Todas" | "VIP / Retorno" | "Instagram" | "Indicação";
@@ -51,7 +53,7 @@ function FieldError({ field, errors }: { field: ClientField; errors: ClientError
   return errors[field] ? <span className="nc-field-error" id={`nc-error-${field}`}>{errors[field]}</span> : null;
 }
 
-function SessionForm({ client, planned, editing, saving, onSave, onClose }: { client: ClientRecord; planned: boolean; editing?: ClientSession; saving: boolean; onSave: (values: SessionInput, planned: boolean) => void; onClose: () => void }) {
+function SessionForm({ client, planned, editing, appointment, saving, onSave, onClose }: { client: ClientRecord; planned: boolean; editing?: ClientSession; appointment?: AppointmentDocument; saving: boolean; onSave: (values: SessionInput, planned: boolean) => void; onClose: () => void }) {
   const [errors, setErrors] = useState<SessionErrors>({});
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -64,11 +66,11 @@ function SessionForm({ client, planned, editing, saving, onSave, onClose }: { cl
   const clearError = (field: string) => { if (field in errors) setErrors((current) => ({ ...current, [field]: undefined })); };
   const error = (field: SessionField) => errors[field] ? <span className="nc-field-error" id={`nc-session-error-${field}`}>{errors[field]}</span> : null;
   return <form className="nc-form" noValidate onSubmit={submit} onChange={(event) => clearError(event.target.getAttribute("name") ?? "")}>
-    <p>Esta ação salva a sessão na ficha da cliente no Firestore. Retornos planejados ficam na ficha; use “Agendar” para reservar um horário na Agenda. <strong>* Campos obrigatórios; os demais são opcionais.</strong></p>
+    <p>{appointment ? "Esta sessão ficará vinculada ao agendamento concluído da Agenda." : "Esta ação salva a sessão na ficha da cliente no Firestore. Retornos planejados ficam na ficha; use “Agendar” para reservar um horário na Agenda."} <strong>* Campos obrigatórios; os demais são opcionais.</strong></p>
     {Object.values(errors).some(Boolean) && <div className="nc-validation-summary" role="alert">Revise os campos destacados antes de salvar.</div>}
-    <label>Procedimento *<input name="service" required minLength={3} maxLength={100} defaultValue={editing?.service ?? (planned ? client.sessions.find((session) => session.payment !== "Agendado")?.service ?? "" : "")} placeholder="Ex: Manutenção Volume Brasileiro" aria-invalid={Boolean(errors.service)} aria-describedby={errors.service ? "nc-session-error-service" : undefined} />{error("service")}</label>
-    <div className="nc-form-row"><label>Data e horário *<input name="date" type="datetime-local" required defaultValue={editing?.date ?? dateTimeInput(planned)} aria-invalid={Boolean(errors.date)} aria-describedby={errors.date ? "nc-session-error-date" : undefined} />{error("date")}</label>{!planned && <label>Valor (R$) *<input name="amount" type="number" inputMode="decimal" min="0" max="999999" step="0.01" required defaultValue={editing?.amount ?? 0} aria-invalid={Boolean(errors.amount)} aria-describedby={errors.amount ? "nc-session-error-amount" : undefined} />{error("amount")}</label>}</div>
-    {!planned && <div className="nc-form-row"><label>Pagamento *<select name="payment" required defaultValue={editing?.payment ?? "Pix"} aria-invalid={Boolean(errors.payment)} aria-describedby={errors.payment ? "nc-session-error-payment" : undefined}><option>Pix</option><option>Cartão Crédito</option><option>Dinheiro</option><option>Pendente</option></select>{error("payment")}</label><label>Duração<input name="duration" maxLength={40} defaultValue={editing?.duration ?? "1h"} placeholder="Ex: 1h 30m" aria-invalid={Boolean(errors.duration)} aria-describedby={errors.duration ? "nc-session-error-duration" : undefined} />{error("duration")}</label></div>}
+    <label>Procedimento *<input name="service" required minLength={3} maxLength={100} defaultValue={editing?.service ?? (appointment ? appointment.lines.map(line => line.name).join(" + ").slice(0, 100) : planned ? client.sessions.find((session) => session.payment !== "Agendado")?.service ?? "" : "")} placeholder="Ex: Manutenção Volume Brasileiro" aria-invalid={Boolean(errors.service)} aria-describedby={errors.service ? "nc-session-error-service" : undefined} />{error("service")}</label>
+    <div className="nc-form-row"><label>Data e horário *<input name="date" type="datetime-local" required defaultValue={editing?.date ?? (appointment ? `${appointment.date}T${appointment.time}` : dateTimeInput(planned))} aria-invalid={Boolean(errors.date)} aria-describedby={errors.date ? "nc-session-error-date" : undefined} />{error("date")}</label>{!planned && <label>Valor (R$) *<input name="amount" type="number" inputMode="decimal" min="0" max="999999" step="0.01" required defaultValue={editing?.amount ?? (appointment ? appointmentPrice(appointment) : 0)} aria-invalid={Boolean(errors.amount)} aria-describedby={errors.amount ? "nc-session-error-amount" : undefined} />{error("amount")}</label>}</div>
+    {!planned && <div className="nc-form-row"><label>Pagamento *<select name="payment" required defaultValue={editing?.payment ?? (appointment ? "Pendente" : "Pix")} aria-invalid={Boolean(errors.payment)} aria-describedby={errors.payment ? "nc-session-error-payment" : undefined}><option>Pix</option><option>Cartão Crédito</option><option>Cartão Débito</option><option>Dinheiro</option><option>Pendente</option></select>{error("payment")}</label><label>Duração<input name="duration" maxLength={40} defaultValue={editing?.duration ?? (appointment ? durationLabel(appointmentDuration(appointment)) : "1h")} placeholder="Ex: 1h 30m" aria-invalid={Boolean(errors.duration)} aria-describedby={errors.duration ? "nc-session-error-duration" : undefined} />{error("duration")}</label></div>}
     <label>Observações<textarea name="note" rows={3} maxLength={500} defaultValue={editing?.note} placeholder="Detalhes do atendimento" aria-invalid={Boolean(errors.note)} aria-describedby={errors.note ? "nc-session-error-note" : undefined} />{error("note")}</label>
     <div className="nc-dialog-actions"><button type="button" className="nc-btn nc-btn-quiet" onClick={onClose} disabled={saving}>Cancelar</button><button type="submit" className="nc-btn nc-btn-primary" disabled={saving}>{saving ? "Salvando..." : editing ? "Salvar sessão" : planned ? "Planejar retorno" : "Registrar sessão"}</button></div>
   </form>;
@@ -163,10 +165,10 @@ function ClientListItem({ client, selected, user, driveConnected, onSelect }: { 
   </button>;
 }
 
-function ClientAgendaSection({ appointments }: { appointments: AppointmentDocument[] }) {
+function ClientAgendaSection({ appointments, sessions }: { appointments: AppointmentDocument[]; sessions: ClientSession[] }) {
   return <section className="nc-agenda-section">
     <div className="nc-agenda-heading"><div><h3>Agendamentos na Agenda</h3><p>{appointments.length ? `${appointments.length} compromisso${appointments.length === 1 ? "" : "s"} vinculado${appointments.length === 1 ? "" : "s"} a esta cliente.` : "Nenhum agendamento vinculado a esta cliente."}</p></div></div>
-    {appointments.map(item => <div className="nc-agenda-appointment" key={item.id}><span><strong>{new Date(`${item.date}T12:00:00`).toLocaleDateString("pt-BR")} às {item.time}</strong><small>{item.lines.map(line => line.name).join(" + ")} · {item.status}</small></span><Link href={`/agenda?appointmentId=${encodeURIComponent(item.id)}`}>Ver na Agenda</Link></div>)}
+    {appointments.map(item => <div className="nc-agenda-appointment" key={item.id}><span><strong>{new Date(`${item.date}T12:00:00`).toLocaleDateString("pt-BR")} às {item.time}</strong><small>{item.lines.map(line => line.name).join(" + ")} · {item.status}{sessions.some(session => session.appointmentId === item.id) ? " · Sessão registrada" : ""}</small></span><Link href={`/agenda?appointmentId=${encodeURIComponent(item.id)}`}>Ver na Agenda</Link></div>)}
   </section>;
 }
 
@@ -186,6 +188,10 @@ export default function ClientsPage() {
   const [tab, setTab] = useState<Tab>("timeline");
   const [dialog, setDialog] = useState<Dialog>(null);
   const [editingSessionId, setEditingSessionId] = useState("");
+  const [linkedAppointmentId, setLinkedAppointmentId] = useState("");
+  const [highlightSessionId, setHighlightSessionId] = useState("");
+  const openedSessionLink = useRef(false);
+  const focusedSessionLink = useRef(false);
   const [toast, setToast] = useState("");
   const [photos, setPhotos] = useState<Record<string, Photo[]>>({});
   const [photoLoadState, setPhotoLoadState] = useState<"idle" | "loading" | "ready" | "error">("idle");
@@ -201,8 +207,38 @@ export default function ClientsPage() {
   useEffect(() => {
     const requestedClient = new URLSearchParams(window.location.search).get("clientId");
     if (requestedClient) setSelectedId(requestedClient);
+    const requestedSession = new URLSearchParams(window.location.search).get("sessionId");
+    if (requestedSession) setHighlightSessionId(requestedSession);
     return () => { photoUrls.current.forEach(URL.revokeObjectURL); photoUrls.current.clear(); };
   }, []);
+
+  useEffect(() => {
+    if (openedSessionLink.current || !loaded.clients || !loaded.sessions || !loaded.appointments) return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("newSession") !== "1") return;
+    openedSessionLink.current = true;
+    const appointmentId = params.get("appointmentId") ?? "";
+    const appointment = appointmentDocuments.find(item => item.id === appointmentId && item.clientId === params.get("clientId"));
+    if (!appointment || appointment.status !== "Concluído") { setToast("Conclua o agendamento na Agenda antes de registrar a sessão."); return; }
+    if (sessionDocuments.some(item => item.appointmentId === appointmentId)) { setToast("Esta sessão já está registrada na ficha."); return; }
+    setSelectedId(appointment.clientId);
+    setTab("timeline");
+    setLinkedAppointmentId(appointment.id);
+    setDialog("session");
+  }, [loaded, appointmentDocuments, sessionDocuments]);
+
+  useEffect(() => {
+    if (focusedSessionLink.current || !highlightSessionId || !loaded.clients || !loaded.sessions) return;
+    const session = sessionDocuments.find(item => item.id === highlightSessionId);
+    if (!session) return;
+    focusedSessionLink.current = true;
+    setSelectedId(session.clientId);
+    setFilter("Todas");
+    setQuery("");
+    setTab("timeline");
+    const timeout = window.setTimeout(() => document.getElementById(`nc-session-${highlightSessionId}`)?.scrollIntoView({ block: "center" }), 0);
+    return () => window.clearTimeout(timeout);
+  }, [highlightSessionId, loaded.clients, loaded.sessions, sessionDocuments]);
 
   useEffect(() => {
     if (!user) return;
@@ -234,6 +270,7 @@ export default function ClientsPage() {
   }), [clients, query, filter]);
   const selected = filtered.find((client) => client.id === selectedId) ?? filtered[0] ?? null;
   const selectedAppointments = appointmentDocuments.filter(item => item.clientId === selected?.id).sort((a, b) => `${b.date}T${b.time}`.localeCompare(`${a.date}T${a.time}`));
+  const linkedAppointment = appointmentDocuments.find(item => item.id === linkedAppointmentId && item.clientId === selected?.id);
   const editingSession = selected?.sessions.find(session => session.id === editingSessionId);
   const canDeleteSessions = profile?.role === "master_admin" || profile?.role === "admin";
   useEffect(() => {
@@ -279,7 +316,7 @@ export default function ClientsPage() {
   const runSave = async (action: () => Promise<void>, success: string) => {
     if (saving) return;
     setSaving(true); setDataError("");
-    try { await action(); setDialog(null); setToast(success); }
+    try { await action(); setDialog(null); setLinkedAppointmentId(""); setToast(success); }
     catch (error) { const message = error instanceof NavyApiError ? error.message : "Não foi possível concluir a operação. Tente novamente."; setDataError(message); setToast(message); }
     finally { setSaving(false); }
   };
@@ -297,6 +334,23 @@ export default function ClientsPage() {
     if (!repositories || !selected) throw new Error("Cliente indisponível");
     const session = toSessionDocument(selected.id, values);
     const { id: _id, clientId: _clientId, createdAt: _createdAt, ...changes } = session;
+    if (!planned && dialog === "session" && linkedAppointment) {
+      if (!profile) throw new NavyApiError("Unidade indisponível.");
+      const db = getFirebaseClient().db;
+      const appointmentRef = doc(db, "clinics", profile.clinicId, "appointments", linkedAppointment.id);
+      const sessionRef = doc(db, "clinics", profile.clinicId, "sessions", linkedAppointment.id);
+      await runTransaction(db, async transaction => {
+        const appointmentSnapshot = await transaction.get(appointmentRef);
+        const sessionSnapshot = await transaction.get(sessionRef);
+        const appointment = appointmentSnapshot.data() as AppointmentDocument | undefined;
+        if (!appointment || appointment.clientId !== selected.id || appointment.status !== "Concluído") throw new NavyApiError("O agendamento precisa estar concluído e vinculado a esta cliente.");
+        if (sessionSnapshot.exists()) throw new NavyApiError("Esta sessão já foi registrada. Abra a ficha para editá-la.");
+        const { id: _generatedId, ...data } = session;
+        transaction.set(sessionRef, { ...data, appointmentId: linkedAppointment.id, ...(appointment.bookingKind === "catalog" && appointment.lines.length === 1 ? { serviceId: appointment.lines[0].serviceId } : {}) });
+      });
+      setTab("timeline");
+      return;
+    }
     if (dialog === "sessionEdit" && editingSession) {
       if (planned) {
         if (!profile) throw new Error("Unidade indisponível");
@@ -417,15 +471,15 @@ export default function ClientsPage() {
       {tab === "timeline" && <div className="nc-tab-content">
         <div className="nc-clinical-alert"><Icon name="info" size={21} /><div><strong>Alerta de Prontuário &amp; Mapeamento</strong><p>{selected.clinicalNote}</p></div></div>
         <div className="nc-return-banner"><span className="nc-return-icon"><Icon name="calendar_clock" size={21} /></span><div><small>AÇÃO PREVENTIVA SUGERIDA</small><strong>{selected.returnDate ? `Janela ideal de Retorno: ${formatShortDate(selected.returnDate)}` : "Planeje a próxima manutenção"}</strong><p>Organize o próximo contato e acompanhe as preferências da cliente.</p></div><div className="nc-return-actions"><button type="button" className="nc-btn nc-btn-primary" onClick={() => setDialog("maintenance")}>Planejar retorno na ficha</button><button type="button" className="nc-btn nc-btn-white" onClick={() => setDialog("reminder")}>Gerar Lembrete</button></div></div>
-        <ClientAgendaSection appointments={selectedAppointments} />
-        <div className="nc-history-title"><h3>Histórico Clínico Detalhado <span>{selected.sessions.length} {selected.sessions.length === 1 ? "sessão" : "sessões"}</span></h3><button type="button" onClick={() => setDialog("session")}>+ Registrar Nova Sessão</button></div>
-        <div className="nc-timeline">{selected.sessions.length ? selected.sessions.map((session) => <div className="nc-timeline-item" key={session.id}>
+        <ClientAgendaSection appointments={selectedAppointments} sessions={selected.sessions} />
+        <div className="nc-history-title"><h3>Histórico Clínico Detalhado <span>{selected.sessions.length} {selected.sessions.length === 1 ? "sessão" : "sessões"}</span></h3><button type="button" onClick={() => { setLinkedAppointmentId(""); setDialog("session"); }}>+ Registrar Nova Sessão</button></div>
+        <div className="nc-timeline">{selected.sessions.length ? selected.sessions.map((session) => <div id={`nc-session-${session.id}`} className={`nc-timeline-item ${session.id === highlightSessionId ? "nc-session-highlight" : ""}`} key={session.id}>
           <span className="nc-timeline-node" />
           <div className="nc-session"><div><small>{formatDate(session.date)}</small><h4>{session.service}</h4></div>
             <span className={session.payment === "Agendado" ? "nc-session-planned" : session.payment === "Pendente" ? "nc-session-pending" : "nc-session-paid"}>{session.payment === "Agendado" ? "Retorno planejado" : session.payment === "Pendente" ? `Pagamento pendente • ${money(session.amount)}` : `Concluído • ${money(session.amount)} (${session.payment})`}</span>
             <p>{session.note || "Sem observações adicionais."}</p>
             <footer><Icon name="timer" size={14} /> Duração: {session.duration}</footer>
-            <div className="nc-session-actions"><button type="button" onClick={() => { setEditingSessionId(session.id); setDialog("sessionEdit"); }}>Editar sessão</button>{canDeleteSessions && <button type="button" onClick={() => { setEditingSessionId(session.id); setDialog("sessionDelete"); }}>Excluir</button>}</div>
+            <div className="nc-session-actions">{session.appointmentId && <Link href={`/agenda?appointmentId=${encodeURIComponent(session.appointmentId)}`}>Ver agendamento</Link>}{session.serviceId && <Link href={`/servicos?serviceId=${encodeURIComponent(session.serviceId)}`}>Ver serviço</Link>}<button type="button" onClick={() => { setEditingSessionId(session.id); setDialog("sessionEdit"); }}>Editar sessão</button>{canDeleteSessions && <button type="button" onClick={() => { setEditingSessionId(session.id); setDialog("sessionDelete"); }}>Excluir</button>}</div>
           </div>
         </div>) : <div className="nc-empty">Nenhuma sessão registrada. Use “Registrar Nova Sessão” para começar.</div>}</div>
       </div>}
@@ -450,7 +504,7 @@ export default function ClientsPage() {
 
     {(dialog === "create" || dialog === "edit") && <DialogFrame title={dialog === "create" ? "Cadastro da Cliente" : "Editar Cadastro da Cliente"} onClose={() => { if (!saving && !photoSaving) setDialog(null); }}><ClientForm key={dialog === "edit" ? selected?.id : "new"} client={dialog === "edit" ? selected ?? undefined : undefined} clients={clients} saving={saving} photoSaving={photoSaving} driveConnected={Boolean(drive?.connected)} avatarUrl={avatarUrl} canDelete={profile?.role === "master_admin" || profile?.role === "admin"} onSave={saveClient} onClose={() => setDialog(null)} onDelete={() => setDialog("delete")} onAvatarUpload={uploadAvatar} onAvatarRemove={removeAvatar} /></DialogFrame>}
     {dialog === "delete" && selected && <DialogFrame title="Excluir Cadastro" onClose={() => { if (!saving) setDialog(null); }}><div className="nc-form"><p>Excluir permanentemente o cadastro de {selected.name}, suas sessões e os agendamentos anteriores ou cancelados? Agendamentos futuros ativos precisam ser cancelados antes.</p><div className="nc-dialog-actions"><button type="button" className="nc-btn nc-btn-quiet" onClick={() => setDialog("edit")} disabled={saving}>Cancelar</button><button type="button" className="nc-btn nc-btn-danger" onClick={deleteClient} disabled={saving}>{saving ? "Excluindo..." : "Excluir cadastro"}</button></div></div></DialogFrame>}
-    {(dialog === "session" || dialog === "maintenance" || dialog === "sessionEdit") && selected && <DialogFrame title={dialog === "sessionEdit" ? "Editar Sessão" : dialog === "session" ? "Registrar Nova Sessão" : "Planejar Retorno"} onClose={() => { if (!saving) setDialog(null); }}><SessionForm key={`${selected.id}-${dialog}-${editingSessionId}`} client={selected} planned={dialog === "maintenance" || (dialog === "sessionEdit" && editingSession?.payment === "Agendado")} editing={dialog === "sessionEdit" ? editingSession : undefined} saving={saving} onSave={saveSession} onClose={() => setDialog(null)} /></DialogFrame>}
+    {(dialog === "session" || dialog === "maintenance" || dialog === "sessionEdit") && selected && <DialogFrame title={dialog === "sessionEdit" ? "Editar Sessão" : dialog === "session" ? "Registrar Nova Sessão" : "Planejar Retorno"} onClose={() => { if (!saving) { setDialog(null); setLinkedAppointmentId(""); } }}><SessionForm key={`${selected.id}-${dialog}-${editingSessionId}-${linkedAppointmentId}`} client={selected} planned={dialog === "maintenance" || (dialog === "sessionEdit" && editingSession?.payment === "Agendado")} editing={dialog === "sessionEdit" ? editingSession : undefined} appointment={dialog === "session" ? linkedAppointment : undefined} saving={saving} onSave={saveSession} onClose={() => { setDialog(null); setLinkedAppointmentId(""); }} /></DialogFrame>}
     {dialog === "sessionDelete" && selected && editingSession && <DialogFrame title="Excluir Sessão" onClose={() => { if (!saving) setDialog(null); }}><div className="nc-form"><p>Excluir permanentemente “{editingSession.service}” de {selected.name}? O histórico e os indicadores serão recalculados.</p><div className="nc-dialog-actions"><button type="button" className="nc-btn nc-btn-quiet" onClick={() => setDialog(null)} disabled={saving}>Cancelar</button><button type="button" className="nc-btn nc-btn-danger" onClick={deleteSession} disabled={saving}>{saving ? "Excluindo..." : "Excluir sessão"}</button></div></div></DialogFrame>}
     {(dialog === "clinical" || dialog === "preferences") && selected && <DialogFrame title={dialog === "clinical" ? "Observações Clínicas" : "Manutenções & Preferências"} onClose={() => { if (!saving) setDialog(null); }}><NotesForm key={`${selected.id}-${dialog}`} client={selected} clinical={dialog === "clinical"} saving={saving} onSave={saveNotes} onClose={() => setDialog(null)} /></DialogFrame>}
     {(dialog === "contact" || dialog === "reminder") && selected && <DialogFrame title={dialog === "contact" ? "Rascunho para WhatsApp" : "Gerar Lembrete de Retorno"} onClose={() => setDialog(null)}><div className="nc-form"><p>Confira o rascunho e copie a mensagem. Nenhum contato será aberto ou enviado automaticamente.</p><label>Telefone da cliente<input readOnly value={selected.phone} /></label><label>Mensagem<textarea id="nc-message" rows={5} defaultValue={dialog === "contact" ? `Olá, ${selected.name.split(" ")[0]}! Aqui é da NAVY. Como podemos ajudar você?` : `Olá, ${selected.name.split(" ")[0]}! Sua janela de manutenção ${selected.returnDate ? `começa em ${formatShortDate(selected.returnDate)}` : "está chegando"}. Vamos encontrar um horário?`} /></label><div className="nc-dialog-actions"><button type="button" className="nc-btn nc-btn-quiet" onClick={() => setDialog(null)}>Fechar</button><button type="button" className="nc-btn nc-btn-primary" onClick={() => copyMessage((document.getElementById("nc-message") as HTMLTextAreaElement)?.value ?? "")}>Copiar mensagem</button></div></div></DialogFrame>}

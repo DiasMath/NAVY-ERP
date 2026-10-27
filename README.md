@@ -2,7 +2,7 @@
 
 Aplicação publicada em [navy-erp-ecru.vercel.app](https://navy-erp-ecru.vercel.app), hospedada na Vercel por um projeto Next.js 15, React 19 e TypeScript. As páginas enviam `noindex, nofollow` aos mecanismos de busca.
 
-O login com Firebase Authentication e os repositórios Firestore estão descritos em [BACKEND.md](BACKEND.md). O passo a passo das integrações está em [GUIA-INTEGRACOES.md](GUIA-INTEGRACOES.md). Clientes, Serviços e Agenda usam o Firestore. A publicação das regras atualizadas é necessária junto com a nova Agenda.
+O login com Firebase Authentication e os repositórios Firestore estão descritos em [BACKEND.md](BACKEND.md). O passo a passo das integrações está em [GUIA-INTEGRACOES.md](GUIA-INTEGRACOES.md). Clientes, Serviços e Agenda usam o Firestore na única unidade NAVY Matriz. O identificador interno `navy-matriz` mantém os dados já existentes sem pedir seleção de clínica na interface.
 
 ## Telas
 
@@ -17,6 +17,8 @@ Clientes (`/clientes`) usa uma tela nativa em React/TypeScript em `features/clie
 A conexão do Drive fica em **Configurações Gerais → Integrações** (`/configuracoes/integracoes`). Clientes mostra apenas os controles de foto e galeria, que ficam indisponíveis enquanto a integração não estiver ativa.
 
 Serviços (`/servicos`) também é uma tela nativa em React/TypeScript em `features/services/`. Busca, filtros, criação, edição, duplicação em homologação, ativação/desativação, regras clínicas e exportação CSV usam os documentos do Firestore. Profissionais podem ser cadastradas, renomeadas, desativadas e reativadas antes de serem vinculadas aos procedimentos. A foto de apresentação é privada no Google Drive quando a integração está conectada. Serviços ativos com profissional habilitada abrem a Agenda com o procedimento pré-selecionado. A Agenda valida reservas do catálogo contra serviços e profissionais ativos; reservas avulsas usam a duração informada e bloqueiam sobreposição com outras reservas avulsas. Dados antigos da prévia em `localStorage` não são importados automaticamente.
+
+A Agenda (`/agenda`) abre a ficha da cliente e a ficha de cada serviço usado. Após concluir um compromisso, é possível registrar uma sessão na ficha da cliente com procedimento, data, duração e valor preenchidos a partir do agendamento. A sessão guarda o vínculo com o compromisso e, quando há um único procedimento do catálogo, com o serviço. Enquanto a sessão estiver vinculada, o agendamento não pode ser reaberto, cancelado ou remarcado; a sessão pode ser editada ou removida na ficha. O pagamento começa como pendente até ser registrado na sessão.
 
 Os formulários de Clientes distinguem campos obrigatórios e opcionais e mostram erros ao lado do campo. Cadastro valida nome e sobrenome, telefone brasileiro com DDD sem duplicatas, formato de e-mail, nascimento, cidade, Instagram, origem e dependências do contato preferido. Sessões validam procedimento, data, valor e pagamento; manutenções exigem data futura e rejeitam duplicatas. Observações clínicas e próximo retorno também são conferidos. Novas sessões com pagamento pendente não aumentam o total investido. Os diálogos são centralizados na área abaixo da navbar e à direita do menu, acompanhando a largura do menu aberto ou recolhido.
 

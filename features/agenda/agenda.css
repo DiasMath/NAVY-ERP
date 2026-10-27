@@ -67,4 +67,9 @@
 .ag-booking-intro,.ag-field,.ag-booking-help,.ag-booking-lines small,.ag-booking-summary span{font-size:10px}
 .ag-field input,.ag-field select,.ag-place-choice button,.ag-booking-lines strong,.ag-booking-lines b{font-size:11px}
 .ag-booking-summary strong{font-size:13px}
+.ag-service-line a{color:#376380;font-size:10px;font-weight:700;text-decoration:none}
+.ag-service-line a:hover{text-decoration:underline}
+.ag-session-link a{display:inline-flex;margin-top:8px;padding:8px 10px;border-radius:7px;background:#eff4fb;color:#376380;font-size:9px;font-weight:700;text-decoration:none}
+.ag-session-link a:hover{background:#e0eef7}
+.ag-detail-footer button:disabled{opacity:.6;cursor:not-allowed}
 @media(max-width:600px){.ag-month>div button{padding:4px}.ag-month>div strong{font-size:10px}.ag-month>div span{display:none}}
