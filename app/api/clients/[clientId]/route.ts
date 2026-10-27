@@ -7,7 +7,7 @@ type Context = { params: Promise<{ clientId: string }> };
 
 export async function DELETE(request: NextRequest, context: Context) {
   try {
-    const user = await requireNavyUser(request, true);
+    const user = await requireNavyUser(request, "clients.delete");
     const { clientId } = await context.params;
     const { ref, data } = await requireClient(user.clinicId, clientId);
     const photos = await adminDb().collection(`clinics/${user.clinicId}/clientPhotos`).where("clientId", "==", clientId).limit(1).get();

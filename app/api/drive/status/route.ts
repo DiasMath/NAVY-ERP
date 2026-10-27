@@ -6,7 +6,7 @@ export const runtime = "nodejs";
 
 export async function GET(request: NextRequest) {
   try {
-    const user = await requireNavyUser(request);
+    const user = await requireNavyUser(request, "integrations.read");
     const status = driveConfigured() ? await driveStatus(user.clinicId) : { connected: false };
     return NextResponse.json({ configured: driveConfigured(), ...status, canConnect: ["master_admin", "admin"].includes(user.role) });
   } catch (error) { return apiError(error); }

@@ -8,7 +8,7 @@ type Context = { params: Promise<{ clientId: string; imageId: string }> };
 
 export async function GET(request: NextRequest, context: Context) {
   try {
-    const user = await requireNavyUser(request);
+    const user = await requireNavyUser(request, "clients.read");
     const { clientId, imageId } = await context.params;
     const { data } = await requireClient(user.clinicId, clientId);
     let fileId: string | undefined;

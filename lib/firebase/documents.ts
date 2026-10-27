@@ -25,7 +25,7 @@ export type ClientDocument = {
 };
 
 export type ServiceDocument = Omit<ServiceRecord, "imageUrl"> & { imageDriveFileId?: string };
-export type ProfessionalDocument = { id: string; name: string; active: boolean };
+export type ProfessionalDocument = { id: string; name: string; active: boolean; userUid?: string };
 export type AppointmentDocument = Omit<AgendaAppointment, "demo"> & { createdAt: string; updatedAt: string };
 export type ClinicalSessionDocument = {
   id: string;

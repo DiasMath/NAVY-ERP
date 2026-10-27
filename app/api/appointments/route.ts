@@ -13,7 +13,7 @@ const saoPauloNow = () => Object.fromEntries(new Intl.DateTimeFormat("en-CA", { 
 
 export async function POST(request: NextRequest) {
   try {
-    const user = await requireNavyUser(request);
+    const user = await requireNavyUser(request, "agenda.write");
     const body = await request.json() as { id?: string; bookingKind?: "catalog" | "manual"; clientId?: string; professionalId?: string; serviceIds?: string[]; manualName?: string; manualDurationMinutes?: number; manualPrice?: number; date?: string; time?: string; place?: AgendaPlace; address?: string };
     const { clientId, professionalId, date, time, place } = body;
     const manual = body.bookingKind === "manual";
@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
 
 export async function PATCH(request: NextRequest) {
   try {
-    const user = await requireNavyUser(request);
+    const user = await requireNavyUser(request, "agenda.write");
     const body = await request.json() as { id?: string; status?: AgendaStatus; paymentMethod?: string; materials?: string[]; note?: string };
     if (!body.id) throw new ApiError(400, "Agendamento não informado.");
     assertDocumentId(body.id);

@@ -18,7 +18,7 @@ async function service(clinicId: string, serviceId: string) {
 
 export async function GET(request: NextRequest, context: Context) {
   try {
-    const user = await requireNavyUser(request);
+    const user = await requireNavyUser(request, "services.read");
     const { serviceId } = await context.params;
     const { data } = await service(user.clinicId, serviceId);
     if (typeof data.imageDriveFileId !== "string") throw new ApiError(404, "Imagem não encontrada.");
@@ -29,7 +29,7 @@ export async function GET(request: NextRequest, context: Context) {
 
 export async function POST(request: NextRequest, context: Context) {
   try {
-    const user = await requireNavyUser(request, true);
+    const user = await requireNavyUser(request, "services.write");
     const { serviceId } = await context.params;
     const { ref, data } = await service(user.clinicId, serviceId);
     const image = await prepareJpeg((await request.formData()).get("file"), "gallery");
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest, context: Context) {
 
 export async function DELETE(request: NextRequest, context: Context) {
   try {
-    const user = await requireNavyUser(request, true);
+    const user = await requireNavyUser(request, "services.write");
     const { serviceId } = await context.params;
     const { ref, data } = await service(user.clinicId, serviceId);
     if (typeof data.imageDriveFileId !== "string") return NextResponse.json({ ok: true });

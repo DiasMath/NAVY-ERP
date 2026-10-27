@@ -6,7 +6,7 @@ export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
   try {
-    const user = await requireNavyUser(request, true);
+    const user = await requireNavyUser(request, "integrations.manage");
     return NextResponse.json({ url: makeOAuthUrl(user.uid, user.clinicId) });
   } catch (error) { return apiError(error); }
 }

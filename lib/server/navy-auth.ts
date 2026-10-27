@@ -1,15 +1,16 @@
 import "server-only";
 import { NextRequest, NextResponse } from "next/server";
 import { adminAuth, adminDb } from "./firebase-admin";
+import { permissionsForProfile, type NavyPermission, type UserRole } from "@/lib/access-control";
 
 export class ApiError extends Error {
   constructor(public status: number, message: string) { super(message); }
 }
 
-export type ServerNavyUser = { uid: string; clinicId: string; role: "master_admin" | "admin" | "reception" | "professional" };
-const roles = ["master_admin", "admin", "reception", "professional"];
+export type ServerNavyUser = { uid: string; clinicId: string; role: UserRole; permissions: NavyPermission[] };
+const roles: UserRole[] = ["master_admin", "admin", "reception", "professional", "employee"];
 
-export async function requireNavyUser(request: NextRequest, manager = false): Promise<ServerNavyUser> {
+export async function requireNavyUser(request: NextRequest, permission?: NavyPermission): Promise<ServerNavyUser> {
   const token = /^Bearer (.+)$/i.exec(request.headers.get("authorization") ?? "")?.[1];
   if (!token) throw new ApiError(401, "Faça login para continuar.");
   let uid: string;
@@ -26,8 +27,10 @@ export async function requireNavyUser(request: NextRequest, manager = false): Pr
   const snapshot = await adminDb().doc(`users/${uid}`).get();
   const data = snapshot.data();
   if (!data || data.active !== true || typeof data.clinicId !== "string" || !/^[A-Za-z0-9_-]{1,128}$/.test(data.clinicId) || !roles.includes(data.role)) throw new ApiError(403, "Esta conta não tem acesso ativo à NAVY.");
-  if (manager && !["master_admin", "admin"].includes(data.role)) throw new ApiError(403, "Apenas administradores podem realizar esta ação.");
-  return { uid, clinicId: data.clinicId, role: data.role };
+  const role = data.role as UserRole;
+  const permissions = permissionsForProfile({ role, permissions: data.permissions });
+  if (permission && !permissions.includes(permission)) throw new ApiError(403, "Você não tem permissão para realizar esta ação.");
+  return { uid, clinicId: data.clinicId, role, permissions };
 }
 
 export function assertDocumentId(value: string) {
