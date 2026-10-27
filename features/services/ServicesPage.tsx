@@ -295,7 +295,7 @@ export default function ServicesPage() {
       const previous = editing ? serviceDocuments.find(item => item.id === id) : undefined;
       const item: ServiceDocument = {
         ...input, id, sku: editing ? selected.sku : nextSku(input.category, services),
-        heroSubtitle: editing ? selected.heroSubtitle : input.name,
+        heroSubtitle: input.name,
         version: editing ? (Number(selected.version) + 0.1).toFixed(1) : "1.0",
         updatedAt: today(),
         ...(previous?.imageDriveFileId ? { imageDriveFileId: previous.imageDriveFileId } : {}),
@@ -329,7 +329,7 @@ export default function ServicesPage() {
     let suffix = 2;
     while (services.some((item) => item.category === selected.category && normalise(item.name) === normalise(copyName))) copyName = `${baseName} (${suffix++})`;
     const { imageDriveFileId: _image, ...fields } = original;
-    const copy: ServiceDocument = { ...fields, id, sku: nextSku(selected.category, services), name: copyName, status: "Homologação", version: "1.0", updatedAt: today() };
+    const copy: ServiceDocument = { ...fields, id, sku: nextSku(selected.category, services), name: copyName, heroSubtitle: copyName, status: "Homologação", version: "1.0", updatedAt: today() };
     setSaving(true);
     try { await repositories.services.save(copy); setStatus("Homologação"); setCategory("Todos"); setModality("Todas"); setProfessionalFilter("Todos"); setQuery(""); setSelectedId(id); setMenuOpen(false); setToast("Rascunho duplicado no Firestore."); }
     catch (error) { reportError(error); }
