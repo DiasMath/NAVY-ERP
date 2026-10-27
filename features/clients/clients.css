@@ -40,6 +40,10 @@
 .nc-dialog-wide{width:min(700px,100%)}
 .nc-dialog-head{flex:none}.nc-dialog-body{min-height:0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#b8c9d5 #f3f6f9;margin-right:-7px;padding-right:7px}
 .nc-dialog-body::-webkit-scrollbar{width:6px}.nc-dialog-body::-webkit-scrollbar-track{background:#f3f6f9;border-radius:10px}.nc-dialog-body::-webkit-scrollbar-thumb{background:#b8c9d5;border-radius:10px}
+.nc-side-panel{height:100%;min-width:0;display:flex;flex-direction:column;padding:20px 22px;background:#fff}
+.nc-side-panel>.nc-dialog-head{flex:none}
+.nc-side-panel-body{flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#b8c9d5 #f3f6f9;padding:0 3px 26px 0}
+.nc-side-panel-body::-webkit-scrollbar{width:6px}.nc-side-panel-body::-webkit-scrollbar-track{background:#f3f6f9;border-radius:10px}.nc-side-panel-body::-webkit-scrollbar-thumb{background:#b8c9d5;border-radius:10px}
 .nc-form [aria-invalid="true"],.nc-form [aria-invalid="true"]:focus{box-shadow:0 0 0 1px #bd5960;background:#fff7f7}
 .nc-field-error{font:500 9.5px/1.4 Inter,sans-serif;color:#a04449}
 .nc-validation-summary{border-radius:7px;background:#fff1f2;color:#a04449;padding:8px 10px;font-size:10px}
