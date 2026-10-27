@@ -91,7 +91,8 @@ export async function PATCH(request: NextRequest) {
     if (previous.role === "master_admin") throw new ApiError(403, "A conta principal é protegida.");
     if (uid === actor.uid) throw new ApiError(403, "Altere sua própria conta por outro administrador.");
     if (!active && previous.active === true && typeof previous.professionalId === "string" && previous.professionalId) {
-      const today = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+      const parts = Object.fromEntries(new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(new Date()).map(part => [part.type, part.value]));
+      const today = `${parts.year}-${parts.month}-${parts.day}`;
       const upcoming = await db.collection("clinics").doc(actor.clinicId).collection("appointments").where("professionalId", "==", previous.professionalId).get();
       if (upcoming.docs.some(doc => doc.data().date >= today && doc.data().status !== "Cancelado")) throw new ApiError(409, "Reagende ou cancele os compromissos futuros desta profissional antes de desativar a conta.");
     }
