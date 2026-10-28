@@ -22,7 +22,7 @@ export const permissionCatalog = [
 export type NavyPermission = typeof permissionCatalog[number]["id"];
 export type UserRole = "master_admin" | "admin" | "reception" | "professional" | "employee";
 export const roleLabels: Record<UserRole, string> = {
-  master_admin: "Administração principal",
+  master_admin: "Equipe NAVY",
   admin: "Administração",
   reception: "Recepção",
   professional: "Profissional",

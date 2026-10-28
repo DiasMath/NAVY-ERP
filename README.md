@@ -8,7 +8,7 @@ O login com Firebase Authentication e os repositórios Firestore estão descrito
 
 O login (`/login`) foi adaptado para React/TypeScript a partir do HTML do Stitch. Ele tem um carrossel automático de cinco imagens locais em alta resolução, e-mail/senha, exibição de senha, opção de lembrar o dispositivo e recuperação de acesso. Não há seleção de papel na interface: o perfil efetivo é lido do Firebase.
 
-Os 16 documentos HTML do pacote Stitch, a tela de Clientes e a tela de Relatórios enviadas em seguida estão em `public/stitch/`. Eles foram preservados para que cores, tipografia, espaçamentos, conteúdo e comportamento visual sejam reproduzidos com a maior fidelidade possível.
+Os documentos HTML de referência do pacote Stitch estão em `public/stitch/`. As telas já migradas usam componentes nativos; a antiga prévia estática de Usuários foi removida.
 
 `lib/stitch-pages.ts` liga as rotas amigáveis às páginas ainda baseadas em HTML. O menu lateral reutilizável está em `components/StitchSidebar.tsx` e a navbar em `components/StitchHeader.tsx`; `components/StitchShell.tsx` monta ambos em todas as telas internas. Os itens ficam em `lib/stitch-navigation.ts` e os estilos em `app/stitch-shell.css`. `components/StitchViewport.tsx` exibe o conteúdo das telas HTML em uma proporção equivalente ao navegador em 80% no desktop. Em telas menores, a escala volta a 100%. Links de WhatsApp com números ilustrativos foram desativados na prévia pública.
 

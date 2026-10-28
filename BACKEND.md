@@ -37,7 +37,7 @@ O campo `paymentMethod` do agendamento é uma intenção de recebimento. O regis
 
 ## Acesso
 
-O formulário de login usa Firebase Authentication quando o app Web está configurado. Depois da autenticação, a NAVY acompanha `users/{uid}` em tempo real; contas desativadas perdem a sessão. `firestore.rules` protege o acesso direto aos dados, e as rotas de servidor verificam o ID token e a permissão específica de cada operação. O SDK Web só lê agendamentos; a escrita passa pela API que valida conflitos. Perfis, papéis e grupos só são escritos pela API administrativa, que calcula e salva as permissões efetivas no perfil. Contas legadas sem o campo `permissions` usam os direitos do papel padrão; `master_admin` sempre mantém acesso total. A criação de usuários gera uma senha aleatória e pede que a pessoa defina sua senha pelo e-mail de recuperação. O primeiro `master_admin` permanece criado manualmente no console Firebase. A exclusão de clientes passa por uma rota de servidor, exige que suas imagens sejam removidas e que agendamentos futuros sejam cancelados.
+O formulário de login usa Firebase Authentication quando o app Web está configurado. Depois da autenticação, a NAVY acompanha `users/{uid}` em tempo real; contas desativadas perdem a sessão. `firestore.rules` protege o acesso direto aos dados, e as rotas de servidor verificam o ID token e a permissão específica de cada operação. O SDK Web só lê agendamentos; a escrita passa pela API que valida conflitos. Perfis, papéis e grupos só são escritos pela API administrativa, que calcula e salva as permissões efetivas no perfil. Contas legadas sem o campo `permissions` usam os direitos do papel padrão. A conta proprietária é mantida fora das listagens administrativas. A criação de usuários gera uma senha aleatória e pede que a pessoa defina sua senha pelo e-mail de recuperação. A exclusão de clientes passa por uma rota de servidor, exige que suas imagens sejam removidas e que agendamentos futuros sejam cancelados.
 
 ## Para ativar o Firebase
 
@@ -45,16 +45,7 @@ O formulário de login usa Firebase Authentication quando o app Web está config
 2. Authentication com **E-mail/senha** está ativo. Novas contas comuns são criadas em Administração → Usuários. Nenhuma senha é armazenada neste repositório.
 3. Banco Cloud Firestore: já criado. Conferir o modo e a localização no console.
 4. As regras do Firestore da Agenda já foram publicadas no projeto `navy-erp`. Para mudanças futuras nessas regras, confira no Rules Simulator ou Emulator que membros podem ler `appointments`, mas não escrever diretamente nessa coleção nem em `scheduleLocks`.
-5. Somente para recuperar a administração principal, criar manualmente `users/{uid}` com os campos abaixo, usando o UID do usuário criado no Authentication:
-
-```json
-{
-  "name": "Administrador NAVY",
-  "clinicId": "navy-matriz",
-  "role": "master_admin",
-  "active": true
-}
-```
+5. A conta proprietária de recuperação é gerenciada diretamente no Firebase, fora da tela de usuários.
 
 6. Copiar `.env.example` para `.env.local` e preencher com o objeto de configuração do **app Web**. Cadastrar as mesmas variáveis no projeto Vercel e publicar uma nova versão. As variáveis `NEXT_PUBLIC_*` identificam o app; não são credenciais de administrador. Nunca colocar chave de conta de serviço nelas.
 

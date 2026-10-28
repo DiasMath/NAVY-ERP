@@ -19,5 +19,4 @@ export const stitchPages: Record<string, string> = {
   "/contas-receber": "contas-pagar",
   "/plano-contas": "plano-contas",
   "/configuracoes": "configuracoes",
-  "/usuarios": "usuarios",
 };

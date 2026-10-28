@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
   try {
     const actor = await requireNavyUser(request, "users.read");
     const snapshot = await adminDb().collection("users").where("clinicId", "==", actor.clinicId).get();
-    const users = await Promise.all(snapshot.docs.map(async doc => {
+    const users = await Promise.all(snapshot.docs.filter(doc => doc.data().role !== "master_admin").map(async doc => {
       const item = managedUser(doc.id, doc.data());
       if (!item.email) {
         try { item.email = (await adminAuth().getUser(doc.id)).email ?? ""; } catch { /* Conta legada sem e-mail recuperável. */ }
