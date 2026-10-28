@@ -12,9 +12,9 @@ export const permissionCatalog = [
   { id: "professionals.write", module: "Profissionais", label: "Gerenciar profissionais" },
   { id: "agenda.read", module: "Agenda", label: "Ver agendamentos" },
   { id: "agenda.write", module: "Agenda", label: "Criar e alterar agendamentos" },
-  { id: "users.read", module: "Administração", label: "Ver usuários e acessos" },
+  { id: "users.read", module: "Administração", label: "Ver usuários, acessos e configurações" },
   { id: "users.manage", module: "Administração", label: "Criar e administrar usuários" },
-  { id: "access.manage", module: "Administração", label: "Criar papéis e grupos" },
+  { id: "access.manage", module: "Administração", label: "Gerenciar papéis, grupos e configurações" },
   { id: "integrations.read", module: "Integrações", label: "Ver integrações" },
   { id: "integrations.manage", module: "Integrações", label: "Conectar integrações" },
 ] as const;

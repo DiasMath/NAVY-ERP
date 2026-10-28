@@ -12,6 +12,7 @@ import ClientsPage from "@/features/clients/ClientsPage";
 import ServicesPage from "@/features/services/ServicesPage";
 import AgendaPage from "@/features/agenda/AgendaPage";
 import IntegrationsPage from "@/features/settings/IntegrationsPage";
+import SettingsPage from "@/features/settings/SettingsPage";
 import LoginPage from "@/features/auth/LoginPage";
 import { useAuth } from "@/features/auth/AuthProvider";
 import { hasPermission, type NavyPermission } from "@/lib/access-control";
@@ -52,7 +53,9 @@ export default function NavyApp({ path }: { path: string }) {
   if (current === "/agenda") return <StitchShell path={current}><AgendaPage /></StitchShell>;
   if (current === "/usuarios") return <StitchShell path={current}><UsersPage /></StitchShell>;
   if (current === "/configuracoes/integracoes") return <StitchShell path={current}><IntegrationsPage /></StitchShell>;
-  if (configurationSections[current]) return <StitchShell path={current} screen="configuracoes" screenSection={configurationSections[current]} />;
+  if (configurationSections[current]) return hasPermission(profile, "users.read")
+    ? <StitchShell path={current}><SettingsPage key={current} section={configurationSections[current] as "clinica" | "financeiro" | "biosseguranca" | "unidade"} /></StitchShell>
+    : <StitchShell path={current}><AccessDenied required={["users.read"]} /></StitchShell>;
   if (stitchPages[current]) return <StitchShell path={current} screen={stitchPages[current]} />;
   return <StitchShell path={current}><ComingSoonPage path={current} /></StitchShell>;
 }
