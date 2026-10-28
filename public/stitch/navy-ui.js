@@ -2,6 +2,34 @@
   const page = document.body;
   const embedded = window.self !== window.top;
   if (embedded) page.classList.add('navy-shell-content');
+  if (embedded) document.addEventListener('click', (event) => {
+    const anchor = event.target instanceof Element ? event.target.closest('a[href]') : null;
+    if (!anchor || anchor.target !== '_top' || anchor.hasAttribute('download') || event.defaultPrevented) return;
+    const destination = new URL(anchor.href, window.location.href);
+    if (destination.origin !== window.location.origin) return;
+    event.preventDefault();
+    window.parent.postMessage({ type: 'navy:navigate', path: destination.pathname + destination.search + destination.hash }, window.location.origin);
+  }, true);
+  if (location.pathname.endsWith('/configuracoes.html')) {
+    const requested = new URLSearchParams(location.search).get('section');
+    const section = ['clinica', 'financeiro', 'biosseguranca', 'unidade'].includes(requested) ? requested : 'clinica';
+    document.querySelectorAll('[data-settings-panel]').forEach((panel) => {
+      panel.style.display = panel.dataset.settingsPanel === section ? '' : 'none';
+    });
+    document.querySelectorAll('[data-settings-tab]').forEach((tab) => {
+      const selected = tab.dataset.settingsTab === section;
+      tab.classList.toggle('bg-secondary-container', selected);
+      tab.classList.toggle('text-on-secondary-container', selected);
+      tab.classList.toggle('shadow-sm', selected);
+      tab.classList.toggle('text-on-surface-variant', !selected);
+      if (selected) tab.setAttribute('aria-current', 'page');
+      else tab.removeAttribute('aria-current');
+    });
+    document.querySelectorAll('main input, main select, main button').forEach((control) => {
+      control.disabled = true;
+      control.setAttribute('title', 'Prévia visual: esta política ainda não altera o sistema');
+    });
+  }
   const sidebar = page.querySelector('aside:first-of-type');
   const header = page.querySelector('div.pl-72 > header');
   const labels = {

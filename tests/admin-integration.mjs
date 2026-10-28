@@ -65,36 +65,47 @@ try {
   assert.equal(catalog.groups[0].id, group.id);
   expectStatus(await request("/api/admin/access", "POST", idToken, { kind: "role", name: "Papel Invalido", permissions: ["invalid.permission"] }), 400);
 
-  const create = { name: "Profissional Teste", email: "professional@example.test", role: "professional", roleId: role.id, groupIds: [group.id], createProfessional: true, professionalId: "", active: true };
+  const create = { name: "Profissional Teste", email: "professional@example.test", role: "professional", roleId: "", groupIds: [group.id], directPermissions: ["clients.read"], createProfessional: true, professionalId: "", active: true };
+  expectStatus(await request("/api/admin/users", "POST", idToken, { ...create, roleId: role.id }), 400);
   const created = expectStatus(await request("/api/admin/users", "POST", idToken, create), 201);
   const uid = created.uid;
   let profile = (await db.doc("users/" + uid).get()).data();
   assert.equal(profile.professionalId, uid);
   assert.deepEqual(profile.permissions, ["clients.read", "services.read"]);
+  assert.deepEqual(profile.directPermissions, ["clients.read"]);
   assert.equal((await db.doc("clinics/navy-matriz/professionals/" + uid).get()).data().userUid, uid);
   assert.equal((await auth.getUser(uid)).displayName, "Profissional Teste");
   listing = expectStatus(await request("/api/admin/users", "GET", idToken), 200);
   assert.equal(listing.users.length, 2);
   assert.ok(!listing.users.some(user => user.uid === owner.uid));
   expectStatus(await request("/api/admin/users", "POST", idToken, create), 409);
+  expectStatus(await request("/api/admin/access?kind=group&id=" + group.id, "DELETE", idToken), 409);
+
+  const roleUser = expectStatus(await request("/api/admin/users", "POST", idToken, { name: "Recepção Teste", email: "reception@example.test", role: "reception", roleId: role.id, groupIds: [], directPermissions: [], professionalId: "", createProfessional: false, active: false }), 201);
   expectStatus(await request("/api/admin/access?kind=role&id=" + role.id, "DELETE", idToken), 409);
 
   expectStatus(await request("/api/admin/access", "PATCH", idToken, { kind: "role", id: role.id, name: "Papel Teste Editado", description: "", permissions: ["clients.read", "agenda.read"] }), 200);
+  profile = (await db.doc("users/" + roleUser.uid).get()).data();
+  assert.deepEqual(profile.permissions, ["agenda.read", "clients.read"]);
   profile = (await db.doc("users/" + uid).get()).data();
-  assert.deepEqual(profile.permissions, ["agenda.read", "clients.read", "services.read"]);
+  assert.deepEqual(profile.permissions, ["clients.read", "services.read"]);
   expectStatus(await request("/api/admin/access", "PATCH", idToken, { kind: "group", id: group.id, name: "Grupo Teste Editado", description: "", permissions: ["services.read", "professionals.read"] }), 200);
   profile = (await db.doc("users/" + uid).get()).data();
-  assert.deepEqual(profile.permissions, ["agenda.read", "clients.read", "professionals.read", "services.read"]);
+  assert.deepEqual(profile.permissions, ["clients.read", "professionals.read", "services.read"]);
 
-  expectStatus(await request("/api/admin/users", "PATCH", idToken, { uid, name: "Profissional Editada", role: "professional", roleId: "", groupIds: [], professionalId: uid, createProfessional: false, active: false }), 200);
+  expectStatus(await request("/api/admin/users", "PATCH", idToken, { uid, name: "Profissional Editada", role: "professional", roleId: "", groupIds: [], directPermissions: [], professionalId: uid, createProfessional: false, active: false }), 200);
   profile = (await db.doc("users/" + uid).get()).data();
   assert.equal(profile.active, false);
   assert.equal(profile.name, "Profissional Editada");
   assert.equal((await auth.getUser(uid)).disabled, true);
   assert.equal((await auth.getUser(uid)).displayName, "Profissional Editada");
   assert.equal((await db.doc("clinics/navy-matriz/professionals/" + uid).get()).data().name, "Profissional Editada");
+  expectStatus(await request("/api/admin/users", "PATCH", idToken, { uid: roleUser.uid, name: "Recepção Teste", role: "reception", roleId: "", groupIds: [], directPermissions: [], professionalId: "", createProfessional: false, active: false }), 200);
   expectStatus(await request("/api/admin/access?kind=role&id=" + role.id, "DELETE", idToken), 200);
   expectStatus(await request("/api/admin/access?kind=group&id=" + group.id, "DELETE", idToken), 200);
+  const history = expectStatus(await request("/api/admin/access", "GET", idToken), 200);
+  assert.ok(history.audit.some(item => item.action === "user.created" && item.targetId === uid));
+  assert.ok(history.audit.some(item => item.action === "group.deleted" && item.targetId === group.id));
 
   console.log("Admin API integration: users, roles, groups, permissions, owner protection and professional link passed.");
 } finally {

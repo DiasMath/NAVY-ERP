@@ -17,43 +17,46 @@
 </div>
 <!-- Action buttons -->
 <div class="flex items-center gap-space-sm shrink-0 self-start lg:self-end">
-<button class="h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md flex items-center gap-space-xs hover:bg-surface-container transition-all shadow-sm active:scale-95" type="button">
+<button class="h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md flex items-center gap-space-xs opacity-50 cursor-not-allowed" type="button" disabled title="As políticas desta seção ainda não estão conectadas ao Firestore">
 <span class="material-symbols-outlined text-[18px] text-on-surface-variant">restart_alt</span>
 <span>Restaurar Padrões Recomendados</span>
 </button>
-<button class="h-10 px-space-lg rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center gap-space-xs hover:bg-primary/90 transition-all shadow-[0_2px_8px_rgba(55,99,128,0.28)] active:scale-95" type="button">
+<button class="h-10 px-space-lg rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center gap-space-xs opacity-50 cursor-not-allowed" type="button" disabled title="As políticas desta seção ainda não estão conectadas ao Firestore">
 <span class="material-symbols-outlined text-[18px]">save</span>
 <span>Salvar Alterações</span>
 </button>
 </div>
 </div>
 <!-- Configuration Navigation Tabs / Pills -->
-<div class="flex items-center gap-space-xs overflow-x-auto py-1 border-b border-transparent">
-<button class="px-space-md py-2 rounded-full font-label-md text-label-md bg-secondary-container text-on-secondary-container shadow-sm flex items-center gap-2 whitespace-nowrap">
+<nav aria-label="Seções de configurações" class="flex items-center gap-space-xs overflow-x-auto py-1 border-b border-transparent">
+<a href="/configuracoes" target="_top" data-settings-tab="clinica" class="px-space-md py-2 rounded-full font-label-md text-label-md bg-secondary-container text-on-secondary-container shadow-sm flex items-center gap-2 whitespace-nowrap">
 <span class="material-symbols-outlined text-[17px]">tune</span>
 <span>Políticas Clínicas &amp; Agenda</span>
-</button>
-<button class="px-space-md py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2 whitespace-nowrap">
+</a>
+<a href="/configuracoes/financeiro" target="_top" data-settings-tab="financeiro" class="px-space-md py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2 whitespace-nowrap">
 <span class="material-symbols-outlined text-[17px]">shield_with_heart</span>
 <span>Financeiro &amp; Margens de Segurança</span>
-</button>
-<button class="px-space-md py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2 whitespace-nowrap">
+</a>
+<a href="/configuracoes/biosseguranca" target="_top" data-settings-tab="biosseguranca" class="px-space-md py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2 whitespace-nowrap">
 <span class="material-symbols-outlined text-[17px]">sanitizer</span>
 <span>Biossegurança &amp; Prazos</span>
-</button>
-<button class="px-space-md py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2 whitespace-nowrap">
+</a>
+<a href="/configuracoes/unidade" target="_top" data-settings-tab="unidade" class="px-space-md py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2 whitespace-nowrap">
 <span class="material-symbols-outlined text-[17px]">domain</span>
 <span>Dados da Unidade &amp; Fiscal</span>
-</button>
-<a href="/configuracoes/integracoes" target="_top" class="px-space-md py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2 whitespace-nowrap">
+</a>
+<a href="/configuracoes/integracoes" target="_top" data-settings-tab="integracoes" class="px-space-md py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2 whitespace-nowrap">
 <span class="material-symbols-outlined text-[17px]">hub</span>
 <span>Integrações &amp; WhatsApp API</span>
 </a>
+</nav>
+<div role="status" class="rounded-xl bg-secondary-container/50 text-on-secondary-container px-space-md py-space-sm font-body-sm text-body-sm">
+  Prévia das políticas da unidade: os valores abaixo ainda são ilustrativos e não alteram Agenda, Serviços ou Financeiro. A seção Integrações já consulta o estado real do Google Drive.
 </div>
 <!-- Main Grid: 2x2 Harmonious Layout -->
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+<div data-settings-grid class="grid grid-cols-1 gap-space-lg">
 <!-- CARD A: Regras de Pontualidade & Cancelamento -->
-<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between space-y-space-md">
+<div data-settings-panel="clinica" class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between space-y-space-md">
 <div>
 <!-- Card Header -->
 <div class="flex items-start justify-between pb-space-sm mb-space-md">
@@ -119,7 +122,7 @@
 </div>
 </div>
 <!-- CARD B: Travas de Precificação & Margem Mínima -->
-<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between space-y-space-md relative overflow-hidden">
+<div data-settings-panel="financeiro" class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between space-y-space-md relative overflow-hidden">
 <!-- Subtle corner watermark glow for emphasis -->
 <div class="absolute -right-12 -top-12 w-40 h-40 bg-secondary-fixed/30 rounded-full blur-2xl pointer-events-none"></div>
 <div>
@@ -194,7 +197,7 @@
 </div>
 </div>
 <!-- CARD C: Padrões Sanitários & Biossegurança de Insumos -->
-<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between space-y-space-md">
+<div data-settings-panel="biosseguranca" class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between space-y-space-md">
 <div>
 <!-- Card Header -->
 <div class="flex items-start justify-between pb-space-sm mb-space-md">
@@ -284,7 +287,7 @@
 </div>
 </div>
 <!-- CARD D: Dados Cadastrais & Perfil da Matriz -->
-<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between space-y-space-md">
+<div data-settings-panel="unidade" class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between space-y-space-md">
 <div>
 <!-- Card Header -->
 <div class="flex items-start justify-between pb-space-sm mb-space-md">

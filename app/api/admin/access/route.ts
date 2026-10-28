@@ -15,7 +15,11 @@ function parseKind(value: unknown): Kind {
 export async function GET(request: NextRequest) {
   try {
     const actor = await requireNavyUser(request, "users.read");
-    return NextResponse.json(await accessCatalog(actor.clinicId));
+    const [catalog, audit] = await Promise.all([
+      accessCatalog(actor.clinicId),
+      adminDb().collection("clinics").doc(actor.clinicId).collection("accessAudit").orderBy("createdAt", "desc").limit(20).get(),
+    ]);
+    return NextResponse.json({ ...catalog, audit: audit.docs.map(doc => ({ id: doc.id, ...doc.data() })) });
   } catch (error) { return apiError(error); }
 }
 
@@ -33,7 +37,11 @@ export async function POST(request: NextRequest) {
     const existing = await collection.get();
     if (existing.docs.some(doc => String(doc.data().name).toLocaleLowerCase("pt-BR") === name.toLocaleLowerCase("pt-BR"))) throw new ApiError(409, "Já existe um item com este nome.");
     const ref = collection.doc();
-    await ref.set({ name, description, permissions, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
+    const now = new Date().toISOString();
+    const batch = adminDb().batch();
+    batch.set(ref, { name, description, permissions, createdAt: now, updatedAt: now });
+    batch.set(base.collection("accessAudit").doc(), { actorUid: actor.uid, action: kind + ".created", targetId: ref.id, targetName: name, createdAt: now });
+    await batch.commit();
     return NextResponse.json({ id: ref.id }, { status: 201 });
   } catch (error) { return apiError(error); }
 }
@@ -58,14 +66,16 @@ export async function PATCH(request: NextRequest) {
     const affected = await db.collection("users").where("clinicId", "==", actor.clinicId).get();
     const updates = affected.docs.filter(doc => kind === "role" ? doc.data().roleId === body.id : Array.isArray(doc.data().groupIds) && doc.data().groupIds.includes(body.id)).map(doc => {
       const data = doc.data();
-      const next = effectivePermissions(data.role as UserRole, String(data.roleId ?? ""), Array.isArray(data.groupIds) ? data.groupIds : [], newCatalog);
+      const next = effectivePermissions(data.role as UserRole, String(data.roleId ?? ""), Array.isArray(data.groupIds) ? data.groupIds : [], cleanPermissions(data.directPermissions ?? []), newCatalog);
       assertCanGrant(actor, next);
       return { ref: doc.ref, permissions: next };
     });
     if (updates.length > 450) throw new ApiError(409, "Muitos usuários vinculados. Contate o suporte para atualizar este papel.");
     const batch = db.batch();
-    batch.update(ref, { name, description, permissions, updatedAt: new Date().toISOString() });
-    updates.forEach(item => batch.update(item.ref, { permissions: item.permissions, updatedAt: new Date().toISOString() }));
+    const now = new Date().toISOString();
+    batch.update(ref, { name, description, permissions, updatedAt: now });
+    updates.forEach(item => batch.update(item.ref, { permissions: item.permissions, updatedAt: now }));
+    batch.set(base.collection("accessAudit").doc(), { actorUid: actor.uid, action: kind + ".updated", targetId: body.id, targetName: name, createdAt: now });
     await batch.commit();
     return NextResponse.json({ ok: true, updatedUsers: updates.length });
   } catch (error) { return apiError(error); }
@@ -80,10 +90,14 @@ export async function DELETE(request: NextRequest) {
     const db = adminDb();
     const base = db.collection("clinics").doc(actor.clinicId);
     const ref = base.collection(segment(kind)).doc(id);
-    if (!(await ref.get()).exists) throw new ApiError(404, "Item não encontrado.");
+    const existing = await ref.get();
+    if (!existing.exists) throw new ApiError(404, "Item não encontrado.");
     const users = await db.collection("users").where("clinicId", "==", actor.clinicId).get();
     if (users.docs.some(doc => kind === "role" ? doc.data().roleId === id : Array.isArray(doc.data().groupIds) && doc.data().groupIds.includes(id))) throw new ApiError(409, "Remova os usuários deste papel ou grupo antes de excluí-lo.");
-    await ref.delete();
+    const batch = db.batch();
+    batch.delete(ref);
+    batch.set(base.collection("accessAudit").doc(), { actorUid: actor.uid, action: kind + ".deleted", targetId: id, targetName: String(existing.data()?.name ?? ""), createdAt: new Date().toISOString() });
+    await batch.commit();
     return NextResponse.json({ ok: true });
   } catch (error) { return apiError(error); }
 }
