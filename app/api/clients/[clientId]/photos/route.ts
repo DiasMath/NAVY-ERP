@@ -9,7 +9,7 @@ type Context = { params: Promise<{ clientId: string }> };
 
 export async function GET(request: NextRequest, context: Context) {
   try {
-    const user = await requireNavyUser(request);
+    const user = await requireNavyUser(request, "clients.read");
     const { clientId } = await context.params;
     await requireClient(user.clinicId, clientId);
     const snapshot = await adminDb().collection(`clinics/${user.clinicId}/clientPhotos`).where("clientId", "==", clientId).get();
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest, context: Context) {
 
 export async function POST(request: NextRequest, context: Context) {
   try {
-    const user = await requireNavyUser(request);
+    const user = await requireNavyUser(request, "clients.write");
     const { clientId } = await context.params;
     await requireClient(user.clinicId, clientId);
     const form = await request.formData();

@@ -8,7 +8,7 @@ type Context = { params: Promise<{ clientId: string; photoId: string }> };
 
 export async function DELETE(request: NextRequest, context: Context) {
   try {
-    const user = await requireNavyUser(request);
+    const user = await requireNavyUser(request, "clients.write");
     const { clientId, photoId } = await context.params;
     await requireClient(user.clinicId, clientId);
     assertDocumentId(photoId);

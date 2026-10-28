@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { adminDb } from "@/lib/server/firebase-admin";
 import { createDriveFolder, driveStatus, exchangeOAuthCode, googleAccountEmail, saveDriveConnection, verifyOAuthState } from "@/lib/server/google-drive";
+import { permissionsForProfile, roleLabels, type UserRole } from "@/lib/access-control";
 
 export const runtime = "nodejs";
 
@@ -12,7 +13,7 @@ export async function GET(request: NextRequest) {
     if (!code || !state || request.nextUrl.searchParams.has("error")) throw new Error("OAuth cancelado ou incompleto");
     const { uid, clinicId } = verifyOAuthState(state);
     const profile = (await adminDb().doc(`users/${uid}`).get()).data();
-    if (!profile || profile.active !== true || profile.clinicId !== clinicId || !["master_admin", "admin"].includes(profile.role)) throw new Error("Administrador sem acesso ativo");
+    if (!profile || profile.active !== true || profile.clinicId !== clinicId || !Object.hasOwn(roleLabels, profile.role) || !permissionsForProfile({ role: profile.role as UserRole, permissions: profile.permissions }).includes("integrations.manage")) throw new Error("Administrador sem acesso ativo");
     const { accessToken, refreshToken } = await exchangeOAuthCode(code);
     const email = await googleAccountEmail(accessToken);
     const expectedEmail = (process.env.GOOGLE_DRIVE_OWNER_EMAIL ?? "").toLowerCase();

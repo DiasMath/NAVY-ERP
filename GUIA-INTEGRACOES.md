@@ -6,7 +6,7 @@
 | --- | --- |
 | Next.js, React e TypeScript | Projeto executável e publicado na Vercel. |
 | Interface | Login, Clientes e Serviços em React com Firebase. Agenda ainda usa dados locais de demonstração. Outras telas usam HTML de referência do Stitch. |
-| Firebase Authentication | App Web `navy-erp` conectado, E-mail/senha ativo e duas contas com perfis `master_admin` e `admin`. |
+| Firebase Authentication | App Web `navy-erp` conectado e E-mail/senha ativo. A conta proprietária não aparece nas listagens administrativas. |
 | Cloud Firestore | Banco e regras publicados. Clientes grava cadastros e sessões; Serviços grava catálogo e profissionais. |
 | Google Drive | API ativada. Rotas privadas de imagens de Clientes e Serviços implementadas; a conta proprietária deve autorizar o app em Configurações → Integrações. |
 | GitHub | Repositório `DiasMath/NAVY-ERP` conectado aos projetos Vercel; pushes em `main` publicam novas versões. |

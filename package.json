@@ -6,7 +6,9 @@
     "dev": "next dev --hostname 0.0.0.0",
     "build": "next build",
     "start": "next start --hostname 0.0.0.0",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "test:rules": "firebase emulators:exec --only firestore --project demo-navy-rules \"node tests/firestore-rules.mjs\"",
+    "test:admin": "firebase emulators:exec --only auth,firestore --project demo-navy-admin \"node tests/admin-integration.mjs\""
   },
   "dependencies": {
     "firebase": "12.10.0",
@@ -18,9 +20,11 @@
     "sharp": "^0.35.5"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^5.0.2",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "firebase-tools": "^15.34.1",
     "typescript": "^5.0.0"
   },
   "overrides": {

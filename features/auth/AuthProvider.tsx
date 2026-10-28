@@ -2,12 +2,12 @@
 
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { browserLocalPersistence, browserSessionPersistence, onAuthStateChanged, sendPasswordResetEmail, setPersistence, signInWithEmailAndPassword, signOut as firebaseSignOut, type User } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { getFirebaseClient } from "@/lib/firebase/client";
 import { isFirebaseConfigured } from "@/lib/firebase/config";
+import { permissionsForProfile, type NavyPermission, type UserRole } from "@/lib/access-control";
 
-export type UserRole = "master_admin" | "admin" | "reception" | "professional";
-export type NavyUserProfile = { uid: string; name: string; clinicId: string; role: UserRole; active: true };
+export type NavyUserProfile = { uid: string; name: string; clinicId: string; role: UserRole; active: true; email: string; roleId?: string; groupIds: string[]; professionalId?: string; permissions: NavyPermission[] };
 type AuthStatus = "loading" | "authenticated" | "unauthenticated";
 type AuthState = {
   status: AuthStatus;
@@ -19,16 +19,14 @@ type AuthState = {
   resetPassword(email: string): Promise<void>;
 };
 
-const roles: UserRole[] = ["master_admin", "admin", "reception", "professional"];
+const roles: UserRole[] = ["master_admin", "admin", "reception", "professional", "employee"];
 const AuthContext = createContext<AuthState | null>(null);
 
-async function readProfile(uid: string): Promise<NavyUserProfile | null> {
-  const { db } = getFirebaseClient();
-  const snapshot = await getDoc(doc(db, "users", uid));
-  if (!snapshot.exists()) return null;
-  const data = snapshot.data();
-  if (data.active !== true || typeof data.clinicId !== "string" || !data.clinicId || !roles.includes(data.role) || typeof data.name !== "string") return null;
-  return { uid, name: data.name, clinicId: data.clinicId, role: data.role, active: true };
+function readProfile(uid: string, data: Record<string, unknown> | undefined): NavyUserProfile | null {
+  if (!data) return null;
+  if (data.active !== true || typeof data.clinicId !== "string" || !data.clinicId || !roles.includes(data.role as UserRole) || typeof data.name !== "string") return null;
+  const role = data.role as UserRole;
+  return { uid, name: data.name, clinicId: data.clinicId, role, active: true, email: typeof data.email === "string" ? data.email : "", roleId: typeof data.roleId === "string" ? data.roleId : undefined, groupIds: Array.isArray(data.groupIds) ? data.groupIds.filter((id): id is string => typeof id === "string") : [], professionalId: typeof data.professionalId === "string" ? data.professionalId : undefined, permissions: permissionsForProfile({ role, permissions: data.permissions }) };
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -40,27 +38,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!isFirebaseConfigured) return;
     const { auth } = getFirebaseClient();
-    let revision = 0;
-    const unsubscribe = onAuthStateChanged(auth, async nextUser => {
-      const current = ++revision;
+    let unsubscribeProfile = () => {};
+    const unsubscribe = onAuthStateChanged(auth, nextUser => {
+      unsubscribeProfile();
       if (!nextUser) { setUser(null); setProfile(null); setStatus("unauthenticated"); return; }
       setStatus("loading");
-      try {
-        const nextProfile = await readProfile(nextUser.uid);
-        if (current !== revision) return;
+      unsubscribeProfile = onSnapshot(doc(getFirebaseClient().db, "users", nextUser.uid), snapshot => {
+        const nextProfile = readProfile(nextUser.uid, snapshot.data());
         if (!nextProfile) {
           setError("Esta conta não tem acesso ativo à NAVY. Peça autorização à administração.");
-          await firebaseSignOut(auth);
+          void firebaseSignOut(auth);
           return;
         }
         setUser(nextUser); setProfile(nextProfile); setError(""); setStatus("authenticated");
-      } catch {
-        if (current !== revision) return;
+      }, () => {
         setError("Não foi possível verificar as permissões desta conta. Tente novamente.");
-        await firebaseSignOut(auth);
-      }
+        void firebaseSignOut(auth);
+      });
     });
-    return () => { revision++; unsubscribe(); };
+    return () => { unsubscribeProfile(); unsubscribe(); };
   }, []);
 
   const value = useMemo<AuthState>(() => ({

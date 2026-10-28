@@ -9,7 +9,7 @@ type Context = { params: Promise<{ clientId: string }> };
 
 export async function POST(request: NextRequest, context: Context) {
   try {
-    const user = await requireNavyUser(request);
+    const user = await requireNavyUser(request, "clients.read");
     const { clientId } = await context.params;
     const { ref, data } = await requireClient(user.clinicId, clientId);
     const image = await prepareJpeg((await request.formData()).get("file"), "avatar");
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest, context: Context) {
 
 export async function DELETE(request: NextRequest, context: Context) {
   try {
-    const user = await requireNavyUser(request);
+    const user = await requireNavyUser(request, "clients.write");
     const { clientId } = await context.params;
     const { ref, data } = await requireClient(user.clinicId, clientId);
     if (typeof data.avatarDriveFileId !== "string") return NextResponse.json({ ok: true });

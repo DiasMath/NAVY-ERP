@@ -22,7 +22,7 @@ export default function IntegrationsPage() {
   const [statusError, setStatusError] = useState("");
   const [connectionError, setConnectionError] = useState("");
   const [statusRevision, setStatusRevision] = useState(0);
-  const canManageDrive = profile?.role === "master_admin" || profile?.role === "admin";
+  const canManageDrive = Boolean(profile?.permissions.includes("integrations.manage"));
   const canConnectDrive = canManageDrive && drive?.configured !== false && drive?.canConnect !== false;
 
   useEffect(() => {
