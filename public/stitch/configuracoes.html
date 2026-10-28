@@ -17,43 +17,46 @@
 </div>
 <!-- Action buttons -->
 <div class="flex items-center gap-space-sm shrink-0 self-start lg:self-end">
-<button class="h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md flex items-center gap-space-xs hover:bg-surface-container transition-all shadow-sm active:scale-95" type="button">
+<button class="h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md flex items-center gap-space-xs opacity-50 cursor-not-allowed" type="button" disabled title="As políticas desta seção ainda não estão conectadas ao Firestore">
 <span class="material-symbols-outlined text-[18px] text-on-surface-variant">restart_alt</span>
 <span>Restaurar Padrões Recomendados</span>
 </button>
-<button class="h-10 px-space-lg rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center gap-space-xs hover:bg-primary/90 transition-all shadow-[0_2px_8px_rgba(55,99,128,0.28)] active:scale-95" type="button">
+<button class="h-10 px-space-lg rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center gap-space-xs opacity-50 cursor-not-allowed" type="button" disabled title="As políticas desta seção ainda não estão conectadas ao Firestore">
 <span class="material-symbols-outlined text-[18px]">save</span>
 <span>Salvar Alterações</span>
 </button>
 </div>
 </div>
 <!-- Configuration Navigation Tabs / Pills -->
-<div class="flex items-center gap-space-xs overflow-x-auto py-1 border-b border-transparent">
-<button class="px-space-md py-2 rounded-full font-label-md text-label-md bg-secondary-container text-on-secondary-container shadow-sm flex items-center gap-2 whitespace-nowrap">
+<nav aria-label="Seções de configurações" class="flex items-center gap-space-xs overflow-x-auto py-1 border-b border-transparent">
+<a href="/configuracoes" target="_top" data-settings-tab="clinica" class="px-space-md py-2 rounded-full font-label-md text-label-md bg-secondary-container text-on-secondary-container shadow-sm flex items-center gap-2 whitespace-nowrap">
 <span class="material-symbols-outlined text-[17px]">tune</span>
 <span>Políticas Clínicas &amp; Agenda</span>
-</button>
-<button class="px-space-md py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2 whitespace-nowrap">
+</a>
+<a href="/configuracoes/financeiro" target="_top" data-settings-tab="financeiro" class="px-space-md py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2 whitespace-nowrap">
 <span class="material-symbols-outlined text-[17px]">shield_with_heart</span>
 <span>Financeiro &amp; Margens de Segurança</span>
-</button>
-<button class="px-space-md py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2 whitespace-nowrap">
+</a>
+<a href="/configuracoes/biosseguranca" target="_top" data-settings-tab="biosseguranca" class="px-space-md py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2 whitespace-nowrap">
 <span class="material-symbols-outlined text-[17px]">sanitizer</span>
 <span>Biossegurança &amp; Prazos</span>
-</button>
-<button class="px-space-md py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2 whitespace-nowrap">
+</a>
+<a href="/configuracoes/unidade" target="_top" data-settings-tab="unidade" class="px-space-md py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2 whitespace-nowrap">
 <span class="material-symbols-outlined text-[17px]">domain</span>
 <span>Dados da Unidade &amp; Fiscal</span>
-</button>
-<a href="/configuracoes/integracoes" target="_top" class="px-space-md py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2 whitespace-nowrap">
+</a>
+<a href="/configuracoes/integracoes" target="_top" data-settings-tab="integracoes" class="px-space-md py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2 whitespace-nowrap">
 <span class="material-symbols-outlined text-[17px]">hub</span>
 <span>Integrações &amp; WhatsApp API</span>
 </a>
+</nav>
+<div role="status" class="rounded-xl bg-secondary-container/50 text-on-secondary-container px-space-md py-space-sm font-body-sm text-body-sm">
+  Prévia das políticas da unidade: os valores abaixo ainda são ilustrativos e não alteram Agenda, Serviços ou Financeiro. A seção Integrações já consulta o estado real do Google Drive.
 </div>
 <!-- Main Grid: 2x2 Harmonious Layout -->
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+<div data-settings-grid class="grid grid-cols-1 gap-space-lg">
 <!-- CARD A: Regras de Pontualidade & Cancelamento -->
-<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between space-y-space-md">
+<div data-settings-panel="clinica" class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between space-y-space-md">
 <div>
 <!-- Card Header -->
 <div class="flex items-start justify-between pb-space-sm mb-space-md">
@@ -75,7 +78,7 @@
 <label class="font-label-md text-label-md text-on-surface-variant block">Tempo de tolerância para atrasos da cliente</label>
 <div class="relative">
 <select class="w-full h-11 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md appearance-none outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all pr-10 cursor-pointer">
-<option selected="">15 minutos (com cancelamento automático de mapping complexo)</option>
+<option selected="">15 minutos (exemplo de configuração)</option>
 <option>10 minutos (tolerância padrão express)</option>
 <option>20 minutos (com realocação para manutenção básica)</option>
 </select>
@@ -104,7 +107,7 @@
 <div class="p-space-md rounded-xl bg-surface-container-low flex items-center justify-between gap-space-md">
 <div class="space-y-0.5">
 <p class="font-label-md text-label-md text-on-surface font-semibold">Taxa de No-Show &amp; Reserva Garantida</p>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Cobrança de sinal de 30% em novos agendamentos via link ou WhatsApp.</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Exemplo de política de sinal para novos agendamentos.</p>
 </div>
 <label class="relative inline-flex items-center cursor-pointer shrink-0">
 <input checked="" class="sr-only peer" type="checkbox">
@@ -119,7 +122,7 @@
 </div>
 </div>
 <!-- CARD B: Travas de Precificação & Margem Mínima -->
-<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between space-y-space-md relative overflow-hidden">
+<div data-settings-panel="financeiro" class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between space-y-space-md relative overflow-hidden">
 <!-- Subtle corner watermark glow for emphasis -->
 <div class="absolute -right-12 -top-12 w-40 h-40 bg-secondary-fixed/30 rounded-full blur-2xl pointer-events-none"></div>
 <div>
@@ -131,12 +134,12 @@
 </div>
 <div>
 <h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Travas de Precificação &amp; Margem Mínima</h2>
-<p class="font-body-sm text-body-sm text-on-surface-variant">A Regra de Ouro NAVY para proteção da rentabilidade clínica.</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Parâmetros ilustrativos para a futura política de preços.</p>
 </div>
 </div>
 <span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-semibold flex items-center gap-1">
 <span class="material-symbols-outlined text-[14px]">shield</span>
-              Segurança Financeira Ativa
+              Prévia visual
             </span>
 </div>
 <!-- Controls List -->
@@ -160,7 +163,7 @@
 <!-- Descontos por tipo -->
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
 <div class="space-y-space-xs">
-<label class="font-label-md text-label-md text-on-surface-variant block">Desconto Máx. Sem Master (Avulsos)</label>
+<label class="font-label-md text-label-md text-on-surface-variant block">Limite de desconto em serviços avulsos</label>
 <div class="h-11 px-space-md rounded-lg bg-surface-container-low flex items-center justify-between">
 <span class="font-body-md text-body-md font-semibold text-on-surface">10% em procedimentos</span>
 <span class="material-symbols-outlined text-primary text-[18px]">percent</span>
@@ -189,12 +192,12 @@
 </div>
 </div>
 <div class="pt-space-xs flex items-center justify-between">
-<span class="font-label-sm text-label-sm text-on-surface-variant">Trava auditada pelo Painel Executivo</span>
-<span class="font-label-sm text-label-sm text-primary font-semibold hover:underline cursor-pointer">Histórico de Exceções Liberadas (2)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Limites ainda não aplicados aos serviços</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Histórico disponível após ativação</span>
 </div>
 </div>
 <!-- CARD C: Padrões Sanitários & Biossegurança de Insumos -->
-<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between space-y-space-md">
+<div data-settings-panel="biosseguranca" class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between space-y-space-md">
 <div>
 <!-- Card Header -->
 <div class="flex items-start justify-between pb-space-sm mb-space-md">
@@ -207,7 +210,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant">Parâmetros de cianocrilato, ambiente asséptico e autoclave.</p>
 </div>
 </div>
-<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-semibold">Protocolo ANVISA</span>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-semibold">Prévia visual</span>
 </div>
 <!-- Controls List -->
 <div class="space-y-space-md">
@@ -230,7 +233,7 @@
 <div class="flex items-center justify-between pt-1">
 <span class="font-label-sm text-label-sm text-error font-medium flex items-center gap-1">
 <span class="material-symbols-outlined text-[13px]">alarm</span>
-                  Alerta crítico aos 21 dias
+                  Exemplo de alerta aos 21 dias
                 </span>
 <span class="font-label-sm text-label-sm text-on-surface-variant">Descarte com 28 dias</span>
 </div>
@@ -238,10 +241,10 @@
 <!-- Umidade e Temperatura da Cabine -->
 <div class="space-y-space-xs">
 <div class="flex items-center justify-between">
-<label class="font-label-md text-label-md text-on-surface-variant block">Calibração de Cabine Clínica (Tempo Real)</label>
+<label class="font-label-md text-label-md text-on-surface-variant block">Parâmetros de ambiente da cabine</label>
 <span class="font-label-sm text-label-sm text-secondary font-semibold flex items-center gap-1">
 <span class="w-2 h-2 rounded-full bg-secondary"></span>
-                  Sensor Bluetooth Ativo
+                  Sensor não conectado
                 </span>
 </div>
 <div class="grid grid-cols-2 gap-space-md">
@@ -273,18 +276,18 @@
 <span class="material-symbols-outlined text-primary text-[20px]">check_circle</span>
 <span class="font-body-md text-body-md text-on-surface">Ciclo diário a 134°C em autoclave com fita teste</span>
 </div>
-<span class="font-label-sm text-label-sm font-semibold px-2 py-0.5 rounded bg-surface-container-highest text-on-surface-variant">Gravado em Log</span>
+<span class="font-label-sm text-label-sm font-semibold px-2 py-0.5 rounded bg-surface-container-highest text-on-surface-variant">Exemplo de rotina</span>
 </div>
 </div>
 </div>
 </div>
 <div class="pt-space-xs flex items-center gap-2 text-on-surface-variant">
 <span class="material-symbols-outlined text-[16px] text-primary">science</span>
-<span class="font-body-sm text-body-sm">Testes de patch alérgico arquivados compulsoriamente por 5 anos no prontuário.</span>
+<span class="font-body-sm text-body-sm">O registro de testes e prazos será definido nesta seção quando ela for conectada ao prontuário.</span>
 </div>
 </div>
 <!-- CARD D: Dados Cadastrais & Perfil da Matriz -->
-<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between space-y-space-md">
+<div data-settings-panel="unidade" class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between space-y-space-md">
 <div>
 <!-- Card Header -->
 <div class="flex items-start justify-between pb-space-sm mb-space-md">
@@ -305,8 +308,8 @@
 <div class="space-y-space-xs">
 <label class="font-label-md text-label-md text-on-surface-variant block">Razão Social &amp; Nome Fantasia</label>
 <div class="p-3 bg-surface-container-low rounded-lg space-y-1">
-<p class="font-body-md text-body-md font-semibold text-on-surface">NAVY Estética Avançada &amp; Lash Studio Ltda.</p>
-<p class="font-body-sm text-body-sm text-on-surface-variant">NAVY Clinical Lash &amp; Beauty - Jardins</p>
+<p class="font-body-md text-body-md font-semibold text-on-surface">Dados da razão social ainda não cadastrados</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Nome fantasia a configurar</p>
 </div>
 </div>
 <!-- CNPJ e RT -->
@@ -314,15 +317,15 @@
 <div class="space-y-space-xs">
 <label class="font-label-md text-label-md text-on-surface-variant block">CNPJ Matriz</label>
 <div class="h-11 px-space-md rounded-lg bg-surface-container-low flex items-center justify-between text-on-surface font-body-md text-body-md font-medium">
-<span>38.419.802/0001-44</span>
+<span>CNPJ não cadastrado</span>
 <span class="material-symbols-outlined text-[18px] text-on-surface-variant/60">badge</span>
 </div>
 </div>
 <div class="space-y-space-xs">
 <label class="font-label-md text-label-md text-on-surface-variant block">Responsável Técnica (RT)</label>
 <div class="h-11 px-space-md rounded-lg bg-surface-container-low flex items-center justify-between text-on-surface font-body-md text-body-md font-medium">
-<span class="truncate">Dra. Camila NAVY</span>
-<span class="font-label-sm text-label-sm text-on-surface-variant shrink-0">CRBM 48.912</span>
+<span class="truncate">Responsável não cadastrada</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant shrink-0">Registro pendente</span>
 </div>
 </div>
 </div>
@@ -330,7 +333,7 @@
 <div class="space-y-space-xs">
 <label class="font-label-md text-label-md text-on-surface-variant block">Endereço da Unidade</label>
 <div class="h-11 px-space-md rounded-lg bg-surface-container-low flex items-center justify-between text-on-surface font-body-md text-body-md">
-<span class="truncate">Alameda Lorena, 1420 - Jardins, São Paulo/SP</span>
+<span class="truncate">Endereço não cadastrado</span>
 <span class="material-symbols-outlined text-[18px] text-on-surface-variant/70 shrink-0">pin_drop</span>
 </div>
 </div>
@@ -340,16 +343,16 @@
 <div class="h-11 px-space-md rounded-lg bg-surface-container-low flex items-center justify-between text-on-surface font-body-md text-body-md font-medium">
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-primary text-[18px]">account_balance</span>
-<span class="text-primary font-semibold">financeiro@navyestetica.com.br</span>
+<span class="text-primary font-semibold">Chave não cadastrada</span>
 </div>
-<span class="font-label-sm text-label-sm text-on-surface-variant">Banco Itaú</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Banco não informado</span>
 </div>
 </div>
 </div>
 </div>
 <div class="pt-space-xs flex items-center justify-between">
-<span class="font-label-sm text-label-sm text-on-surface-variant">Certidão Sanitária Válida até 12/2025</span>
-<span class="font-label-sm text-label-sm text-primary font-semibold hover:underline cursor-pointer">Ver Licença Digital</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Certidão sanitária não cadastrada nesta tela</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Licença digital indisponível</span>
 </div>
 </div>
 </div>
@@ -361,18 +364,18 @@
 </div>
 <div class="space-y-1">
 <div class="flex items-center gap-2">
-<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Ambiente em Conformidade LGPD &amp; Vigilância Sanitária SP</h3>
-<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-semibold">Ativo &amp; Blindado</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Políticas e documentos da unidade</h3>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-semibold">Em preparação</span>
 </div>
 <p class="font-body-sm text-body-sm text-on-surface-variant max-w-2xl leading-relaxed">
-            Certificado digital ativo com criptografia ponta a ponta. Backups em tempo real a cada 60 minutos e logs imutáveis para proteção jurídica e tranquilidade da gestora.
+            Esta seção ainda não comprova certificações, rotinas de backup ou conformidade regulatória. Os documentos serão exibidos quando forem cadastrados e verificados.
           </p>
 </div>
 </div>
 <div class="flex items-center gap-space-sm shrink-0 w-full md:w-auto">
 <button class="w-full md:w-auto h-11 px-space-md rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md flex items-center justify-center gap-space-xs hover:bg-surface-container-high transition-colors shadow-sm active:scale-95" type="button">
 <span class="material-symbols-outlined text-[18px] text-primary">download</span>
-<span>Baixar Dossiê de Políticas (.PDF)</span>
+<span>Dossiê ainda indisponível</span>
 </button>
 </div>
 </div>

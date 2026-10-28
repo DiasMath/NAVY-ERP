@@ -30,9 +30,12 @@ export async function GET(request: NextRequest) {
     const snapshot = await adminDb().collection("users").where("clinicId", "==", actor.clinicId).get();
     const users = await Promise.all(snapshot.docs.filter(doc => doc.data().role !== "master_admin").map(async doc => {
       const item = managedUser(doc.id, doc.data());
-      if (!item.email) {
-        try { item.email = (await adminAuth().getUser(doc.id)).email ?? ""; } catch { /* Conta legada sem e-mail recuperável. */ }
-      }
+      try {
+        const auth = await adminAuth().getUser(doc.id);
+        if (!item.email) item.email = auth.email ?? "";
+        item.lastSignInAt = auth.metadata.lastSignInTime ?? "";
+        item.emailVerified = auth.emailVerified;
+      } catch { /* Conta legada sem registro no Authentication. */ }
       return item;
     }));
     const professionals = actor.permissions.includes("professionals.read") ? (await adminDb().collection("clinics").doc(actor.clinicId).collection("professionals").get()).docs.map(doc => ({ id: doc.id, name: String(doc.data().name ?? ""), active: doc.data().active !== false, userUid: String(doc.data().userUid ?? "") })) : [];
@@ -62,6 +65,7 @@ export async function POST(request: NextRequest) {
       const now = new Date().toISOString();
       batch.set(db.doc(`users/${uid}`), { uid, name, email, clinicId: actor.clinicId, active, ...assignment, professionalId, createdAt: now, updatedAt: now });
       if (professionalId) batch.set(db.doc(`clinics/${actor.clinicId}/professionals/${professionalId}`), { id: professionalId, name, active, userUid: uid, updatedAt: now, ...(createProfessional ? { createdAt: now } : {}) }, { merge: true });
+      batch.set(db.collection("clinics").doc(actor.clinicId).collection("accessAudit").doc(), { actorUid: actor.uid, action: "user.created", targetId: uid, targetName: name, createdAt: now });
       await batch.commit();
       return NextResponse.json({ uid, email, inviteNeeded: active }, { status: 201 });
     } catch (error) {
@@ -118,6 +122,7 @@ export async function PATCH(request: NextRequest) {
         if ((await oldRef.get()).exists) batch.update(oldRef, { userUid: "", updatedAt: now });
       }
       if (professionalId) batch.set(db.doc(`clinics/${actor.clinicId}/professionals/${professionalId}`), { id: professionalId, name, active, userUid: uid, updatedAt: now, ...(createProfessional ? { createdAt: now } : {}) }, { merge: true });
+      batch.set(db.collection("clinics").doc(actor.clinicId).collection("accessAudit").doc(), { actorUid: actor.uid, action: active ? "user.updated" : "user.deactivated", targetId: uid, targetName: name, createdAt: now });
       await batch.commit();
       return NextResponse.json({ ok: true });
     } catch (error) {

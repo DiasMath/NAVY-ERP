@@ -31,6 +31,13 @@ function LoginRedirect({ path }: { path: string }) {
   return <div className="login-loading">Redirecionando para o acesso…</div>;
 }
 
+const configurationSections: Record<string, string> = {
+  "/configuracoes": "clinica",
+  "/configuracoes/financeiro": "financeiro",
+  "/configuracoes/biosseguranca": "biosseguranca",
+  "/configuracoes/unidade": "unidade",
+};
+
 export default function NavyApp({ path }: { path: string }) {
   const current = path === "/" ? "/dashboard" : path;
   const { status, profile } = useAuth();
@@ -45,6 +52,7 @@ export default function NavyApp({ path }: { path: string }) {
   if (current === "/agenda") return <StitchShell path={current}><AgendaPage /></StitchShell>;
   if (current === "/usuarios") return <StitchShell path={current}><UsersPage /></StitchShell>;
   if (current === "/configuracoes/integracoes") return <StitchShell path={current}><IntegrationsPage /></StitchShell>;
+  if (configurationSections[current]) return <StitchShell path={current} screen="configuracoes" screenSection={configurationSections[current]} />;
   if (stitchPages[current]) return <StitchShell path={current} screen={stitchPages[current]} />;
   return <StitchShell path={current}><ComingSoonPage path={current} /></StitchShell>;
 }

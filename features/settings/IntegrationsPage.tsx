@@ -70,6 +70,9 @@ export default function IntegrationsPage() {
     </div>
     <nav className="si-tabs" aria-label="Seções de configurações">
       <Link href="/configuracoes"><span className="material-symbols-outlined">tune</span> Políticas Clínicas &amp; Agenda</Link>
+      <Link href="/configuracoes/financeiro"><span className="material-symbols-outlined">shield_with_heart</span> Financeiro &amp; Margens de Segurança</Link>
+      <Link href="/configuracoes/biosseguranca"><span className="material-symbols-outlined">sanitizer</span> Biossegurança &amp; Prazos</Link>
+      <Link href="/configuracoes/unidade"><span className="material-symbols-outlined">domain</span> Dados da Unidade &amp; Fiscal</Link>
       <span className="si-tab-active" aria-current="page"><span className="material-symbols-outlined">hub</span> Integrações &amp; WhatsApp API</span>
     </nav>
     {message && <div className="si-message" role="status">{message}</div>}
