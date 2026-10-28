@@ -155,6 +155,7 @@ export default function UsersPage() {
     "user.created": "criou o acesso de", "user.updated": "atualizou o acesso de", "user.deactivated": "desativou o acesso de",
     "role.created": "criou o papel", "role.updated": "atualizou o papel", "role.deleted": "excluiu o papel",
     "group.created": "criou o grupo", "group.updated": "atualizou o grupo", "group.deleted": "excluiu o grupo",
+    "settings.updated": "atualizou as configurações de",
   };
 
   return <div className="ad-page">

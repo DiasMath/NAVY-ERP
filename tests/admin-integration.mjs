@@ -107,7 +107,40 @@ try {
   assert.ok(history.audit.some(item => item.action === "user.created" && item.targetId === uid));
   assert.ok(history.audit.some(item => item.action === "group.deleted" && item.targetId === group.id));
 
-  console.log("Admin API integration: users, roles, groups, permissions, owner protection and professional link passed.");
+  const settings = {
+    clinica: { lateToleranceMinutes: "15", cancellationNoticeHours: "24", sanitizationGapMinutes: "15", depositEnabled: true, depositPercent: "30", cancellationPolicy: "Avisar com antecedência." },
+    financeiro: { minimumMarginPercent: "45", serviceDiscountLimitPercent: "10", packageDiscountLimitPercent: "5", paymentFeePolicy: "absorb_pix", financialNotes: "Conferir custos." },
+    biosseguranca: { openedAdhesiveDays: "28", adhesiveAlertDays: "21", minimumTemperatureC: "20", maximumTemperatureC: "23", minimumHumidityPercent: "45", maximumHumidityPercent: "65", sterilizationRoutine: "Registrar a rotina.", patchTestRetentionYears: "5" },
+    unidade: { legalName: "NAVY Matriz Ltda.", tradeName: "NAVY", cnpj: "", technicalLead: "", technicalRegistration: "", address: "São Paulo", pixKey: "", bankName: "", sanitaryLicenseExpiresOn: "" },
+  };
+  for (const [section, values] of Object.entries(settings)) {
+    const empty = expectStatus(await request("/api/settings?section=" + section, "GET", idToken), 200);
+    assert.equal(empty.updatedAt, null);
+    assert.equal(empty.revision, 0);
+    const saved = expectStatus(await request("/api/settings", "PATCH", idToken, { section, values, expectedRevision: 0 }), 200);
+    assert.ok(saved.updatedAt);
+    assert.equal(saved.revision, 1);
+    assert.equal((await db.doc("clinics/navy-matriz/settings/" + section).get()).data().updatedBy, adminUid);
+    const reloaded = expectStatus(await request("/api/settings?section=" + section, "GET", idToken), 200);
+    assert.deepEqual(reloaded.values, saved.values);
+  }
+  expectStatus(await request("/api/settings?section=desconhecida", "GET", idToken), 400);
+  expectStatus(await request("/api/settings", "PATCH", idToken, { section: "clinica", values: { ...settings.clinica, depositPercent: "101" }, expectedRevision: 1 }), 400);
+  expectStatus(await request("/api/settings", "PATCH", idToken, { section: "biosseguranca", values: { ...settings.biosseguranca, minimumTemperatureC: "30" }, expectedRevision: 1 }), 400);
+  expectStatus(await request("/api/settings", "PATCH", idToken, { section: "clinica", values: settings.clinica, expectedRevision: 0 }), 409);
+  const viewerSignup = await fetch("http://" + process.env.FIREBASE_AUTH_EMULATOR_HOST + "/identitytoolkit.googleapis.com/v1/accounts:signUp?key=demo", {
+    method: "POST", headers: { "content-type": "application/json" },
+    body: JSON.stringify({ email: "viewer@example.test", password: "ViewerTest123!", returnSecureToken: true }),
+  });
+  assert.equal(viewerSignup.status, 200);
+  const { localId: viewerUid, idToken: viewerToken } = await viewerSignup.json();
+  await db.doc("users/" + viewerUid).set({ name: "Leitora Teste", email: "viewer@example.test", clinicId: "navy-matriz", role: "employee", active: true, permissions: ["users.read"] });
+  expectStatus(await request("/api/settings?section=unidade", "GET", viewerToken), 200);
+  expectStatus(await request("/api/settings", "PATCH", viewerToken, { section: "unidade", values: settings.unidade, expectedRevision: 1 }), 403);
+  const settingsHistory = expectStatus(await request("/api/admin/access", "GET", idToken), 200);
+  assert.ok(settingsHistory.audit.some(item => item.action === "settings.updated" && item.targetId === "unidade"));
+
+  console.log("Admin API integration: users, roles, groups, settings, permissions, owner protection and professional link passed.");
 } finally {
   server.kill();
   await deleteApp(app);

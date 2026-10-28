@@ -7,7 +7,7 @@ import StitchSidebar from "./StitchSidebar";
 import StitchViewport from "./StitchViewport";
 import { initialServiceProfessionals, initialServices, serviceProfessionalsStorageKey, serviceStorageKey } from "@/features/services/service-data";
 
-export default function StitchShell({ path, screen, screenSection, children }: { path: string; screen?: string; screenSection?: string; children?: ReactNode }) {
+export default function StitchShell({ path, screen, children }: { path: string; screen?: string; children?: ReactNode }) {
   const router = useRouter();
   const frameRef = useRef<HTMLIFrameElement>(null);
   const [collapsed, setCollapsed] = useState(false);
@@ -30,7 +30,7 @@ export default function StitchShell({ path, screen, screenSection, children }: {
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, []);
 
-  useEffect(() => { setFrameReady(false); }, [screen, screenSection]);
+  useEffect(() => { setFrameReady(false); }, [screen]);
 
   useEffect(() => {
     const navigateFromFrame = (event: MessageEvent) => {
@@ -71,6 +71,6 @@ export default function StitchShell({ path, screen, screenSection, children }: {
     {mobileOpen && <button type="button" className="stitch-mobile-shade" onClick={() => setMobileOpen(false)} aria-label="Fechar menu lateral" />}
     <StitchSidebar path={path} collapsed={collapsed} onCollapse={toggleCollapsed} onMobileClose={() => setMobileOpen(false)} />
     <StitchHeader mobileOpen={mobileOpen} onMobileMenu={() => setMobileOpen(true)} focusMode={focusMode} onToggleFocus={toggleFocus} />
-    {screen ? <StitchViewport ref={frameRef} screen={screen} section={screenSection} ready={frameReady} onLoad={onFrameLoad} /> : <main className="stitch-native-content">{children}</main>}
+    {screen ? <StitchViewport ref={frameRef} screen={screen} ready={frameReady} onLoad={onFrameLoad} /> : <main className="stitch-native-content">{children}</main>}
   </div>;
 }

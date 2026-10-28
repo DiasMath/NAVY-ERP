@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/features/auth/AuthProvider";
 import { navyApi } from "@/lib/firebase/navy-api";
+import SettingsTabs from "./SettingsTabs";
 import "./integrations.css";
 
 type DriveStatus = {
@@ -68,13 +69,7 @@ export default function IntegrationsPage() {
       <h1>Integrações</h1>
       <p>Conecte serviços externos usados pela unidade NAVY.</p>
     </div>
-    <nav className="si-tabs" aria-label="Seções de configurações">
-      <Link href="/configuracoes"><span className="material-symbols-outlined">tune</span> Políticas Clínicas &amp; Agenda</Link>
-      <Link href="/configuracoes/financeiro"><span className="material-symbols-outlined">shield_with_heart</span> Financeiro &amp; Margens de Segurança</Link>
-      <Link href="/configuracoes/biosseguranca"><span className="material-symbols-outlined">sanitizer</span> Biossegurança &amp; Prazos</Link>
-      <Link href="/configuracoes/unidade"><span className="material-symbols-outlined">domain</span> Dados da Unidade &amp; Fiscal</Link>
-      <span className="si-tab-active" aria-current="page"><span className="material-symbols-outlined">hub</span> Integrações &amp; WhatsApp API</span>
-    </nav>
+    <SettingsTabs active="/configuracoes/integracoes" />
     {message && <div className="si-message" role="status">{message}</div>}
     {connectionError && <div className="si-message si-message-error" role="alert"><span>Não foi possível iniciar a conexão: {connectionError}</span><div><button type="button" onClick={() => void signOut().then(() => window.location.assign("/login?next=%2Fconfiguracoes%2Fintegracoes"))}>Entrar novamente</button></div></div>}
     <div className="si-grid">

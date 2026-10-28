@@ -10,26 +10,6 @@
     event.preventDefault();
     window.parent.postMessage({ type: 'navy:navigate', path: destination.pathname + destination.search + destination.hash }, window.location.origin);
   }, true);
-  if (location.pathname.endsWith('/configuracoes.html')) {
-    const requested = new URLSearchParams(location.search).get('section');
-    const section = ['clinica', 'financeiro', 'biosseguranca', 'unidade'].includes(requested) ? requested : 'clinica';
-    document.querySelectorAll('[data-settings-panel]').forEach((panel) => {
-      panel.style.display = panel.dataset.settingsPanel === section ? '' : 'none';
-    });
-    document.querySelectorAll('[data-settings-tab]').forEach((tab) => {
-      const selected = tab.dataset.settingsTab === section;
-      tab.classList.toggle('bg-secondary-container', selected);
-      tab.classList.toggle('text-on-secondary-container', selected);
-      tab.classList.toggle('shadow-sm', selected);
-      tab.classList.toggle('text-on-surface-variant', !selected);
-      if (selected) tab.setAttribute('aria-current', 'page');
-      else tab.removeAttribute('aria-current');
-    });
-    document.querySelectorAll('main input, main select, main button').forEach((control) => {
-      control.disabled = true;
-      control.setAttribute('title', 'Prévia visual: esta política ainda não altera o sistema');
-    });
-  }
   const sidebar = page.querySelector('aside:first-of-type');
   const header = page.querySelector('div.pl-72 > header');
   const labels = {
