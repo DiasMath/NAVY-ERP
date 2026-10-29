@@ -8,16 +8,16 @@ export const runtime = "nodejs";
 export async function GET(request: NextRequest) {
   try {
     const user = await requireNavyUser(request, "clients.read");
-    if (user.role !== "professional") throw new ApiError(403, "Acesso exclusivo a profissionais.");
+    if (user.role !== "professional" && user.role !== "admin" && user.role !== "master_admin") throw new ApiError(403, "Acesso indisponível para esta conta.");
     const clientId = request.nextUrl.searchParams.get("clientId") ?? "";
     const { data } = await requireClient(user.clinicId, clientId);
     await assertAssignedClient(user, clientId);
-    const appointments = await adminDb().collection(`clinics/${user.clinicId}/appointments`).where("clientId", "==", clientId).get();
-    const ownAppointmentIds = new Set(appointments.docs.filter(snapshot => snapshot.data().professionalId === user.professionalId).map(snapshot => snapshot.id));
+    const appointments = user.role === "professional" ? await adminDb().collection(`clinics/${user.clinicId}/appointments`).where("clientId", "==", clientId).get() : null;
+    const ownAppointmentIds = new Set(appointments?.docs.filter(snapshot => snapshot.data().professionalId === user.professionalId).map(snapshot => snapshot.id) ?? []);
     const sessions = user.permissions.includes("sessions.read")
       ? await adminDb().collection(`clinics/${user.clinicId}/sessions`).where("clientId", "==", clientId).get()
       : null;
-    const history = sessions?.docs.filter(snapshot => ownAppointmentIds.has(snapshot.data().appointmentId)).map(snapshot => {
+    const history = sessions?.docs.filter(snapshot => user.role !== "professional" || ownAppointmentIds.has(snapshot.data().appointmentId)).map(snapshot => {
       const item = snapshot.data() as ClinicalSessionDocument;
       return { id: snapshot.id, appointmentId: item.appointmentId ?? "", serviceName: item.serviceName, startedAt: item.startedAt, notes: item.notes ?? "" };
     }).sort((a, b) => b.startedAt.localeCompare(a.startedAt)).slice(0, 30) ?? [];
