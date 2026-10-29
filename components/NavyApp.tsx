@@ -18,6 +18,7 @@ import { useAuth } from "@/features/auth/AuthProvider";
 import { hasPermission, type NavyPermission } from "@/lib/access-control";
 import UsersPage from "@/features/admin/UsersPage";
 import FieldPage from "@/features/field/FieldPage";
+import AppSkeleton from "./AppSkeleton";
 
 function AccessDenied({ required }: { required: NavyPermission[] }) { return <div className="coming-page"><PageIntro eyebrow="ACESSO RESTRITO" title="Sem permissão" subtitle={`Esta tela precisa dos acessos: ${required.join(", ")}. Peça a um administrador da NAVY.`} /></div>; }
 
@@ -30,13 +31,13 @@ function ComingSoonPage({ path }: { path: string }) {
 function LoginRedirect({ path }: { path: string }) {
   const router = useRouter();
   useEffect(() => { router.replace(`/login?next=${encodeURIComponent(path)}`); }, [router, path]);
-  return <div className="login-loading">Redirecionando para o acesso…</div>;
+  return <AppSkeleton />;
 }
 
 function ProfessionalRedirect() {
   const router = useRouter();
   useEffect(() => { router.replace("/campo"); }, [router]);
-  return <div className="login-loading">Abrindo sua agenda…</div>;
+  return <AppSkeleton />;
 }
 
 const configurationSections: Record<string, string> = {
@@ -50,7 +51,7 @@ export default function NavyApp({ path }: { path: string }) {
   const current = path === "/" ? "/dashboard" : path;
   const { status, profile } = useAuth();
   if (current === "/login") return <LoginPage />;
-  if (status === "loading") return <div className="login-loading">Verificando acesso…</div>;
+  if (status === "loading") return <AppSkeleton />;
   if (status === "unauthenticated") return <LoginRedirect path={current} />;
   if (profile?.role === "professional" && current !== "/campo") return <ProfessionalRedirect />;
   if (current === "/campo") {

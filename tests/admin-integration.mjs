@@ -57,6 +57,9 @@ try {
   assert.equal(listing.users.length, 1);
   assert.equal(listing.users[0].uid, adminUid);
   expectStatus(await request("/api/admin/users", "PATCH", idToken, { uid: owner.uid, name: "Alterado", active: true }), 403);
+  await db.doc("users/" + adminUid).update({ permissions: ["clients.read"] });
+  listing = expectStatus(await request("/api/admin/users", "GET", idToken), 200);
+  assert.ok(listing.users[0].permissions.includes("integrations.manage"));
 
   const role = expectStatus(await request("/api/admin/access", "POST", idToken, { kind: "role", name: "Papel Teste", description: "Temporário", permissions: ["clients.read"] }), 201);
   const group = expectStatus(await request("/api/admin/access", "POST", idToken, { kind: "group", name: "Grupo Teste", description: "Temporário", permissions: ["services.read"] }), 201);

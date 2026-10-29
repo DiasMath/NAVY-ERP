@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { useAuth } from "@/features/auth/AuthProvider";
+import ContentSkeleton from "@/components/ContentSkeleton";
 import { navyApi } from "@/lib/firebase/navy-api";
 import { emptySettings, settingsConfig, type SettingsField, type SettingsSection, type SettingsValues } from "@/lib/settings-schema";
 import SettingsTabs from "./SettingsTabs";
@@ -80,7 +81,7 @@ export default function SettingsPage({ section }: { section: SettingsSection }) 
     <SettingsTabs active={path} onNavigate={confirmLeave} />
     <form className="sc-card" onSubmit={save}>
       <div className="sc-card-head"><span className="sc-icon material-symbols-outlined">{config.icon}</span><div><h2>{config.title}</h2><p>{config.description}</p></div><span className="sc-status">{updatedAt ? "Salvo no Firestore" : "Sem dados salvos"}</span></div>
-      {loading ? <div className="sc-loading">Carregando configurações…</div> : !loaded ? <div className="sc-loading">{error || "Não foi possível carregar as configurações."} <button type="button" className="sc-secondary" onClick={() => setRevision(value => value + 1)}>Tentar novamente</button></div> : <>
+      {loading ? <ContentSkeleton label="Carregando configurações" rows={4} /> : !loaded ? <div className="sc-loading">{error || "Não foi possível carregar as configurações."} <button type="button" className="sc-secondary" onClick={() => setRevision(value => value + 1)}>Tentar novamente</button></div> : <>
         <div className="sc-fields">{config.fields.map(field => <SettingControl key={field.key} field={field} value={values[field.key] ?? (field.type === "checkbox" ? false : "")} disabled={!canManage || saving} onChange={value => change(field.key, value)} />)}</div>
         {section !== "unidade" && <p className="sc-scope">Os valores desta seção ficam registrados no Firestore. A aplicação automática deles à Agenda, preços ou rotinas clínicas ainda não está ativa.</p>}
         {section === "unidade" && <p className="sc-scope">Estes dados são cadastrais. Documentos e licenças não são verificados automaticamente nesta tela.</p>}

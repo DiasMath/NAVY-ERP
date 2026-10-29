@@ -2,7 +2,9 @@
 
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import ContentDialog from "@/components/ContentDialog";
+import ContentSkeleton from "@/components/ContentSkeleton";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import type { User } from "firebase/auth";
 import { writeBatch, doc, runTransaction } from "firebase/firestore";
 import { useAuth } from "@/features/auth/AuthProvider";
@@ -13,6 +15,7 @@ import { createFirebaseRepositories } from "@/lib/firebase/repositories";
 import { type ClientRecord, type ClientSession, type ClientSource, type PreferredContact } from "./client-data";
 import { toClientDocument, toClientRecord, toSessionDocument } from "./client-firestore";
 import { prepareImageUpload } from "./client-images";
+import PhotoEditor from "./PhotoEditor";
 import { appointmentDuration, appointmentPrice } from "@/features/agenda/agenda-data";
 import { durationLabel } from "@/features/services/service-data";
 import { formatBrazilPhone, validDateOnly, validateClient, validateSession, type ClientErrors, type ClientField, type ClientInput, type SessionErrors, type SessionField, type SessionInput } from "./client-validation";
@@ -21,6 +24,7 @@ type Filter = "Todas" | "VIP / Retorno" | "Instagram" | "Indicação";
 type Tab = "timeline" | "anamnesis" | "gallery" | "preferences";
 type Dialog = "create" | "edit" | "delete" | "session" | "maintenance" | "sessionEdit" | "sessionDelete" | "reminder" | "contact" | "clinical" | "preferences" | null;
 type Photo = { id: string; name: string; url?: string };
+type PhotoEdit = { kind: "avatar" | "gallery"; src: string; name: string; clientId: string; photoId?: string; temporary?: boolean };
 type DriveStatus = { connected: boolean };
 
 const filters: Filter[] = ["Todas", "VIP / Retorno", "Instagram", "Indicação"];
@@ -103,7 +107,7 @@ function NotesForm({ client, clinical, saving, onSave, onClose }: { client: Clie
   </form>;
 }
 
-function ClientForm({ client, clients, saving, photoSaving, canDelete, driveConnected, driveLoading, avatarUrl, onSave, onClose, onDelete, onAvatarUpload, onAvatarRemove }: { client?: ClientRecord; clients: ClientRecord[]; saving: boolean; photoSaving: boolean; canDelete: boolean; driveConnected: boolean; driveLoading: boolean; avatarUrl: string; onSave: (values: ClientInput) => void; onClose: () => void; onDelete: () => void; onAvatarUpload: (file: File) => Promise<void>; onAvatarRemove: () => Promise<void> }) {
+function ClientForm({ client, clients, saving, photoSaving, canDelete, canManagePhotos, driveConnected, driveLoading, avatarUrl, onSave, onClose, onDelete, onAvatarUpload, onAvatarEdit, onAvatarRemove }: { client?: ClientRecord; clients: ClientRecord[]; saving: boolean; photoSaving: boolean; canDelete: boolean; canManagePhotos: boolean; driveConnected: boolean; driveLoading: boolean; avatarUrl: string; onSave: (values: ClientInput) => void; onClose: () => void; onDelete: () => void; onAvatarUpload: (file: File) => void; onAvatarEdit: () => void; onAvatarRemove: () => Promise<void> }) {
   const [errors, setErrors] = useState<ClientErrors>({});
   const [source, setSource] = useState<ClientSource>(client?.source ?? "Não informado");
   const [preferredContact, setPreferredContact] = useState(client?.preferredContact ?? "");
@@ -123,7 +127,7 @@ function ClientForm({ client, clients, saving, photoSaving, canDelete, driveConn
   return <form className="nc-form" noValidate onSubmit={submit} onChange={(event) => clearError(event.target.getAttribute("name") ?? "")}>
     <p>Os dados do cadastro serão salvos no Firestore. <strong>* Campos obrigatórios; os demais são opcionais.</strong></p>
     {Object.values(errors).some(Boolean) && <div className="nc-validation-summary" role="alert">Revise os campos destacados antes de salvar.</div>}
-    <div className="nc-photo-field"><span className="nc-photo-preview">{avatarUrl ? <img src={avatarUrl} alt="Foto de perfil da cliente" /> : <Icon name="person" size={27} />}</span><div><strong>Foto de perfil</strong><span>{client ? driveLoading ? "Verificando conexão com o Google Drive..." : driveConnected ? "Imagem privada guardada no Google Drive." : "Integração de fotos indisponível. Consulte Configurações → Integrações." : "Salve o cadastro antes de adicionar a foto."}</span>{client && <div className="nc-photo-actions"><button type="button" className="nc-btn nc-btn-soft" disabled={!driveConnected || photoSaving || saving} onClick={() => avatarInputRef.current?.click()}><Icon name="photo_camera" size={16} /> {photoSaving ? "Processando..." : avatarUrl ? "Trocar foto" : "Adicionar foto"}</button>{client.avatarDriveFileId && <button type="button" className="nc-btn nc-btn-quiet" disabled={!driveConnected || photoSaving || saving} onClick={() => void onAvatarRemove()}>Remover</button>}<input ref={avatarInputRef} className="nc-file-input" type="file" accept="image/jpeg,image/png,image/webp" onChange={(event) => { const file = event.target.files?.[0]; if (file) void onAvatarUpload(file); event.target.value = ""; }} /></div>}</div></div>
+    <div className="nc-photo-field"><span className="nc-photo-preview">{avatarUrl ? <img src={avatarUrl} alt="Foto de perfil da cliente" /> : <Icon name="person" size={27} />}</span><div><strong>Foto de perfil</strong><span>{client ? driveLoading ? "Verificando conexão com o Google Drive..." : driveConnected ? "Imagem privada guardada no Google Drive." : "Integração de fotos indisponível. Consulte Configurações → Integrações." : "Salve o cadastro antes de adicionar a foto."}</span>{client && canManagePhotos && <div className="nc-photo-actions"><button type="button" className="nc-btn nc-btn-soft" disabled={!driveConnected || photoSaving || saving} onClick={() => avatarInputRef.current?.click()}><Icon name="photo_camera" size={16} /> {photoSaving ? "Processando..." : avatarUrl ? "Trocar foto" : "Adicionar foto"}</button>{avatarUrl && <button type="button" className="nc-btn nc-btn-soft" disabled={!driveConnected || photoSaving || saving} onClick={onAvatarEdit}>Ajustar foto</button>}{client.avatarDriveFileId && <button type="button" className="nc-btn nc-btn-quiet" disabled={!driveConnected || photoSaving || saving} onClick={() => void onAvatarRemove()}>Remover</button>}<input ref={avatarInputRef} className="nc-file-input" type="file" accept="image/jpeg,image/png,image/webp" onChange={(event) => { const file = event.target.files?.[0]; if (file) onAvatarUpload(file); event.target.value = ""; }} /></div>}</div></div>
     <label>Nome completo *<input name="name" required minLength={2} maxLength={100} autoComplete="name" defaultValue={client?.name} placeholder="Ex: Beatriz Vasconcellos" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "nc-error-name" : undefined} /><FieldError field="name" errors={errors} /></label>
     <div className="nc-form-row">
       <label>WhatsApp / Telefone *<input name="phone" type="tel" inputMode="tel" required maxLength={22} autoComplete="tel" defaultValue={client?.phone} placeholder="(11) 90000-0000" onBlur={(event) => { const formatted = formatBrazilPhone(event.currentTarget.value); if (formatted) event.currentTarget.value = formatted; }} aria-invalid={Boolean(errors.phone)} aria-describedby={errors.phone ? "nc-error-phone" : undefined} /><FieldError field="phone" errors={errors} /></label>
@@ -173,6 +177,7 @@ function ClientAgendaSection({ appointments, sessions }: { appointments: Appoint
 }
 
 export default function ClientsPage() {
+  const router = useRouter();
   const { profile, user } = useAuth();
   const repositories = useMemo(() => profile ? createFirebaseRepositories(getFirebaseClient().db, profile.clinicId) : null, [profile]);
   const [clientDocuments, setClientDocuments] = useState<ClientDocument[]>([]);
@@ -201,6 +206,7 @@ export default function ClientsPage() {
   const [photoSaving, setPhotoSaving] = useState(false);
   const [photoRevision, setPhotoRevision] = useState(0);
   const [avatarUrl, setAvatarUrl] = useState("");
+  const [photoEditor, setPhotoEditor] = useState<PhotoEdit | null>(null);
   const photoUrls = useRef(new Set<string>());
   const photoInputRef = useRef<HTMLInputElement>(null);
 
@@ -275,6 +281,7 @@ export default function ClientsPage() {
   const linkedAppointment = appointmentDocuments.find(item => item.id === linkedAppointmentId && item.clientId === selected?.id);
   const editingSession = selected?.sessions.find(session => session.id === editingSessionId);
   const canDeleteSessions = Boolean(profile?.permissions.includes("sessions.delete"));
+  const canManagePhotos = Boolean(profile?.permissions.includes("clients.write"));
   useEffect(() => {
     if (!user || !selected?.avatarDriveFileId || !drive?.connected) { setAvatarUrl(""); return; }
     let active = true;
@@ -400,16 +407,31 @@ export default function ClientsPage() {
     setSelectedId(""); setTab("timeline");
   }, "Cadastro e registros vinculados excluídos do Firestore.");
 
-  const uploadAvatar = async (file: File) => {
-    if (!user || !selected || !drive?.connected || photoSaving) return;
+  const closePhotoEditor = () => {
+    if (photoEditor?.temporary) URL.revokeObjectURL(photoEditor.src);
+    setPhotoEditor(null);
+  };
+  const openAvatarEditor = (file: File) => {
+    if (!selected || !drive?.connected || photoSaving) return;
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type) || file.size > 20 * 1024 * 1024) { setToast("Escolha uma foto JPG, PNG ou WebP de até 20 MB."); return; }
+    setPhotoEditor({ kind: "avatar", src: URL.createObjectURL(file), name: file.name, clientId: selected.id, temporary: true });
+  };
+  const saveEditedPhoto = async (file: File) => {
+    if (!user || !photoEditor || !drive?.connected || photoSaving) throw new Error("Não foi possível salvar a foto agora.");
     setPhotoSaving(true);
     try {
-      const prepared = await prepareImageUpload(file, "avatar");
+      const prepared = await prepareImageUpload(file, photoEditor.kind);
       const form = new FormData(); form.set("file", prepared);
-      await navyApi(user, `/api/clients/${selected.id}/avatar`, { method: "POST", body: form });
-      setToast("Foto de perfil salva no Google Drive.");
-    } catch (error) { setToast(error instanceof Error ? error.message : "Não foi possível enviar a foto."); }
-    finally { setPhotoSaving(false); }
+      if (photoEditor.kind === "avatar") {
+        await navyApi(user, `/api/clients/${photoEditor.clientId}/avatar`, { method: "POST", body: form });
+        setToast("Foto de perfil salva no Google Drive.");
+      } else {
+        await navyApi(user, `/api/clients/${photoEditor.clientId}/photos/${photoEditor.photoId}`, { method: "PATCH", body: form });
+        setPhotoRevision(current => current + 1);
+        setToast("Foto da galeria atualizada no Google Drive.");
+      }
+      closePhotoEditor();
+    } finally { setPhotoSaving(false); }
   };
 
   const removeAvatar = async () => {
@@ -464,12 +486,12 @@ export default function ClientsPage() {
 
     {dataError && <div className="nc-validation-summary" role="alert">{dataError}</div>}
 
-    <div className="nc-columns"><div className="nc-left"><div className="nc-search-card"><label className="nc-search"><Icon name="search" size={17} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar por nome, telefone, e-mail ou @instagram..." aria-label="Buscar clientes" /></label><div className="nc-filters" role="group" aria-label="Filtrar clientes">{filters.map((item) => <button type="button" key={item} className={filter === item ? "nc-filter-active" : ""} onClick={() => setFilter(item)} aria-pressed={filter === item}>{item} ({counts[item]})</button>)}</div></div><div className="nc-client-list">{loadError && (!loaded.clients || !loaded.sessions) ? <div className="nc-empty">Não foi possível carregar as clientes.</div> : !loaded.clients || !loaded.sessions ? <div className="nc-empty" role="status">Carregando clientes do Firestore...</div> : filtered.length ? filtered.map((client) => <ClientListItem key={client.id} client={client} selected={selected?.id === client.id} user={user} driveConnected={Boolean(drive?.connected)} onSelect={() => { setSelectedId(client.id); setTab("timeline"); setPhotoConsent(false); }} />) : <div className="nc-empty">{clients.length ? "Nenhuma cliente encontrada. Ajuste a busca ou o filtro." : "Nenhuma cliente cadastrada. Use “+ Nova Cliente” para começar."}</div>}</div></div>
+    <div className="nc-columns"><div className="nc-left"><div className="nc-search-card"><label className="nc-search"><Icon name="search" size={17} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar por nome, telefone, e-mail ou @instagram..." aria-label="Buscar clientes" /></label><div className="nc-filters" role="group" aria-label="Filtrar clientes">{filters.map((item) => <button type="button" key={item} className={filter === item ? "nc-filter-active" : ""} onClick={() => setFilter(item)} aria-pressed={filter === item}>{item} ({counts[item]})</button>)}</div></div><div className="nc-client-list">{loadError && (!loaded.clients || !loaded.sessions) ? <div className="nc-empty">Não foi possível carregar as clientes.</div> : !loaded.clients || !loaded.sessions ? <ContentSkeleton label="Carregando clientes" rows={3} /> : filtered.length ? filtered.map((client) => <ClientListItem key={client.id} client={client} selected={selected?.id === client.id} user={user} driveConnected={Boolean(drive?.connected)} onSelect={() => { setSelectedId(client.id); setTab("timeline"); setPhotoConsent(false); }} />) : <div className="nc-empty">{clients.length ? "Nenhuma cliente encontrada. Ajuste a busca ou o filtro." : "Nenhuma cliente cadastrada. Use “+ Nova Cliente” para começar."}</div>}</div></div>
 
     <div className="nc-right">{selected ? <div className="nc-dossier" key={selected.id}>
-      <div className="nc-profile-top"><div className="nc-profile-identity"><div className="nc-profile-avatar"><Avatar client={{ ...selected, avatar: avatarUrl }} large /><span><Icon name="check" size={12} /></span></div><div><div className="nc-profile-title"><h2>{selected.name}</h2>{selected.vip && <span><Icon name="auto_awesome" size={13} /> Lash Fidelity VIP</span>}</div><p>{selected.city ? `${selected.city} • ` : ""}Cadastrada em {selected.joined}</p><small><Icon name="call" size={13} /> {selected.phone}{selected.instagram && <> <b>•</b> {selected.instagram}</>}</small>{(selected.email || selected.birthDate || selected.preferredContact) && <small className="nc-profile-extra">{selected.email && <><Icon name="mail" size={13} /> {selected.email}</>}{selected.birthDate && <><b>•</b> Nasc. {formatBirthDate(selected.birthDate)}</>}{selected.preferredContact && <><b>•</b> Prefere {selected.preferredContact}</>}</small>}</div></div><div className="nc-profile-actions"><button type="button" className="nc-btn nc-btn-primary" onClick={() => window.location.assign(`/agenda?new=1&clientId=${encodeURIComponent(selected.id)}`)}><Icon name="event_available" size={17} /> Agendar</button><button type="button" className="nc-btn nc-btn-whatsapp" onClick={() => setDialog("contact")}><Icon name="chat" size={17} /> WhatsApp</button><button type="button" className="nc-btn nc-btn-icon" onClick={() => setDialog("edit")} title="Editar cadastro" aria-label="Editar cadastro"><Icon name="edit_note" size={20} /></button></div></div>
+      <div className="nc-profile-top"><div className="nc-profile-identity"><div className="nc-profile-avatar"><Avatar client={{ ...selected, avatar: avatarUrl }} large /><span><Icon name="check" size={12} /></span></div><div><div className="nc-profile-title"><h2>{selected.name}</h2>{selected.vip && <span><Icon name="auto_awesome" size={13} /> Lash Fidelity VIP</span>}</div><p>{selected.city ? `${selected.city} • ` : ""}Cadastrada em {selected.joined}</p><small><Icon name="call" size={13} /> {selected.phone}{selected.instagram && <> <b>•</b> {selected.instagram}</>}</small>{(selected.email || selected.birthDate || selected.preferredContact) && <small className="nc-profile-extra">{selected.email && <><Icon name="mail" size={13} /> {selected.email}</>}{selected.birthDate && <><b>•</b> Nasc. {formatBirthDate(selected.birthDate)}</>}{selected.preferredContact && <><b>•</b> Prefere {selected.preferredContact}</>}</small>}</div></div><div className="nc-profile-actions"><button type="button" className="nc-btn nc-btn-primary" onClick={() => router.push(`/agenda?new=1&clientId=${encodeURIComponent(selected.id)}`)}><Icon name="event_available" size={17} /> Agendar</button><button type="button" className="nc-btn nc-btn-whatsapp" onClick={() => setDialog("contact")}><Icon name="chat" size={17} /> WhatsApp</button><button type="button" className="nc-btn nc-btn-icon" onClick={() => setDialog("edit")} title="Editar cadastro" aria-label="Editar cadastro"><Icon name="edit_note" size={20} /></button></div></div>
       <div className="nc-metrics"><div><small>TOTAL RECEBIDO</small><strong>{money(selected.lifetimeValue)}</strong><span className="nc-metric-green"><Icon name="trending_up" size={13} /> {selected.visits} procedimentos registrados</span></div><div><small>TICKET MÉDIO RECEBIDO</small><strong>{money(paidVisits ? selected.lifetimeValue / paidVisits : 0)}</strong><span>{paidVisits} {paidVisits === 1 ? "sessão paga" : "sessões pagas"}</span></div><div><small>FREQUÊNCIA MÉDIA</small><strong className="nc-metric-blue">{selected.frequencyDays ? `A cada ${selected.frequencyDays} dias` : "A definir"}</strong><span>{selected.frequencyDays ? "Alta assiduidade" : "Após novos atendimentos"}</span></div></div>
-      <div className="nc-tabs" role="tablist" aria-label="Seções da cliente">{([["timeline", "history", "Linha do Tempo & Atendimentos"], ["anamnesis", "medical_information", "Ficha Anamnese & Sensibilidades"], ["gallery", "photo_library", "Galeria Antes/Depois (Consentida)"], ["preferences", "tune", "Manutenções & Preferências"]] as const).map(([id, icon, label]) => <button key={id} type="button" role="tab" aria-selected={tab === id} className={tab === id ? "nc-tab-active" : ""} onClick={() => setTab(id)}><Icon name={icon} size={17} />{label}</button>)}</div>
+      <div className="nc-tabs" role="tablist" aria-label="Seções da cliente">{([["timeline", "history", "Linha do Tempo & Atendimentos"], ["anamnesis", "medical_information", "Ficha Anamnese & Sensibilidades"], ["gallery", "photo_library", "Galeria Antes/Depois (Consentida)"], ["preferences", "tune", "Manutenções & Preferências"]] as const).map(([id, icon, label]) => <button key={id} type="button" role="tab" aria-selected={tab === id} className={tab === id ? "nc-tab-active" : ""} onClick={(event) => { setTab(id); event.currentTarget.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" }); }}><Icon name={icon} size={17} />{label}</button>)}</div><p className="nc-tabs-hint">Deslize para ver todas as seções →</p>
       {tab === "timeline" && <div className="nc-tab-content">
         <div className="nc-clinical-alert"><Icon name="info" size={21} /><div><strong>Alerta de Prontuário &amp; Mapeamento</strong><p>{selected.clinicalNote}</p></div></div>
         <div className="nc-return-banner"><span className="nc-return-icon"><Icon name="calendar_clock" size={21} /></span><div><small>AÇÃO PREVENTIVA SUGERIDA</small><strong>{selected.returnDate ? `Janela ideal de Retorno: ${formatShortDate(selected.returnDate)}` : "Planeje a próxima manutenção"}</strong><p>Organize o próximo contato e acompanhe as preferências da cliente.</p></div><div className="nc-return-actions"><button type="button" className="nc-btn nc-btn-primary" onClick={() => setDialog("maintenance")}>Planejar retorno na ficha</button><button type="button" className="nc-btn nc-btn-white" onClick={() => setDialog("reminder")}>Gerar Lembrete</button></div></div>
@@ -488,8 +510,7 @@ export default function ClientsPage() {
       {tab === "anamnesis" && <div className="nc-tab-content nc-secondary-tab"><div><Icon name="medical_information" size={25} /><h3>Ficha Anamnese &amp; Sensibilidades</h3><p>Notas clínicas registradas para {selected.name}.</p></div><div className="nc-info-card"><small>ALERTA DE PRONTUÁRIO &amp; MAPEAMENTO</small><p>{selected.clinicalNote}</p></div><button type="button" className="nc-btn nc-btn-primary" onClick={() => setDialog("clinical")}>Editar observações clínicas</button></div>}
       {tab === "gallery" && <div className="nc-tab-content nc-secondary-tab">
         <div><Icon name="photo_library" size={25} /><h3>Galeria Antes/Depois</h3><p>{drive?.connected ? "Imagens privadas guardadas no Google Drive e vinculadas a esta cliente." : "A integração de fotos é administrada em Configurações → Integrações."}</p></div>
-        <label className="nc-consent"><input type="checkbox" checked={photoConsent} onChange={(event) => setPhotoConsent(event.target.checked)} /> Confirmo que existe consentimento da cliente para incluir estas imagens.</label>
-        <button type="button" className="nc-btn nc-btn-primary nc-upload" disabled={!photoConsent || !drive?.connected || photoSaving} onClick={() => photoInputRef.current?.click()}>{photoSaving ? "Processando..." : "Adicionar fotos"}</button>
+        {canManagePhotos && <><label className="nc-consent"><input type="checkbox" checked={photoConsent} onChange={(event) => setPhotoConsent(event.target.checked)} /> Confirmo que existe consentimento da cliente para incluir estas imagens.</label><button type="button" className="nc-btn nc-btn-primary nc-upload" disabled={!photoConsent || !drive?.connected || photoSaving} onClick={() => photoInputRef.current?.click()}>{photoSaving ? "Processando..." : "Adicionar fotos"}</button></>}
         <input ref={photoInputRef} className="nc-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple onChange={(event) => { void addPhotos(event.target.files); event.target.value = ""; }} />
         {drive?.connected && photoLoadWarning && <div className="nc-validation-summary" role="alert">{photoLoadWarning} <button type="button" className="nc-retry-link" onClick={() => setPhotoRevision(current => current + 1)}>Tentar novamente</button></div>}
         <div className="nc-photo-grid">
@@ -497,14 +518,15 @@ export default function ClientsPage() {
             : drive?.connected && photoLoadState === "error" ? <div className="nc-empty">A galeria está indisponível no momento.</div>
             : drive?.connected && photos[selected.id]?.length ? photos[selected.id].map((photo) => <div className="nc-photo" key={photo.id}>
                 {photo.url ? <img src={photo.url} alt={photo.name} /> : <div className="nc-photo-missing">Imagem indisponível</div>}
-                <span>{photo.name}</span><button type="button" aria-label={`Remover ${photo.name}`} disabled={photoSaving} onClick={() => void removePhoto(photo)}>×</button>
+                <span>{photo.name}</span>{canManagePhotos && <div className="nc-photo-card-actions">{photo.url && <button type="button" disabled={photoSaving} onClick={() => setPhotoEditor({ kind: "gallery", src: photo.url!, name: photo.name, photoId: photo.id, clientId: selected.id })}>Editar</button>}<button type="button" aria-label={`Remover ${photo.name}`} disabled={photoSaving} onClick={() => void removePhoto(photo)}>Remover</button></div>}
               </div>) : <div className="nc-empty">{drive?.connected ? "Nenhuma foto cadastrada para esta cliente." : "A galeria estará disponível quando a integração estiver ativa."}</div>}
         </div>
       </div>}
       {tab === "preferences" && <div className="nc-tab-content nc-secondary-tab"><div><Icon name="tune" size={25} /><h3>Manutenções &amp; Preferências</h3><p>Dados organizados para preparar os próximos atendimentos.</p></div><div className="nc-info-card"><small>PREFERÊNCIAS</small><p>{selected.preferences}</p></div><div className="nc-info-card"><small>PRÓXIMO RETORNO</small><p>{selected.returnDate ? formatShortDate(selected.returnDate) : "Ainda não definido"}</p></div><button type="button" className="nc-btn nc-btn-primary" onClick={() => setDialog("preferences")}>Editar preferências</button></div>}
-    </div> : <div className="nc-empty nc-empty-detail">Selecione uma cliente para abrir a ficha.</div>}</div></div>
+    </div> : !loaded.clients || !loaded.sessions ? <ContentSkeleton label="Carregando ficha da cliente" rows={4} /> : <div className="nc-empty nc-empty-detail">Selecione uma cliente para abrir a ficha.</div>}</div></div>
 
-    {(dialog === "create" || dialog === "edit") && <DialogFrame title={dialog === "create" ? "Cadastro da Cliente" : "Editar Cadastro da Cliente"} onClose={() => { if (!saving && !photoSaving) setDialog(null); }}><ClientForm key={dialog === "edit" ? selected?.id : "new"} client={dialog === "edit" ? selected ?? undefined : undefined} clients={clients} saving={saving} photoSaving={photoSaving} driveConnected={Boolean(drive?.connected)} driveLoading={drive === null} avatarUrl={avatarUrl} canDelete={Boolean(profile?.permissions.includes("clients.delete"))} onSave={saveClient} onClose={() => setDialog(null)} onDelete={() => setDialog("delete")} onAvatarUpload={uploadAvatar} onAvatarRemove={removeAvatar} /></DialogFrame>}
+    {(dialog === "create" || dialog === "edit") && <DialogFrame title={dialog === "create" ? "Cadastro da Cliente" : "Editar Cadastro da Cliente"} onClose={() => { if (!saving && !photoSaving && !photoEditor) setDialog(null); }}><ClientForm key={dialog === "edit" ? selected?.id : "new"} client={dialog === "edit" ? selected ?? undefined : undefined} clients={clients} saving={saving} photoSaving={photoSaving} driveConnected={Boolean(drive?.connected)} driveLoading={drive === null} avatarUrl={avatarUrl} canDelete={Boolean(profile?.permissions.includes("clients.delete"))} canManagePhotos={canManagePhotos} onSave={saveClient} onClose={() => setDialog(null)} onDelete={() => setDialog("delete")} onAvatarUpload={openAvatarEditor} onAvatarEdit={() => { if (selected && avatarUrl) setPhotoEditor({ kind: "avatar", src: avatarUrl, name: `${selected.name}-perfil.jpg`, clientId: selected.id }); }} onAvatarRemove={removeAvatar} /></DialogFrame>}
+    {photoEditor && <DialogFrame title={photoEditor.kind === "avatar" ? "Ajustar foto de perfil" : "Editar foto da galeria"} wide onClose={() => { if (!photoSaving) closePhotoEditor(); }}><PhotoEditor key={photoEditor.src} src={photoEditor.src} name={photoEditor.name} kind={photoEditor.kind} onSave={saveEditedPhoto} onCancel={closePhotoEditor} /></DialogFrame>}
     {dialog === "delete" && selected && <DialogFrame title="Excluir Cadastro" onClose={() => { if (!saving) setDialog(null); }}><div className="nc-form"><p>Excluir permanentemente o cadastro de {selected.name}, suas sessões e os agendamentos anteriores ou cancelados? Agendamentos futuros ativos precisam ser cancelados antes.</p><div className="nc-dialog-actions"><button type="button" className="nc-btn nc-btn-quiet" onClick={() => setDialog("edit")} disabled={saving}>Cancelar</button><button type="button" className="nc-btn nc-btn-danger" onClick={deleteClient} disabled={saving}>{saving ? "Excluindo..." : "Excluir cadastro"}</button></div></div></DialogFrame>}
     {(dialog === "session" || dialog === "maintenance" || dialog === "sessionEdit") && selected && <DialogFrame title={dialog === "sessionEdit" ? "Editar Sessão" : dialog === "session" ? "Registrar Nova Sessão" : "Planejar Retorno"} onClose={() => { if (!saving) { setDialog(null); setLinkedAppointmentId(""); } }}><SessionForm key={`${selected.id}-${dialog}-${editingSessionId}-${linkedAppointmentId}`} client={selected} planned={dialog === "maintenance" || (dialog === "sessionEdit" && editingSession?.payment === "Agendado")} editing={dialog === "sessionEdit" ? editingSession : undefined} appointment={dialog === "session" ? linkedAppointment : undefined} saving={saving} onSave={saveSession} onClose={() => { setDialog(null); setLinkedAppointmentId(""); }} /></DialogFrame>}
     {dialog === "sessionDelete" && selected && editingSession && <DialogFrame title="Excluir Sessão" onClose={() => { if (!saving) setDialog(null); }}><div className="nc-form"><p>Excluir permanentemente “{editingSession.service}” de {selected.name}? O histórico e os indicadores serão recalculados.</p><div className="nc-dialog-actions"><button type="button" className="nc-btn nc-btn-quiet" onClick={() => setDialog(null)} disabled={saving}>Cancelar</button><button type="button" className="nc-btn nc-btn-danger" onClick={deleteSession} disabled={saving}>{saving ? "Excluindo..." : "Excluir sessão"}</button></div></div></DialogFrame>}
