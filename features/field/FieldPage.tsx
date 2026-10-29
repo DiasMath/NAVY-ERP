@@ -6,6 +6,7 @@ import { useAuth } from "@/features/auth/AuthProvider";
 import { navyApi } from "@/lib/firebase/navy-api";
 import { prepareImageUpload } from "@/features/clients/client-images";
 import { hasPermission } from "@/lib/access-control";
+import ContentSkeleton from "@/components/ContentSkeleton";
 import "./field.css";
 
 type ClientSummary = { id: string; name: string; phone: string; city: string };
@@ -130,7 +131,7 @@ export default function FieldPage() {
     <header className="field-heading"><span>ATENDIMENTO EM CAMPO</span><h1>Minha agenda</h1><p>{profile?.name ? `Olá, ${profile.name}. ` : ""}Seus atendimentos e as informações necessárias para cada visita.</p><button type="button" onClick={() => void run(reload, "Agenda atualizada.")} disabled={busy}>Atualizar agenda</button></header>
     {message && <div className="field-message" role="status">{message}</div>}
     <div className="field-tabs" role="tablist" aria-label="Período da agenda">{([["today", "Hoje"], ["upcoming", "Próximos"], ["history", "Recentes"]] as const).map(([id, label]) => <button type="button" role="tab" aria-selected={mode === id} className={mode === id ? "active" : ""} key={id} onClick={() => setMode(id)}>{label}</button>)}</div>
-    {loading ? <p className="field-empty">Carregando sua agenda...</p> : visible.length === 0 ? <p className="field-empty">Nenhum atendimento neste período.</p> : <div className="field-list">{visible.map(item => {
+    {loading ? <ContentSkeleton label="Carregando sua agenda" rows={3} /> : visible.length === 0 ? <p className="field-empty">Nenhum atendimento neste período.</p> : <div className="field-list">{visible.map(item => {
       const client = clients.find(value => value.id === item.clientId);
       const open = selectedId === item.id;
       return <article className={`field-card ${open ? "open" : ""}`} key={item.id}>

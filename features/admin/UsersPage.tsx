@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";
 import ContentDialog from "@/components/ContentDialog";
+import ContentSkeleton from "@/components/ContentSkeleton";
 import { useAuth } from "@/features/auth/AuthProvider";
 import { getFirebaseClient } from "@/lib/firebase/client";
 import { navyApi } from "@/lib/firebase/navy-api";
@@ -180,7 +181,7 @@ export default function UsersPage() {
     {notice && <div className="ad-notice" role="status">{notice}</div>}
     {error && !userForm && !accessForm && <div className="ad-error" role="alert">{error} <button type="button" onClick={retry}>Tentar novamente</button></div>}
 
-    {loading || !loadedData ? <div className="ad-empty ad-card">{loading ? "Carregando acessos…" : "Dados indisponíveis. Tente novamente."}</div> : tab === "users" ? <>
+    {loading || !loadedData ? loading ? <ContentSkeleton label="Carregando usuários e acessos" rows={4} /> : <div className="ad-empty ad-card">Dados indisponíveis. Tente novamente.</div> : tab === "users" ? <>
       <div className="ad-toolbar"><label className="ad-search">{icon("search")}<input aria-label="Buscar colaborador" placeholder="Buscar por nome, e-mail, função ou grupo…" value={query} onChange={event => setQuery(event.target.value)} /></label><div className="ad-filters" aria-label="Filtrar equipe">{filters.map(item => <button key={item.id} type="button" className={filter === item.id ? "active" : ""} onClick={() => setFilter(item.id)}>{item.label} <span>{item.count}</span></button>)}</div></div>
       <section className="ad-card ad-user-card"><div className="ad-card-head"><div><h2>Colaboradores &amp; Perfis Autorizados</h2><span>{users.filter(item => item.active).length} ativos</span></div><small>{icon("verified_user")} Dados do Firebase Auth e Firestore</small></div>
         <div className="ad-table-wrap"><table className="ad-user-table"><thead><tr><th>COLABORADOR / FUNÇÃO</th><th>PERFIL DE ACESSO &amp; ESCOPO</th><th>ÚLTIMO ACESSO</th><th>STATUS</th><th>AÇÕES</th></tr></thead><tbody>{filtered.length ? filtered.map(item => {

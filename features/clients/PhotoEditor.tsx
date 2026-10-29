@@ -74,7 +74,7 @@ export default function PhotoEditor({ src, name, kind, onSave, onCancel }: Props
     <p>Ajuste a foto antes de salvar. O enquadramento abaixo será o mesmo visto na ficha.</p>
     <div className={`nc-editor-preview ${kind === "avatar" ? "nc-editor-avatar" : ""}`}>{ready ? <canvas ref={previewRef} aria-label="Prévia da foto editada" role="img" /> : <span>Preparando imagem...</span>}</div>
     <div className="nc-editor-controls"><button type="button" className="nc-btn nc-btn-soft" onClick={() => setRotation(value => (value + 90) % 360)} disabled={!ready || saving}>Girar 90°</button><button type="button" className="nc-btn nc-btn-quiet" onClick={() => { setRotation(0); setZoom(1); setX(0); setY(0); }} disabled={!ready || saving}>Restaurar enquadramento</button></div>
-    <label>Zoom <output>{Math.round(zoom * 100)}%</output><input type="range" min="1" max="2.5" step="0.05" value={zoom} onChange={event => setZoom(Number(event.target.value))} disabled={!ready || saving} /></label>
+    <label>Zoom <output>{Math.round(zoom * 100)}%</output><input type="range" min="0.5" max="2.5" step="0.05" value={zoom} onChange={event => setZoom(Number(event.target.value))} disabled={!ready || saving} /></label>
     <label>Posição horizontal<input type="range" min="-100" max="100" value={x} onChange={event => setX(Number(event.target.value))} disabled={!ready || saving} /></label>
     <label>Posição vertical<input type="range" min="-100" max="100" value={y} onChange={event => setY(Number(event.target.value))} disabled={!ready || saving} /></label>
     {error && <p className="nc-photo-error" role="alert">{error}</p>}
