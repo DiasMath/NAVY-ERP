@@ -9,6 +9,8 @@ import { useAuth } from "@/features/auth/AuthProvider";
 const avatarUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuCofQkjk3DiiD6LDl1Q8geJ4XSkzkpbewIaJ_TMBaXjUP44noY7d548_5I7EVtFqIw2hmRFiLTM3roWoVPvW2j1WssKAc6zvPfamoZvOBbrzg8c36uw4fmJ0LfucV-712QNXQWIItYmosBpzqjSJwomPxW0OorrF0Fgy44TR3dvnKcVBLNTSY5GF9YzSaFYrSGn4zgEX7oG2pNhJ-Gig-4NXZVQRQzN3Bz4s3HSMZjxmshmlhdkGktA";
 
 type Panel = "date" | "notifications" | "help" | "profile" | null;
+type InstallPromptEvent = Event & { prompt: () => Promise<void>; userChoice: Promise<{ outcome: string }> };
+let pendingInstallPrompt: InstallPromptEvent | null = null;
 
 function Icon({ name }: { name: string }) {
   return <span aria-hidden="true" className="material-symbols-outlined">{name}</span>;
@@ -25,6 +27,44 @@ export default function StitchHeader({ mobileOpen, onMobileMenu, focusMode, onTo
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [dateLabel, setDateLabel] = useState("Hoje");
+  const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(pendingInstallPrompt);
+  const [installHint, setInstallHint] = useState("");
+  const [isIos, setIsIos] = useState(false);
+  const [isStandalone, setIsStandalone] = useState(false);
+
+  useEffect(() => {
+    const standalone = window.matchMedia("(display-mode: standalone)");
+    const updateStandalone = () => setIsStandalone(standalone.matches || (navigator as Navigator & { standalone?: boolean }).standalone === true);
+    updateStandalone();
+    setIsIos(/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1));
+    const onInstallPrompt = (event: Event) => { event.preventDefault(); pendingInstallPrompt = event as InstallPromptEvent; setInstallPrompt(pendingInstallPrompt); };
+    const onInstalled = () => { pendingInstallPrompt = null; setInstallPrompt(null); setIsStandalone(true); setInstallHint(""); };
+    window.addEventListener("beforeinstallprompt", onInstallPrompt);
+    window.addEventListener("appinstalled", onInstalled);
+    standalone.addEventListener("change", updateStandalone);
+    if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
+      void navigator.serviceWorker.register("/sw.js", { scope: "/", updateViaCache: "none" }).catch(() => {});
+    }
+    return () => {
+      window.removeEventListener("beforeinstallprompt", onInstallPrompt);
+      window.removeEventListener("appinstalled", onInstalled);
+      standalone.removeEventListener("change", updateStandalone);
+    };
+  }, []);
+
+  const installApp = async () => {
+    if (installPrompt) {
+      await installPrompt.prompt();
+      const choice = await installPrompt.userChoice;
+      pendingInstallPrompt = null;
+      setInstallPrompt(null);
+      setInstallHint(choice.outcome === "accepted" ? "Instalação iniciada. O ícone NAVY aparecerá na tela inicial." : "Você pode instalar depois pelo menu do navegador.");
+      return;
+    }
+    setInstallHint(isIos
+      ? "No Safari, toque em Compartilhar e depois em Adicionar à Tela de Início."
+      : "No Chrome, abra o menu ⋮ e escolha Instalar app ou Adicionar à tela inicial.");
+  };
 
   useEffect(() => {
     const date = new Intl.DateTimeFormat("pt-BR", { day: "numeric", month: "long" }).format(new Date());
@@ -83,7 +123,7 @@ export default function StitchHeader({ mobileOpen, onMobileMenu, focusMode, onTo
       <div className="stitch-header-popover-wrap stitch-help-wrap"><button type="button" className="stitch-header-icon" onClick={() => togglePanel("help")} aria-label="Ajuda" aria-expanded={openPanel === "help"} aria-controls="stitch-help-popover"><Icon name="help_outline" /></button>{openPanel === "help" && <div id="stitch-help-popover" className="stitch-help-popover" role="dialog" aria-label="Ajuda"><strong>{status === "authenticated" ? "Ajuda NAVY" : "Sobre esta prévia"}</strong><p>{status === "authenticated" ? "Clientes, Serviços e Agenda usam os dados da NAVY Matriz em tempo real." : "Estamos padronizando a interface NAVY. Os dados das telas são ilustrativos."}</p></div>}</div>
       <span className="stitch-header-divider" />
       <div className="stitch-header-popover-wrap"><button type="button" className="stitch-profile-trigger" onClick={() => togglePanel("profile")} aria-label="Abrir menu do perfil" aria-expanded={openPanel === "profile"} aria-controls="stitch-profile-menu"><span><strong>{profileName}</strong><small>{profileSubtitle}</small></span><img src={avatarUrl} alt="" /></button>
-        {openPanel === "profile" && <div ref={panelRef} id="stitch-profile-menu" className="stitch-profile-menu" role="dialog" aria-label="Menu do perfil"><div className="stitch-profile-identity"><img src={avatarUrl} alt="" /><span><strong>{profileName} <Icon name="verified" /></strong><small>Equipe NAVY • NAVY Matriz</small><small>{status === "authenticated" ? profileSubtitle : "Prévia visual do perfil"}</small></span></div><div className="stitch-profile-section"><span>OPERAÇÃO NAVY</span><strong>NAVY Matriz</strong><small>{status === "authenticated" ? "Acesso autenticado" : "São Paulo • Jardins"}</small></div><div className="stitch-profile-links">{fieldMode ? <Link href="/campo" onClick={() => setOpenPanel(null)}><Icon name="calendar_month" /> Minha agenda</Link> : <><Link href="/configuracoes" onClick={() => setOpenPanel(null)}><Icon name="badge" /> Meu Perfil & Assinatura Digital</Link><Link href="/usuarios" onClick={() => setOpenPanel(null)}><Icon name="key" /> Segurança & Chaves de Acesso</Link><Link href="/configuracoes" onClick={() => setOpenPanel(null)}><Icon name="tune" /> Preferências da Clínica</Link><Link href="/atividades" onClick={() => setOpenPanel(null)}><Icon name="history_edu" /> Registro de Atividades</Link></>}</div><label className="stitch-focus-toggle"><Icon name="visibility_off" /> Modo Foco <input type="checkbox" checked={focusMode} onChange={onToggleFocus} /></label>{status === "authenticated" ? <button type="button" className="stitch-profile-signout" onClick={() => { setOpenPanel(null); void signOut(); }}><Icon name="logout" /> Sair da conta</button> : <Link href="/login" className="stitch-profile-signout" onClick={() => setOpenPanel(null)}><Icon name="logout" /> Ver tela de acesso</Link>}</div>}
+        {openPanel === "profile" && <div ref={panelRef} id="stitch-profile-menu" className="stitch-profile-menu" role="dialog" aria-label="Menu do perfil"><div className="stitch-profile-identity"><img src={avatarUrl} alt="" /><span><strong>{profileName} <Icon name="verified" /></strong><small>Equipe NAVY • NAVY Matriz</small><small>{status === "authenticated" ? profileSubtitle : "Prévia visual do perfil"}</small></span></div><div className="stitch-profile-section"><span>OPERAÇÃO NAVY</span><strong>NAVY Matriz</strong><small>{status === "authenticated" ? "Acesso autenticado" : "São Paulo • Jardins"}</small></div><div className="stitch-profile-links">{fieldMode ? <Link href="/campo" onClick={() => setOpenPanel(null)}><Icon name="calendar_month" /> Minha agenda</Link> : <><Link href="/configuracoes" onClick={() => setOpenPanel(null)}><Icon name="badge" /> Meu Perfil & Assinatura Digital</Link><Link href="/usuarios" onClick={() => setOpenPanel(null)}><Icon name="key" /> Segurança & Chaves de Acesso</Link><Link href="/configuracoes" onClick={() => setOpenPanel(null)}><Icon name="tune" /> Preferências da Clínica</Link><Link href="/atividades" onClick={() => setOpenPanel(null)}><Icon name="history_edu" /> Registro de Atividades</Link></>}</div>{status === "authenticated" && !isStandalone && <div className="stitch-install-wrap"><button type="button" onClick={() => void installApp()}><Icon name="install_mobile" /> Instalar NAVY no celular</button>{installHint && <p role="status">{installHint}</p>}</div>}<label className="stitch-focus-toggle"><Icon name="visibility_off" /> Modo Foco <input type="checkbox" checked={focusMode} onChange={onToggleFocus} /></label>{status === "authenticated" ? <button type="button" className="stitch-profile-signout" onClick={() => { setOpenPanel(null); void signOut(); }}><Icon name="logout" /> Sair da conta</button> : <Link href="/login" className="stitch-profile-signout" onClick={() => setOpenPanel(null)}><Icon name="logout" /> Ver tela de acesso</Link>}</div>}
       </div>
     </div>
     </header>
