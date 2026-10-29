@@ -21,6 +21,7 @@ const totalMinutes = (item: AppointmentDocument) => item.lines.reduce((sum, line
 
 export default function FieldPage() {
   const { user, profile } = useAuth();
+  const adminPreview = profile?.role === "admin" || profile?.role === "master_admin";
   const [appointments, setAppointments] = useState<AppointmentDocument[]>([]);
   const [clients, setClients] = useState<ClientSummary[]>([]);
   const [today, setToday] = useState("");
@@ -94,9 +95,9 @@ export default function FieldPage() {
   const existingSession = history.find(item => item.appointmentId === selectedId);
   const phone = (detail?.phone ?? selectedSummary?.phone ?? "").replace(/[^\d+]/g, "");
   const route = selected?.place === "Home" && selected.address ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(selected.address)}` : "";
-  const canChangeStatus = hasPermission(profile, "agenda.write");
-  const canSaveSession = hasPermission(profile, "sessions.write");
-  const canUploadPhoto = hasPermission(profile, "clients.write");
+  const canChangeStatus = !adminPreview && hasPermission(profile, "agenda.write");
+  const canSaveSession = !adminPreview && hasPermission(profile, "sessions.write");
+  const canUploadPhoto = !adminPreview && hasPermission(profile, "clients.write");
 
   const run = async (action: () => Promise<void>, success: string) => {
     if (busy) return;
@@ -128,7 +129,8 @@ export default function FieldPage() {
   }, "Foto removida.");
 
   return <div className="field-page">
-    <header className="field-heading"><span>ATENDIMENTO EM CAMPO</span><h1>Minha agenda</h1><p>{profile?.name ? `Olá, ${profile.name}. ` : ""}Seus atendimentos e as informações necessárias para cada visita.</p><button type="button" onClick={() => void run(reload, "Agenda atualizada.")} disabled={busy}>Atualizar agenda</button></header>
+    <header className="field-heading"><span>ATENDIMENTO EM CAMPO</span><h1>{adminPreview ? "Prévia da agenda em campo" : "Minha agenda"}</h1><p>{adminPreview ? "Visualização da equipe para revisar a experiência mobile. Registros e alterações são feitos pela profissional vinculada." : `${profile?.name ? `Olá, ${profile.name}. ` : ""}Seus atendimentos e as informações necessárias para cada visita.`}</p><button type="button" onClick={() => void run(reload, "Agenda atualizada.")} disabled={busy}>Atualizar agenda</button></header>
+    {adminPreview && <p className="field-preview-note">Prévia administrativa · somente leitura · atendimentos da equipe</p>}
     {message && <div className="field-message" role="status">{message}</div>}
     <div className="field-tabs" role="tablist" aria-label="Período da agenda">{([["today", "Hoje"], ["upcoming", "Próximos"], ["history", "Recentes"]] as const).map(([id, label]) => <button type="button" role="tab" aria-selected={mode === id} className={mode === id ? "active" : ""} key={id} onClick={() => setMode(id)}>{label}</button>)}</div>
     {loading ? <ContentSkeleton label="Carregando sua agenda" rows={3} /> : visible.length === 0 ? <p className="field-empty">Nenhum atendimento neste período.</p> : <div className="field-list">{visible.map(item => {

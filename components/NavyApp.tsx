@@ -57,7 +57,8 @@ export default function NavyApp({ path }: { path: string }) {
   if (current === "/campo") {
     const required: NavyPermission[] = ["agenda.read", "clients.read", "sessions.read"];
     const missing = required.filter(permission => !hasPermission(profile, permission));
-    return <StitchShell path={current}>{profile?.role === "professional" && !missing.length ? <FieldPage /> : <AccessDenied required={missing.length ? missing : required} />}</StitchShell>;
+    const allowedRole = profile?.role === "professional" || profile?.role === "admin" || profile?.role === "master_admin";
+    return <StitchShell path={current}>{allowedRole && !missing.length ? <FieldPage /> : <AccessDenied required={missing.length ? missing : required} />}</StitchShell>;
   }
   const protectedRoutes: Record<string, NavyPermission[]> = { "/clientes": ["clients.read", "sessions.read", "agenda.read"], "/servicos": ["services.read", "professionals.read"], "/agenda": ["agenda.read", "clients.read", "sessions.read", "services.read", "professionals.read"], "/usuarios": ["users.read"], "/configuracoes/integracoes": ["integrations.read"] };
   const missing = protectedRoutes[current]?.filter(permission => !hasPermission(profile, permission)) ?? [];

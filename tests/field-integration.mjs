@@ -8,7 +8,8 @@ const port = 3108;
 const origin = `http://127.0.0.1:${port}`;
 const app = initializeApp({ projectId });
 const db = getFirestore(app);
-const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "dev", "-p", String(port)], {
+const serverMode = process.env.FIELD_TEST_SERVER === "start" ? "start" : "dev";
+const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", serverMode, "-p", String(port)], {
   cwd: process.cwd(),
   env: { ...process.env, FIREBASE_PROJECT_ID: projectId, NEXT_TELEMETRY_DISABLED: "1" },
   stdio: ["ignore", "pipe", "pipe"],
@@ -20,7 +21,7 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 async function ready() {
   for (let attempt = 0; attempt < 90; attempt++) {
     if (server.exitCode !== null) throw new Error(`Next.js exited: ${serverOutput}`);
-    try { if ((await fetch(`${origin}/campo`)).ok) return; } catch {}
+    try { if ((await fetch(`${origin}/campo`, { signal: AbortSignal.timeout(2500) })).ok) return; } catch {}
     await sleep(1000);
   }
   throw new Error(`Next.js did not start: ${serverOutput}`);
@@ -48,11 +49,13 @@ function expectStatus(result, status) {
 
 try {
   await ready();
-  const [one, two] = await Promise.all([signUp("professional1@example.test"), signUp("professional2@example.test")]);
+  const [one, two, admin, master] = await Promise.all([signUp("professional1@example.test"), signUp("professional2@example.test"), signUp("admin@example.test"), signUp("master@example.test")]);
   const permissions = ["agenda.read", "agenda.write", "clients.read", "clients.write", "sessions.read", "sessions.write"];
   await Promise.all([
     db.doc(`users/${one.localId}`).set({ name: "Profissional 1", role: "professional", clinicId: "navy-matriz", active: true, professionalId: "pro1", permissions }),
     db.doc(`users/${two.localId}`).set({ name: "Profissional 2", role: "professional", clinicId: "navy-matriz", active: true, professionalId: "pro2", permissions }),
+    db.doc(`users/${admin.localId}`).set({ name: "Admin Teste", role: "admin", clinicId: "navy-matriz", active: true, permissions: ["clients.read"] }),
+    db.doc(`users/${master.localId}`).set({ name: "Master Teste", role: "master_admin", clinicId: "navy-matriz", active: true }),
     db.doc("clinics/navy-matriz/professionals/pro1").set({ name: "Profissional 1", active: true, userUid: one.localId }),
     db.doc("clinics/navy-matriz/professionals/pro2").set({ name: "Profissional 2", active: true, userUid: two.localId }),
     db.doc("clinics/navy-matriz/clients/shared").set({ name: "Cliente Compartilhada", phone: "11999999999", city: "São Paulo", clinicalNote: "Observação clínica" }),
@@ -67,6 +70,14 @@ try {
     db.doc("clinics/navy-matriz/sessions/sharedOther").set({ id: "sharedOther", appointmentId: "sharedOther", clientId: "shared", serviceName: "Outro procedimento", startedAt: "2026-10-28T11:00:00Z", notes: "Anotação privada da outra profissional" }),
     db.doc("clinics/navy-matriz/clientPhotos/otherPhoto").set({ clientId: "shared", driveFileId: "fake-file", name: "Foto de teste", consentConfirmedBy: two.localId, createdAt: "2026-10-28T11:00:00Z" }),
   ]);
+
+  const adminListing = expectStatus(await request("/api/field", "GET", admin.idToken), 200);
+  assert.deepEqual(adminListing.appointments.map(item => item.id), ["other", "own", "sharedOther"]);
+  const masterListing = expectStatus(await request("/api/field", "GET", master.idToken), 200);
+  assert.deepEqual(masterListing.appointments.map(item => item.id), ["other", "own", "sharedOther"]);
+  const adminDetail = expectStatus(await request("/api/field/client?clientId=shared", "GET", admin.idToken), 200);
+  assert.deepEqual(adminDetail.history.map(item => item.id), ["sharedOther"]);
+  expectStatus(await request("/api/field/session", "POST", admin.idToken, { appointmentId: "own", notes: "Prévia sem gravação" }), 403);
 
   const listing = expectStatus(await request("/api/field", "GET", one.idToken), 200);
   assert.deepEqual(listing.appointments.map(item => item.id), ["own"]);
@@ -89,7 +100,7 @@ try {
   const updated = expectStatus(await request("/api/field/client?clientId=shared", "GET", one.idToken), 200);
   assert.deepEqual(updated.history.map(item => item.id), ["own"]);
   assert.ok(!JSON.stringify(updated).includes("Anotação privada"));
-  console.log("Field API integration: professional assignment, client privacy, photo scope and session recording passed.");
+  console.log("Field API integration: administrator preview, professional assignment, client privacy, photo scope and session recording passed.");
 } finally {
   server.kill();
   await deleteApp(app);

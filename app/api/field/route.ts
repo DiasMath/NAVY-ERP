@@ -10,9 +10,10 @@ const dateKey = () => new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_
 export async function GET(request: NextRequest) {
   try {
     const user = await requireNavyUser(request, "agenda.read");
-    if (user.role !== "professional" || !user.professionalId || !user.permissions.includes("clients.read") || !user.permissions.includes("sessions.read")) throw new ApiError(403, "Acesso exclusivo a profissionais com Agenda, Clientes e Sessões autorizados.");
+    const adminPreview = user.role === "admin" || user.role === "master_admin";
+    if ((!adminPreview && (user.role !== "professional" || !user.professionalId)) || !user.permissions.includes("clients.read") || !user.permissions.includes("sessions.read")) throw new ApiError(403, "Acesso indisponível para esta conta.");
     const base = adminDb().collection("clinics").doc(user.clinicId);
-    const snapshot = await base.collection("appointments").where("professionalId", "==", user.professionalId).get();
+    const snapshot = adminPreview ? await base.collection("appointments").get() : await base.collection("appointments").where("professionalId", "==", user.professionalId).get();
     const today = dateKey();
     const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - 90);
     const recentKey = cutoff.toISOString().slice(0, 10);
