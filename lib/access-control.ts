@@ -45,7 +45,7 @@ export function validPermissions(values: unknown): NavyPermission[] {
 }
 
 export function permissionsForProfile(profile: { role: UserRole; permissions?: unknown }): NavyPermission[] {
-  if (profile.role === "master_admin") return allPermissions;
+  if (profile.role === "master_admin" || profile.role === "admin") return allPermissions;
   return Array.isArray(profile.permissions) ? validPermissions(profile.permissions) : defaultPermissions[profile.role];
 }
 
