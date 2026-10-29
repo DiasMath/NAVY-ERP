@@ -17,6 +17,7 @@ import LoginPage from "@/features/auth/LoginPage";
 import { useAuth } from "@/features/auth/AuthProvider";
 import { hasPermission, type NavyPermission } from "@/lib/access-control";
 import UsersPage from "@/features/admin/UsersPage";
+import FieldPage from "@/features/field/FieldPage";
 
 function AccessDenied({ required }: { required: NavyPermission[] }) { return <div className="coming-page"><PageIntro eyebrow="ACESSO RESTRITO" title="Sem permissão" subtitle={`Esta tela precisa dos acessos: ${required.join(", ")}. Peça a um administrador da NAVY.`} /></div>; }
 
@@ -32,6 +33,12 @@ function LoginRedirect({ path }: { path: string }) {
   return <div className="login-loading">Redirecionando para o acesso…</div>;
 }
 
+function ProfessionalRedirect() {
+  const router = useRouter();
+  useEffect(() => { router.replace("/campo"); }, [router]);
+  return <div className="login-loading">Abrindo sua agenda…</div>;
+}
+
 const configurationSections: Record<string, string> = {
   "/configuracoes": "clinica",
   "/configuracoes/financeiro": "financeiro",
@@ -45,6 +52,12 @@ export default function NavyApp({ path }: { path: string }) {
   if (current === "/login") return <LoginPage />;
   if (status === "loading") return <div className="login-loading">Verificando acesso…</div>;
   if (status === "unauthenticated") return <LoginRedirect path={current} />;
+  if (profile?.role === "professional" && current !== "/campo") return <ProfessionalRedirect />;
+  if (current === "/campo") {
+    const required: NavyPermission[] = ["agenda.read", "clients.read", "sessions.read"];
+    const missing = required.filter(permission => !hasPermission(profile, permission));
+    return <StitchShell path={current}>{profile?.role === "professional" && !missing.length ? <FieldPage /> : <AccessDenied required={missing.length ? missing : required} />}</StitchShell>;
+  }
   const protectedRoutes: Record<string, NavyPermission[]> = { "/clientes": ["clients.read", "sessions.read", "agenda.read"], "/servicos": ["services.read", "professionals.read"], "/agenda": ["agenda.read", "clients.read", "sessions.read", "services.read", "professionals.read"], "/usuarios": ["users.read"], "/configuracoes/integracoes": ["integrations.read"] };
   const missing = protectedRoutes[current]?.filter(permission => !hasPermission(profile, permission)) ?? [];
   if (missing.length) return <StitchShell path={current}><AccessDenied required={missing} /></StitchShell>;

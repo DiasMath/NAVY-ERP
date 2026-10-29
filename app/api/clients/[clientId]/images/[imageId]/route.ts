@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { adminDb } from "@/lib/server/firebase-admin";
 import { downloadDriveImage } from "@/lib/server/google-drive";
-import { apiError, assertDocumentId, requireClient, requireNavyUser, ApiError } from "@/lib/server/navy-auth";
+import { apiError, assertAssignedClient, assertDocumentId, requireClient, requireNavyUser, ApiError } from "@/lib/server/navy-auth";
 
 export const runtime = "nodejs";
 type Context = { params: Promise<{ clientId: string; imageId: string }> };
@@ -11,6 +11,7 @@ export async function GET(request: NextRequest, context: Context) {
     const user = await requireNavyUser(request, "clients.read");
     const { clientId, imageId } = await context.params;
     const { data } = await requireClient(user.clinicId, clientId);
+    await assertAssignedClient(user, clientId);
     let fileId: string | undefined;
     if (imageId === "avatar") fileId = data.avatarDriveFileId;
     else {

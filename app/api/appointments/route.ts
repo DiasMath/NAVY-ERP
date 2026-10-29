@@ -14,6 +14,7 @@ const saoPauloNow = () => Object.fromEntries(new Intl.DateTimeFormat("en-CA", { 
 export async function POST(request: NextRequest) {
   try {
     const user = await requireNavyUser(request, "agenda.write");
+    if (user.role === "professional") throw new ApiError(403, "Novos agendamentos são feitos pela administração ou recepção.");
     const body = await request.json() as { id?: string; bookingKind?: "catalog" | "manual"; clientId?: string; professionalId?: string; serviceIds?: string[]; manualName?: string; manualDurationMinutes?: number; manualPrice?: number; date?: string; time?: string; place?: AgendaPlace; address?: string };
     const { clientId, professionalId, date, time, place } = body;
     const manual = body.bookingKind === "manual";
@@ -112,6 +113,9 @@ export async function PATCH(request: NextRequest) {
       changes.note = body.note.trim();
     }
     if (!Object.keys(changes).length) throw new ApiError(400, "Nenhuma alteração informada.");
+    if (user.role === "professional" && (body.paymentMethod !== undefined || body.status && !["Em atendimento", "Concluído"].includes(body.status))) {
+      throw new ApiError(403, "Esta alteração não está disponível no acesso profissional.");
+    }
     const db = adminDb();
     const base = db.collection("clinics").doc(user.clinicId);
     const ref = base.collection("appointments").doc(body.id);
@@ -119,6 +123,11 @@ export async function PATCH(request: NextRequest) {
     await db.runTransaction(async transaction => {
       const [appointment, session] = await Promise.all([transaction.get(ref), transaction.get(sessionRef)]);
       if (!appointment.exists) throw new ApiError(404, "Agendamento não encontrado.");
+      if (user.role === "professional") {
+        const current = appointment.data() as AppointmentDocument;
+        if (current.professionalId !== user.professionalId || current.status === "Cancelado" || current.status === "Concluído") throw new ApiError(403, "Este agendamento não está disponível para sua conta.");
+        if (changes.status === "Em atendimento" && !["Pendente", "Confirmado"].includes(current.status)) throw new ApiError(409, "Este atendimento já foi iniciado.");
+      }
       if (changes.status && changes.status !== "Concluído" && session.exists) throw new ApiError(409, "Este atendimento já tem uma sessão registrada. Exclua a sessão antes de reabrir ou cancelar.");
       if (changes.status === "Concluído") {
         const item = appointment.data() as AppointmentDocument;

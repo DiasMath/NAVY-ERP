@@ -8,7 +8,8 @@
     "start": "next start --hostname 0.0.0.0",
     "lint": "tsc --noEmit",
     "test:rules": "firebase emulators:exec --only firestore --project demo-navy-rules \"node tests/firestore-rules.mjs\"",
-    "test:admin": "firebase emulators:exec --only auth,firestore --project demo-navy-admin \"node tests/admin-integration.mjs\""
+    "test:admin": "firebase emulators:exec --only auth,firestore --project demo-navy-admin \"node tests/admin-integration.mjs\"",
+    "test:field": "firebase emulators:exec --only auth,firestore --project demo-navy-field \"node tests/field-integration.mjs\""
   },
   "dependencies": {
     "firebase": "12.10.0",

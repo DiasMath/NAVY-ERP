@@ -29,24 +29,25 @@ service cloud.firestore {
     }
 
     match /clinics/{clinicId}/{segment}/{documentId} {
-      allow read: if (segment == 'clients' && can(clinicId, 'clients.read'))
+      // Profissionais leem apenas dados vinculados a seus atendimentos pela API /api/field.
+      allow read: if (segment == 'clients' && can(clinicId, 'clients.read') && profile().role != 'professional')
         || (segment == 'services' && can(clinicId, 'services.read'))
         || (segment == 'professionals' && can(clinicId, 'professionals.read'))
-        || (segment == 'appointments' && can(clinicId, 'agenda.read'))
-        || (segment == 'sessions' && can(clinicId, 'sessions.read'));
+        || (segment == 'appointments' && can(clinicId, 'agenda.read') && profile().role != 'professional')
+        || (segment == 'sessions' && can(clinicId, 'sessions.read') && profile().role != 'professional');
       // Agendamentos são escritos pela API, que verifica conflitos em transação.
-      allow create: if (segment == 'clients' && can(clinicId, 'clients.write'))
+      allow create: if isMember(clinicId) && profile().role != 'professional' && ((segment == 'clients' && can(clinicId, 'clients.write'))
         || (segment == 'sessions' && can(clinicId, 'sessions.write'))
         || (segment == 'services' && can(clinicId, 'services.write'))
-        || (segment == 'professionals' && can(clinicId, 'professionals.write') && request.resource.data.get('userUid', '') == '');
-      allow update: if (segment == 'clients' && can(clinicId, 'clients.write'))
+        || (segment == 'professionals' && can(clinicId, 'professionals.write') && request.resource.data.get('userUid', '') == ''));
+      allow update: if isMember(clinicId) && profile().role != 'professional' && ((segment == 'clients' && can(clinicId, 'clients.write'))
         || (segment == 'sessions' && can(clinicId, 'sessions.write'))
         || (segment == 'services' && can(clinicId, 'services.write'))
-        || (segment == 'professionals' && can(clinicId, 'professionals.write') && resource.data.get('userUid', '') == '' && request.resource.data.get('userUid', '') == '');
+        || (segment == 'professionals' && can(clinicId, 'professionals.write') && resource.data.get('userUid', '') == '' && request.resource.data.get('userUid', '') == ''));
       // Clientes são excluídas apenas pela rota de servidor, que impede órfãos no Drive.
-      allow delete: if (segment == 'services' && can(clinicId, 'services.delete'))
+      allow delete: if isMember(clinicId) && profile().role != 'professional' && ((segment == 'services' && can(clinicId, 'services.delete'))
         || (segment == 'professionals' && can(clinicId, 'professionals.write') && resource.data.get('userUid', '') == '')
-        || (segment == 'sessions' && can(clinicId, 'sessions.delete'));
+        || (segment == 'sessions' && can(clinicId, 'sessions.delete')));
     }
 
     match /{document=**} { allow read, write: if false; }
