@@ -142,4 +142,10 @@
   .stitch-profile-trigger span{display:none}
   .stitch-shell .stitch-frame{width:100%;height:100%;transform:none}
   .stitch-native-content{padding:15px}
+  .stitch-mobile-menu,.stitch-sidebar-mobile-close,.stitch-header-icon,.stitch-header-date,.stitch-profile-trigger{min-width:44px;min-height:44px}
+  .stitch-shell-collapsed .stitch-nav-link,.stitch-nav-link,.stitch-sidebar-unit{min-height:44px;height:auto;font-size:12px}
+  .stitch-header-search{height:44px}
+  .stitch-header-search input{font-size:16px}
+  .stitch-profile-links a,.stitch-profile-signout,.stitch-focus-toggle{min-height:44px;font-size:12px}
+  .stitch-native-content{padding-bottom:calc(15px + env(safe-area-inset-bottom))}
 }
