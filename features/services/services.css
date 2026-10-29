@@ -143,3 +143,22 @@
 @media(max-width:520px){.sv-filter-row{grid-template-columns:1fr}.sv-search{grid-column:auto}.sv-add-professional{align-items:stretch;flex-direction:column}.sv-availability-facts{grid-template-columns:1fr}.sv-card{min-height:145px}.sv-attributes{grid-template-columns:1fr 1fr}.sv-attributes>span:last-child{grid-column:1/-1}.sv-professional-manager form,.sv-professional-row{align-items:stretch;flex-direction:column}.sv-professional-row>div{justify-content:flex-end}}
 .sv-book-service{display:inline-flex;align-items:center;justify-content:center;gap:6px;align-self:flex-start;border-radius:7px;background:#376380;color:#fff;padding:8px 11px;font-size:10.5px;font-weight:700}
 .sv-book-service:hover{background:#2b4b5a}
+@media(max-width:760px){
+  .sv-btn,.sv-category-tabs button,.sv-book-service,.sv-add-professional button,.sv-professional-row button,.sv-detail-footer button,.sv-form .sv-professional-option{min-height:44px;font-size:12px}
+  .sv-filter-row input,.sv-filter-row select,.sv-form input,.sv-form select,.sv-form textarea{min-height:44px;font-size:16px}
+  .sv-card-description,.sv-card-footer,.sv-attributes small,.sv-attributes strong,.sv-availability-facts small,.sv-availability-facts strong,.sv-professional-chips>small{font-size:12px}
+  .sv-stats>div>span:first-child,.sv-stats>div>small{font-size:12px}
+  .sv-stats>div{min-height:116px;padding-right:42px}
+  .sv-stats>div>span:first-child{line-height:1.3;min-height:31px}
+  .sv-stats>div>small{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.3}
+  .sv-stats>div>small{display:block;font-size:11px}
+  .sv-stats>div>span:first-child{font-size:11px}
+  .sv-card-description,.sv-attributes strong,.sv-hero strong{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere}
+  .sv-hero{height:auto;min-height:158px}
+  .sv-hero>div{flex:1}
+  .sv-hero>a{min-height:44px;white-space:normal;text-align:center}
+  .sv-stats>div>strong{font-size:20px;max-width:100%;white-space:normal;overflow:visible}
+  .sv-card-footer>span:first-child{white-space:normal;overflow:visible}
+  .sv-card{min-height:164px}
+  .sv-form label,.sv-form p,.sv-form .sv-field-hint{font-size:12px}
+}
