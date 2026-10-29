@@ -16,6 +16,7 @@ try {
       setDoc(doc(db, "users/admin"), { name: "Admin", role: "admin", clinicId: "navy-matriz", active: true }),
       setDoc(doc(db, "users/reader"), { name: "Reader", role: "employee", clinicId: "navy-matriz", active: true, permissions: ["clients.read", "professionals.read", "agenda.read"] }),
       setDoc(doc(db, "users/editor"), { name: "Editor", role: "employee", clinicId: "navy-matriz", active: true, permissions: ["clients.read", "clients.write", "professionals.read", "professionals.write", "sessions.read", "sessions.write"] }),
+      setDoc(doc(db, "users/professional"), { name: "Profissional", role: "professional", clinicId: "navy-matriz", active: true, professionalId: "linked", permissions: ["clients.read", "clients.write", "sessions.read", "sessions.write", "agenda.read", "agenda.write", "services.read", "professionals.read"] }),
       setDoc(doc(db, "users/disabled"), { name: "Disabled", role: "admin", clinicId: "navy-matriz", active: false }),
       setDoc(doc(db, "users/other"), { name: "Other", role: "admin", clinicId: "other-clinic", active: true }),
       setDoc(doc(db, "clinics/navy-matriz/clients/client1"), { name: "Cliente" }),
@@ -30,6 +31,7 @@ try {
   const admin = environment.authenticatedContext("admin").firestore();
   const reader = environment.authenticatedContext("reader").firestore();
   const editor = environment.authenticatedContext("editor").firestore();
+  const professional = environment.authenticatedContext("professional").firestore();
   const disabled = environment.authenticatedContext("disabled").firestore();
   const other = environment.authenticatedContext("other").firestore();
   const anonymous = environment.unauthenticatedContext().firestore();
@@ -43,6 +45,14 @@ try {
   await assertFails(getDoc(doc(other, "clinics/navy-matriz/clients/client1")));
   await assertFails(getDoc(doc(anonymous, "clinics/navy-matriz/clients/client1")));
   await assertSucceeds(getDoc(doc(reader, "clinics/navy-matriz/appointments/appointment1")));
+  await assertFails(getDoc(doc(professional, "clinics/navy-matriz/clients/client1")));
+  await assertFails(getDocs(collection(professional, "clinics/navy-matriz/clients")));
+  await assertFails(getDoc(doc(professional, "clinics/navy-matriz/appointments/appointment1")));
+  await assertFails(getDoc(doc(professional, "clinics/navy-matriz/sessions/session1")));
+  await assertSucceeds(getDoc(doc(professional, "clinics/navy-matriz/services/service1")));
+  await assertFails(setDoc(doc(professional, "clinics/navy-matriz/clients/new"), { name: "Tentativa" }));
+  await assertFails(updateDoc(doc(professional, "clinics/navy-matriz/services/service1"), { name: "Tentativa" }));
+  await assertFails(setDoc(doc(professional, "clinics/navy-matriz/sessions/new"), { notes: "Tentativa" }));
   await assertFails(setDoc(doc(admin, "clinics/navy-matriz/appointments/new"), { date: "2026-10-28" }));
   await assertFails(setDoc(doc(admin, "clinics/navy-matriz/scheduleLocks/new"), { revision: 1 }));
 
@@ -64,7 +74,7 @@ try {
   await assertFails(getDoc(doc(admin, "clinics/navy-matriz/accessRoles/any")));
   await assertFails(setDoc(doc(admin, "clinics/navy-matriz/accessGroups/any"), { name: "Grupo" }));
 
-  console.log("Firestore rules: 26 access checks passed.");
+  console.log("Firestore rules: professional scope and existing access checks passed.");
 } finally {
   await environment.cleanup();
 }

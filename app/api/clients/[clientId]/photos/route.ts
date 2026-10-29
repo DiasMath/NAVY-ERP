@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { adminDb } from "@/lib/server/firebase-admin";
 import { deleteDriveFile, uploadDriveJpeg } from "@/lib/server/google-drive";
 import { prepareJpeg } from "@/lib/server/drive-images";
-import { apiError, requireClient, requireNavyUser } from "@/lib/server/navy-auth";
+import { apiError, assertAssignedClient, requireClient, requireNavyUser } from "@/lib/server/navy-auth";
 
 export const runtime = "nodejs";
 type Context = { params: Promise<{ clientId: string }> };
@@ -12,8 +12,9 @@ export async function GET(request: NextRequest, context: Context) {
     const user = await requireNavyUser(request, "clients.read");
     const { clientId } = await context.params;
     await requireClient(user.clinicId, clientId);
+    await assertAssignedClient(user, clientId);
     const snapshot = await adminDb().collection(`clinics/${user.clinicId}/clientPhotos`).where("clientId", "==", clientId).get();
-    const photos = snapshot.docs.map(item => ({ id: item.id, name: item.get("name") as string, createdAt: item.get("createdAt") as string })).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+    const photos = snapshot.docs.map(item => ({ id: item.id, name: item.get("name") as string, createdAt: item.get("createdAt") as string, canRemove: user.role !== "professional" || item.get("consentConfirmedBy") === user.uid })).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
     return NextResponse.json({ photos });
   } catch (error) { return apiError(error); }
 }
@@ -23,6 +24,7 @@ export async function POST(request: NextRequest, context: Context) {
     const user = await requireNavyUser(request, "clients.write");
     const { clientId } = await context.params;
     await requireClient(user.clinicId, clientId);
+    await assertAssignedClient(user, clientId);
     const form = await request.formData();
     if (form.get("consentConfirmed") !== "true") return NextResponse.json({ error: "Confirme o consentimento da cliente antes de enviar." }, { status: 400 });
     const input = form.get("file");

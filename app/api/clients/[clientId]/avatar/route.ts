@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { FieldValue } from "firebase-admin/firestore";
 import { deleteDriveFile, uploadDriveJpeg } from "@/lib/server/google-drive";
 import { prepareJpeg } from "@/lib/server/drive-images";
-import { apiError, requireClient, requireNavyUser } from "@/lib/server/navy-auth";
+import { ApiError, apiError, assertAssignedClient, requireClient, requireNavyUser } from "@/lib/server/navy-auth";
 
 export const runtime = "nodejs";
 type Context = { params: Promise<{ clientId: string }> };
@@ -10,8 +10,10 @@ type Context = { params: Promise<{ clientId: string }> };
 export async function POST(request: NextRequest, context: Context) {
   try {
     const user = await requireNavyUser(request, "clients.read");
+    if (user.role === "professional") throw new ApiError(403, "A foto de perfil é gerenciada pela administração.");
     const { clientId } = await context.params;
     const { ref, data } = await requireClient(user.clinicId, clientId);
+    await assertAssignedClient(user, clientId);
     const image = await prepareJpeg((await request.formData()).get("file"), "avatar");
     const fileId = await uploadDriveJpeg(user.clinicId, `avatar-${clientId}-${crypto.randomUUID()}.jpg`, image);
     try { await ref.update({ avatarDriveFileId: fileId, updatedAt: new Date().toISOString() }); }
@@ -24,6 +26,7 @@ export async function POST(request: NextRequest, context: Context) {
 export async function DELETE(request: NextRequest, context: Context) {
   try {
     const user = await requireNavyUser(request, "clients.write");
+    if (user.role === "professional") throw new ApiError(403, "A foto de perfil é gerenciada pela administração.");
     const { clientId } = await context.params;
     const { ref, data } = await requireClient(user.clinicId, clientId);
     if (typeof data.avatarDriveFileId !== "string") return NextResponse.json({ ok: true });
