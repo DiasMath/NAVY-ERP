@@ -150,6 +150,13 @@ export async function downloadDriveImage(clinicId: string, fileId: string) {
   return driveFetch(token, `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}?alt=media`);
 }
 
+export async function replaceDriveJpeg(clinicId: string, fileId: string, bytes: Buffer) {
+  const { token } = await accessToken(clinicId);
+  await driveFetch(token, `https://www.googleapis.com/upload/drive/v3/files/${encodeURIComponent(fileId)}?uploadType=media`, {
+    method: "PATCH", headers: { "Content-Type": "image/jpeg" }, body: new Uint8Array(bytes),
+  });
+}
+
 export async function deleteDriveFile(clinicId: string, fileId: string) {
   const { token } = await accessToken(clinicId);
   const response = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}`, {

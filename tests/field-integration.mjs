@@ -65,6 +65,7 @@ try {
     db.doc("clinics/navy-matriz/appointments/sharedOther").set(appointment("sharedOther", "pro2", "shared")),
     db.doc("clinics/navy-matriz/appointments/other").set(appointment("other", "pro2", "other")),
     db.doc("clinics/navy-matriz/sessions/sharedOther").set({ id: "sharedOther", appointmentId: "sharedOther", clientId: "shared", serviceName: "Outro procedimento", startedAt: "2026-10-28T11:00:00Z", notes: "Anotação privada da outra profissional" }),
+    db.doc("clinics/navy-matriz/clientPhotos/otherPhoto").set({ clientId: "shared", driveFileId: "fake-file", name: "Foto de teste", consentConfirmedBy: two.localId, createdAt: "2026-10-28T11:00:00Z" }),
   ]);
 
   const listing = expectStatus(await request("/api/field", "GET", one.idToken), 200);
@@ -76,6 +77,7 @@ try {
   expectStatus(await request("/api/field/client?clientId=other", "GET", one.idToken), 403);
   expectStatus(await request("/api/clients/other/photos", "GET", one.idToken), 403);
   expectStatus(await request("/api/clients/other/images/avatar", "GET", one.idToken), 403);
+  expectStatus(await request("/api/clients/shared/photos/otherPhoto", "PATCH", one.idToken), 403);
   expectStatus(await request("/api/appointments", "PATCH", one.idToken, { id: "other", status: "Em atendimento" }), 403);
   expectStatus(await request("/api/appointments", "POST", one.idToken, {}), 403);
   expectStatus(await request("/api/field/session", "POST", one.idToken, { appointmentId: "other", notes: "Tentativa" }), 403);

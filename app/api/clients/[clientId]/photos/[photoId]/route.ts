@@ -1,10 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
 import { adminDb } from "@/lib/server/firebase-admin";
-import { deleteDriveFile } from "@/lib/server/google-drive";
+import { deleteDriveFile, replaceDriveJpeg } from "@/lib/server/google-drive";
+import { prepareJpeg } from "@/lib/server/drive-images";
 import { apiError, assertAssignedClient, assertDocumentId, requireClient, requireNavyUser, ApiError } from "@/lib/server/navy-auth";
 
 export const runtime = "nodejs";
 type Context = { params: Promise<{ clientId: string; photoId: string }> };
+
+export async function PATCH(request: NextRequest, context: Context) {
+  try {
+    const user = await requireNavyUser(request, "clients.write");
+    const { clientId, photoId } = await context.params;
+    await requireClient(user.clinicId, clientId);
+    await assertAssignedClient(user, clientId);
+    assertDocumentId(photoId);
+    const ref = adminDb().doc(`clinics/${user.clinicId}/clientPhotos/${photoId}`);
+    const photo = (await ref.get()).data();
+    if (!photo || photo.clientId !== clientId || typeof photo.driveFileId !== "string") throw new ApiError(404, "Foto não encontrada.");
+    if (user.role === "professional" && photo.consentConfirmedBy !== user.uid) throw new ApiError(403, "Você pode editar apenas fotos que enviou.");
+    const image = await prepareJpeg((await request.formData()).get("file"), "gallery");
+    await replaceDriveJpeg(user.clinicId, photo.driveFileId, image);
+    await ref.update({ editedAt: new Date().toISOString(), editedBy: user.uid });
+    return NextResponse.json({ ok: true });
+  } catch (error) { return apiError(error); }
+}
 
 export async function DELETE(request: NextRequest, context: Context) {
   try {
