@@ -13,6 +13,7 @@ export type AgendaAppointment = {
   lines: AgendaLine[];
   status: AgendaStatus;
   startedAt?: string;
+  startedAtEstimated?: boolean;
   completedAt?: string;
   earlyStartConfirmedAt?: string;
   paymentMethod?: string;

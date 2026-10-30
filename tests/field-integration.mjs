@@ -111,7 +111,7 @@ try {
   await db.doc("clinics/navy-matriz/appointments/future").set({ ...appointment("future", "pro1", "shared"), date: futureDate, status: "Pendente", materials: ["Maleta de teste"] });
   expectStatus(await request("/api/appointments", "PATCH", one.idToken, { id: "future", status: "Concluído" }), 409);
   expectStatus(await request("/api/appointments", "PATCH", one.idToken, { id: "future", status: "Em atendimento" }), 409);
-  expectStatus(await request("/api/appointments", "PATCH", one.idToken, { id: "future", status: "Concluído", earlyStartConfirmed: true }), 400);
+  expectStatus(await request("/api/appointments", "PATCH", one.idToken, { id: "future", status: "Concluído", earlyStartConfirmed: true }), 409);
   expectStatus(await request("/api/appointments", "PATCH", one.idToken, { id: "future", status: "Em atendimento", earlyStartConfirmed: true }), 200);
   const started = (await db.doc("clinics/navy-matriz/appointments/future").get()).data();
   assert.equal(started.status, "Em atendimento");
@@ -128,6 +128,14 @@ try {
   const session = (await db.doc("clinics/navy-matriz/sessions/future").get()).data();
   assert.equal(session.startedAt, started.startedAt);
   assert.equal(session.completedAt, completed.completedAt);
+  const legacyStart = new Date(Date.now() - 120000).toISOString();
+  await db.doc("clinics/navy-matriz/appointments/legacy").set({ ...appointment("legacy", "pro1", "shared"), date: futureDate, status: "Em atendimento", updatedAt: legacyStart });
+  expectStatus(await request("/api/appointments", "PATCH", one.idToken, { id: "legacy", status: "Concluído" }), 400);
+  expectStatus(await request("/api/appointments", "PATCH", one.idToken, { id: "legacy", status: "Concluído", earlyStartConfirmed: true }), 200);
+  const legacyCompleted = (await db.doc("clinics/navy-matriz/appointments/legacy").get()).data();
+  assert.equal(legacyCompleted.startedAt, legacyStart);
+  assert.equal(legacyCompleted.startedAtEstimated, true);
+  assert.ok(Date.parse(legacyCompleted.earlyStartConfirmedAt) > 0);
   console.log("Field API integration: scoped data, supplies, early start confirmation, persisted timer and session recording passed.");
 } finally {
   server.kill();

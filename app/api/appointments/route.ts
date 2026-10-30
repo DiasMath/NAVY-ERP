@@ -79,6 +79,7 @@ export async function POST(request: NextRequest) {
         ...(place === "Home" ? { address: body.address!.trim() } : {}), lines,
         status: previous?.status === "Cancelado" ? "Pendente" : previous?.status ?? "Pendente",
         ...(previous?.startedAt ? { startedAt: previous.startedAt } : {}),
+        ...(previous?.startedAtEstimated ? { startedAtEstimated: true } : {}),
         ...(previous?.completedAt ? { completedAt: previous.completedAt } : {}),
         ...(previous?.earlyStartConfirmedAt ? { earlyStartConfirmedAt: previous.earlyStartConfirmedAt } : {}),
         materials: previous?.materials ?? [],
@@ -100,7 +101,7 @@ export async function PATCH(request: NextRequest) {
     const body = await request.json() as { id?: string; status?: AgendaStatus; earlyStartConfirmed?: boolean; paymentMethod?: string; materials?: string[]; note?: string };
     if (!body.id) throw new ApiError(400, "Agendamento não informado.");
     assertDocumentId(body.id);
-    if (body.earlyStartConfirmed !== undefined && (body.status !== "Em atendimento" || body.earlyStartConfirmed !== true)) throw new ApiError(400, "Confirmação de início antecipado inválida.");
+    if (body.earlyStartConfirmed !== undefined && (!body.status || !["Em atendimento", "Concluído"].includes(body.status) || body.earlyStartConfirmed !== true)) throw new ApiError(400, "Confirmação de início antecipado inválida.");
     const changes: Record<string, unknown> = {};
     if (body.status !== undefined) {
       if (!statuses.includes(body.status)) throw new ApiError(400, "Status inválido.");
@@ -142,14 +143,23 @@ export async function PATCH(request: NextRequest) {
         if (!["Pendente", "Confirmado"].includes(current.status)) throw new ApiError(409, "Este atendimento já foi iniciado.");
         if (scheduledKey > nowKey && body.earlyStartConfirmed !== true) throw new ApiError(409, "Confirme o início antecipado do atendimento.");
         changes.startedAt = nowIso;
+        changes.startedAtEstimated = FieldValue.delete();
         changes.completedAt = FieldValue.delete();
         changes.earlyStartConfirmedAt = scheduledKey > nowKey ? nowIso : FieldValue.delete();
       } else if (changes.status === "Concluído") {
         if (user.role === "professional" && current.status !== "Em atendimento") throw new ApiError(409, "Inicie o atendimento antes de concluir.");
-        if (scheduledKey > nowKey && (!current.startedAt || !current.earlyStartConfirmedAt)) throw new ApiError(400, "Inicie e confirme o atendimento antecipado antes de concluir.");
+        if (scheduledKey > nowKey && current.status !== "Em atendimento") throw new ApiError(409, "Inicie o atendimento antes de concluir antecipadamente.");
+        if (scheduledKey > nowKey && !current.earlyStartConfirmedAt && body.earlyStartConfirmed !== true) throw new ApiError(400, "Confirme que o atendimento começou antes do horário agendado.");
+        if (!current.startedAt) {
+          const approximateStart = Date.parse(current.updatedAt);
+          changes.startedAt = Number.isFinite(approximateStart) && approximateStart <= Date.now() ? current.updatedAt : nowIso;
+          changes.startedAtEstimated = true;
+        }
+        if (scheduledKey > nowKey && body.earlyStartConfirmed === true) changes.earlyStartConfirmedAt = nowIso;
         changes.completedAt = nowIso;
       } else if (changes.status) {
         changes.startedAt = FieldValue.delete();
+        changes.startedAtEstimated = FieldValue.delete();
         changes.completedAt = FieldValue.delete();
         changes.earlyStartConfirmedAt = FieldValue.delete();
       }
