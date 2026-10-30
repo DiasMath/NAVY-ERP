@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { FieldValue } from "firebase-admin/firestore";
 import { adminDb } from "@/lib/server/firebase-admin";
 import { ApiError, apiError, assertDocumentId, requireNavyUser } from "@/lib/server/navy-auth";
 import type { AppointmentDocument } from "@/lib/firebase/documents";
@@ -60,6 +61,7 @@ export async function POST(request: NextRequest) {
       const start = minutes(time);
       const previous = existing.data() as AppointmentDocument | undefined;
       if (previous && (previous.bookingKind === "manual") !== manual) throw new ApiError(400, "O tipo de um agendamento existente não pode ser alterado.");
+      if (previous?.startedAt) throw new ApiError(409, "Este atendimento já foi iniciado. Ajuste insumos e observações na ficha, sem alterar a reserva.");
       const nowLocal = saoPauloNow();
       const nowKey = `${nowLocal.year}-${nowLocal.month}-${nowLocal.day}T${nowLocal.hour}:${nowLocal.minute}`;
       const unchangedPastSlot = Boolean(previous && previous.date === date && previous.time === time);
@@ -76,6 +78,9 @@ export async function POST(request: NextRequest) {
         id: appointmentId, bookingKind: manual ? "manual" : "catalog", clientId, professionalId: manual ? "" : professionalId!, date, time, place,
         ...(place === "Home" ? { address: body.address!.trim() } : {}), lines,
         status: previous?.status === "Cancelado" ? "Pendente" : previous?.status ?? "Pendente",
+        ...(previous?.startedAt ? { startedAt: previous.startedAt } : {}),
+        ...(previous?.completedAt ? { completedAt: previous.completedAt } : {}),
+        ...(previous?.earlyStartConfirmedAt ? { earlyStartConfirmedAt: previous.earlyStartConfirmedAt } : {}),
         materials: previous?.materials ?? [],
         ...(previous?.paymentMethod ? { paymentMethod: previous.paymentMethod } : {}),
         ...(previous?.note ? { note: previous.note } : {}),
@@ -92,9 +97,10 @@ export async function POST(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
   try {
     const user = await requireNavyUser(request, "agenda.write");
-    const body = await request.json() as { id?: string; status?: AgendaStatus; paymentMethod?: string; materials?: string[]; note?: string };
+    const body = await request.json() as { id?: string; status?: AgendaStatus; earlyStartConfirmed?: boolean; paymentMethod?: string; materials?: string[]; note?: string };
     if (!body.id) throw new ApiError(400, "Agendamento não informado.");
     assertDocumentId(body.id);
+    if (body.earlyStartConfirmed !== undefined && (body.status !== "Em atendimento" || body.earlyStartConfirmed !== true)) throw new ApiError(400, "Confirmação de início antecipado inválida.");
     const changes: Record<string, unknown> = {};
     if (body.status !== undefined) {
       if (!statuses.includes(body.status)) throw new ApiError(400, "Status inválido.");
@@ -123,19 +129,31 @@ export async function PATCH(request: NextRequest) {
     await db.runTransaction(async transaction => {
       const [appointment, session] = await Promise.all([transaction.get(ref), transaction.get(sessionRef)]);
       if (!appointment.exists) throw new ApiError(404, "Agendamento não encontrado.");
+      const current = appointment.data() as AppointmentDocument;
       if (user.role === "professional") {
-        const current = appointment.data() as AppointmentDocument;
         if (current.professionalId !== user.professionalId || current.status === "Cancelado" || current.status === "Concluído") throw new ApiError(403, "Este agendamento não está disponível para sua conta.");
-        if (changes.status === "Em atendimento" && !["Pendente", "Confirmado"].includes(current.status)) throw new ApiError(409, "Este atendimento já foi iniciado.");
       }
       if (changes.status && changes.status !== "Concluído" && session.exists) throw new ApiError(409, "Este atendimento já tem uma sessão registrada. Exclua a sessão antes de reabrir ou cancelar.");
-      if (changes.status === "Concluído") {
-        const item = appointment.data() as AppointmentDocument;
-        const now = saoPauloNow();
-        const nowKey = `${now.year}-${now.month}-${now.day}T${now.hour}:${now.minute}`;
-        if (`${item.date}T${item.time}` > nowKey) throw new ApiError(400, "Conclua o atendimento somente após o início do horário agendado.");
+      const now = saoPauloNow();
+      const nowKey = `${now.year}-${now.month}-${now.day}T${now.hour}:${now.minute}`;
+      const scheduledKey = `${current.date}T${current.time}`;
+      const nowIso = new Date().toISOString();
+      if (changes.status === "Em atendimento") {
+        if (!["Pendente", "Confirmado"].includes(current.status)) throw new ApiError(409, "Este atendimento já foi iniciado.");
+        if (scheduledKey > nowKey && body.earlyStartConfirmed !== true) throw new ApiError(409, "Confirme o início antecipado do atendimento.");
+        changes.startedAt = nowIso;
+        changes.completedAt = FieldValue.delete();
+        changes.earlyStartConfirmedAt = scheduledKey > nowKey ? nowIso : FieldValue.delete();
+      } else if (changes.status === "Concluído") {
+        if (user.role === "professional" && current.status !== "Em atendimento") throw new ApiError(409, "Inicie o atendimento antes de concluir.");
+        if (scheduledKey > nowKey && (!current.startedAt || !current.earlyStartConfirmedAt)) throw new ApiError(400, "Inicie e confirme o atendimento antecipado antes de concluir.");
+        changes.completedAt = nowIso;
+      } else if (changes.status) {
+        changes.startedAt = FieldValue.delete();
+        changes.completedAt = FieldValue.delete();
+        changes.earlyStartConfirmedAt = FieldValue.delete();
       }
-      transaction.update(ref, { ...changes, updatedAt: new Date().toISOString() });
+      transaction.update(ref, { ...changes, updatedAt: nowIso });
     });
     return NextResponse.json({ ok: true });
   } catch (error) { return apiError(error); }

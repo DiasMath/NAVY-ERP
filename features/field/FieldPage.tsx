@@ -7,24 +7,38 @@ import { navyApi } from "@/lib/firebase/navy-api";
 import { prepareImageUpload } from "@/features/clients/client-images";
 import { hasPermission } from "@/lib/access-control";
 import ContentSkeleton from "@/components/ContentSkeleton";
+import ContentDialog from "@/components/ContentDialog";
 import "./field.css";
 
 type ClientSummary = { id: string; name: string; phone: string; city: string };
 type History = { id: string; appointmentId: string; serviceName: string; startedAt: string; notes: string };
 type ClientDetail = { id: string; name: string; phone: string; city: string; clinicalNote: string; preferences: string };
 type Photo = { id: string; name: string; canRemove: boolean; url?: string };
+type ServiceDetail = { description: string; consumables: { name: string; quantity: string }[] };
 type Mode = "today" | "upcoming" | "history";
 
 const dateLabel = (value: string) => new Intl.DateTimeFormat("pt-BR", { day: "numeric", month: "long", weekday: "long" }).format(new Date(`${value}T12:00:00`));
 const historyLabel = (value: string) => new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" }).format(new Date(value));
 const totalMinutes = (item: AppointmentDocument) => item.lines.reduce((sum, line) => sum + line.durationMinutes, 0);
+const currency = (value: number) => new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value);
+const clock = (milliseconds: number) => {
+  const seconds = Math.max(0, Math.floor(milliseconds / 1000));
+  return [Math.floor(seconds / 3600), Math.floor(seconds / 60) % 60, seconds % 60].map(value => String(value).padStart(2, "0")).join(":");
+};
+const saoPauloMinuteKey = (milliseconds: number) => {
+  const parts = Object.fromEntries(new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date(milliseconds)).map(part => [part.type, part.value]));
+  return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
+};
 
 export default function FieldPage() {
   const { user, profile } = useAuth();
   const adminPreview = profile?.role === "admin" || profile?.role === "master_admin";
   const [appointments, setAppointments] = useState<AppointmentDocument[]>([]);
   const [clients, setClients] = useState<ClientSummary[]>([]);
+  const [serviceDetails, setServiceDetails] = useState<Record<string, ServiceDetail>>({});
   const [today, setToday] = useState("");
+  const [serverOffset, setServerOffset] = useState(0);
+  const [now, setNow] = useState(0);
   const [mode, setMode] = useState<Mode>("today");
   const [selectedId, setSelectedId] = useState("");
   const [detail, setDetail] = useState<ClientDetail | null>(null);
@@ -36,14 +50,17 @@ export default function FieldPage() {
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
+  const [confirmEarlyId, setConfirmEarlyId] = useState("");
   const cameraRef = useRef<HTMLInputElement>(null);
   const galleryRef = useRef<HTMLInputElement>(null);
 
   const reload = async () => {
     if (!user) return;
     const response = await navyApi(user, "/api/field");
-    const data = await response.json() as { appointments: AppointmentDocument[]; clients: ClientSummary[]; today: string };
-    setAppointments(data.appointments); setClients(data.clients); setToday(data.today);
+    const data = await response.json() as { appointments: AppointmentDocument[]; clients: ClientSummary[]; serviceDetails: Record<string, ServiceDetail>; today: string; serverNow: string };
+    const offset = Date.parse(data.serverNow) - Date.now();
+    setAppointments(data.appointments); setClients(data.clients); setServiceDetails(data.serviceDetails ?? {}); setToday(data.today);
+    if (Number.isFinite(offset)) { setServerOffset(offset); setNow(Date.now() + offset); }
     setSelectedId(current => current && data.appointments.some(item => item.id === current) ? current : data.appointments.find(item => item.date >= data.today)?.id ?? data.appointments.at(-1)?.id ?? "");
   };
   useEffect(() => {
@@ -53,6 +70,10 @@ export default function FieldPage() {
   // A lista é recarregada quando a conta autenticada muda.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.uid]);
+  useEffect(() => {
+    const interval = window.setInterval(() => setNow(Date.now() + serverOffset), 1000);
+    return () => window.clearInterval(interval);
+  }, [serverOffset]);
 
   const selected = appointments.find(item => item.id === selectedId);
   const selectedSummary = clients.find(item => item.id === selected?.clientId);
@@ -106,10 +127,15 @@ export default function FieldPage() {
     catch (error) { setMessage(error instanceof Error ? error.message : "Não foi possível concluir a ação."); }
     finally { setBusy(false); }
   };
-  const changeStatus = (status: "Em atendimento" | "Concluído") => run(async () => {
-    if (!user || !selected) return;
-    await navyApi(user, "/api/appointments", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: selected.id, status }) });
+  const changeStatus = (id: string, status: "Em atendimento" | "Concluído", earlyStartConfirmed = false) => run(async () => {
+    if (!user) return;
+    await navyApi(user, "/api/appointments", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, status, ...(earlyStartConfirmed ? { earlyStartConfirmed: true } : {}) }) });
+    setConfirmEarlyId("");
   }, status === "Concluído" ? "Atendimento concluído." : "Atendimento iniciado.");
+  const startAppointment = (item: AppointmentDocument) => {
+    if (now && saoPauloMinuteKey(now) < `${item.date}T${item.time}`) setConfirmEarlyId(item.id);
+    else void changeStatus(item.id, "Em atendimento");
+  };
   const saveSession = () => run(async () => {
     if (!user || !selected) return;
     await navyApi(user, "/api/field/session", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ appointmentId: selected.id, notes }) });
@@ -136,16 +162,26 @@ export default function FieldPage() {
     {loading ? <ContentSkeleton label="Carregando sua agenda" rows={3} /> : visible.length === 0 ? <p className="field-empty">Nenhum atendimento neste período.</p> : <div className="field-list">{visible.map(item => {
       const client = clients.find(value => value.id === item.clientId);
       const open = selectedId === item.id;
+      const supplies = item.lines.flatMap(line => (serviceDetails[line.serviceId]?.consumables ?? []).map(supply => ({ ...supply, serviceName: line.name })));
+      const elapsed = item.startedAt && now ? clock((item.completedAt ? Date.parse(item.completedAt) : now) - Date.parse(item.startedAt)) : "";
       return <article className={`field-card ${open ? "open" : ""}`} key={item.id}>
-        <button type="button" className="field-card-trigger" aria-expanded={open} onClick={() => { setSelectedId(item.id); setNotes(""); setConsent(false); }}><span><small>{dateLabel(item.date)} · {item.time}</small><strong>{client?.name ?? "Cliente indisponível"}</strong><em>{item.lines.map(line => line.name).join(" + ")} · {totalMinutes(item)} min</em></span><b>{item.status}</b></button>
+        <button type="button" className="field-card-trigger" aria-expanded={open} onClick={() => { setSelectedId(item.id); setNotes(""); setConsent(false); }}>
+          <span><small>{dateLabel(item.date)} · {item.time}</small><strong>{client?.name ?? "Cliente indisponível"}</strong><em>{item.lines.map(line => line.name).join(" + ")} · {totalMinutes(item)} min</em></span>
+          <span className="field-trigger-status"><b>{item.status}</b>{item.status === "Em atendimento" && elapsed && <small aria-label={`Tempo de atendimento ${elapsed}`}>{elapsed}</small>}</span>
+        </button>
         {open && <div className="field-card-content">
-          <div className="field-info"><span>Local do atendimento</span><strong>{item.place === "Home" ? item.address ?? "Endereço não informado" : "NAVY Matriz"}</strong></div>
-          <div className="field-actions"><a href={`tel:${phone}`} aria-disabled={!phone} onClick={event => { if (!phone) event.preventDefault(); }}>Ligar</a>{route && <a href={route} target="_blank" rel="noopener noreferrer">Abrir rota</a>}</div>
+          {item.status === "Em atendimento" && <div className="field-timer" role="timer"><span>Atendimento em andamento</span><strong>{elapsed || "Início não registrado"}</strong>{item.startedAt && <small>Iniciado às {new Intl.DateTimeFormat("pt-BR", { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit" }).format(new Date(item.startedAt))}</small>}</div>}
+          <section className="field-plan"><h2>Serviço e valor</h2><div className="field-service-list">{item.lines.map((line, index) => <div key={`${line.serviceId}-${index}`}><strong>{line.name}</strong><span>{line.durationMinutes} min · {currency(line.price)}</span>{serviceDetails[line.serviceId]?.description && <p>{serviceDetails[line.serviceId].description}</p>}</div>)}</div><div className="field-amount"><span>Valor previsto para a cliente</span><strong>{currency(item.lines.reduce((sum, line) => sum + line.price, 0))}</strong></div>{item.paymentMethod && <p className="field-muted">Forma de pagamento prevista: {item.paymentMethod}</p>}</section>
+          <section className="field-supplies"><h2>Itens para levar e usar</h2>{item.materials?.length || supplies.length ? <ul>{(item.materials ?? []).map((material, index) => <li key={`agenda-${index}`}>{material}<small>Informado na agenda</small></li>)}{supplies.map((supply, index) => <li key={`service-${index}`}>{supply.name}{supply.quantity && <span> · {supply.quantity}</span>}<small>{supply.serviceName}</small></li>)}</ul> : <p className="field-muted">Nenhum item informado para este atendimento.</p>}</section>
+          <section className="field-location"><h2>Local e contato</h2><div className="field-info"><span>Local do atendimento</span><strong>{item.place === "Home" ? item.address ?? "Endereço não informado" : "NAVY Matriz"}</strong></div><div className="field-actions"><a href={`tel:${phone}`} aria-disabled={!phone} onClick={event => { if (!phone) event.preventDefault(); }}>Ligar</a>{route && <a href={route} target="_blank" rel="noopener noreferrer">Abrir rota</a>}</div></section>
+          {item.note && <section className="field-note"><h2>Orientações da agenda</h2><p>{item.note}</p></section>}
           {detail ? <section className="field-client"><h2>Ficha da cliente</h2><p><strong>Observações clínicas:</strong> {detail.clinicalNote || "Nenhuma observação registrada."}</p><p><strong>Preferências:</strong> {detail.preferences || "Nenhuma preferência registrada."}</p>{history.length > 0 && <div className="field-history"><h3>Atendimentos anteriores</h3>{history.map(entry => <p key={entry.id}><strong>{entry.serviceName}</strong> · {historyLabel(entry.startedAt)}<br />{entry.notes || "Sem observações."}</p>)}</div>}</section> : <p className="field-muted">Carregando ficha da cliente...</p>}
-          <section className="field-session"><h2>Registro do atendimento</h2>{existingSession ? <p>Sessão registrada: {existingSession.notes || "Sem observações."}</p> : <>{item.status !== "Concluído" && canChangeStatus && <div className="field-actions">{item.status !== "Em atendimento" && <button type="button" onClick={() => void changeStatus("Em atendimento")} disabled={busy}>Iniciar atendimento</button>}<button type="button" onClick={() => void changeStatus("Concluído")} disabled={busy}>Concluir atendimento</button></div>}{item.status === "Concluído" && canSaveSession && <><label htmlFor="field-notes">Observações da sessão</label><textarea id="field-notes" value={notes} onChange={event => setNotes(event.target.value)} rows={4} maxLength={2000} placeholder="Procedimento realizado, intercorrências e orientações..." /><button type="button" onClick={() => void saveSession()} disabled={busy || notes.trim().length < 3}>Registrar sessão</button></>}</>}</section>
           <section className="field-photos"><h2>Fotos da cliente</h2>{canUploadPhoto && <><label className="field-consent"><input type="checkbox" checked={consent} onChange={event => setConsent(event.target.checked)} /> Confirmo o consentimento da cliente para armazenar estas imagens.</label><input ref={cameraRef} type="file" accept="image/*" capture="environment" hidden onChange={event => { void upload(event.target.files?.[0]); event.target.value = ""; }} /><input ref={galleryRef} type="file" accept="image/*" hidden onChange={event => { void upload(event.target.files?.[0]); event.target.value = ""; }} /><div className="field-actions"><button type="button" onClick={() => cameraRef.current?.click()} disabled={busy || !consent}>Tirar foto</button><button type="button" onClick={() => galleryRef.current?.click()} disabled={busy || !consent}>Escolher imagem</button></div></>}{photos.length ? <div className="field-photo-grid">{photos.map(photo => <div key={photo.id}>{photo.url ? <img src={photo.url} alt={photo.name} /> : <span>Imagem indisponível</span>}<small>{photo.name}</small>{canUploadPhoto && photo.canRemove && <button type="button" onClick={() => void removePhoto(photo)} disabled={busy}>Remover</button>}</div>)}</div> : <p className="field-muted">Nenhuma foto registrada.</p>}</section>
+          <section className="field-progress"><h2>Andamento do atendimento</h2>{adminPreview ? <p className="field-muted">Esta prévia é somente leitura. As ações aparecem no acesso da profissional.</p> : item.status === "Concluído" ? <p>Atendimento concluído{elapsed ? ` · duração real ${elapsed}` : ""}.</p> : item.status === "Em atendimento" ? <><p>Confira os dados acima antes de finalizar.</p>{canChangeStatus && <button type="button" className="field-finish" onClick={() => void changeStatus(item.id, "Concluído")} disabled={busy}>Concluir atendimento</button>}</> : canChangeStatus ? <button type="button" onClick={() => startAppointment(item)} disabled={busy}>Iniciar atendimento</button> : null}</section>
+          {item.status === "Concluído" && <section className="field-session"><h2>Registro da sessão</h2>{existingSession ? <p>Sessão registrada: {existingSession.notes || "Sem observações."}</p> : canSaveSession ? <><label htmlFor="field-notes">Observações da sessão</label><textarea id="field-notes" value={notes} onChange={event => setNotes(event.target.value)} rows={4} maxLength={2000} placeholder="Procedimento realizado, intercorrências e orientações..." /><button type="button" onClick={() => void saveSession()} disabled={busy || notes.trim().length < 3}>Registrar sessão</button></> : <p className="field-muted">O registro da sessão é feito pela profissional.</p>}</section>}
         </div>}
       </article>;
     })}</div>}
+    {confirmEarlyId && <ContentDialog title="Iniciar antes do horário" onClose={() => setConfirmEarlyId("")}><div className="field-early-confirm"><p>O atendimento de <strong>{clients.find(client => client.id === appointments.find(item => item.id === confirmEarlyId)?.clientId)?.name ?? "esta cliente"}</strong> está agendado para <strong>{appointments.find(item => item.id === confirmEarlyId)?.time}</strong>.</p><p>Ao confirmar, você registra que a cliente pode começar antes do horário agendado. O horário real de início será salvo e o cronômetro começará agora.</p><div className="field-actions"><button type="button" onClick={() => setConfirmEarlyId("")} disabled={busy}>Voltar</button><button type="button" onClick={() => void changeStatus(confirmEarlyId, "Em atendimento", true)} disabled={busy}>Confirmar início antecipado</button></div></div></ContentDialog>}
   </div>;
 }
