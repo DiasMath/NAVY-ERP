@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
       const record: ClinicalSessionDocument = {
         id: appointmentId, clientId: appointment.clientId, appointmentId,
         ...(appointment.bookingKind === "catalog" && appointment.lines.length === 1 ? { serviceId: appointment.lines[0].serviceId } : {}),
-        startedAt: now, serviceName: appointment.lines.map(line => line.name).join(" + "),
+        startedAt: appointment.startedAt ?? now, completedAt: appointment.completedAt ?? now, serviceName: appointment.lines.map(line => line.name).join(" + "),
         durationLabel: `${duration} min`, amount: appointment.lines.reduce((sum, line) => sum + line.price, 0),
         paymentStatus: "pending", notes: notes.trim(), createdAt: now,
       };

@@ -12,6 +12,10 @@ export type AgendaAppointment = {
   address?: string;
   lines: AgendaLine[];
   status: AgendaStatus;
+  startedAt?: string;
+  startedAtEstimated?: boolean;
+  completedAt?: string;
+  earlyStartConfirmedAt?: string;
   paymentMethod?: string;
   materials: string[];
   note?: string;

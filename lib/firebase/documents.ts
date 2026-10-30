@@ -33,6 +33,7 @@ export type ClinicalSessionDocument = {
   appointmentId?: string;
   serviceId?: string;
   startedAt: string;
+  completedAt?: string;
   serviceName: string;
   durationLabel: string;
   amount: number;

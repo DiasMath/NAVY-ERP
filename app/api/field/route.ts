@@ -27,6 +27,18 @@ export async function GET(request: NextRequest) {
       const client = snapshot.data() as ClientDocument;
       return { id: snapshot.id, name: client.name, phone: client.phone, city: client.city ?? "" };
     });
-    return NextResponse.json({ appointments, clients: summaries, today });
+    const serviceIds = [...new Set(appointments.flatMap(item => item.lines.map(line => line.serviceId)).filter(id => typeof id === "string" && id !== "manual" && id.length > 0 && id.length <= 120 && !id.includes("/")))];
+    const serviceSnapshots = [];
+    for (let index = 0; index < serviceIds.length; index += 100) {
+      serviceSnapshots.push(...await adminDb().getAll(...serviceIds.slice(index, index + 100).map(id => base.collection("services").doc(id))));
+    }
+    const serviceDetails = Object.fromEntries(serviceSnapshots.filter(snapshot => snapshot.exists).map(snapshot => {
+      const service = snapshot.data() ?? {};
+      return [snapshot.id, {
+        description: typeof service.description === "string" ? service.description : "",
+        consumables: Array.isArray(service.consumables) ? service.consumables.filter((item: unknown): item is { name: string; quantity: string } => Boolean(item && typeof item === "object" && "name" in item && typeof item.name === "string" && "quantity" in item && typeof item.quantity === "string")).map((item: { name: string; quantity: string }) => ({ name: item.name, quantity: item.quantity })) : [],
+      }];
+    }));
+    return NextResponse.json({ appointments, clients: summaries, serviceDetails, today, serverNow: new Date().toISOString() });
   } catch (error) { return apiError(error); }
 }
