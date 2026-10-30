@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
       const client = snapshot.data() as ClientDocument;
       return { id: snapshot.id, name: client.name, phone: client.phone, city: client.city ?? "" };
     });
-    const serviceIds = [...new Set(appointments.flatMap(item => item.lines.map(line => line.serviceId)).filter(id => id && id !== "manual"))];
+    const serviceIds = [...new Set(appointments.flatMap(item => item.lines.map(line => line.serviceId)).filter(id => typeof id === "string" && id !== "manual" && id.length > 0 && id.length <= 120 && !id.includes("/")))];
     const serviceSnapshots = [];
     for (let index = 0; index < serviceIds.length; index += 100) {
       serviceSnapshots.push(...await adminDb().getAll(...serviceIds.slice(index, index + 100).map(id => base.collection("services").doc(id))));

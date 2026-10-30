@@ -22,6 +22,7 @@ const historyLabel = (value: string) => new Intl.DateTimeFormat("pt-BR", { day: 
 const totalMinutes = (item: AppointmentDocument) => item.lines.reduce((sum, line) => sum + line.durationMinutes, 0);
 const currency = (value: number) => new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value);
 const clock = (milliseconds: number) => {
+  if (!Number.isFinite(milliseconds)) return "";
   const seconds = Math.max(0, Math.floor(milliseconds / 1000));
   return [Math.floor(seconds / 3600), Math.floor(seconds / 60) % 60, seconds % 60].map(value => String(value).padStart(2, "0")).join(":");
 };
